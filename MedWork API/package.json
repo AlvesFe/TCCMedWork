@@ -1,0 +1,19 @@
+{
+  "name": "medwork-api",
+  "version": "1.0.0",
+  "description": "API Rest para o projeto MedWork",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "api",
+    "tcc"
+  ],
+  "author": "Felipe Batista Alves",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
