@@ -214,7 +214,7 @@ ALTER TABLE tbl_Remedio_Farmacia ADD CONSTRAINT fk_id_Remedio_RF FOREIGN KEY(fk_
 
 	#RECEITA_REMEDIO
 ALTER TABLE tbl_Receita_Remedio ADD CONSTRAINT fk_id_Receita_RR FOREIGN KEY(fk_id_Receita) REFERENCES tbl_Receita(id_Receita);
-ALTER TABLE tbl_REceita_Remedio ADD CONSTRAINT fk_id_Remedio_RR FOREIGN KEY(fk_id_Remedio) REFERENCES tbl_Remedio(id_Remedio);
+ALTER TABLE tbl_Receita_Remedio ADD CONSTRAINT fk_id_Remedio_RR FOREIGN KEY(fk_id_Remedio) REFERENCES tbl_Remedio(id_Remedio);
 
 	#CONSULTA
 ALTER TABLE tbl_Consulta ADD CONSTRAINT fk_id_Paciente_Cs FOREIGN KEY(fk_id_Paciente) REFERENCES tbl_Paciente(id_Paciente);
