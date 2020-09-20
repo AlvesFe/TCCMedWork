@@ -5,8 +5,9 @@ const morgan = require('morgan');
 //Salvando o metodo express na constante Morgan
 const app = express();
 
-//Importando pacientes das rotas
+//Importando rotas
 const rotaAdmMedWork = require('./routes/admMedWork')
+const rotaHospital = require('./routes/hospital')
 
 //Utilizando morgan para exibir as respostas do servidor
 app.use(morgan('dev'))
@@ -17,6 +18,9 @@ app.use(express.json());
 
 //Chamando o CRUD da rota de ADMs da MedWork
 app.use('/admMedWork', rotaAdmMedWork)
+
+//Chamando o CRUD da rota Hospital
+app.use('/hospital', rotaHospital)
 
 //Configurando o CORS para uso externo
 app.use((req, res, next) => {

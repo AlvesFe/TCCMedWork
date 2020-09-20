@@ -1,7 +1,7 @@
 /* 
     Este é o arquivo de CRUD (Create, Read, Update, Delete)
-    ou no caso PGPD (Post, Get, Patch, Delete) da entidade ADM da MedWork do projeto MEDWORK,
-    Toda manipulação de dados do administrador feitas pelo APP ou Site do projeto 
+    ou no caso PGPD (Post, Get, Patch, Delete) da entidade Hospital do projeto MEDWORK,
+    Toda manipulação de dados do hospital feitas pelo APP ou Site do projeto 
     passarão por aqui para efetuar alterações no banco de dados.
 */
 
@@ -21,15 +21,15 @@ router.post('/', (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'INSERT INTO tbl_MedWork (nome, email, senha, cnpj)VALUES(?,?,?,?)',
-            [req.body.nome, req.body.email, req.body.senha, req.body.cnpj],
+            'INSERT INTO tbl_Hospital (cnpj, nome, endereco, telefone, email, senha, fk_id_MedWork)VALUES(?,?,?,?,?,?,?)',
+            [req.body.cnpj, req.body.nome, req.body.endereco, req.body.telefone, req.body.email, req.body.senha, req.body.fk_id_MedWork],
             (error, resultado, field) => {
                 conn.release()
 
                 if (error) { return res.status(500).send({ error: error }) }
 
                 res.status(201).send({
-                    mensagem: 'Usuário Cadastrado',
+                    mensagem: 'Hospital Cadastrado',
                     id_Medwork: resultado.insertId
                 })
             }
@@ -44,7 +44,7 @@ router.get('/', (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_MedWork',
+            'SELECT * FROM tbl_Hospital',
             (error, resultado, fields) => {
                 conn.release()
 
@@ -59,14 +59,14 @@ router.get('/', (req, res, next) => {
 })
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_admMedWork', (req, res, next) => {
+router.get('/:id_Hospital', (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_MedWork WHERE id_MedWork = ?',
-            [req.params.id_admMedWork],
+            'SELECT * FROM tbl_Hospital WHERE id_Hospital = ?',
+            [req.params.id_Hospital],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -87,22 +87,24 @@ router.patch('/', (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            `UPDATE tbl_MedWork
+            `UPDATE tbl_Hospital
                 SET
-                    nome = ?,
-                    senha = ?,
-                    ativo = ?,
-                    foto = ?
-                WHERE id_MedWork = ?`
-            ,
-            [req.body.nome, req.body.senha, req.body.ativo, req.body.foto, req.body.id_MedWork],
+                   nome = ?,
+                   endereco = ?,
+                   telefone = ?,
+                   ativo = ?,
+                   foto = ?,
+                   senha = ?
+                WHERE id_Hospital = ?`,
+            [req.body.nome, req.body.endereco, req.body.telefone, req.body.ativo, req.body.foto, req.body.senha, req.body.id_Hospital],
             (error, resultado, field) => {
                 conn.release()
 
                 if (error) { return res.status(500).send({ error: error }) }
 
                 res.status(202).send({
-                    mensagem: 'Usuário Atualizado'
+                    mensagem: 'Hospital Atualizado',
+                    response: resultado.insertId
                 })
             }
         )
@@ -116,15 +118,15 @@ router.delete('/', (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            `DELETE FROM tbl_MedWork WHERE id_MedWork = ?`,
-            [req.body.id_MedWork],
+            `DELETE FROM tbl_Hospital WHERE id_Hospital = ?`,
+            [req.body.id_Hospital],
             (error, resultado, field) => {
                 conn.release()
 
                 if (error) { return res.status(500).send({ error: error }) }
 
                 res.status(202).send({
-                    mensagem: 'Usuário excluído com sucesso'
+                    mensagem: 'Hospital excluído com sucesso'
                 })
             }
         )
