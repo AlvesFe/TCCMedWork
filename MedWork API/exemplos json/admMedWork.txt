@@ -1,0 +1,107 @@
+#CREATE
+
+#Inserção
+{
+    "nome": "Nathan",
+    "email": "libidigel@gmail.com",
+    "senha": "jerry",
+    "cnpj": "24246969"
+}
+
+#Resposta
+{
+  "mensagem": "Usuário Cadastrado",
+  "id_Medwork": 3
+}
+
+#-----------------------------------------------------------------#
+
+#SELECT FROM *
+
+#Inserção
+
+{
+
+}
+
+#Resposta
+{
+  "data": [
+    {
+      "id_MedWork": 1,
+      "nome": "Felipe",
+      "email": "FelipaoReact@gmail.com",
+      "senha": "Felipo123",
+      "cnpj": "12345678",
+      "ativo": 1,
+      "foto": "default.png"
+    },
+    {
+      "id_MedWork": 2,
+      "nome": "Lemos",
+      "email": "LemosDeveloper@gmail.com",
+      "senha": "JavaeBom",
+      "cnpj": "87654321",
+      "ativo": 1,
+      "foto": "default.png"
+    }
+  ]
+}
+
+#-----------------------------------------------------------------#
+
+#SELECT FROM id_MedWork
+
+#Inserção
+{
+
+}
+
+#Resposta
+{
+  "data": [
+    {
+      "id_MedWork": 1,
+      "nome": "Felipe",
+      "email": "FelipaoReact@gmail.com",
+      "senha": "Felipo123",
+      "cnpj": "12345678",
+      "ativo": 1,
+      "foto": "default.png"
+    }
+  ]
+}
+
+#-----------------------------------------------------------------#
+
+#UPDATE
+
+#Inserção
+{
+    {
+      "id_MedWork": 3,
+      "nome": "Nathanzeira",
+      "senha": "jerryetom",
+      "ativo": 1,
+      "foto": "jerry.png"
+    }
+}
+
+#Resposta
+{
+  "mensagem": "Usuário Atualizado"
+}
+
+#-----------------------------------------------------------------#
+
+#DELETE
+
+#Inserção
+{
+    "id_MedWork": 3
+}
+
+#Resposta
+{
+  "mensagem": "Usuário excluído com sucesso"
+}

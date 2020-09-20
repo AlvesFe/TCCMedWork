@@ -35,7 +35,6 @@ router.post('/', (req, res, next) => {
             }
         )
     })
-
 })
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
@@ -79,7 +78,6 @@ router.get('/:id_admMedWork', (req, res, next) => {
             }
         )
     })
-
 })
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
