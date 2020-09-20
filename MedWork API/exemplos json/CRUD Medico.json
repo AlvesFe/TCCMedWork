@@ -1,32 +1,32 @@
 {
     "_type": "export",
     "__export_format": 4,
-    "__export_date": "2020-09-20T18:24:30.663Z",
+    "__export_date": "2020-09-20T21:15:12.840Z",
     "__export_source": "insomnia.desktop.app:v2020.4.0",
     "resources": [
         {
-            "_id": "req_e311fa545a2d4dea820cff543137633c",
-            "parentId": "wrk_fa89880263bb4a0bac781e3b90cdcdf9",
-            "modified": 1600626185154,
-            "created": 1600537343859,
-            "url": "{{ base_url }}/admMedWork",
-            "name": "Create",
+            "_id": "req_a1c5738502c74e11b17fae7b9ae5c2cf",
+            "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
+            "modified": 1600636376800,
+            "created": 1600617935054,
+            "url": "{{ base_url }}/medico",
+            "name": "CREATE",
             "description": "",
             "method": "POST",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"nome\": \"Veloso\",\n\t\"email\": \"batata@gmail.com\",\n\t\"senha\": \"cenoura\",\n\t\"cnpj\": \"80808080\"\n}"
+                "text": "{\n\t\"crm\": \"M134553\",\n\t\"email\": \"Roger@gmail.com\",\n\t\"nome\": \"Rogerinho\",\n\t\"especialidade\": \"Doutor\",\n\t\"telefone\": \"11654264532\",\n\t\"celular\": \"11524568789\",\n\t\"dt_Nascimento\": \"1990-05-25\",\n\t\"senha\": \"MatarPaciente\",\n\t\"tp_sanguineo\": \"A-\",\n\t\"cpf\": \"25648564521\",\n\t\"rg\": \"325689745\",\n\t\"fk_id_Hospital\": 1\n}"
             },
             "parameters": [],
             "headers": [
                 {
                     "name": "Content-Type",
                     "value": "application/json",
-                    "id": "pair_a3a233b41b5e4523b71704cc604b7956"
+                    "id": "pair_cb05ec22a8f94a89b483897b7c0c5437"
                 }
             ],
             "authentication": {},
-            "metaSortKey": -1600537414368,
+            "metaSortKey": -1600617935054,
             "isPrivate": false,
             "settingStoreCookies": true,
             "settingSendCookies": true,
@@ -37,29 +37,29 @@
             "_type": "request"
         },
         {
-            "_id": "wrk_fa89880263bb4a0bac781e3b90cdcdf9",
+            "_id": "wrk_a1f3fc029163439b9318cae2a75217e8",
             "parentId": null,
-            "modified": 1600537291774,
-            "created": 1600537291774,
+            "modified": 1600617764748,
+            "created": 1600617660877,
             "name": "MedWork",
             "description": "",
             "scope": null,
             "_type": "workspace"
         },
         {
-            "_id": "req_78ba8ab284ed4ad5b140baf1671cdb59",
-            "parentId": "wrk_fa89880263bb4a0bac781e3b90cdcdf9",
-            "modified": 1600626036368,
-            "created": 1600537299413,
-            "url": "{{ base_url }}/admMedWork",
-            "name": "Index",
+            "_id": "req_7dba35374dda4fb9850dae070ede8c51",
+            "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
+            "modified": 1600635424944,
+            "created": 1600617950349,
+            "url": "{{ base_url }}/medico",
+            "name": "INDEX",
             "description": "",
             "method": "GET",
             "body": {},
             "parameters": [],
             "headers": [],
             "authentication": {},
-            "metaSortKey": -1600537414343,
+            "metaSortKey": -1600617950349,
             "isPrivate": false,
             "settingStoreCookies": true,
             "settingSendCookies": true,
@@ -70,19 +70,19 @@
             "_type": "request"
         },
         {
-            "_id": "req_eb37f30499274ac9943e5ded3e768e1e",
-            "parentId": "wrk_fa89880263bb4a0bac781e3b90cdcdf9",
-            "modified": 1600626048066,
-            "created": 1600537317296,
-            "url": "{{ base_url }}/admMedWork/2",
-            "name": "Show",
+            "_id": "req_412caa59509d4c6f92bcd2581f7f55ec",
+            "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
+            "modified": 1600636008420,
+            "created": 1600617959918,
+            "url": "{{ base_url }}/medico/1",
+            "name": "SHOW",
             "description": "",
             "method": "GET",
             "body": {},
             "parameters": [],
             "headers": [],
             "authentication": {},
-            "metaSortKey": -1600537414330.5,
+            "metaSortKey": -1600617959918,
             "isPrivate": false,
             "settingStoreCookies": true,
             "settingSendCookies": true,
@@ -93,28 +93,28 @@
             "_type": "request"
         },
         {
-            "_id": "req_aabfb3ffac1f4291a8030b2b9ce0b502",
-            "parentId": "wrk_fa89880263bb4a0bac781e3b90cdcdf9",
-            "modified": 1600626102198,
-            "created": 1600537414318,
-            "url": "{{ base_url }}/admMedWork",
-            "name": "Update",
+            "_id": "req_bfb59f30092f4c28b3b257e5c1155bbb",
+            "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
+            "modified": 1600636135609,
+            "created": 1600617975022,
+            "url": "{{ base_url }}/medico",
+            "name": "UPDATE",
             "description": "",
             "method": "PATCH",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"id_MedWork\": 3,\n\t\"nome\": \"Nathanzeira\",\n\t\"senha\": \"jerryetom\",\n\t\"ativo\": 1,\n\t\"foto\": \"jerry.png\"\n}"
+                "text": "{\n\t\"nome\": \"Lucas Fernando\",\n\t\"especialidade\": \"Cirugião\",\n\t\"telefone\": \"11658453225\",\n\t\"celular\": \"1158777456\",\n\t\"dt_Nascimento\": \"1980-02-05T03:00:00.000Z\",\n\t\"ativo\": 1,\n\t\"foto\": \"Pepino.png\",\n\t\"senha\": \"123456\",\n\t\"tp_sanguineo\": \"AB+\",\n\t\"id_Medico\": 1\n}"
             },
             "parameters": [],
             "headers": [
                 {
                     "name": "Content-Type",
                     "value": "application/json",
-                    "id": "pair_0d106bb040ae48a4aae0b864aac9f894"
+                    "id": "pair_229309a3d54547d585745aadbb562098"
                 }
             ],
             "authentication": {},
-            "metaSortKey": -1600537414318,
+            "metaSortKey": -1600617975022,
             "isPrivate": false,
             "settingStoreCookies": true,
             "settingSendCookies": true,
@@ -125,28 +125,28 @@
             "_type": "request"
         },
         {
-            "_id": "req_d2eade81b8c64379ace595559930866c",
-            "parentId": "wrk_fa89880263bb4a0bac781e3b90cdcdf9",
-            "modified": 1600626206628,
-            "created": 1600537435799,
-            "url": "{{ base_url }}/admMedWork",
-            "name": "Destroy",
+            "_id": "req_c6e2af1f96914c18973436486690e3da",
+            "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
+            "modified": 1600636481342,
+            "created": 1600617986293,
+            "url": "{{ base_url }}/medico",
+            "name": "DESTROY",
             "description": "",
             "method": "DELETE",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n    \"id_MedWork\": 7\n}"
+                "text": "{\n\t\"id_Medico\": 3\n}"
             },
             "parameters": [],
             "headers": [
                 {
                     "name": "Content-Type",
                     "value": "application/json",
-                    "id": "pair_dc3165e3fccb499a910fed2f3f447b11"
+                    "id": "pair_df7404c54c7e4257acb77ab0b7fe3690"
                 }
             ],
             "authentication": {},
-            "metaSortKey": -1600114661860,
+            "metaSortKey": -1600617986293,
             "isPrivate": false,
             "settingStoreCookies": true,
             "settingSendCookies": true,
@@ -157,10 +157,10 @@
             "_type": "request"
         },
         {
-            "_id": "env_57c4e46cbf2cd7823aac067841c7a52258c67086",
-            "parentId": "wrk_fa89880263bb4a0bac781e3b90cdcdf9",
-            "modified": 1600537546340,
-            "created": 1600537292104,
+            "_id": "env_bc0fb97bc50bc71fda1b9b6a46d31022635a10e8",
+            "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
+            "modified": 1600617885150,
+            "created": 1600617661076,
             "name": "Base Environment",
             "data": {
                 "base_url": "http://127.0.0.1:3000"
@@ -172,24 +172,24 @@
             },
             "color": null,
             "isPrivate": false,
-            "metaSortKey": 1600537292104,
+            "metaSortKey": 1600617661077,
             "_type": "environment"
         },
         {
-            "_id": "jar_57c4e46cbf2cd7823aac067841c7a52258c67086",
-            "parentId": "wrk_fa89880263bb4a0bac781e3b90cdcdf9",
-            "modified": 1600537292118,
-            "created": 1600537292118,
+            "_id": "jar_bc0fb97bc50bc71fda1b9b6a46d31022635a10e8",
+            "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
+            "modified": 1600617661081,
+            "created": 1600617661081,
             "name": "Default Jar",
             "cookies": [],
             "_type": "cookie_jar"
         },
         {
-            "_id": "spc_fa38e753eeb94eb996807814615b7306",
-            "parentId": "wrk_fa89880263bb4a0bac781e3b90cdcdf9",
-            "modified": 1600537291782,
-            "created": 1600537291782,
-            "fileName": "MedWork",
+            "_id": "spc_733e6dd706c4463a830f420ecee50516",
+            "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
+            "modified": 1600617660879,
+            "created": 1600617660879,
+            "fileName": "Insomnia",
             "contents": "",
             "contentType": "yaml",
             "_type": "api_spec"

@@ -1,7 +1,7 @@
 /* 
     Este é o arquivo de CRUD (Create, Read, Update, Delete)
-    ou no caso PGPD (Post, Get, Patch, Delete) da entidade farmacia do projeto MEDWORK,
-    Toda manipulação de dados da farmacia feitas pelo APP ou Site do projeto 
+    ou no caso PGPD (Post, Get, Patch, Delete) da entidade Medico do projeto MEDWORK,
+    Toda manipulação de dados da Medico feitas pelo APP ou Site do projeto 
     passarão por aqui para efetuar alterações no banco de dados.
 */
 
@@ -21,15 +21,15 @@ router.post('/', (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'INSERT INTO tbl_Farmacia(nome, telefone, endereco, detalhes, cnpj, senha, email, fk_id_MedWork)VALUES(?,?,?,?,?,?,?,?)',
-            [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.cnpj, req.body.senha, req.body.email, req.body.fk_id_MedWork],
+            'INSERT INTO tbl_Medico (crm, email, nome, especialidade, telefone, celular, dt_Nascimento, senha, tp_sanguineo, cpf, rg, fk_id_Hospital)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
+            [req.body.crm, req.body.email, req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, req.body.senha, req.body.tp_sanguineo, req.body.cpf, req.body.rg, req.body.fk_id_Hospital],
             (error, resultado, field) => {
                 conn.release()
 
                 if (error) { return res.status(500).send({ error: error }) }
 
                 res.status(201).send({
-                    mensagem: 'Farmacia Cadastrado',
+                    mensagem: 'Medico Cadastrado',
                     id_Farmacia: resultado.insertId
                 })
             }
@@ -44,7 +44,7 @@ router.get('/', (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Farmacia',
+            'SELECT * FROM tbl_Medico',
             (error, resultado, fields) => {
                 conn.release()
 
@@ -59,14 +59,14 @@ router.get('/', (req, res, next) => {
 })
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_Farmacia', (req, res, next) => {
+router.get('/:id_Medico', (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Farmacia WHERE id_Farmacia = ?',
-            [req.params.id_Farmacia],
+            'SELECT * FROM tbl_Medico WHERE id_Medico = ?',
+            [req.params.id_Medico],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -87,24 +87,26 @@ router.patch('/', (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            `UPDATE tbl_Farmacia
+            `UPDATE tbl_Medico
                 SET
-                nome = ?, 
-                telefone = ?, 
-                endereco = ?, 
-                detalhes = ?, 
-                ativo = ?, 
-                senha = ?, 
-                foto = ?
-                WHERE id_Farmacia = ?`,
-            [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, req.body.senha, req.body.foto, req.body.id_Farmacia],
+                nome = ?,
+                especialidade = ?,
+                telefone = ?,
+                celular = ?,
+                dt_Nascimento = ?,
+                ativo = ?,
+                foto = ?,
+                senha = ?,
+                tp_sanguineo = ?
+                WHERE id_Medico = ?`,
+            [req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, req.body.ativo, req.body.foto, req.body.senha, req.body.tp_sanguineo, req.body.id_Medico],
             (error, resultado, field) => {
                 conn.release()
 
                 if (error) { return res.status(500).send({ error: error }) }
 
                 res.status(202).send({
-                    mensagem: 'Farmacia Atualizada',
+                    mensagem: 'Medico Atualizado',
                     response: resultado.insertId
                 })
             }
@@ -119,15 +121,15 @@ router.delete('/', (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            `DELETE FROM tbl_Farmacia WHERE id_Farmacia = ?`,
-            [req.body.id_Farmacia],
+            `DELETE FROM tbl_Medico WHERE id_Medico = ?`,
+            [req.body.id_Medico],
             (error, resultado, field) => {
                 conn.release()
 
                 if (error) { return res.status(500).send({ error: error }) }
 
                 res.status(202).send({
-                    mensagem: 'Farmacia excluída com sucesso'
+                    mensagem: 'Medico excluído com sucesso'
                 })
             }
         )
