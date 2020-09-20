@@ -1,7 +1,7 @@
 {
     "env":{
         "MYSQL_USER": "root",
-        "MYSQL_PASSWORD": "network",
+        "MYSQL_PASSWORD": "",
         "MYSQL_DATABASE": "MedWork",
         "MYSQL_HOST": "localhost",
         "MYSQL_PORT": "3307",
