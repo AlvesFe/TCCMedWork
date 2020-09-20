@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const app = express();
 
 //Importando pacientes das rotas
-const rotaPacientes = require('./routes/pacientes')
+const rotaAdmMedWork = require('./routes/admMedWork')
 
 //Utilizando morgan para exibir as respostas do servidor
 app.use(morgan('dev'))
@@ -15,8 +15,8 @@ app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-//Chamando o CRUD da rota de paciente
-app.use('/pacientes', rotaPacientes)
+//Chamando o CRUD da rota de ADMs da MedWork
+app.use('/admMedWork', rotaAdmMedWork)
 
 //Configurando o CORS para uso externo
 app.use((req, res, next) => {
