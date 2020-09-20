@@ -8,6 +8,7 @@ const app = express();
 //Importando rotas
 const rotaAdmMedWork = require('./routes/admMedWork')
 const rotaHospital = require('./routes/hospital')
+const rotaFarmacia = require('./routes/farmacia')
 
 //Utilizando morgan para exibir as respostas do servidor
 app.use(morgan('dev'))
@@ -21,6 +22,9 @@ app.use('/admMedWork', rotaAdmMedWork)
 
 //Chamando o CRUD da rota Hospital
 app.use('/hospital', rotaHospital)
+
+//Chamando o CRUD da rota Farmacia
+app.use('/farmacia', rotaFarmacia)
 
 //Configurando o CORS para uso externo
 app.use((req, res, next) => {
