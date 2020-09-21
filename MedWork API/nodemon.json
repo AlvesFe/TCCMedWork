@@ -5,6 +5,6 @@
         "MYSQL_DATABASE": "MedWork",
         "MYSQL_HOST": "localhost",
         "MYSQL_PORT": "3307",
-        "PORT": "3000"
+        "PORT": "3001"
     }
 }
