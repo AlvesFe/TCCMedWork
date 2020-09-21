@@ -1,7 +1,7 @@
 {
     "_type": "export",
     "__export_format": 4,
-    "__export_date": "2020-09-21T14:49:17.836Z",
+    "__export_date": "2020-09-21T15:51:54.517Z",
     "__export_source": "insomnia.desktop.app:v2020.4.0",
     "resources": [
         {
@@ -49,9 +49,9 @@
         {
             "_id": "req_7dba35374dda4fb9850dae070ede8c51",
             "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
-            "modified": 1600699562210,
+            "modified": 1600703472155,
             "created": 1600617950349,
-            "url": "{{ base_url }}/hst/ReceitaRemedio",
+            "url": "{{ base_url }}/hst/consulta",
             "name": "INDEX",
             "description": "",
             "method": "GET",
@@ -72,9 +72,9 @@
         {
             "_id": "req_412caa59509d4c6f92bcd2581f7f55ec",
             "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
-            "modified": 1600699654575,
+            "modified": 1600703483829,
             "created": 1600617959918,
-            "url": "{{ base_url }}/hst/ReceitaRemedio/2",
+            "url": "{{ base_url }}/hst/consulta/2",
             "name": "SHOW",
             "description": "",
             "method": "GET",
