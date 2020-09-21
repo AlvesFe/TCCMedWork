@@ -1,21 +1,21 @@
 {
     "_type": "export",
     "__export_format": 4,
-    "__export_date": "2020-09-21T12:58:33.211Z",
+    "__export_date": "2020-09-21T13:46:33.637Z",
     "__export_source": "insomnia.desktop.app:v2020.4.0",
     "resources": [
         {
             "_id": "req_a1c5738502c74e11b17fae7b9ae5c2cf",
             "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
-            "modified": 1600692154260,
+            "modified": 1600695647725,
             "created": 1600617935054,
-            "url": "{{ base_url }}/receita",
+            "url": "{{ base_url }}/consulta",
             "name": "CREATE",
             "description": "",
             "method": "POST",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"dosagem\": \"10mg\",\n\t\"dt_Emissao\": \"2025-11-01\",\n\t\"orientacoes\": \"Não passar mal\",\n\t\"dt_Validade\": \"2025-11-30\",\n\t\"fk_id_Medico\": 2,\n\t\"fk_id_Paciente\": 1\n}"
+                "text": "{\n\t\"dt_Consulta\": \"2020-09-15\",\n\t\"descricao\": \"Ta com Ebola\",\n\t\"fk_id_Paciente\": 2,\n\t\"fk_id_Medico\": 1,\n\t\"fk_id_Receita\": 2\n}"
             },
             "parameters": [],
             "headers": [
@@ -49,9 +49,9 @@
         {
             "_id": "req_7dba35374dda4fb9850dae070ede8c51",
             "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
-            "modified": 1600692049690,
+            "modified": 1600695547338,
             "created": 1600617950349,
-            "url": "{{ base_url }}/receita",
+            "url": "{{ base_url }}/consulta",
             "name": "INDEX",
             "description": "",
             "method": "GET",
@@ -72,9 +72,9 @@
         {
             "_id": "req_412caa59509d4c6f92bcd2581f7f55ec",
             "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
-            "modified": 1600692314629,
+            "modified": 1600695635149,
             "created": 1600617959918,
-            "url": "{{ base_url }}/receita/3",
+            "url": "{{ base_url }}/consulta/3",
             "name": "SHOW",
             "description": "",
             "method": "GET",
@@ -95,15 +95,15 @@
         {
             "_id": "req_bfb59f30092f4c28b3b257e5c1155bbb",
             "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
-            "modified": 1600692409938,
+            "modified": 1600695698754,
             "created": 1600617975022,
-            "url": "{{ base_url }}/receita",
+            "url": "{{ base_url }}/consulta",
             "name": "UPDATE",
             "description": "",
             "method": "PATCH",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"id_Receita\": 3,\n\t\"dosagem\": \"500mg\",\n\t\"dt_Emissao\": \"2025-11-03\",\n\t\"orientacoes\": \"Não passar mal, se sentir dor não sinta\",\n\t\"dt_Validade\": \"2025-11-31\"\n}"
+                "text": "{\n\t\"dt_Consulta\": \"2020-09-15\",\n\t\"descricao\": \"Ta com Ebola, é negro\",\n\t\"id_Consulta\": 3\n}"
             },
             "parameters": [],
             "headers": [
@@ -127,15 +127,15 @@
         {
             "_id": "req_c6e2af1f96914c18973436486690e3da",
             "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
-            "modified": 1600692431334,
+            "modified": 1600695716932,
             "created": 1600617986293,
-            "url": "{{ base_url }}/receita",
+            "url": "{{ base_url }}/consulta",
             "name": "DESTROY",
             "description": "",
             "method": "DELETE",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"id_Receita\": 3\n}"
+                "text": "{\n\t\"id_Consulta\": 3\n}"
             },
             "parameters": [],
             "headers": [

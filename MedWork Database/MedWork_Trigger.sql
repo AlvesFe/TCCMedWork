@@ -466,10 +466,10 @@ INSERT
 VALUES
     (
         OLD.id_Consulta,
-        NULL,
         OLD.dt_Consulta,
         NULL,
         OLD.descricao,
+        NULL,
         OLD.fk_id_Paciente,
         OLD.fk_id_Medico,
         OLD.fk_id_Receita,
