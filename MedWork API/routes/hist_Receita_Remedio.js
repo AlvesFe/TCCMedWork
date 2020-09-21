@@ -1,7 +1,7 @@
 /* 
     Este é o arquivo de CRUD (Create, Read, Update, Delete)
-    ou no caso PGPD (Post, Get, Patch, Delete) da entidade Hst_Receita do projeto MEDWORK,
-    Toda manipulação de dados da Hst_Receita feitas pelo APP ou Site do projeto 
+    ou no caso PGPD (Post, Get, Patch, Delete) da entidade Hst_Receita_Remedio do projeto MEDWORK,
+    Toda manipulação de dados da Hst_Receita_Remedio feitas pelo APP ou Site do projeto 
     passarão por aqui para efetuar alterações no banco de dados.
 */
 
@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM Hst_Receita',
+            'SELECT * FROM Hst_Receita_Remedio',
             (error, resultado, fields) => {
                 conn.release()
 
@@ -36,14 +36,14 @@ router.get('/', (req, res, next) => {
 })
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_Historico_Receita', (req, res, next) => {
+router.get('/:id_Historico_Receita_Remedio', (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM Hst_Receita WHERE id_Historico_Receita = ?',
-            [req.params.id_Historico_Receita],
+            'SELECT * FROM Hst_Receita_Remedio WHERE id_Historico_Receita_Remedio = ?',
+            [req.params.id_Historico_Receita_Remedio],
             (error, resultado, fields) => {
                 conn.release()
 
