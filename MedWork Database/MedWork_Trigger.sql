@@ -192,39 +192,10 @@ VALUES
     );
 
 -- TABELA RECEITA (DELETE TRIGGER);
-CREATE TRIGGER Trg_Delete_Rc BEFORE DELETE ON Tbl_Receita FOR EACH ROW
-INSERT
-    Hst_Receita (
-        id_Receita,
-        dosagem_Nova,
-        dosagem,
-        orientacoes_Nova,
-        orientacoes_Antiga,
-        dt_Emissao_Nova,
-        dt_Emissao_Antiga,
-        dt_Validade_Nova,
-        dt_Validade_Antiga,
-        acao,
-        dt_Acao,
-        fk_id_Medico,
-        fk_id_Paciente
-    )
-VALUES
-    (
-        OLD.id_Receita,
-        NULL,
-        OLD.dosagem,
-        NULL,
-        OLD.orientacoes,
-        NULL,
-        OLD.dt_Emissao,
-        NULL,
-        OLD.dt_Validade,
-        'DELETE',
-        NOW(),
-        OLD.fk_id_Medico,
-        OLD.fk_id_Paciente
-    );
+CREATE 
+    TRIGGER  Trg_Delete_Rc
+ BEFORE DELETE ON Tbl_Receita FOR EACH ROW 
+    INSERT Hst_Receita (id_Receita , dosagem_Nova , dosagem_Antiga , orientacoes_Nova , orientacoes_Antiga , dt_Emissao_Nova , dt_Emissao_Antiga , dt_Validade_Nova , dt_Validade_Antiga , acao , dt_Acao , fk_id_Medico , fk_id_Paciente) VALUES (OLD.id_Receita , OLD.dosagem , NULL , OLD.orientacoes , NULL , OLD.dt_Emissao , NULL , OLD.dt_Validade , NULL , 'DELETE' , NOW() , OLD.fk_id_Medico , OLD.fk_id_Paciente);
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 -- TABELA RECEITA_REMEDIO (INSERT TRIGGER);
@@ -290,8 +261,8 @@ INSERT
     )
 VALUES
     (
+		OLD.Quantidade,
         NULL,
-        OLD.Quantidade,
         OLD.fk_id_Receita,
         OLD.fk_id_Remedio,
         'DELETE',
@@ -396,14 +367,14 @@ INSERT
 VALUES
     (
         OLD.id_Remedio,
-        NULL,
         OLD.tarja,
         NULL,
-        OLD.nome,
+		OLD.nome,
         NULL,
         OLD.descricao,
         NULL,
         OLD.preco,
+        NULL,
         OLD.dt_Validade,
         OLD.fabricante,
         'DELETE',
