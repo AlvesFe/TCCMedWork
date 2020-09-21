@@ -1,7 +1,7 @@
 /* 
     Este é o arquivo de CRUD (Create, Read, Update, Delete)
     ou no caso PGPD (Post, Get, Patch, Delete) da entidade Recepcionista do projeto MEDWORK,
-    Toda manipulação de dados do recepcionista feitas pelo APP ou Site do projeto 
+    Toda manipulação de dados do Recepcionista feitas pelo APP ou Site do projeto 
     passarão por aqui para efetuar alterações no banco de dados.
 */
 
