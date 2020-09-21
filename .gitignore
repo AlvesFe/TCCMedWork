@@ -1,3 +1,4 @@
 MedWork*API/node_modules/
 MedWork*API/*.log
 MedWork*Database/INSERTS.sql
+.vscode/
