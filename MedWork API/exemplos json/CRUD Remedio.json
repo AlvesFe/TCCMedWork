@@ -1,21 +1,21 @@
 {
     "_type": "export",
     "__export_format": 4,
-    "__export_date": "2020-09-21T01:59:27.783Z",
+    "__export_date": "2020-09-21T12:26:55.822Z",
     "__export_source": "insomnia.desktop.app:v2020.4.0",
     "resources": [
         {
             "_id": "req_a1c5738502c74e11b17fae7b9ae5c2cf",
             "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
-            "modified": 1600636376800,
+            "modified": 1600690903047,
             "created": 1600617935054,
-            "url": "{{ base_url }}/medico",
+            "url": "{{ base_url }}/remedio",
             "name": "CREATE",
             "description": "",
             "method": "POST",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"crm\": \"M134553\",\n\t\"email\": \"Roger@gmail.com\",\n\t\"nome\": \"Rogerinho\",\n\t\"especialidade\": \"Doutor\",\n\t\"telefone\": \"11654264532\",\n\t\"celular\": \"11524568789\",\n\t\"dt_Nascimento\": \"1990-05-25\",\n\t\"senha\": \"MatarPaciente\",\n\t\"tp_sanguineo\": \"A-\",\n\t\"cpf\": \"25648564521\",\n\t\"rg\": \"325689745\",\n\t\"fk_id_Hospital\": 1\n}"
+                "text": "{\n\t\"dt_Validade\": \"2025-09-22T03:00:00.000Z\",\n\t\"tarja\": \"PRETA\",\n\t\"nome\": \"Diazepam\",\n\t\"descricao\": \"Alivio de Ansiedade\",\n\t\"fabricante\": \"Generico\",\n\t\"preco\": 4.04\n}"
             },
             "parameters": [],
             "headers": [
@@ -49,9 +49,9 @@
         {
             "_id": "req_7dba35374dda4fb9850dae070ede8c51",
             "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
-            "modified": 1600652308243,
+            "modified": 1600690838634,
             "created": 1600617950349,
-            "url": "{{ base_url }}/paciente",
+            "url": "{{ base_url }}/remedio",
             "name": "INDEX",
             "description": "",
             "method": "GET",
@@ -72,9 +72,9 @@
         {
             "_id": "req_412caa59509d4c6f92bcd2581f7f55ec",
             "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
-            "modified": 1600652341249,
+            "modified": 1600690921271,
             "created": 1600617959918,
-            "url": "{{ base_url }}/paciente/1",
+            "url": "{{ base_url }}/remedio/3",
             "name": "SHOW",
             "description": "",
             "method": "GET",
@@ -95,15 +95,15 @@
         {
             "_id": "req_bfb59f30092f4c28b3b257e5c1155bbb",
             "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
-            "modified": 1600653416707,
+            "modified": 1600690969735,
             "created": 1600617975022,
-            "url": "{{ base_url }}/paciente",
+            "url": "{{ base_url }}/remedio",
             "name": "UPDATE",
             "description": "",
             "method": "PATCH",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"dt_Nascimento\": \"1995-05-30T03:00:00.000Z\",\n\t\"nome\": \"Palermo\",\n\t\"telefone\": \"1165999458\",\n\t\"tp_sanguineo\": \"A-\",\n\t\"alergia\": \"Nozes\",\n\t\"endereco\": \"R. da Gloria, Jd. Depresão\",\n\t\"celular\": \"11654564231\",\n\t\"ativo\": 1,\n\t\"senha\": \"111111\",\n\t\"alt_senha\": 1,\n\t\"foto\": \"default.png\",\n\t\"id_Paciente\": 1\n}"
+                "text": "{\n\t\"id_Remedio\": 3,\n\t\"dt_Validade\": \"2025-09-22T03:00:00.000Z\",\n\t\"tarja\": \"PRETA\",\n\t\"nome\": \"Diazepam\",\n\t\"descricao\": \"Remedio de louco\",\n\t\"fabricante\": \"Generico\",\n\t\"preco\": 455.04\n}"
             },
             "parameters": [],
             "headers": [
@@ -127,15 +127,15 @@
         {
             "_id": "req_c6e2af1f96914c18973436486690e3da",
             "parentId": "wrk_a1f3fc029163439b9318cae2a75217e8",
-            "modified": 1600652378034,
+            "modified": 1600690992232,
             "created": 1600617986293,
-            "url": "{{ base_url }}/paciente",
+            "url": "{{ base_url }}/remedio",
             "name": "DESTROY",
             "description": "",
             "method": "DELETE",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"id_Paciente\": 1\n}"
+                "text": "{\n\t\"id_Remedio\": 3\n}"
             },
             "parameters": [],
             "headers": [
