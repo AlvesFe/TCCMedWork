@@ -15,6 +15,7 @@ const rotaPaciente = require('./routes/paciente')
 const rotaRemedio = require('./routes/remedio')
 const rotaReceita = require('./routes/receita')
 const rotaConsulta = require('./routes/consulta')
+const rotaHstReceita = require('./routes/hist_Receita')
 
 //Utilizando morgan para exibir as respostas do servidor
 app.use(morgan('dev'))
@@ -49,6 +50,9 @@ app.use('/receita', rotaReceita)
 
 //Chamando o CRUD da rota ReceitaRemedio
 app.use('/consulta', rotaConsulta)
+
+//Chamando o CRUD da rota ReceitaRemedio
+app.use('/hst/Receita', rotaHstReceita)
 
 //Configurando o CORS para uso externo
 app.use((req, res, next) => {
