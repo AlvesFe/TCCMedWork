@@ -18,7 +18,6 @@ MedWork*Web/frontend/.env.local
 MedWork*Web/frontend/.env.development.local
 MedWork*Web/frontend/.env.test.local
 MedWork*Web/frontend/.env.production.local
-
 MedWork*Web/frontend/npm-debug.log*
 MedWork*Web/frontend/yarn-debug.log*
 MedWork*Web/frontend/yarn-error.log*
