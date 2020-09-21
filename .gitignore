@@ -2,3 +2,23 @@ MedWork*API/node_modules/
 MedWork*API/*.log
 MedWork*Database/INSERTS.sql
 .vscode/
+
+#WEB
+# Dependências
+MedWork*Web/frontend/node_modules
+MedWork*Web/frontend/.pnp
+MedWork*Web/frontend/.pnp.js
+# Teste
+MedWork*Web/frontend/coverage
+# Produção
+MedWork*Web/frontend/build
+# misc
+MedWork*Web/frontend/.DS_Store
+MedWork*Web/frontend/.env.local
+MedWork*Web/frontend/.env.development.local
+MedWork*Web/frontend/.env.test.local
+MedWork*Web/frontend/.env.production.local
+
+MedWork*Web/frontend/npm-debug.log*
+MedWork*Web/frontend/yarn-debug.log*
+MedWork*Web/frontend/yarn-error.log*
