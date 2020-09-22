@@ -16,6 +16,7 @@ const rotaRemedio = require('./routes/remedio')
 const rotaReceita = require('./routes/receita')
 const rotaConsulta = require('./routes/consulta')
 const rotaCompra = require('./routes/compra')
+const rotaRemedio_Farmacia = require('./routes/remedio_Farmacia')
 const rotaHstReceita = require('./routes/hist_Receita')
 const rotaHstReceitaRemedio = require('./routes/hist_Receita_Remedio')
 const rotaHstRemedio = require('./routes/hist_Remedio')
@@ -59,6 +60,9 @@ app.use('/consulta', rotaConsulta)
 
 //Chamando o CRUD da rota Compra
 app.use('/compra', rotaCompra)
+
+//Chamando o CRUD da rota Remedio_Farmacia
+app.use('/remedio_Farmacia', rotaRemedio_Farmacia)
 
 //Chamando o CRUD da rota Hist_ReceitaRemedio
 app.use('/hst/receita', rotaHstReceita)
