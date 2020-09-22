@@ -470,7 +470,7 @@ VALUES
         NULL,
         OLD.descricao,
         NULL,
-        OLD.fk_id_Paciente,
+        OLD.fk_id_Paciente,id_Historico_Consulta,
         OLD.fk_id_Medico,
         OLD.fk_id_Receita,
         'DELETE',

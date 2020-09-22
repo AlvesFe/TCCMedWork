@@ -110,24 +110,30 @@ CREATE TABLE IF NOT EXISTS tbl_Consulta(
 
 #TABELA COMPRA
 CREATE TABLE IF NOT EXISTS tbl_Compra(
+	id_Compra INT UNSIGNED NOT NULL AUTO_INCREMENT,
     cod_fiscal VARCHAR(40) NOT NULL,
     quantidade INT UNSIGNED NOT NULL,
     fk_id_Paciente INT UNSIGNED NOT NULL,
-    fk_id_Remedio INT UNSIGNED NOT NULL
+    fk_id_Remedio INT UNSIGNED NOT NULL,
+    PRIMARY KEY(id_Compra)
 );
 
 #TABELA REMEDIO_FARMACIA
 CREATE TABLE IF NOT EXISTS tbl_Remedio_Farmacia(
+	id_Remedio_Farmacia INT UNSIGNED NOT NULL AUTO_INCREMENT,
     estoque INT UNSIGNED NOT NULL,
     fk_id_Farmacia INT UNSIGNED NOT NULL,
-    fk_id_Remedio INT UNSIGNED NOT NULL
+    fk_id_Remedio INT UNSIGNED NOT NULL,
+    PRIMARY KEY(id_Remedio_Farmacia)
 );
 
 #TABELA RECEITA_REMEDIO
 CREATE TABLE IF NOT EXISTS tbl_Receita_Remedio(
+	id_Receita_Remedio INT UNSIGNED NOT NULL AUTO_INCREMENT,
     Quantidade INT UNSIGNED NOT NULL,
     fk_id_Receita INT UNSIGNED NOT NULL,
-    fk_id_Remedio INT UNSIGNED NOT NULL
+    fk_id_Remedio INT UNSIGNED NOT NULL,
+    PRIMARY KEY(id_Receita_Remedio)
 );
 
 CREATE TABLE IF NOT EXISTS tbl_Recepcionista(
