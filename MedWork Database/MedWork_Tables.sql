@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS tbl_Paciente(
     endereco VARCHAR(150),
     celular VARCHAR(20) NOT NULL,
     ativo BOOLEAN NOT NULL DEFAULT TRUE,
-    senha VARCHAR(20) NOT NULL,
+    senha VARCHAR(60) NOT NULL,
     alt_senha BOOLEAN DEFAULT TRUE,
     foto VARCHAR(100) NOT NULL DEFAULT('default.png'),
     fk_id_Recepcionista INT UNSIGNED NOT NULL
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS tbl_Hospital(
     ativo BOOLEAN NOT NULL DEFAULT TRUE,
     foto VARCHAR(100) NOT NULL DEFAULT('default.png'),
     email VARCHAR(90) NOT NULL UNIQUE,
-    senha VARCHAR(20) NOT NULL,
+    senha VARCHAR(60) NOT NULL,
     fk_id_MedWork INT UNSIGNED NOT NULL
 );
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS tbl_Medico(
     dt_Nascimento DATE NOT NULL,
     ativo BOOLEAN NOT NULL DEFAULT TRUE,
     foto VARCHAR(100) NOT NULL DEFAULT('default.png'),
-    senha VARCHAR(20) NOT NULL,
+    senha VARCHAR(60) NOT NULL,
     tp_sanguineo VARCHAR(5),
     cpf VARCHAR(25) NOT NULL UNIQUE,
     rg VARCHAR(25) NOT NULL UNIQUE,
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS tbl_Farmacia(
     detalhes TEXT NOT NULL,
     cnpj VARCHAR(20) NOT NULL UNIQUE,
     ativo BOOLEAN NOT NULL DEFAULT TRUE,
-    senha VARCHAR(20) NOT NULL,
+    senha VARCHAR(60) NOT NULL,
     email VARCHAR(90) NOT NULL UNIQUE,
     foto VARCHAR(100) NOT NULL DEFAULT('default.png'),
     fk_id_MedWork INT UNSIGNED NOT NULL
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS tbl_Recepcionista(
     ativo BOOLEAN NOT NULL DEFAULT TRUE,
     endereco VARCHAR(150) NOT NULL,
     cpf VARCHAR(25) NOT NULL UNIQUE,
-    senha VARCHAR(20) NOT NULL,
+    senha VARCHAR(60) NOT NULL,
     rg VARCHAR(25) NOT NULL UNIQUE,
     email VARCHAR(90) NOT NULL UNIQUE,
     celular VARCHAR(20) NOT NULL,
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS tbl_MedWork(
     id_MedWork INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL,
     email VARCHAR(90) NOT NULL UNIQUE,
-    senha VARCHAR(20) NOT NULL,
+    senha VARCHAR(60) NOT NULL,
     cnpj VARCHAR(20) NOT NULL UNIQUE,
     ativo BOOL NOT NULL DEFAULT TRUE,
     foto VARCHAR(100) NOT NULL DEFAULT('default.png')

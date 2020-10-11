@@ -14,26 +14,35 @@ const router = express.Router();
 //Importação do Banco de dados MySql
 const mysql = require('../mysql').pool;
 
+//Importação da biblioteca Bcrypt
+const bcrypt = require('bcrypt');
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
 router.post('/', (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            'INSERT INTO tbl_Medico (crm, email, nome, especialidade, telefone, celular, dt_Nascimento, senha, tp_sanguineo, cpf, rg, fk_id_Hospital)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
-            [req.body.crm, req.body.email, req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, req.body.senha, req.body.tp_sanguineo, req.body.cpf, req.body.rg, req.body.fk_id_Hospital],
-            (error, resultado, field) => {
-                conn.release()
 
-                if (error) { return res.status(500).send({ error: error }) }
+        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) =>{
+            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
-                res.status(201).send({
-                    mensagem: 'Medico Cadastrado',
-                    id_Farmacia: resultado.insertId
-                })
-            }
-        )
+            conn.query(
+                'INSERT INTO tbl_Medico (crm, email, nome, especialidade, telefone, celular, dt_Nascimento, senha, tp_sanguineo, cpf, rg, fk_id_Hospital)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
+                [req.body.crm, req.body.email, req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, hash, req.body.tp_sanguineo, req.body.cpf, req.body.rg, req.body.fk_id_Hospital],
+                (error, resultado, field) => {
+                    conn.release()
+    
+                    if (error) { return res.status(500).send({ error: error }) }
+    
+                    res.status(201).send({
+                        mensagem: 'Medico Cadastrado',
+                        id_Farmacia: resultado.insertId
+                    })
+                }
+            )
+    
+        })
     })
 })
 

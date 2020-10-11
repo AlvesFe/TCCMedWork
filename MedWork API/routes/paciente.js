@@ -14,26 +14,35 @@ const router = express.Router();
 //Importação do Banco de dados MySql
 const mysql = require('../mysql').pool;
 
+//Importação da biblioteca Bcrypt
+const bcrypt = require('bcrypt');
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
 router.post('/', (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            'INSERT INTO tbl_Paciente (dt_nascimento, nome, telefone, tp_sanguineo, alergia, rg, email, cpf, endereco, celular, senha, fk_id_Recepcionista)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
-            [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.rg, req.body.email, req.body.cpf, req.body.endereco, req.body.celular, req.body.senha, req.body.fk_id_Recepcionista],
-            (error, resultado, field) => {
-                conn.release()
+        
+        //Criptografa a senha inserida pelo usuario no momento de cadastro
+        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) =>{
+            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
-                if (error) { return res.status(500).send({ error: error }) }
-
-                res.status(201).send({
-                    mensagem: 'Paciente Cadastrado',
-                    id_Farmacia: resultado.insertId
-                })
-            }
-        )
+            conn.query(
+                'INSERT INTO tbl_Paciente (dt_nascimento, nome, telefone, tp_sanguineo, alergia, rg, email, cpf, endereco, celular, senha, fk_id_Recepcionista)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
+                [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.rg, req.body.email, req.body.cpf, req.body.endereco, req.body.celular, hash, req.body.fk_id_Recepcionista],
+                (error, resultado, field) => {
+                    conn.release()
+    
+                    if (error) { return res.status(500).send({ error: error }) }
+    
+                    res.status(201).send({
+                        mensagem: 'Paciente Cadastrado',
+                        id_Farmacia: resultado.insertId
+                    })
+                }
+            )
+        })
     })
 })
 

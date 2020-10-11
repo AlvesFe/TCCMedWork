@@ -14,26 +14,34 @@ const router = express.Router();
 //Importação do Banco de dados MySql
 const mysql = require('../mysql').pool;
 
+//Importação da biblioteca Bcrypt
+const bcrypt = require('bcrypt');
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
 router.post('/', (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            'INSERT INTO tbl_Recepcionista (nome, dt_nascimento, tp_sanguineo, endereco, cpf, senha, rg, email, celular, telefone, fk_id_Hospital)VALUES(?,?,?,?,?,?,?,?,?,?,?)',
-            [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.endereco, req.body.cpf, req.body.senha, req.body.rg, req.body.email, req.body.celular, req.body.telefone, req.body.fk_id_Hospital],
-            (error, resultado, field) => {
-                conn.release()
 
-                if (error) { return res.status(500).send({ error: error }) }
+        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) =>{
+            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
-                res.status(201).send({
-                    mensagem: 'Recepcionista Cadastrado',
-                    id_Medwork: resultado.insertId
-                })
-            }
-        )
+            conn.query(
+                'INSERT INTO tbl_Recepcionista (nome, dt_nascimento, tp_sanguineo, endereco, cpf, senha, rg, email, celular, telefone, fk_id_Hospital)VALUES(?,?,?,?,?,?,?,?,?,?,?)',
+                [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.endereco, req.body.cpf, hash, req.body.rg, req.body.email, req.body.celular, req.body.telefone, req.body.fk_id_Hospital],
+                (error, resultado, field) => {
+                    conn.release()
+    
+                    if (error) { return res.status(500).send({ error: error }) }
+    
+                    res.status(201).send({
+                        mensagem: 'Recepcionista Cadastrado',
+                        id_Medwork: resultado.insertId
+                    })
+                }
+            )    
+        })
     })
 })
 
