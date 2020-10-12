@@ -5,6 +5,7 @@
         "MYSQL_DATABASE": "MedWork",
         "MYSQL_HOST": "localhost",
         "MYSQL_PORT": "3307",
-        "PORT": "3001"
+        "PORT": "3001",
+        "JWT_KEY": "networkSenhores"
     }
 }

@@ -17,15 +17,18 @@ const mysql = require('../mysql').pool;
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
 
+//Importação do JSON Web Token
+const jwt = require('jsonwebtoken');
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
 router.post('/', (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
-        
+
         //Criptografa a senha inserida pelo usuario no momento de cadastro
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) =>{
+        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
             if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
             conn.query(
@@ -33,9 +36,9 @@ router.post('/', (req, res, next) => {
                 [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.rg, req.body.email, req.body.cpf, req.body.endereco, req.body.celular, hash, req.body.fk_id_Recepcionista],
                 (error, resultado, field) => {
                     conn.release()
-    
+
                     if (error) { return res.status(500).send({ error: error }) }
-    
+
                     res.status(201).send({
                         mensagem: 'Paciente Cadastrado',
                         id_Farmacia: resultado.insertId
@@ -144,6 +147,41 @@ router.delete('/', (req, res, next) => {
                 })
             }
         )
+    })
+})
+
+//Metodo de Login
+router.post('/login', (req, res, next) => {
+
+    mysql.getConnection((error, conn) => {
+        if (error) { return res.status(500).send({ error: error }) }
+        const query = `SELECT * FROM tbl_Paciente WHERE email = ?`;
+
+        conn.query(query, [req.body.email], (error, results, fields) => {
+            conn.release();
+            if (error) { return res.status(500).send({ error: error }) }
+            if (results.length < 1) {
+                return res.status(401).send({ mensagem: 'Falha na autenticação' })
+            }
+
+            bcrypt.compare(req.body.senha, results[0].senha, (err, result) => {
+                if (err) { return res.status(401).send({ mensagem: 'Falha na autenticação' }) }
+                if (result) { 
+                    const token = jwt.sign({
+                        id_Paciente: results[0].id_Paciente,
+                        email: results[0].email,
+                        nome: results[0].nome
+                    }, 
+                    process.env.JWT_KEY,
+                    {
+                      expiresIn: "5h"  
+                    })
+
+                    return res.status(200).send({ mensagem: 'Autenticado com sucesso', token: token }) 
+                }
+                return res.status(401).send({ mensagem: 'Falha na autenticação' })
+            })
+        })
     })
 })
 
