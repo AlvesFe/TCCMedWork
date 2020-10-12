@@ -24,7 +24,7 @@ router.post('/', (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
 
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) =>{
+        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
             if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
             conn.query(
@@ -32,9 +32,9 @@ router.post('/', (req, res, next) => {
                 [req.body.cnpj, req.body.nome, req.body.endereco, req.body.telefone, req.body.email, hash, req.body.fk_id_MedWork],
                 (error, resultado, field) => {
                     conn.release()
-    
+
                     if (error) { return res.status(500).send({ error: error }) }
-    
+
                     res.status(201).send({
                         mensagem: 'Hospital Cadastrado',
                         id_Medwork: resultado.insertId
@@ -94,28 +94,33 @@ router.patch('/', (req, res, next) => {
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            `UPDATE tbl_Hospital
-                SET
-                   nome = ?,
-                   endereco = ?,
-                   telefone = ?,
-                   ativo = ?,
-                   foto = ?,
-                   senha = ?
-                WHERE id_Hospital = ?`,
-            [req.body.nome, req.body.endereco, req.body.telefone, req.body.ativo, req.body.foto, req.body.senha, req.body.id_Hospital],
-            (error, resultado, field) => {
-                conn.release()
 
-                if (error) { return res.status(500).send({ error: error }) }
+        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
-                res.status(202).send({
-                    mensagem: 'Hospital Atualizado',
-                    response: resultado.insertId
-                })
-            }
-        )
+            conn.query(
+                `UPDATE tbl_Hospital
+                    SET
+                       nome = ?,
+                       endereco = ?,
+                       telefone = ?,
+                       ativo = ?,
+                       foto = ?,
+                       senha = ?
+                    WHERE id_Hospital = ?`,
+                [req.body.nome, req.body.endereco, req.body.telefone, req.body.ativo, req.body.foto, hash, req.body.id_Hospital],
+                (error, resultado, field) => {
+                    conn.release()
+    
+                    if (error) { return res.status(500).send({ error: error }) }
+    
+                    res.status(202).send({
+                        mensagem: 'Hospital Atualizado',
+                        response: resultado.insertId
+                    })
+                }
+            )
+        })
     })
 })
 
@@ -125,7 +130,7 @@ router.delete('/', (req, res, next) => {
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
-        
+
         conn.query(
             `DELETE FROM tbl_Hospital WHERE id_Hospital = ?`,
             [req.body.id_Hospital],

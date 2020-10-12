@@ -24,7 +24,7 @@ router.post('/', (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
 
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) =>{
+        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
             if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
             conn.query(
@@ -32,15 +32,15 @@ router.post('/', (req, res, next) => {
                 [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.endereco, req.body.cpf, hash, req.body.rg, req.body.email, req.body.celular, req.body.telefone, req.body.fk_id_Hospital],
                 (error, resultado, field) => {
                     conn.release()
-    
+
                     if (error) { return res.status(500).send({ error: error }) }
-    
+
                     res.status(201).send({
                         mensagem: 'Recepcionista Cadastrado',
                         id_Medwork: resultado.insertId
                     })
                 }
-            )    
+            )
         })
     })
 })
@@ -94,30 +94,36 @@ router.patch('/', (req, res, next) => {
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            `UPDATE tbl_Recepcionista
-                SET
-                   nome = ?,
-                   dt_nascimento = ?,
-                   tp_sanguineo = ?,
-                   ativo = ?,
-                   endereco = ?,
-                   senha =?,
-                   celular = ?,
-                   telefone = ?
-                WHERE id_Recepcionista = ?`,
-            [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.ativo, req.body.endereco, req.body.senha, req.body.celular, req.body.telefone, req.body.id_Recepcionista],
-            (error, resultado, field) => {
-                conn.release()
 
-                if (error) { return res.status(500).send({ error: error }) }
+        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
-                res.status(202).send({
-                    mensagem: 'Recepcionista Atualizado',
-                    response: resultado.insertId
-                })
-            }
-        )
+            conn.query(
+                `UPDATE tbl_Recepcionista
+                    SET
+                       nome = ?,
+                       dt_nascimento = ?,
+                       tp_sanguineo = ?,
+                       ativo = ?,
+                       endereco = ?,
+                       senha =?,
+                       celular = ?,
+                       telefone = ?
+                    WHERE id_Recepcionista = ?`,
+                [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.ativo, req.body.endereco, hash, req.body.celular, req.body.telefone, req.body.id_Recepcionista],
+                (error, resultado, field) => {
+                    conn.release()
+    
+                    if (error) { return res.status(500).send({ error: error }) }
+    
+                    res.status(202).send({
+                        mensagem: 'Recepcionista Atualizado',
+                        response: resultado.insertId
+                    })
+                }
+            )
+
+        })
     })
 })
 
