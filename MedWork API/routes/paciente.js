@@ -98,33 +98,39 @@ router.patch('/', (req, res, next) => {
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            `UPDATE tbl_Paciente
-                SET
-                dt_Nascimento = ?,
-                nome = ?,
-                telefone = ?,
-                tp_sanguineo= ?,
-                alergia = ?,
-                endereco = ?,
-                celular = ?,
-                ativo = ?,
-                senha = ?,
-                alt_senha = ?,
-                foto = ?
-                WHERE id_Paciente = ?`,
-            [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, req.body.senha, req.body.alt_senha, req.body.foto, req.body.id_Paciente],
-            (error, resultado, field) => {
-                conn.release()
 
-                if (error) { return res.status(500).send({ error: error }) }
+        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
-                res.status(202).send({
-                    mensagem: 'Paciente Atualizado',
-                    response: resultado.insertId
-                })
-            }
-        )
+            conn.query(
+                `UPDATE tbl_Paciente
+                    SET
+                    dt_Nascimento = ?,
+                    nome = ?,
+                    telefone = ?,
+                    tp_sanguineo= ?,
+                    alergia = ?,
+                    endereco = ?,
+                    celular = ?,
+                    ativo = ?,
+                    senha = ?,
+                    alt_senha = ?,
+                    foto = ?
+                    WHERE id_Paciente = ?`,
+                [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, hash, req.body.alt_senha, req.body.foto, req.body.id_Paciente],
+                (error, resultado, field) => {
+                    conn.release()
+
+                    if (error) { return res.status(500).send({ error: error }) }
+
+                    res.status(202).send({
+                        mensagem: 'Paciente Atualizado',
+                        response: resultado.insertId
+                    })
+                }
+            )
+
+        })
     })
 })
 

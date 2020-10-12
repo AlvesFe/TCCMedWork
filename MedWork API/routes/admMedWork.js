@@ -24,7 +24,7 @@ router.post('/', (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
 
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) =>{
+        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
             if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
             conn.query(
@@ -32,9 +32,9 @@ router.post('/', (req, res, next) => {
                 [req.body.nome, req.body.email, hash, req.body.cnpj],
                 (error, resultado, field) => {
                     conn.release()
-    
+
                     if (error) { return res.status(500).send({ error: error }) }
-    
+
                     res.status(201).send({
                         mensagem: 'Usuário Cadastrado',
                         id_Medwork: resultado.insertId
@@ -94,26 +94,30 @@ router.patch('/', (req, res, next) => {
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            `UPDATE tbl_MedWork
-                SET
-                    nome = ?,
-                    senha = ?,
-                    ativo = ?,
-                    foto = ?
-                WHERE id_MedWork = ?`
-            ,
-            [req.body.nome, req.body.senha, req.body.ativo, req.body.foto, req.body.id_MedWork],
-            (error, resultado, field) => {
-                conn.release()
+        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
+            conn.query(
+                `UPDATE tbl_MedWork
+                    SET
+                        nome = ?,
+                        senha = ?,
+                        ativo = ?,
+                        foto = ?
+                    WHERE id_MedWork = ?`
+                ,
+                [req.body.nome, hash, req.body.ativo, req.body.foto, req.body.id_MedWork],
+                (error, resultado, field) => {
+                    conn.release()
 
-                if (error) { return res.status(500).send({ error: error }) }
+                    if (error) { return res.status(500).send({ error: error }) }
 
-                res.status(202).send({
-                    mensagem: 'Usuário Atualizado'
-                })
-            }
-        )
+                    res.status(202).send({
+                        mensagem: 'Usuário Atualizado'
+                    })
+                }
+            )
+        })
+
     })
 })
 

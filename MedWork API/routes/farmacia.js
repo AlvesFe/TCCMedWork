@@ -24,7 +24,7 @@ router.post('/', (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
 
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) =>{
+        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
             if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
             conn.query(
@@ -32,9 +32,9 @@ router.post('/', (req, res, next) => {
                 [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.cnpj, hash, req.body.email, req.body.fk_id_MedWork],
                 (error, resultado, field) => {
                     conn.release()
-    
+
                     if (error) { return res.status(500).send({ error: error }) }
-    
+
                     res.status(201).send({
                         mensagem: 'Farmacia Cadastrado',
                         id_Farmacia: resultado.insertId
@@ -94,29 +94,35 @@ router.patch('/', (req, res, next) => {
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            `UPDATE tbl_Farmacia
-                SET
-                nome = ?, 
-                telefone = ?, 
-                endereco = ?, 
-                detalhes = ?, 
-                ativo = ?, 
-                senha = ?, 
-                foto = ?
-                WHERE id_Farmacia = ?`,
-            [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, req.body.senha, req.body.foto, req.body.id_Farmacia],
-            (error, resultado, field) => {
-                conn.release()
 
-                if (error) { return res.status(500).send({ error: error }) }
+        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
-                res.status(202).send({
-                    mensagem: 'Farmacia Atualizada',
-                    response: resultado.insertId
-                })
-            }
-        )
+            conn.query(
+                `UPDATE tbl_Farmacia
+                    SET
+                    nome = ?, 
+                    telefone = ?, 
+                    endereco = ?, 
+                    detalhes = ?, 
+                    ativo = ?, 
+                    senha = ?, 
+                    foto = ?
+                    WHERE id_Farmacia = ?`,
+                [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, hash, req.body.foto, req.body.id_Farmacia],
+                (error, resultado, field) => {
+                    conn.release()
+    
+                    if (error) { return res.status(500).send({ error: error }) }
+    
+                    res.status(202).send({
+                        mensagem: 'Farmacia Atualizada',
+                        response: resultado.insertId
+                    })
+                }
+            )
+
+        })
     })
 })
 
