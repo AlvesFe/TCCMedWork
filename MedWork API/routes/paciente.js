@@ -182,7 +182,6 @@ router.post('/login', (req, res, next) => {
                     {
                       expiresIn: "5h"  
                     })
-
                     return res.status(200).send({ mensagem: 'Autenticado com sucesso', token: token }) 
                 }
                 return res.status(401).send({ mensagem: 'Falha na autenticação' })

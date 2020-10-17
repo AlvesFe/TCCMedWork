@@ -10,7 +10,7 @@ USE MedWork;
 
 #TABELA PACIENTE
 CREATE TABLE IF NOT EXISTS tbl_Paciente(
-    id_Paciente INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id_Paciente VARCHAR(60) NOT NULL PRIMARY KEY,
     dt_Nascimento DATE NOT NULL,
     nome VARCHAR(50) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
@@ -25,12 +25,12 @@ CREATE TABLE IF NOT EXISTS tbl_Paciente(
     senha VARCHAR(60) NOT NULL,
     alt_senha BOOLEAN DEFAULT TRUE,
     foto VARCHAR(100) NOT NULL DEFAULT('default.png'),
-    fk_id_Recepcionista INT UNSIGNED NOT NULL
+    fk_id_Recepcionista VARCHAR(60) NOT NULL
 );
 
 #TABELA HOSPITAL
 CREATE TABLE IF NOT EXISTS tbl_Hospital(
-    id_Hospital INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id_Hospital VARCHAR(60) NOT NULL PRIMARY KEY,
     cnpj VARCHAR(20) NOT NULL UNIQUE,
     nome VARCHAR(50) NOT NULL,
     endereco VARCHAR(150) NOT NULL,
@@ -39,12 +39,12 @@ CREATE TABLE IF NOT EXISTS tbl_Hospital(
     foto VARCHAR(100) NOT NULL DEFAULT('default.png'),
     email VARCHAR(90) NOT NULL UNIQUE,
     senha VARCHAR(60) NOT NULL,
-    fk_id_MedWork INT UNSIGNED NOT NULL
+    fk_id_MedWork VARCHAR(60) NOT NULL
 );
 
 #TABELA MEDICO
 CREATE TABLE IF NOT EXISTS tbl_Medico(
-    id_Medico INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id_Medico VARCHAR(60) NOT NULL PRIMARY KEY,
     crm VARCHAR(10) NOT NULL UNIQUE,
     email VARCHAR(90) NOT NULL UNIQUE,
     nome VARCHAR(50) NOT NULL,
@@ -58,12 +58,12 @@ CREATE TABLE IF NOT EXISTS tbl_Medico(
     tp_sanguineo VARCHAR(5),
     cpf VARCHAR(25) NOT NULL UNIQUE,
     rg VARCHAR(25) NOT NULL UNIQUE,
-    fk_id_Hospital INT UNSIGNED NOT NULL
+    fk_id_Hospital VARCHAR(60) NOT NULL
 );
 
 #TABELA REMEDIO
 CREATE TABLE IF NOT EXISTS tbl_Remedio(
-    id_Remedio INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id_Remedio VARCHAR(60) NOT NULL PRIMARY KEY,
     dt_Validade DATE NOT NULL,
     tarja VARCHAR(20) NOT NULL DEFAULT 'Livre',
     nome VARCHAR(50) NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS tbl_Remedio(
 
 #TABELA FARMCAIA
 CREATE TABLE IF NOT EXISTS tbl_Farmacia(
-    id_Farmacia INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id_Farmacia VARCHAR(60) NOT NULL PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
     endereco VARCHAR(150) NOT NULL,
@@ -84,60 +84,57 @@ CREATE TABLE IF NOT EXISTS tbl_Farmacia(
     senha VARCHAR(60) NOT NULL,
     email VARCHAR(90) NOT NULL UNIQUE,
     foto VARCHAR(100) NOT NULL DEFAULT('default.png'),
-    fk_id_MedWork INT UNSIGNED NOT NULL
+    fk_id_MedWork VARCHAR(60) NOT NULL
 );
 
 #TABELA RECEITA
 CREATE TABLE IF NOT EXISTS tbl_Receita(
-    id_Receita INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id_Receita VARCHAR(60) NOT NULL PRIMARY KEY,
     dosagem VARCHAR(50) NOT NULL,
     dt_Emissao DATE NOT NULL,
     orientacoes TEXT NOT NULL,
     dt_Validade DATE NOT NULL,
-    fk_id_Medico INT UNSIGNED NOT NULL,
-    fk_id_Paciente INT UNSIGNED NOT NULL
+    fk_id_Medico VARCHAR(60) NOT NULL,
+    fk_id_Paciente VARCHAR(60) NOT NULL
 );
 
 #TABELA CONSULTA
 CREATE TABLE IF NOT EXISTS tbl_Consulta(
-    id_Consulta INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id_Consulta VARCHAR(60) NOT NULL PRIMARY KEY,
     dt_Consulta DATE NOT NULL,
     descricao TEXT NOT NULL,
-    fk_id_Paciente INT UNSIGNED NOT NULL,
-    fk_id_Medico INT UNSIGNED NOT NULL,
-    fk_id_Receita INT UNSIGNED NOT NULL
+    fk_id_Paciente VARCHAR(60) NOT NULL,
+    fk_id_Medico VARCHAR(60) NOT NULL,
+    fk_id_Receita VARCHAR(60) NOT NULL
 );
 
 #TABELA COMPRA
 CREATE TABLE IF NOT EXISTS tbl_Compra(
-	id_Compra INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	id_Compra VARCHAR(60) NOT NULL PRIMARY KEY,
     cod_fiscal VARCHAR(40) NOT NULL,
     quantidade INT UNSIGNED NOT NULL,
-    fk_id_Paciente INT UNSIGNED NOT NULL,
-    fk_id_Remedio INT UNSIGNED NOT NULL,
-    PRIMARY KEY(id_Compra)
+    fk_id_Paciente VARCHAR(60) NOT NULL,
+    fk_id_Remedio VARCHAR(60) NOT NULL
 );
 
 #TABELA REMEDIO_FARMACIA
 CREATE TABLE IF NOT EXISTS tbl_Remedio_Farmacia(
-	id_Remedio_Farmacia INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	id_Remedio_Farmacia VARCHAR(60) NOT NULL PRIMARY KEY,
     estoque INT UNSIGNED NOT NULL,
-    fk_id_Farmacia INT UNSIGNED NOT NULL,
-    fk_id_Remedio INT UNSIGNED NOT NULL,
-    PRIMARY KEY(id_Remedio_Farmacia)
+    fk_id_Farmacia VARCHAR(60) NOT NULL,
+    fk_id_Remedio VARCHAR(60) NOT NULL
 );
 
 #TABELA RECEITA_REMEDIO
 CREATE TABLE IF NOT EXISTS tbl_Receita_Remedio(
-	id_Receita_Remedio INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	id_Receita_Remedio VARCHAR(60) NOT NULL PRIMARY KEY,
     Quantidade INT UNSIGNED NOT NULL,
-    fk_id_Receita INT UNSIGNED NOT NULL,
-    fk_id_Remedio INT UNSIGNED NOT NULL,
-    PRIMARY KEY(id_Receita_Remedio)
+    fk_id_Receita VARCHAR(60) NOT NULL,
+    fk_id_Remedio VARCHAR(60) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS tbl_Recepcionista(
-    id_Recepcionista INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id_Recepcionista VARCHAR(60) NOT NULL PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
     dt_Nascimento DATE NOT NULL,
     tp_sanguineo VARCHAR(5),
@@ -149,11 +146,11 @@ CREATE TABLE IF NOT EXISTS tbl_Recepcionista(
     email VARCHAR(90) NOT NULL UNIQUE,
     celular VARCHAR(20) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
-    fk_id_Hospital INT UNSIGNED NOT NULL
+    fk_id_Hospital VARCHAR(60) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS tbl_MedWork(
-    id_MedWork INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id_MedWork VARCHAR(60) NOT NULL PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
     email VARCHAR(90) NOT NULL UNIQUE,
     senha VARCHAR(60) NOT NULL,
