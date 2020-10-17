@@ -2,8 +2,8 @@
 #TABELAS:
 -- TABELA_RECEITA
 CREATE TABLE IF NOT EXISTS Hst_Receita(
-    id_Historico_Receita INT UNSIGNED AUTO_INCREMENT,
-    id_Receita INT UNSIGNED NOT NULL,
+    id_Historico_Receita VARCHAR(60) NOT NULL,
+    id_Receita VARCHAR(60) NOT NULL,
     dosagem_Nova VARCHAR(50) NOT NULL,
     dosagem_Antiga VARCHAR(50) NULL,
     orientacoes_Nova TEXT NOT NULL,
@@ -14,18 +14,18 @@ CREATE TABLE IF NOT EXISTS Hst_Receita(
     dt_Validade_Antiga DATE NULL,
     acao VARCHAR(10) NOT NULL,
     dt_Acao DATE NOT NULL,
-    fk_id_Medico INT UNSIGNED NOT NULL,
-    fk_id_Paciente INT UNSIGNED NOT NULL,
+    fk_id_Medico VARCHAR(60) NOT NULL,
+    fk_id_Paciente VARCHAR(60) NOT NULL,
     PRIMARY KEY(id_Historico_Receita)
 );
 
 -- TABELA RECEITA_REMEDIO
 CREATE TABLE IF NOT EXISTS Hst_Receita_Remedio(
-    id_Historico_Receita_Remedio INT UNSIGNED AUTO_INCREMENT,
+    id_Historico_Receita_Remedio VARCHAR(60) NOT NULL,
     Quantidade_Nova INT UNSIGNED NOT NULL,
     Quantidade_Antiga INT UNSIGNED NULL,
-    fk_id_Receita INT UNSIGNED NOT NULL,
-    fk_id_Remedio INT UNSIGNED NOT NULL,
+    fk_id_Receita VARCHAR(60) NOT NULL,
+    fk_id_Remedio VARCHAR(60) NOT NULL,
     acao VARCHAR(10) NOT NULL,
     dt_Acao DATE NOT NULL,
     PRIMARY KEY(id_Historico_Receita_Remedio)
@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS Hst_Receita_Remedio(
 
 -- TABELA REMEDIO
 CREATE TABLE IF NOT EXISTS Hst_Remedio(
-    id_Historico_Remedio INT UNSIGNED AUTO_INCREMENT,
-    id_Remedio INT UNSIGNED,
+    id_Historico_Remedio VARCHAR(60) NOT NULL,
+    id_Remedio VARCHAR(60) NOT NULL,
     tarja_Nova VARCHAR(20) NOT NULL,
     tarja_Antiga VARCHAR(20) NULL,
     nome_Novo VARCHAR(50) NOT NULL,
@@ -52,15 +52,15 @@ CREATE TABLE IF NOT EXISTS Hst_Remedio(
 
 -- TABELA CONSULTA
 CREATE TABLE IF NOT EXISTS Hst_Consulta(
-    id_Historico_Consulta INT UNSIGNED AUTO_INCREMENT,
-    id_Consulta INT UNSIGNED NOT NULL,
+    id_Historico_Consulta VARCHAR(60) NOT NULL,
+    id_Consulta VARCHAR(60) NOT NULL,
     dt_Consulta_Nova DATE NOT NULL,
     dt_Consulta_Antiga DATE NULL,
     descricao_Nova TEXT NOT NULL,
     descricao_Antiga TEXT NULL,
-    fk_id_Paciente INT UNSIGNED NOT NULL,
-    fk_id_Medico INT UNSIGNED NOT NULL,
-    fk_id_Receita INT UNSIGNED NOT NULL,
+    fk_id_Paciente VARCHAR(60) NOT NULL,
+    fk_id_Medico VARCHAR(60) NOT NULL,
+    fk_id_Receita VARCHAR(60) NOT NULL,
     acao VARCHAR(10) NOT NULL,
     dt_Acao DATE NOT NULL,
     PRIMARY KEY(id_Historico_Consulta)
@@ -68,8 +68,8 @@ CREATE TABLE IF NOT EXISTS Hst_Consulta(
 
 -- TABELA HOSPITAL
 CREATE TABLE IF NOT EXISTS Hst_Hospital(
-    id_historico_Hospital INT UNSIGNED AUTO_INCREMENT,
-    id_Hospital INT UNSIGNED NOT NULL,
+    id_historico_Hospital VARCHAR(60) NOT NULL,
+    id_Hospital VARCHAR(60) NOT NULL,
     cnpj_Novo VARCHAR(20) NOT NULL,
     cnpj_Antigo VARCHAR(20) NULL,
     nome_Novo VARCHAR(50) NOT NULL,
@@ -80,10 +80,10 @@ CREATE TABLE IF NOT EXISTS Hst_Hospital(
     telefone_Antigo VARCHAR(20) NULL,
     email_Novo VARCHAR(90) NOT NULL,
     email_Antigo VARCHAR(90) NULL,
-    senha_Nova VARCHAR(20) NOT NULL,
-    senha_Antiga VARCHAR(20) NULL,
+    senha_Nova VARCHAR(60) NOT NULL,
+    senha_Antiga VARCHAR(60) NULL,
     foto VARCHAR(100) NOT NULL,
-    fk_id_MedWork INT UNSIGNED NOT NULL,
+    fk_id_MedWork VARCHAR(60) NOT NULL,
     acao VARCHAR(10) NOT NULL,
     dt_Acao DATE NOT NULL,
     PRIMARY KEY(id_historico_Hospital)
@@ -91,8 +91,8 @@ CREATE TABLE IF NOT EXISTS Hst_Hospital(
 
 -- TABELA FARMACIA
 CREATE TABLE IF NOT EXISTS Hst_Farmacia(
-    id_historico_Farmacia INT UNSIGNED AUTO_INCREMENT,
-    id_Farmacia INT UNSIGNED,
+    id_historico_Farmacia VARCHAR(60) NOT NULL,
+    id_Farmacia VARCHAR(60) NOT NULL,
     nome_Novo VARCHAR(50) NOT NULL,
     nome_Antigo VARCHAR(50) NULL,
     telefone_Novo VARCHAR(20) NOT NULL,
@@ -103,12 +103,12 @@ CREATE TABLE IF NOT EXISTS Hst_Farmacia(
     detalhes_Antigo TEXT NULL,
     cnpj_Novo VARCHAR(20) NOT NULL,
     cnpj_Antigo VARCHAR(20) NULL,
-    senha_Novo VARCHAR(20) NOT NULL,
-    senha_Antigo VARCHAR(20) NULL,
+    senha_Novo VARCHAR(60) NOT NULL,
+    senha_Antigo VARCHAR(60) NULL,
     email_Novo VARCHAR(90) NOT NULL,
     email_Antigo VARCHAR(90) NULL,
     foto VARCHAR(100) NOT NULL,
-    fk_id_MedWork INT UNSIGNED NOT NULL,
+    fk_id_MedWork VARCHAR(60) NOT NULL,
     acao VARCHAR(10) NOT NULL,
     dt_Acao DATE NOT NULL,
     PRIMARY KEY(id_historico_Farmacia)
@@ -122,6 +122,7 @@ INSERT
     ON Tbl_Receita FOR EACH ROW
 INSERT
     Hst_Receita (
+		id_Historico_Receita,
         id_Receita,
         dosagem_Nova,
         dosagem_Antiga,
@@ -138,6 +139,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         NEW.id_Receita,
         NEW.dosagem,
         NULL,
@@ -205,6 +207,7 @@ INSERT
     ON Tbl_Receita_Remedio FOR EACH ROW
 INSERT
     Hst_Receita_Remedio (
+		id_Historico_Receita_Remedio,
         Quantidade_Nova,
         Quantidade_Antiga,
         fk_id_Receita,
@@ -214,6 +217,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         NEW.Quantidade,
         NULL,
         NEW.fk_id_Receita,
@@ -277,6 +281,7 @@ INSERT
     ON Tbl_Remedio FOR EACH ROW
 INSERT
     Hst_Remedio (
+		id_Historico_Remedio,
         id_Remedio,
         tarja_Nova,
         tarja_Antiga,
@@ -293,6 +298,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         NEW.id_Remedio,
         NEW.tarja,
         NULL,
@@ -389,6 +395,7 @@ INSERT
     ON Tbl_Consulta FOR EACH ROW
 INSERT
     Hst_Consulta (
+		id_Historico_Consulta,
         id_Consulta,
         dt_Consulta_Nova,
         dt_Consulta_Antiga,
@@ -402,6 +409,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         NEW.id_Consulta,
         NEW.dt_Consulta,
         NULL,
@@ -485,6 +493,7 @@ INSERT
     ON Tbl_Hospital FOR EACH ROW
 INSERT
     Hst_Hospital (
+		id_historico_Hospital,
         id_Hospital,
         cnpj_Novo,
         cnpj_Antigo,
@@ -505,6 +514,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         NEW.id_Hospital,
         NEW.cnpj,
         NULL,
@@ -623,6 +633,7 @@ INSERT
     ON Tbl_Farmacia FOR EACH ROW
 INSERT
     Hst_Farmacia (
+		id_historico_Farmacia,
         id_Farmacia,
         nome_Novo,
         nome_Antigo,
@@ -645,6 +656,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         NEW.id_Farmacia,
         NEw.nome,
         NULL,

@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------------------------------------
-
+select * from Tbl_MedWork;
 -- TABELA MEDWORK
 INSERT INTO Tbl_MedWork (id_MedWork, nome, email, senha, cnpj) 
 VALUES 
