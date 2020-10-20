@@ -10,9 +10,30 @@ const bcrypt = require('bcrypt');
 //Faz a validação e inserção no banco de dados de um novo cadastro da MedWork
 exports.postAdmMedwork = (req, res, next) => {
 
+    function UniqueSelect(value) {
+
+        mysql.getConnection((error, conn) => {
+
+            if (error) { return res.status(500).send({ error: error }) }
+
+            conn.query('SELECT * FROM tbl_MedWork WHERE email = ? OR cnpj = ?', [value, value],
+                (error, resultado, field) => {
+                    conn.release();
+                    if (error) { return res.status(500).send({ error: error }) }
+                    (resultado) ? true : false;
+                })
+        })
+
+        
+    }
+
     //Função que verifica se determinado valor está em branco ou só com espaços
-    function isNullOrWhitespace(field) {
-        return !field || !field.trim();
+    for (let key in req.body) {
+        if (!req.body[key]) {
+            return res.status(500).send({
+                error: "erro" + key + "vazio"
+            })
+        }
     }
 
     //Função que verifica se o email inserido é valido
@@ -21,15 +42,6 @@ exports.postAdmMedwork = (req, res, next) => {
             return (false)
         }
         return (true)
-    }
-
-    //Laço que verifica se todos os campos possuem valor
-    for (let key in req.body) {
-        if (isNullOrWhitespace(req.body[key])) {
-            return res.status(500).send({
-                error: "erro" + key + "vazio"
-            })
-        }
     }
 
     //Verifica se o email é valido
@@ -52,6 +64,8 @@ exports.postAdmMedwork = (req, res, next) => {
             error: "errotamanhocnpj"
         })
     }
+
+    console.log(UniqueSelect(req.body.email))
 
     mysql.getConnection((error, conn) => {
 
