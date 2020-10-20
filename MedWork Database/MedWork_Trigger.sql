@@ -162,6 +162,7 @@ UPDATE
     ON Tbl_Receita FOR EACH ROW
 INSERT
     Hst_Receita (
+		id_Historico_Receita,
         id_Receita,
         dosagem_Nova,
         dosagem_Antiga,
@@ -178,6 +179,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         NEW.id_Receita,
         NEW.dosagem,
         OLD.dosagem,
@@ -194,10 +196,44 @@ VALUES
     );
 
 -- TABELA RECEITA (DELETE TRIGGER);
-CREATE 
-    TRIGGER  Trg_Delete_Rc
- BEFORE DELETE ON Tbl_Receita FOR EACH ROW 
-    INSERT Hst_Receita (id_Receita , dosagem_Nova , dosagem_Antiga , orientacoes_Nova , orientacoes_Antiga , dt_Emissao_Nova , dt_Emissao_Antiga , dt_Validade_Nova , dt_Validade_Antiga , acao , dt_Acao , fk_id_Medico , fk_id_Paciente) VALUES (OLD.id_Receita , OLD.dosagem , NULL , OLD.orientacoes , NULL , OLD.dt_Emissao , NULL , OLD.dt_Validade , NULL , 'DELETE' , NOW() , OLD.fk_id_Medico , OLD.fk_id_Paciente);
+CREATE TRIGGER  Trg_Delete_Rc
+BEFORE
+DELETE
+	ON Tbl_Receita FOR EACH ROW 
+INSERT 
+	Hst_Receita (
+		id_Historico_Receita,
+		id_Receita , 
+		dosagem_Nova , 
+		dosagem_Antiga , 
+		orientacoes_Nova , 
+		orientacoes_Antiga , 
+		dt_Emissao_Nova , 
+		dt_Emissao_Antiga , 
+		dt_Validade_Nova , 
+		dt_Validade_Antiga , 
+		acao , 
+		dt_Acao , 
+		fk_id_Medico , 
+		fk_id_Paciente
+	) 
+VALUES 
+	(
+		MD5(NOW()),
+		OLD.id_Receita , 
+		OLD.dosagem , 
+		NULL , 
+		OLD.orientacoes , 
+		NULL , 
+		OLD.dt_Emissao , 
+		NULL , 
+		OLD.dt_Validade , 
+		NULL , 
+		'DELETE' , 
+		NOW() , 
+		OLD.fk_id_Medico , 
+		OLD.fk_id_Paciente
+	);
 
 -- -----------------------------------------------------------------------------------------------------------------------------------------------
 -- TABELA RECEITA_REMEDIO (INSERT TRIGGER);
@@ -233,6 +269,7 @@ UPDATE
     ON Tbl_Receita_Remedio FOR EACH ROW
 INSERT
     Hst_Receita_Remedio (
+		id_Historico_Receita_Remedio,
         Quantidade_Nova,
         Quantidade_Antiga,
         fk_id_Receita,
@@ -242,6 +279,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         NEW.Quantidade,
         OLD.Quantidade,
         NEW.fk_id_Receita,
@@ -256,6 +294,7 @@ UPDATE
     ON Tbl_Receita_Remedio FOR EACH ROW
 INSERT
     Hst_Receita_Remedio (
+		id_Historico_Receita_Remedio,
         Quantidade_Nova,
         Quantidade_Antiga,
         fk_id_Receita,
@@ -265,6 +304,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
 		OLD.Quantidade,
         NULL,
         OLD.fk_id_Receita,
@@ -321,6 +361,7 @@ UPDATE
     ON Tbl_Remedio FOR EACH ROW
 INSERT
     Hst_Remedio (
+		id_Historico_Remedio,
         id_Remedio,
         tarja_Nova,
         tarja_Antiga,
@@ -337,6 +378,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         OLD.id_Remedio,
         NEW.tarja,
         OLD.tarja,
@@ -356,6 +398,7 @@ VALUES
 CREATE TRIGGER Trg_Delete_R BEFORE DELETE ON Tbl_Remedio FOR EACH ROW
 INSERT
     Hst_Remedio (
+		id_Historico_Remedio,
         id_Remedio,
         tarja_Nova,
         tarja_Antiga,
@@ -372,6 +415,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         OLD.id_Remedio,
         OLD.tarja,
         NULL,
@@ -429,6 +473,7 @@ UPDATE
     ON Tbl_Consulta FOR EACH ROW
 INSERT
     Hst_Consulta (
+		id_Historico_Consulta,
         id_Consulta,
         dt_Consulta_Nova,
         dt_Consulta_Antiga,
@@ -442,6 +487,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         OLD.id_Consulta,
         NEW.dt_Consulta,
         OLD.dt_Consulta,
@@ -460,6 +506,7 @@ AFTER
     DELETE ON Tbl_Consulta FOR EACH ROW
 INSERT
     Hst_Consulta (
+		id_Historico_Consulta,
         id_Consulta,
         dt_Consulta_Nova,
         dt_Consulta_Antiga,
@@ -473,12 +520,13 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         OLD.id_Consulta,
         OLD.dt_Consulta,
         NULL,
         OLD.descricao,
         NULL,
-        OLD.fk_id_Paciente,id_Historico_Consulta,
+        OLD.fk_id_Paciente,
         OLD.fk_id_Medico,
         OLD.fk_id_Receita,
         'DELETE',
@@ -541,6 +589,7 @@ UPDATE
     ON Tbl_Hospital FOR EACH ROW
 INSERT
     Hst_Hospital (
+		id_historico_Hospital,
         id_Hospital,
         cnpj_Novo,
         cnpj_Antigo,
@@ -561,6 +610,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         OLD.id_Hospital,
         NEW.cnpj,
         OLD.cnpj,
@@ -586,6 +636,7 @@ AFTER
     DELETE ON Tbl_Hospital FOR EACH ROW
 INSERT
     Hst_Hospital (
+		id_historico_Hospital,
         id_Hospital,
         cnpj_Novo,
         cnpj_Antigo,
@@ -606,6 +657,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         OLD.id_Hospital,
         NULL,
         OLD.cnpj,
@@ -685,6 +737,7 @@ UPDATE
     ON Tbl_Farmacia FOR EACH ROW
 INSERT
     Hst_Farmacia (
+		id_historico_Farmacia,
         id_Farmacia,
         nome_Novo,
         nome_Antigo,
@@ -707,6 +760,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         OLD.id_Farmacia,
         NEW.nome,
         OLD.nome,
@@ -734,6 +788,7 @@ AFTER
     DELETE ON Tbl_Farmacia FOR EACH ROW
 INSERT
     Hst_Farmacia (
+		id_historico_Farmacia,
         id_Farmacia,
         nome_Novo,
         nome_Antigo,
@@ -756,6 +811,7 @@ INSERT
     )
 VALUES
     (
+		MD5(NOW()),
         OLD.id_Farmacia,
         OLD.nome,
         NULL,
