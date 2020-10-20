@@ -7,21 +7,24 @@ const mysql = require('../mysql').pool;
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
 
+
+//FUNÇÕES GLOBAIS
+//Função que verifica se determinado valor está em branco ou só com espaços
+function isNullOrWhitespace(field) {
+    return !field || !field.trim();
+}
+
+//Função que verifica se o email inserido é valido
+function validateEmail(email) {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+        return (false)
+    }
+    return (true)
+}
+
 //Faz a validação e inserção no banco de dados de um novo cadastro de pacientes
 exports.postPaciente = (req, res, next) => {
 
-    //Função que verifica se determinado valor está em branco ou só com espaços
-    function isNullOrWhitespace(field) {
-        return !field || !field.trim();
-    }
-
-    //Função que verifica se o email inserido é valido
-    function validateEmail(email) {
-        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
-            return (false)
-        }
-        return (true)
-    }
 
     //Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
@@ -234,11 +237,6 @@ exports.patchPaciente = (req, res, next) => {
 //Deleta os dados de um determinado paciente
 exports.deletePaciente = (req, res, next) => {
 
-    //Função que verifica se determinado valor está em branco ou só com espaços
-    function isNullOrWhitespace(field) {
-        return !field || !field.trim();
-    }
-
     if (isNullOrWhitespace(req.body.cpf)) {
         return res.status(500).send({
             error: "errocpfvazio"
@@ -273,19 +271,6 @@ exports.deletePaciente = (req, res, next) => {
 
 //Faz a autenticação de um paciente e gera um token
 exports.logarPaciente = (req, res, next) => {
-
-    //Função que verifica se determinado valor está em branco ou só com espaços
-    function isNullOrWhitespace(field) {
-        return !field || !field.trim();
-    }
-
-    //Função que verifica se o email inserido é valido
-    function validateEmail(email) {
-        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
-            return (false)
-        }
-        return (true)
-    }
 
     //Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {

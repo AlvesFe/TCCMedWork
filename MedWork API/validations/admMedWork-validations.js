@@ -10,23 +10,6 @@ const bcrypt = require('bcrypt');
 //Faz a validação e inserção no banco de dados de um novo cadastro da MedWork
 exports.postAdmMedwork = (req, res, next) => {
 
-    function UniqueSelect(value) {
-
-        mysql.getConnection((error, conn) => {
-
-            if (error) { return res.status(500).send({ error: error }) }
-
-            conn.query('SELECT * FROM tbl_MedWork WHERE email = ? OR cnpj = ?', [value, value],
-                (error, resultado, field) => {
-                    conn.release();
-                    if (error) { return res.status(500).send({ error: error }) }
-                    (resultado) ? true : false;
-                })
-        })
-
-        
-    }
-
     //Função que verifica se determinado valor está em branco ou só com espaços
     for (let key in req.body) {
         if (!req.body[key]) {
@@ -65,33 +48,46 @@ exports.postAdmMedwork = (req, res, next) => {
         })
     }
 
-    console.log(UniqueSelect(req.body.email))
-
     mysql.getConnection((error, conn) => {
-
         if (error) { return res.status(500).send({ error: error }) }
+        conn.query('SELECT * FROM tbl_MedWork WHERE email = ? OR cnpj = ?', [req.body.email, req.body.cnpj],
+            (error, resultado, field) => {
+                conn.release()
+                if (error) { return res.status(500).send({ error: error }) }
+                if (!resultado[0]) {
+                    mysql.getConnection((error, conn) => {
 
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
-
-            const id_MedWork = bcrypt.hashSync(Date.now().toString(), 10);
-
-            conn.query(
-                'INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, cnpj)VALUES(?,?,?,?,?)',
-                [id_MedWork, req.body.nome, req.body.email, hash, req.body.cnpj],
-                (error, resultado, field) => {
-                    conn.release()
-
-                    if (error) { return res.status(500).send({ error: error }) }
-
-                    res.status(201).send({
-                        mensagem: 'Usuário Cadastrado',
-                        id_Medwork: id_MedWork
+                        if (error) { return res.status(500).send({ error: error }) }
+                
+                        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+                            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
+                
+                            const id_MedWork = bcrypt.hashSync(Date.now().toString(), 10);
+                
+                            conn.query(
+                                'INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, cnpj)VALUES(?,?,?,?,?)',
+                                [id_MedWork, req.body.nome, req.body.email, hash, req.body.cnpj],
+                                (error, resultado, field) => {
+                                    conn.release()
+                
+                                    if (error) { return res.status(500).send({ error: error }) }
+                
+                                    res.status(201).send({
+                                        mensagem: 'Usuário Cadastrado',
+                                        id_Medwork: id_MedWork
+                                    })
+                                }
+                            )
+                        })
                     })
                 }
-            )
-        })
+                else{
+                    return res.status(500).send({ error: "errodadosjainseridos" })
+                }
+            })
     })
+
+    
 }
 
 exports.getAdmsMedWork = (req, res, next) => {
@@ -196,7 +192,7 @@ exports.patchAdmMedWork = (req, res, next) => {
 exports.deleteAdmMedWork = (req, res, next) => {
 
     function isNullOrWhitespace(field) {
-        return !field || !field.trim();
+        return !field
     }
 
     if (isNullOrWhitespace(req.body.cnpj)) {
@@ -206,7 +202,7 @@ exports.deleteAdmMedWork = (req, res, next) => {
     }
 
     //Verifica o tamanho do campo CNPJ
-    if (req.body.cnpj.length != 8) {
+    if (req.body.cnpj.length < 8) {
         return res.status(500).send({
             error: "errotamanhocnpj"
         })
