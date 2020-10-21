@@ -1,7 +1,7 @@
 /* 
     Este é o arquivo de CRUD (Create, Read, Update, Delete)
-    ou no caso PGPD (Post, Get, Patch, Delete) da entidade Hst_Farmacia do projeto MEDWORK,
-    Toda manipulação de dados da Hst_Farmacia feitas pelo APP ou Site do projeto 
+    ou no caso PGPD (Post, Get, Patch, Delete) da entidade Hst_Hospital do projeto MEDWORK,
+    Toda manipulação de dados da Hst_Hospital feitas pelo APP ou Site do projeto 
     passarão por aqui para efetuar alterações no banco de dados.
 */
 
@@ -9,18 +9,49 @@
 const mysql = require('../mysql').pool;
 
 //FUNÇÕES GLOBAIS
-
 function isNullOrWhitespace(field) {
     return !field || !field.trim();
 }
 
-exports.getHistoricoFarmacias = (req, res, next) => {
+exports.getHistoricoHospitais = (req, res, next) => {
+    mysql.getConnection((error, conn) => {
+
+        if (error) { return res.status(500).send({ error: error }) }
+        conn.query(
+            'SELECT * FROM Hst_Hospital',
+            (error, resultado, fields) => {
+                conn.release()
+
+                if (error) { return res.status(500).send({ error: error }) }
+
+                res.status(200).send({
+                    data: resultado
+                })
+            }
+        )
+    })
+}
+
+exports.getHistoricoHospital = (req, res, next) => {
+
+    if(isNullOrWhitespace(req.params.id_historico_Hospital)){
+        return res.status(500).send({ 
+            error: "erroidhistoricohospitalavazio" 
+        })
+    }
+
+    if(req.params.id_historico_Hospital.length !== 60){
+        return res.status(500).send({ 
+            error: "erroididhistoricohospitalinvalido" 
+        })
+    }
 
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM Hst_Farmacia',
+            'SELECT * FROM Hst_Hospital WHERE id_historico_Hospital = ?',
+            [req.params.id_historico_Hospital],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -34,37 +65,3 @@ exports.getHistoricoFarmacias = (req, res, next) => {
     })
 
 }
-
-exports.getHistoricoFarmacia = (req, res, next) => {
-
-    if(isNullOrWhitespace(req.params.id_historico_Farmacia)){
-        return res.status(500).send({ 
-            error: "erroidhistoricofarmaciavazio" 
-        })
-    }
-
-    if(req.params.id_historico_Farmacia.length !== 60){
-        return res.status(500).send({ 
-            error: "erroidhistoricofarmaciainvalido" 
-        })
-    }
-
-    mysql.getConnection((error, conn) => {
-
-        if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            'SELECT * FROM Hst_Farmacia WHERE id_historico_Farmacia = ?',
-            [req.params.id_historico_Farmacia],
-            (error, resultado, fields) => {
-                conn.release()
-
-                if (error) { return res.status(500).send({ error: error }) }
-
-                res.status(200).send({
-                    data: resultado
-                })
-            }
-        )
-    })
-
-} 
