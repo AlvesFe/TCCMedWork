@@ -24,7 +24,8 @@ router.get('/:id_Consulta', consultaController.getConsulta)
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
 router.patch('/', consultaController.patchConsulta);
+
 //DELETE - Apaga um valor existente da tabela do banco de dados
-router.delete('/', consultaController.deleteConsulta)
+router.delete('/', consultaController.deleteConsulta);
 
 module.exports = router;

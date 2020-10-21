@@ -17,135 +17,24 @@ const mysql = require('../mysql').pool;
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
 
+const farmaciaController = require('../validations/farmacia-validation');
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
-router.post('/', (req, res, next) => {
-
-    mysql.getConnection((error, conn) => {
-
-        if (error) { return res.status(500).send({ error: error }) }
-
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
-
-            conn.query(
-                'INSERT INTO tbl_Farmacia(nome, telefone, endereco, detalhes, cnpj, senha, email, fk_id_MedWork)VALUES(?,?,?,?,?,?,?,?)',
-                [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.cnpj, hash, req.body.email, req.body.fk_id_MedWork],
-                (error, resultado, field) => {
-                    conn.release()
-
-                    if (error) { return res.status(500).send({ error: error }) }
-
-                    res.status(201).send({
-                        mensagem: 'Farmacia Cadastrado',
-                        id_Farmacia: resultado.insertId
-                    })
-                }
-            )
-        })
-    })
-})
+router.post('/', farmaciaController.postFarmacia);
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
-router.get('/', (req, res, next) => {
-
-    mysql.getConnection((error, conn) => {
-
-        if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            'SELECT * FROM tbl_Farmacia',
-            (error, resultado, fields) => {
-                conn.release()
-
-                if (error) { return res.status(500).send({ error: error }) }
-
-                res.status(200).send({
-                    data: resultado
-                })
-            }
-        )
-    })
-})
+router.get('/', farmaciaController.getFarmacias);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_Farmacia', (req, res, next) => {
-
-    mysql.getConnection((error, conn) => {
-
-        if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            'SELECT * FROM tbl_Farmacia WHERE id_Farmacia = ?',
-            [req.params.id_Farmacia],
-            (error, resultado, fields) => {
-                conn.release()
-
-                if (error) { return res.status(500).send({ error: error }) }
-
-                res.status(200).send({
-                    data: resultado
-                })
-            }
-        )
-    })
-})
+router.get('/:id_Farmacia', farmaciaController.getFarmacia);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
-router.patch('/', (req, res, next) => {
-
-    mysql.getConnection((error, conn) => {
-
-        if (error) { return res.status(500).send({ error: error }) }
-
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
-
-            conn.query(
-                `UPDATE tbl_Farmacia
-                    SET
-                    nome = ?, 
-                    telefone = ?, 
-                    endereco = ?, 
-                    detalhes = ?, 
-                    ativo = ?, 
-                    senha = ?, 
-                    foto = ?
-                    WHERE id_Farmacia = ?`,
-                [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, hash, req.body.foto, req.body.id_Farmacia],
-                (error, resultado, field) => {
-                    conn.release()
-    
-                    if (error) { return res.status(500).send({ error: error }) }
-    
-                    res.status(202).send({
-                        mensagem: 'Farmacia Atualizada',
-                        response: resultado.insertId
-                    })
-                }
-            )
-
-        })
-    })
-})
+router.patch('/', farmaciaController.patchFarmacia);
 
 //DELETE - Apaga um valor existente da tabela do banco de dados
-router.delete('/', (req, res, next) => {
+router.delete('/', farmaciaController.deleteFarmacia);
 
-    mysql.getConnection((error, conn) => {
-
-        if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            `DELETE FROM tbl_Farmacia WHERE id_Farmacia = ?`,
-            [req.body.id_Farmacia],
-            (error, resultado, field) => {
-                conn.release()
-
-                if (error) { return res.status(500).send({ error: error }) }
-
-                res.status(202).send({
-                    mensagem: 'Farmacia excluída com sucesso'
-                })
-            }
-        )
-    })
-})
+//Metodo de Login
+router.post('/login', farmaciaController.logarFarmacia);
 
 module.exports = router;
