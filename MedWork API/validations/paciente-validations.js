@@ -14,6 +14,15 @@ function isNullOrWhitespace(field) {
     return !field || !field.trim();
 }
 
+// Verifica se é um Número
+function ValidationNumber(value) {
+
+    if (isNaN(value)) {
+        return true;
+    }
+    return false;
+}
+
 //Função que verifica se o email inserido é valido
 function validateEmail(email) {
     if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
@@ -36,14 +45,14 @@ exports.postPaciente = (req, res, next) => {
     }
 
     //Verifica o tamanho do campo telefone
-    if (req.body.telefone.length !== 13) {
+    if (req.body.telefone.length < 10) {
         return res.status(500).send({
             error: "errotamanhotelefone"
         })
     }
 
     //Verifica o tamanho do campo rg
-    if (req.body.rg.length !== 13) {
+    if (req.body.rg.length < 9) {
         return res.status(500).send({
             error: "errotamanhorg"
         })
@@ -57,7 +66,7 @@ exports.postPaciente = (req, res, next) => {
     }
 
     //Verifica o tamanho do campo CPF
-    if (req.body.cpf.length !== 14) {
+    if (req.body.cpf.length < 11) {
         return res.status(500).send({
             error: "errotamanhocpf"
         })
@@ -74,6 +83,30 @@ exports.postPaciente = (req, res, next) => {
     if (req.body.senha.length < 8) {
         return res.status(500).send({
             error: "errotamanhosenha"
+        })
+    }
+
+    if (ValidationNumber(req.body.telefone)) {
+        return res.status(500).send({
+            error: "errotelefoneinvalido"
+        })
+    }
+
+    if (ValidationNumber(req.body.rg)) {
+        return res.status(500).send({
+            error: "errorginvalido"
+        })
+    }
+
+    if (ValidationNumber(req.body.cpf)) {
+        return res.status(500).send({
+            error: "errocpfinvalido"
+        })
+    }
+
+    if (ValidationNumber(req.body.celular)) {
+        return res.status(500).send({
+            error: "errocelularinvalido"
         })
     }
 
@@ -144,9 +177,15 @@ exports.getPacientes = (req, res, next) => {
 exports.getPaciente = (req, res, next) => {
 
     //Verifica o tamanho do campo CPF
-    if (req.params.cpf_Paciente.length < 14) {
+    if (req.params.cpf_Paciente.length < 11) {
         return res.status(500).send({
             error: "errotamanhocpf"
+        })
+    }
+
+    if (ValidationNumber(req.params.cpf_Paciente)) {
+        return res.status(500).send({
+            error: "errocpfinvalido"
         })
     }
 
@@ -175,28 +214,39 @@ exports.patchPaciente = (req, res, next) => {
     //Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
         if (!req.body[key]) {
-            return res.status(500).send({
-                error: "erro" + key + "vazio"
-            })
+            if (key == "ativo") {
+                if (!req.body[key] === 0 || !req.body[key] === 1) {
+                    return res.status(500).send({
+                        error: "erro" + key + "vazio",
+                        errormes: req.body[key]
+                    })
+                }
+            }
+            else {
+                return res.status(500).send({
+                    error: "erro" + key + "vazio",
+                    errormes: key
+                })
+            }
         }
     }
 
     //Verifica o tamanho do campo telefone
-    if (req.body.telefone.length < 13) {
+    if (req.body.telefone.length < 10) {
         return res.status(500).send({
             error: "errotamanhotelefone"
         })
     }
 
     //Verifica o tamanho do campo CPF
-    if (req.body.cpf.length < 14) {
+    if (req.body.cpf.length < 11) {
         return res.status(500).send({
             error: "errotamanhocpf"
         })
     }
 
     //Verifica o tamanho do campo celular
-    if (req.body.celular.length < 13) {
+    if (req.body.celular.length < 10) {
         return res.status(500).send({
             error: "errotamanhocelular"
         })
@@ -206,6 +256,24 @@ exports.patchPaciente = (req, res, next) => {
     if (req.body.senha.length < 8) {
         return res.status(500).send({
             error: "errotamanhosenha"
+        })
+    }
+
+    if (ValidationNumber(req.body.celular)) {
+        return res.status(500).send({
+            error: "errocelularinvalido"
+        })
+    }
+
+    if (ValidationNumber(req.body.cpf)) {
+        return res.status(500).send({
+            error: "errocpfinvalido"
+        })
+    }
+
+    if (ValidationNumber(req.body.telefone)) {
+        return res.status(500).send({
+            error: "errotelefoneinvalido"
         })
     }
 
@@ -261,6 +329,12 @@ exports.deletePaciente = (req, res, next) => {
     if (req.body.cpf.length < 14) {
         return res.status(500).send({
             error: "errotamanhocpf"
+        })
+    }
+
+    if (ValidationNumber(req.body.cpf)) {
+        return res.status(500).send({
+            error: "errocpfinvalido"
         })
     }
 

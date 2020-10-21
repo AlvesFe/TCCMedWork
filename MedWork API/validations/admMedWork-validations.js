@@ -7,6 +7,24 @@ const mysql = require('../mysql').pool;
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
 
+//FUNÇÕES GLOBAIS
+
+//Função que verifica se o email inserido é valido
+function validateEmail(email) {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+        return (false)
+    }
+    return (true)
+}
+
+function ValidationNumber(value) {
+
+    if (isNaN(value)) {
+        return true;
+    }
+    return false;
+}
+
 //Faz a validação e inserção no banco de dados de um novo cadastro da MedWork
 exports.postAdmMedwork = (req, res, next) => {
 
@@ -17,14 +35,6 @@ exports.postAdmMedwork = (req, res, next) => {
                 error: "erro" + key + "vazio"
             })
         }
-    }
-
-    //Função que verifica se o email inserido é valido
-    function validateEmail(email) {
-        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
-            return (false)
-        }
-        return (true)
     }
 
     //Verifica se o email é valido
@@ -45,6 +55,12 @@ exports.postAdmMedwork = (req, res, next) => {
     if (req.body.cnpj.length != 8) {
         return res.status(500).send({
             error: "errotamanhocnpj"
+        })
+    }
+
+    if(ValidationNumber(req.body.cnpj)){
+        return res.status(500).send({
+            error: "errocnpjinvalido"
         })
     }
 
@@ -118,6 +134,12 @@ exports.getAdmMedWork = (req, res, next) => {
         })
     }
 
+    if(ValidationNumber(req.body.cnpj)){
+        return res.status(500).send({
+            error: "errocnpjinvalido"
+        })
+    }
+
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
@@ -142,9 +164,20 @@ exports.patchAdmMedWork = (req, res, next) => {
     //Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
         if (!req.body[key]) {
-            return res.status(500).send({
-                error: "erro" + key + "vazio"
-            })
+            if (key == "ativo") {
+                if (!req.body[key] === 0 || !req.body[key] === 1) {
+                    return res.status(500).send({
+                        error: "erro" + key + "vazio",
+                        errormes: req.body[key]
+                    })
+                }
+            }
+            else {
+                return res.status(500).send({
+                    error: "erro" + key + "vazio",
+                    errormes: key
+                })
+            }
         }
     }
 
@@ -157,6 +190,12 @@ exports.patchAdmMedWork = (req, res, next) => {
     if (req.body.cnpj.length != 8) {
         return res.status(500).send({
             error: "errotamanhocnpj"
+        })
+    }
+
+    if(ValidationNumber(req.body.cnpj)){
+        return res.status(500).send({
+            error: "errocnpjinvalido"
         })
     }
 
@@ -205,6 +244,12 @@ exports.deleteAdmMedWork = (req, res, next) => {
     if (req.body.cnpj.length < 8) {
         return res.status(500).send({
             error: "errotamanhocnpj"
+        })
+    }
+
+    if(ValidationNumber(req.body.cnpj)){
+        return res.status(500).send({
+            error: "errocnpjinvalido"
         })
     }
 

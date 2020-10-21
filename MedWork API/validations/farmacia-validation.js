@@ -7,20 +7,30 @@ const mysql = require('../mysql').pool;
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
 
+//FUNÇÕES GLOBAIS
+// Verifica se é um Número
+function ValidationNumber(value) {
+
+    if(isNaN(value)){
+        return true;
+    }
+    return false;
+}
+
+function isNullOrWhitespace(field) {
+    return !field || !field.trim();
+}
+
+//Função que verifica se o email inserido é valido
+function validateEmail(email) {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+        return (false)
+    }
+    return (true)
+}
+
 
 exports.postFarmacia = (req, res, next) => {
-
-    function isNullOrWhitespace(field) {
-        return !field || !field.trim();
-    }
-
-    //Função que verifica se o email inserido é valido
-    function validateEmail(email) {
-        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
-            return (false)
-        }
-        return (true)
-    }
 
     //Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
@@ -56,6 +66,17 @@ exports.postFarmacia = (req, res, next) => {
     if (req.body.cnpj.length != 8) {
         return res.status(500).send({
             error: "errotamanhocnpj"
+        })
+    }
+
+    if(ValidationNumber(req.body.telefone)){
+        return res.status(500).send({
+            error: "errotelefoneinvalido"
+        })
+    }
+    if(ValidationNumber(req.body.cnpj)){
+        return res.status(500).send({
+            error: "errocnpjinvalido"
         })
     }
 
@@ -124,10 +145,6 @@ exports.getFarmacias = (req, res, next) => {
 
 exports.getFarmacia = (req, res, next) => {
 
-    function isNullOrWhitespace(field) {
-        return !field || !field.trim();
-    }
-
     if (isNullOrWhitespace(req.params.id_Farmacia)) {
         return res.status(500).send({
             error: "erroidfarmaciavazio"
@@ -161,13 +178,9 @@ exports.getFarmacia = (req, res, next) => {
 
 exports.patchFarmacia = (req, res, next) => {
 
-    function isNullOrWhitespace(field) {
-        return !field || !field.trim();
-    }
-
     //Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
-        if (isNullOrWhitespace(req.body[key])) {
+        if (!req.body[key]) {
             if (key == "ativo") {
                 if (!req.body[key] === 0 || !req.body[key] === 1) {
                     return res.status(500).send({
@@ -200,6 +213,12 @@ exports.patchFarmacia = (req, res, next) => {
     if (req.body.id_Farmacia.length !== 60) {
         return res.status(500).send({
             error: "errotamanhoidFarmacia"
+        })
+    }
+
+    if(ValidationNumber(req.body.telefone)){
+        return res.status(500).send({
+            error: "errotelefoneinvalido"
         })
     }
 

@@ -4,6 +4,20 @@ const bcrypt = require('bcrypt');
 //Importação do Banco de dados MySql
 const mysql = require('../mysql').pool;
 
+//FUNÇÕES GLOBAIS
+
+function isNullOrWhitespace(field) {
+    return !field || !field.trim();
+}
+
+function ValidationNumber(value) {
+
+    if (isNaN(value)) {
+        return true;
+    }
+    return false;
+}
+
 //Faz a validação e inserção no banco de dados de um novo cadastro da Compra
 exports.postCompra = (req, res, next) => {
 
@@ -18,6 +32,18 @@ exports.postCompra = (req, res, next) => {
     if (req.body.cod_fiscal.length != 40) {
         return res.status(500).send({
             error: "errotamanhocodigofiscal"
+        })
+    }
+
+    if(ValidationNumber(req.body.quantidade)){
+        return res.status(500).send({
+            error: "erroquantidadeinvalida"
+        })
+    }
+
+    if(ValidationNumber(req.body.cod_fiscal)){
+        return res.status(500).send({
+            error: "errocodfiscalinvalida"
         })
     }
 
@@ -64,12 +90,6 @@ exports.getCompras = (req, res, next) => {
 }
 
 exports.getCompra = (req, res, next) => {
-
-    function isNullOrWhitespace(field) {
-        return !field || !field.trim();
-    }
-
-    console.log(req.params.id_Compra);
 
     if (isNullOrWhitespace(req.params.id_Compra)) {
         return res.status(500).send({
@@ -118,6 +138,12 @@ exports.patchCompra = (req, res, next) => {
         })
     }
 
+    if(ValidationNumber(req.body.quantidade)){
+        return res.status(500).send({
+            error: "erroquantidadeinvalida"
+        })
+    }
+
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
@@ -142,10 +168,6 @@ exports.patchCompra = (req, res, next) => {
 }
 
 exports.deleteCompra = (req, res, next) => {
-
-    function isNullOrWhitespace(field) {
-        return !field || !field.trim();
-    }
 
     if (isNullOrWhitespace(req.body.id_Compra)) {
         return res.status(500).send({
