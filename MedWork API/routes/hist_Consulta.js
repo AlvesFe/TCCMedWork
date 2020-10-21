@@ -20,6 +20,6 @@ const histConsultaController = require('../validations/hist_Consulta-validation'
 router.get('/', histConsultaController.GetHistoricoConsultas);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_Historico_Consulta', histConsultaController.GetHistoricoConsulta)
+router.get('/:id_Historico_Consulta', histConsultaController.GetHistoricoConsulta);
 
 module.exports = router;
