@@ -659,7 +659,6 @@ VALUES
     (
 		MD5(NOW()),
         OLD.id_Hospital,
-        NULL,
         OLD.cnpj,
         NULL,
         OLD.nome,
@@ -671,6 +670,7 @@ VALUES
         OLD.email,
         NULL,
         OLD.senha,
+        NULL,
         Old.foto,
         OLD.fk_id_MedWork,
         'DELETE',
