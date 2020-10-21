@@ -32,7 +32,7 @@ exports.postFarmacia = (req, res, next) => {
     }
 
     //Verifica se o email é valido
-    if (validateEmail(req.body.email)){ 
+    if (validateEmail(req.body.email)) {
         return res.status(500).send({
             error: "erroemailinvalido"
         })
@@ -62,31 +62,45 @@ exports.postFarmacia = (req, res, next) => {
 
 
     mysql.getConnection((error, conn) => {
-
         if (error) { return res.status(500).send({ error: error }) }
+        conn.query('SELECT * FROM tbl_Farmacia WHERE email = ? OR cnpj = ?', [req.body.email, req.body.cnpj],
+            (error, resultado, field) => {
+                conn.release()
+                if (error) { return res.status(500).send({ error: error }) }
+                if (!resultado[0]) {
+                    mysql.getConnection((error, conn) => {
 
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
+                        if (error) { return res.status(500).send({ error: error }) }
 
-            const id_Farmacia = bcrypt.hashSync(Date.now().toString(), 10);
+                        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+                            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
-            conn.query(
-                'INSERT INTO tbl_Farmacia(id_Farmacia, nome, telefone, endereco, detalhes, cnpj, senha, email, fk_id_MedWork)VALUES(?,?,?,?,?,?,?,?,?)',
-                [id_Farmacia, req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.cnpj, hash, req.body.email, req.body.fk_id_MedWork],
-                (error, resultado, field) => {
-                    conn.release()
+                            const id_Farmacia = bcrypt.hashSync(Date.now().toString(), 10);
 
-                    if (error) { return res.status(500).send({ error: error }) }
+                            conn.query(
+                                'INSERT INTO tbl_Farmacia(id_Farmacia, nome, telefone, endereco, detalhes, cnpj, senha, email, fk_id_MedWork)VALUES(?,?,?,?,?,?,?,?,?)',
+                                [id_Farmacia, req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.cnpj, hash, req.body.email, req.body.fk_id_MedWork],
+                                (error, resultado, field) => {
+                                    conn.release()
 
-                    res.status(201).send({
-                        mensagem: 'Farmacia Cadastrado',
-                        id_Farmacia: id_Farmacia
+                                    if (error) { return res.status(500).send({ error: error }) }
+
+                                    res.status(201).send({
+                                        mensagem: 'Farmacia Cadastrado',
+                                        id_Farmacia: id_Farmacia
+                                    })
+                                }
+                            )
+                        })
                     })
                 }
-            )
-        })
+                else {
+                    return res.status(500).send({ error: "errodadosjainseridos" })
+                }
+            })
     })
 }
+
 
 exports.getFarmacias = (req, res, next) => {
 
@@ -114,13 +128,13 @@ exports.getFarmacia = (req, res, next) => {
         return !field || !field.trim();
     }
 
-    if(isNullOrWhitespace(req.params.id_Farmacia)){
+    if (isNullOrWhitespace(req.params.id_Farmacia)) {
         return res.status(500).send({
             error: "erroidfarmaciavazio"
         })
     }
 
-    if(req.params.id_Farmacia.length != 60){
+    if (req.params.id_Farmacia.length != 60) {
         return res.status(500).send({
             error: "errotamanhoidfarmacia"
         })
@@ -154,15 +168,15 @@ exports.patchFarmacia = (req, res, next) => {
     //Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
         if (isNullOrWhitespace(req.body[key])) {
-            if(key == "ativo"){
-                if(!req.body[key] === 0 || !req.body[key] === 1){
+            if (key == "ativo") {
+                if (!req.body[key] === 0 || !req.body[key] === 1) {
                     return res.status(500).send({
                         error: "erro" + key + "vazio",
                         errormes: req.body[key]
                     })
                 }
             }
-            else{
+            else {
                 return res.status(500).send({
                     error: "erro" + key + "vazio",
                     errormes: key
@@ -171,19 +185,19 @@ exports.patchFarmacia = (req, res, next) => {
         }
     }
 
-    if(req.body.telefone.length !== 13){
+    if (req.body.telefone.length !== 13) {
         return res.status(500).send({
             error: "errotamanhotelefone"
         })
     }
 
-    if(req.body.senha.length < 8){
+    if (req.body.senha.length < 8) {
         return res.status(500).send({
             error: "errotamanhosenha"
         })
     }
 
-    if(req.body.id_Farmacia.length !== 60){
+    if (req.body.id_Farmacia.length !== 60) {
         return res.status(500).send({
             error: "errotamanhoidFarmacia"
         })
@@ -210,9 +224,9 @@ exports.patchFarmacia = (req, res, next) => {
                 [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, hash, req.body.foto, req.body.id_Farmacia],
                 (error, resultado, field) => {
                     conn.release()
-    
+
                     if (error) { return res.status(500).send({ error: error }) }
-    
+
                     res.status(202).send({
                         mensagem: 'Farmacia Atualizada',
                         response: resultado.insertId
@@ -236,7 +250,7 @@ exports.deleteFarmacia = (req, res, next) => {
         })
     }
 
-    if(req.body.id_Farmacia.length !== 60){
+    if (req.body.id_Farmacia.length !== 60) {
         return res.status(500).send({
             error: "errotamanhoidFarmacia"
         })

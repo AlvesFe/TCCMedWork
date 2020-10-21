@@ -50,7 +50,7 @@ exports.postPaciente = (req, res, next) => {
     }
 
     //Verifica se o email é valido
-    if (validateEmail(req.body.email)){ 
+    if (validateEmail(req.body.email)) {
         return res.status(500).send({
             error: "erroemailinvalido"
         })
@@ -80,28 +80,42 @@ exports.postPaciente = (req, res, next) => {
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
+        conn.query('SELECT * FROM tbl_Paciente WHERE email = ? OR cpf = ? OR rg = ?', [req.body.email, req.body.cpf, req.body.rg],
+            (error, resultado, field) => {
+                conn.release()
+                if (error) { return res.status(500).send({ error: error }) }
+                if (!resultado[0]) {
+                    mysql.getConnection((error, conn) => {
 
-        //Criptografa a senha inserida pelo usuario no momento de cadastro
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }   
+                        if (error) { return res.status(500).send({ error: error }) }
 
-            const id_Paciente = bcrypt.hashSync(Date.now().toString(), 10);
+                        //Criptografa a senha inserida pelo usuario no momento de cadastro
+                        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+                            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
-            conn.query(
-                'INSERT INTO tbl_Paciente (id_Paciente ,dt_nascimento, nome, telefone, tp_sanguineo, alergia, rg, email, cpf, endereco, celular, senha, fk_id_Recepcionista)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',
-                [id_Paciente,req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.rg, req.body.email, req.body.cpf, req.body.endereco, req.body.celular, hash, req.body.fk_id_Recepcionista],
-                (error, resultado, fields) => {
-                    conn.release()
+                            const id_Paciente = bcrypt.hashSync(Date.now().toString(), 10);
 
-                    if (error) { return res.status(500).send({ error: error }) }
+                            conn.query(
+                                'INSERT INTO tbl_Paciente (id_Paciente ,dt_nascimento, nome, telefone, tp_sanguineo, alergia, rg, email, cpf, endereco, celular, senha, fk_id_Recepcionista)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                                [id_Paciente, req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.rg, req.body.email, req.body.cpf, req.body.endereco, req.body.celular, hash, req.body.fk_id_Recepcionista],
+                                (error, resultado, fields) => {
+                                    conn.release()
 
-                    res.status(201).send({
-                        mensagem: 'Paciente Cadastrado',
-                        id_Paciente: id_Paciente
+                                    if (error) { return res.status(500).send({ error: error }) }
+
+                                    res.status(201).send({
+                                        mensagem: 'Paciente Cadastrado',
+                                        id_Paciente: id_Paciente
+                                    })
+                                }
+                            )
+                        })
                     })
                 }
-            )
-        })
+                else {
+                    return res.status(500).send({ error: "errodadosjainseridos" })
+                }
+            })
     })
 }
 
@@ -194,7 +208,7 @@ exports.patchPaciente = (req, res, next) => {
             error: "errotamanhosenha"
         })
     }
-    
+
 
     mysql.getConnection((error, conn) => {
 
@@ -249,7 +263,7 @@ exports.deletePaciente = (req, res, next) => {
             error: "errotamanhocpf"
         })
     }
-    
+
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
@@ -280,9 +294,9 @@ exports.logarPaciente = (req, res, next) => {
             })
         }
     }
-    
+
     //Verifica se o email é valido
-    if (validateEmail(req.body.email)){ 
+    if (validateEmail(req.body.email)) {
         return res.status(500).send({
             error: "erroemailinvalido"
         })
@@ -301,17 +315,17 @@ exports.logarPaciente = (req, res, next) => {
 
             bcrypt.compare(req.body.senha, results[0].senha, (err, result) => {
                 if (err) { return res.status(401).send({ mensagem: 'Falha na autenticação' }) }
-                if (result) { 
+                if (result) {
                     const token = jwt.sign({
                         id_Paciente: results[0].id_Paciente,
                         email: results[0].email,
                         nome: results[0].nome
-                    }, 
-                    process.env.JWT_KEY,
-                    {
-                      expiresIn: "5h"  
-                    })
-                    return res.status(200).send({ mensagem: 'Autenticado com sucesso', token: token }) 
+                    },
+                        process.env.JWT_KEY,
+                        {
+                            expiresIn: "5h"
+                        })
+                    return res.status(200).send({ mensagem: 'Autenticado com sucesso', token: token })
                 }
                 return res.status(401).send({ mensagem: 'Falha na autenticação' })
             })
