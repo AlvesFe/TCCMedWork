@@ -1,5 +1,9 @@
-//Importação do JSON Web Token
-const jwt = require('jsonwebtoken');
+/* 
+    Este é o arquivo de CRUD (Create, Read, Update, Delete)
+    ou no caso PGPD (Post, Get, Patch, Delete) da entidade Hospital do projeto MEDWORK,
+    Toda manipulação de dados do hospital feitas pelo APP ou Site do projeto 
+    passarão por aqui para efetuar alterações no banco de dados.
+*/
 
 //Importação do Banco de dados MySql
 const mysql = require('../mysql').pool;
@@ -7,9 +11,10 @@ const mysql = require('../mysql').pool;
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
 
-//FUNÇÕES GLOBAIS
+//Importação do JSON Web Token
+const jwt = require('jsonwebtoken');
 
-//Função que verifica se o email inserido é valido
+//FUNÇÕES GLOBAIS
 function validateEmail(email) {
     if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
         return (false)
@@ -29,40 +34,48 @@ function isNullOrWhitespace(field) {
     return !field
 }
 
-//Faz a validação e inserção no banco de dados de um novo cadastro da MedWork
-exports.postAdmMedwork = (req, res, next) => {
+exports.postHospital = (req, res, next) => {
 
     //Função que verifica se determinado valor está em branco ou só com espaços
     for (let key in req.body) {
-        if (!req.body[key]) {
+        if (isNullOrWhitespace(req.body[key])) {
             return res.status(500).send({
                 error: "erro" + key + "vazio"
             })
         }
     }
 
-    //Verifica se o email é valido
+    if (req.body.telefone.length < 10) {
+        return res.status(500).send({
+            error: "errotamanhotelefone"
+        })
+    }
+
+    if (ValidationNumber(req.body.telefone)) {
+        return res.status(500).send({
+            error: "errotelefoneinvalido"
+        })
+    }
+
     if (validateEmail(req.body.email)) {
         return res.status(500).send({
             error: "erroemailinvalido"
         })
     }
 
-    //Verifica o tamanho do campo senha
     if (req.body.senha.length < 8) {
         return res.status(500).send({
             error: "errotamanhosenha"
         })
     }
 
-    //Verifica o Tamanho do campo CNPJ 
-    if (req.body.cnpj.length != 8) {
+    if (req.body.cnpj.length < 8) {
         return res.status(500).send({
             error: "errotamanhocnpj"
         })
     }
 
-    if(ValidationNumber(req.body.cnpj)){
+    if (ValidationNumber(req.body.cnpj)) {
         return res.status(500).send({
             error: "errocnpjinvalido"
         })
@@ -70,7 +83,7 @@ exports.postAdmMedwork = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query('SELECT * FROM tbl_MedWork WHERE email = ? OR cnpj = ?', [req.body.email, req.body.cnpj],
+        conn.query('SELECT * FROM tbl_Hospital WHERE email = ? OR cnpj = ?', [req.body.email, req.body.cnpj],
             (error, resultado, field) => {
                 conn.release()
                 if (error) { return res.status(500).send({ error: error }) }
@@ -78,45 +91,42 @@ exports.postAdmMedwork = (req, res, next) => {
                     mysql.getConnection((error, conn) => {
 
                         if (error) { return res.status(500).send({ error: error }) }
-                
+
                         bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
                             if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
-                
-                            const id_MedWork = bcrypt.hashSync(Date.now().toString(), 10);
-                
+
+                            const id_Hospital = bcrypt.hashSync(Date.now().toString(), 10);
                             conn.query(
-                                'INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, cnpj)VALUES(?,?,?,?,?)',
-                                [id_MedWork, req.body.nome, req.body.email, hash, req.body.cnpj],
+                                'INSERT INTO tbl_Hospital (id_Hospital, cnpj, nome, endereco, telefone, email, senha, fk_id_MedWork)VALUES(?,?,?,?,?,?,?,?)',
+                                [id_Hospital, req.body.cnpj, req.body.nome, req.body.endereco, req.body.telefone, req.body.email, hash, req.body.fk_id_MedWork],
                                 (error, resultado, field) => {
                                     conn.release()
-                
+
                                     if (error) { return res.status(500).send({ error: error }) }
-                
+
                                     res.status(201).send({
-                                        mensagem: 'Usuário Cadastrado',
-                                        id_Medwork: id_MedWork
+                                        mensagem: 'Hospital Cadastrado',
+                                        id_Hospital: id_Hospital
                                     })
                                 }
                             )
                         })
                     })
                 }
-                else{
+                else {
                     return res.status(500).send({ error: "errodadosjainseridos" })
                 }
             })
     })
-
-    
 }
 
-exports.getAdmsMedWork = (req, res, next) => {
+exports.getHospitais = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_MedWork',
+            'SELECT * FROM tbl_Hospital',
             (error, resultado, fields) => {
                 conn.release()
 
@@ -130,17 +140,17 @@ exports.getAdmsMedWork = (req, res, next) => {
     })
 }
 
-exports.getAdmMedWork = (req, res, next) => {
+exports.getHospital = (req, res, next) => {
 
-    if (req.params.cnpj_admMedWork.length != 8) {
+    if (isNullOrWhitespace(req.params.id_Hospital)) {
         return res.status(500).send({
-            error: "errotamanhocnpj"
+            error: "erroidhospitalvazio"
         })
     }
 
-    if(ValidationNumber(req.body.cnpj)){
+    if (req.params.length !== 60) {
         return res.status(500).send({
-            error: "errocnpjinvalido"
+            error: "errotamanhoidhospital"
         })
     }
 
@@ -148,8 +158,8 @@ exports.getAdmMedWork = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_MedWork WHERE cnpj = ?',
-            [req.params.cnpj_admMedWork],
+            'SELECT * FROM tbl_Hospital WHERE id_Hospital = ?',
+            [req.params.id_Hospital],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -163,7 +173,7 @@ exports.getAdmMedWork = (req, res, next) => {
     })
 }
 
-exports.patchAdmMedWork = (req, res, next) => {
+exports.patchHospital = (req, res, next) => {
 
     //Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
@@ -185,46 +195,44 @@ exports.patchAdmMedWork = (req, res, next) => {
         }
     }
 
-    if (req.body.senha.length < 8) {
+    if (req.body.telefone.length < 10) {
         return res.status(500).send({
-            error: "errotamanhosenha"
+            error: "errortamanhotelefone"
         })
     }
 
-    if (req.body.cnpj.length != 8) {
+    if (ValidationNumber(req.body.telefone)) {
         return res.status(500).send({
-            error: "errotamanhocnpj"
-        })
-    }
-
-    if(ValidationNumber(req.body.cnpj)){
-        return res.status(500).send({
-            error: "errocnpjinvalido"
+            error: "errotelefoneinvalido"
         })
     }
 
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
+
         bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
             if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
+
             conn.query(
-                `UPDATE tbl_MedWork
+                `UPDATE tbl_Hospital
                     SET
-                        nome = ?,
-                        senha = ?,
-                        ativo = ?,
-                        foto = ?
-                    WHERE cnpj = ?`
-                ,
-                [req.body.nome, hash, req.body.ativo, req.body.foto, req.body.cnpj],
+                       nome = ?,
+                       endereco = ?,
+                       telefone = ?,
+                       ativo = ?,
+                       foto = ?,
+                       senha = ?
+                    WHERE id_Hospital = ?`,
+                [req.body.nome, req.body.endereco, req.body.telefone, req.body.ativo, req.body.foto, hash, req.body.id_Hospital],
                 (error, resultado, field) => {
                     conn.release()
 
                     if (error) { return res.status(500).send({ error: error }) }
 
                     res.status(202).send({
-                        mensagem: 'AdmMedWork Atualizado'
+                        mensagem: 'Hospital Atualizado',
+                        response: resultado.insertId
                     })
                 }
             )
@@ -232,76 +240,45 @@ exports.patchAdmMedWork = (req, res, next) => {
     })
 }
 
-exports.deleteAdmMedWork = (req, res, next) => {
+exports.deleteHospital = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.body.cnpj)) {
+    if (isNullOrWhitespace(req.body.id_Hospital)) {
         return res.status(500).send({
-            error: "errocnpjvazio"
+            error: "erroridhospitalvazio"
         })
     }
 
-    //Verifica o tamanho do campo CNPJ
-    if (req.body.cnpj.length < 8) {
+    if (req.body.id_Hospital.length !== 60) {
         return res.status(500).send({
-            error: "errotamanhocnpj"
-        })
-    }
-
-    if(ValidationNumber(req.body.cnpj)){
-        return res.status(500).send({
-            error: "errocnpjinvalido"
+            error: "erroridhospitalinvalido"
         })
     }
 
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
+
         conn.query(
-            `DELETE FROM tbl_MedWork WHERE cnpj = ?`,
-            [req.body.cnpj],
+            `DELETE FROM tbl_Hospital WHERE id_Hospital = ?`,
+            [req.body.id_Hospital],
             (error, resultado, field) => {
                 conn.release()
 
                 if (error) { return res.status(500).send({ error: error }) }
 
                 res.status(202).send({
-                    mensagem: 'AdmMedWork excluído com sucesso'
+                    mensagem: 'Hospital excluído com sucesso'
                 })
             }
         )
     })
 }
 
-exports.logarAdmMedwork = (req, res, next) => {
-
-    function validateEmail(email) {
-        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
-            return (false)
-        }
-        return (true)
-    }
-
-    function isNullOrWhitespace(field) {
-        return !field || !field.trim();
-    }
-
-    for (let key in req.body) {
-        if (isNullOrWhitespace(req.body[key])) {
-            return res.status(500).send({
-                error: "erro" + key + "vazio"
-            })
-        }
-    }
-
-    if (validateEmail(req.body.email)) {
-        return res.status(500).send({
-            error: "erroemailinvalido"
-        })
-    }
+exports.logarHospital = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        const query = `SELECT * FROM tbl_MedWork WHERE email = ?`;
+        const query = `SELECT * FROM tbl_Hospital WHERE email = ?`;
 
         conn.query(query, [req.body.email], (error, results, fields) => {
             conn.release();
@@ -314,7 +291,7 @@ exports.logarAdmMedwork = (req, res, next) => {
                 if (err) { return res.status(401).send({ mensagem: 'Falha na autenticação' }) }
                 if (result) {
                     const token = jwt.sign({
-                        id_Paciente: results[0].id_MedWork,
+                        id_Hospital: results[0].id_Hospital,
                         email: results[0].email,
                         nome: results[0].nome
                     },
@@ -322,7 +299,7 @@ exports.logarAdmMedwork = (req, res, next) => {
                         {
                             expiresIn: "5h"
                         })
-                    return res.status(200).send({ mensagem: 'Autenticado com sucesso', token: token })
+                    return res.status(200).send({ mensagem: 'Hospital Autenticado com sucesso', token: token })
                 }
                 return res.status(401).send({ mensagem: 'Falha na autenticação' })
             })
