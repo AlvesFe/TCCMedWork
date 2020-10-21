@@ -14,47 +14,12 @@ const router = express.Router();
 //Importação do Banco de dados MySql
 const mysql = require('../mysql').pool;
 
+const histConsultaController = require('../validations/hist_Consulta-validation')
+
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
-router.get('/', (req, res, next) => {
-
-    mysql.getConnection((error, conn) => {
-
-        if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            'SELECT * FROM Hst_Consulta',
-            (error, resultado, fields) => {
-                conn.release()
-
-                if (error) { return res.status(500).send({ error: error }) }
-
-                res.status(200).send({
-                    data: resultado
-                })
-            }
-        )
-    })
-})
+router.get('/', histConsultaController.GetHistoricoConsultas);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_Historico_Consulta', (req, res, next) => {
-
-    mysql.getConnection((error, conn) => {
-
-        if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            'SELECT * FROM Hst_Consulta WHERE id_Historico_Consulta = ?',
-            [req.params.id_Historico_Consulta],
-            (error, resultado, fields) => {
-                conn.release()
-
-                if (error) { return res.status(500).send({ error: error }) }
-
-                res.status(200).send({
-                    data: resultado
-                })
-            }
-        )
-    })
-})
+router.get('/:id_Historico_Consulta', histConsultaController.GetHistoricoConsulta)
 
 module.exports = router;

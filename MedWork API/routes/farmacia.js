@@ -11,12 +11,6 @@ const express = require('express');
 //Uso do método Router do Express para escolher a função desejada
 const router = express.Router();
 
-//Importação do Banco de dados MySql
-const mysql = require('../mysql').pool;
-
-//Importação da biblioteca Bcrypt
-const bcrypt = require('bcrypt');
-
 const farmaciaController = require('../validations/farmacia-validation');
 
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
