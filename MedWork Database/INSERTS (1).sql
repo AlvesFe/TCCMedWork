@@ -110,7 +110,7 @@ VALUES
 
 INSERT INTO tbl_Remedio_Farmacia (id_Remedio_Farmacia, estoque, fk_id_Farmacia, fk_id_Remedio)
 VALUES
-(MD5(2), 150, MD5(2), MD5(2));
+(MD5(2), 150, MD5(1), MD5(1));
 
 -- -----------------------------------------------------------------------------------------------------------
 
