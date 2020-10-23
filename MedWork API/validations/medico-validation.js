@@ -34,6 +34,16 @@ function isNullOrWhitespace(field) {
     return !field
 }
 
+function validateCPF(value) {
+
+    axios({
+        method: 'get',
+        url: `http://geradorapp.com/api/v1/cpf/validate/${value}?token=1a77a5b656040aace894962324363778`
+    })
+        .then(function (response) {
+            return response.data.status;
+        });
+}
 
 exports.postMedico = (req, res, next) => {
 

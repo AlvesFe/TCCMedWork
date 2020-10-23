@@ -110,6 +110,17 @@ exports.postPaciente = (req, res, next) => {
         })
     }
 
+    function validateCPF(value) {
+
+        axios({
+            method: 'get',
+            url: `http://geradorapp.com/api/v1/cpf/validate/${value}?token=1a77a5b656040aace894962324363778`
+        })
+            .then(function (response) {
+                return response.data.status;
+            });
+    }
+
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }

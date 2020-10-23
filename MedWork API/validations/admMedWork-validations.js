@@ -7,6 +7,9 @@ const mysql = require('../mysql').pool;
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
 
+//Importando AXIOS
+const axios = require('axios');
+
 //FUNÇÕES GLOBAIS
 
 //Função que verifica se o email inserido é valido
@@ -27,6 +30,17 @@ function ValidationNumber(value) {
 
 function isNullOrWhitespace(field) {
     return !field
+}
+
+function validateCNPJ(value) {
+
+    axios({
+        method: 'get',
+        url: `http://geradorapp.com/api/v1/cnpj/validate/${value}?token=1a77a5b656040aace894962324363778`
+    })
+        .then(function (response) {
+            console.log(response.data.status);
+        });
 }
 
 //Faz a validação e inserção no banco de dados de um novo cadastro da MedWork

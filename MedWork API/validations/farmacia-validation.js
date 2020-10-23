@@ -29,6 +29,16 @@ function validateEmail(email) {
     return (true)
 }
 
+function validateCNPJ(value) {
+
+    axios({
+        method: 'get',
+        url: `http://geradorapp.com/api/v1/cnpj/validate/${value}?token=1a77a5b656040aace894962324363778`
+    })
+        .then(function (response) {
+            console.log(response.data.status);
+        });
+}
 
 exports.postFarmacia = (req, res, next) => {
 
