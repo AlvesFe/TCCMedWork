@@ -7,6 +7,9 @@ const mysql = require('../mysql').pool;
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
 
+//Importando AXIOS
+const axios = require('axios');
+
 
 //FUNÇÕES GLOBAIS
 //Função que verifica se determinado valor está em branco ou só com espaços
@@ -29,6 +32,17 @@ function validateEmail(email) {
         return (false)
     }
     return (true)
+}
+
+function validateCPF(value) {
+
+    axios({
+        method: 'get',
+        url: `http://geradorapp.com/api/v1/cpf/validate/${value}?token=1a77a5b656040aace894962324363778`
+    })
+        .then(function (response) {
+            return response.data.status;
+        });
 }
 
 //Faz a validação e inserção no banco de dados de um novo cadastro de pacientes
@@ -108,17 +122,6 @@ exports.postPaciente = (req, res, next) => {
         return res.status(500).send({
             error: "errocelularinvalido"
         })
-    }
-
-    function validateCPF(value) {
-
-        axios({
-            method: 'get',
-            url: `http://geradorapp.com/api/v1/cpf/validate/${value}?token=1a77a5b656040aace894962324363778`
-        })
-            .then(function (response) {
-                return response.data.status;
-            });
     }
 
     mysql.getConnection((error, conn) => {

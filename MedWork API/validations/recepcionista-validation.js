@@ -14,6 +14,9 @@ const mysql = require('../mysql').pool;
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
 
+//Importando AXIOS
+const axios = require('axios');
+
 //FRUNÇÕE GLOBAIS
 
 function isNullOrWhitespace(field) {

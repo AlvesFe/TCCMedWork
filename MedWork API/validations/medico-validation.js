@@ -14,6 +14,9 @@ const bcrypt = require('bcrypt');
 //Importação do JSON Web Token
 const jwt = require('jsonwebtoken');
 
+//Importando AXIOS
+const axios = require('axios');
+
 //FUNÇÕES GLOBAIS
 function validateEmail(email) {
     if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
