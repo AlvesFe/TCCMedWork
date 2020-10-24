@@ -57,13 +57,13 @@ exports.getConsultas = (req, res, next) => {
 
 exports.getConsulta = (req, res, next) => {
 
-    if(!req.params.id_Consulta){
+    if(!req.body.id_Consulta){
         return res.status(500).send({
             error: "erroidconsultavazio"
         })
     }
 
-    if(req.params.id_Consulta.length != 60){
+    if(req.body.id_Consulta.length != 60){
         return res.status(500).send({
             error: "errotamanhoidconsulta"
         })
@@ -74,7 +74,7 @@ exports.getConsulta = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM tbl_Consulta WHERE id_Consulta = ?',
-            [req.params.id_Consulta],
+            [req.body.id_Consulta],
             (error, resultado, fields) => {
                 conn.release()
 

@@ -91,13 +91,13 @@ exports.getCompras = (req, res, next) => {
 
 exports.getCompra = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.params.id_Compra)) {
+    if (isNullOrWhitespace(req.body.id_Compra)) {
         return res.status(500).send({
             error: "erroidcompravazio"
         })
     }
 
-    if (req.params.id_Compra.length != 60) {
+    if (req.body.id_Compra.length != 60) {
         return res.status(500).send({
             error: "errotamanhoidcompra"
         })
@@ -108,7 +108,7 @@ exports.getCompra = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM tbl_Compra WHERE id_Compra = ?',
-            [req.params.id_Compra],
+            [req.body.id_Compra],
             (error, resultado, fields) => {
                 conn.release()
 

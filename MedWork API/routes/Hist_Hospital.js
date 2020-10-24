@@ -10,6 +10,6 @@ const histHospitalController = require('../validations/hist_Hospital-validation'
 router.get('/', histHospitalController.getHistoricoHospitais);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_historico_Hospital', histHospitalController.getHistoricoHospital);
+router.post('/get', histHospitalController.getHistoricoHospital);
 
 module.exports = router;

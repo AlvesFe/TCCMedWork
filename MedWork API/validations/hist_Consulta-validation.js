@@ -11,7 +11,7 @@ const mysql = require('../mysql').pool;
 //FUNÇÃO BLOBAIS
 
 function isNullOrWhitespace(field) {
-    return !field || !field.trim();
+    return !field;
 }
 
 exports.GetHistoricoConsultas = (req, res, next) => {
@@ -36,13 +36,13 @@ exports.GetHistoricoConsultas = (req, res, next) => {
 
 exports.GetHistoricoConsulta = (req, res, next) => {
 
-    if(isNullOrWhitespace(req.params.id_Historico_Consulta)){
+    if(isNullOrWhitespace(req.body.id_Historico_Consulta)){
         return res.status(500).send({ 
             error: "erroidhistoricoconsultavazio" 
         })
     }
 
-    if(req.params.id_Historico_Consulta.length !== 60){
+    if(req.body.id_Historico_Consulta.length !== 32){
         return res.status(500).send({ 
             error: "erroidhistoricoconsultainvalido" 
         })
@@ -53,7 +53,7 @@ exports.GetHistoricoConsulta = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM Hst_Consulta WHERE id_Historico_Consulta = ?',
-            [req.params.id_Historico_Consulta],
+            [req.body.id_Historico_Consulta],
             (error, resultado, fields) => {
                 conn.release()
 

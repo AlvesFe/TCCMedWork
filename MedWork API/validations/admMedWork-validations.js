@@ -32,14 +32,14 @@ function isNullOrWhitespace(field) {
     return !field
 }
 
-function validateCNPJ(value) {
-
+//VALIDA CNPJ ATRAVÉS DE UMA API
+async function validateCNPJ(value, callback) {
     axios({
         method: 'get',
         url: `http://geradorapp.com/api/v1/cnpj/validate/${value}?token=1a77a5b656040aace894962324363778`
     })
-        .then(function (response) {
-            console.log(response.data.status);
+        .then((response) => {
+            //CODIGO
         });
 }
 
@@ -76,11 +76,13 @@ exports.postAdmMedwork = (req, res, next) => {
         })
     }
 
-    if(ValidationNumber(req.body.cnpj)){
+    if (ValidationNumber(req.body.cnpj)) {
         return res.status(500).send({
             error: "errocnpjinvalido"
         })
     }
+
+
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
@@ -92,20 +94,20 @@ exports.postAdmMedwork = (req, res, next) => {
                     mysql.getConnection((error, conn) => {
 
                         if (error) { return res.status(500).send({ error: error }) }
-                
+
                         bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
                             if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
-                
+
                             const id_MedWork = bcrypt.hashSync(Date.now().toString(), 10);
-                
+
                             conn.query(
                                 'INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, cnpj)VALUES(?,?,?,?,?)',
                                 [id_MedWork, req.body.nome, req.body.email, hash, req.body.cnpj],
                                 (error, resultado, field) => {
                                     conn.release()
-                
+
                                     if (error) { return res.status(500).send({ error: error }) }
-                
+
                                     res.status(201).send({
                                         mensagem: 'Usuário Cadastrado',
                                         id_Medwork: id_MedWork
@@ -115,13 +117,13 @@ exports.postAdmMedwork = (req, res, next) => {
                         })
                     })
                 }
-                else{
+                else {
                     return res.status(500).send({ error: "errodadosjainseridos" })
                 }
             })
     })
 
-    
+
 }
 
 exports.getAdmsMedWork = (req, res, next) => {
@@ -146,13 +148,13 @@ exports.getAdmsMedWork = (req, res, next) => {
 
 exports.getAdmMedWork = (req, res, next) => {
 
-    if (req.params.cnpj_admMedWork.length != 8) {
+    if (req.body.cnpj_admMedWork.length != 8) {
         return res.status(500).send({
             error: "errotamanhocnpj"
         })
     }
 
-    if(ValidationNumber(req.body.cnpj)){
+    if (ValidationNumber(req.body.cnpj_admMedWork)) {
         return res.status(500).send({
             error: "errocnpjinvalido"
         })
@@ -163,7 +165,7 @@ exports.getAdmMedWork = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM tbl_MedWork WHERE cnpj = ?',
-            [req.params.cnpj_admMedWork],
+            [req.body.cnpj_admMedWork],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -211,7 +213,7 @@ exports.patchAdmMedWork = (req, res, next) => {
         })
     }
 
-    if(ValidationNumber(req.body.cnpj)){
+    if (ValidationNumber(req.body.cnpj)) {
         return res.status(500).send({
             error: "errocnpjinvalido"
         })
@@ -261,7 +263,7 @@ exports.deleteAdmMedWork = (req, res, next) => {
         })
     }
 
-    if(ValidationNumber(req.body.cnpj)){
+    if (ValidationNumber(req.body.cnpj)) {
         return res.status(500).send({
             error: "errocnpjinvalido"
         })

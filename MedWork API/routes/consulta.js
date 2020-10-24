@@ -20,7 +20,7 @@ router.post('/', consultaController.postConsulta);
 router.get('/', consultaController.getConsultas)
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_Consulta', consultaController.getConsulta)
+router.post('/get', consultaController.getConsulta)
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
 router.patch('/', consultaController.patchConsulta);

@@ -13,7 +13,7 @@ router.post('/', recepcionistaController.postRecepcionista);
 router.get('/', recepcionistaController.getRecepcionistas);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_Recepcionista', recepcionistaController.getRecepcionista);
+router.post('/get', recepcionistaController.getRecepcionista);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
 router.patch('/', recepcionistaController.patchRecepcionista);

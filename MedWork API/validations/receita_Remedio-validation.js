@@ -85,13 +85,13 @@ exports.getReceitasRemedios = (req, res, next) => {
 
 exports.getReceitaRemedio = (req, res, next) => {
 
-    if(isNullOrWhitespace(req.params.id_Receita_Remedio)){
+    if(isNullOrWhitespace(req.body.id_Receita_Remedio)){
         return res.status(500).send({
             error: "erroidreceitaremediovazio"
         })
     }
 
-    if(req.params.id_Receita_Remedio.length !== 60){
+    if(req.body.id_Receita_Remedio.length !== 60){
         return res.status(500).send({
             error: "erroidreceitaremedioinvalido"
         })
@@ -102,7 +102,7 @@ exports.getReceitaRemedio = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM tbl_Receita_Remedio WHERE id_Receita_Remedio = ?',
-            [req.params.id_Receita_Remedio],
+            [req.body.id_Receita_Remedio],
             (error, resultado, fields) => {
                 conn.release()
 

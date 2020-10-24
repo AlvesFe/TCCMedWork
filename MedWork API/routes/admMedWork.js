@@ -29,7 +29,7 @@ router.post('/', admMedWorkController.postAdmMedwork);
 router.get('/', admMedWorkController.getAdmsMedWork);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:cnpj_admMedWork', admMedWorkController.getAdmMedWork);
+router.post('/get', admMedWorkController.getAdmMedWork);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
 router.patch('/', admMedWorkController.patchAdmMedWork);

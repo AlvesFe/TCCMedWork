@@ -81,13 +81,13 @@ exports.getReceitas = (req, res, next) => {
 
 exports.getReceita = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.params.id_Receita)) {
+    if (isNullOrWhitespace(req.body.id_Receita)) {
         return res.status(500).send({
             error: "erroidreceitavazio"
         })
     }
 
-    if (req.params.id_Receita.length !== 60) {
+    if (req.body.id_Receita.length !== 60) {
         return res.status(500).send({
             error: "errotamanhoidreceita"
         })
@@ -98,7 +98,7 @@ exports.getReceita = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM tbl_Receita WHERE id_Receita = ?',
-            [req.params.id_Receita],
+            [req.body.id_Receita],
             (error, resultado, fields) => {
                 conn.release()
 

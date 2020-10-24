@@ -10,7 +10,7 @@ const mysql = require('../mysql').pool;
 
 //FUNÇÕES GLOBAIS
 function isNullOrWhitespace(field) {
-    return !field || !field.trim();
+    return !field;
 }
 
 exports.getReceitas = (req, res, next) => {
@@ -34,13 +34,13 @@ exports.getReceitas = (req, res, next) => {
 
 exports.getReceita = (req, res, next) => {
 
-    if(isNullOrWhitespace(req.params.id_Historico_Receita)){
+    if(isNullOrWhitespace(req.body.id_Historico_Receita)){
         return res.status(500).send({ 
             error: "erroidhistoricoreceitavazio" 
         })
     }
 
-    if(req.params.id_Historico_Receita.length !== 60){
+    if(req.body.id_Historico_Receita.length !== 32){
         return res.status(500).send({ 
             error: "erroidhistoricoreceitainvalido" 
         })
@@ -51,7 +51,7 @@ exports.getReceita = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM Hst_Receita WHERE id_Historico_Receita = ?',
-            [req.params.id_Historico_Receita],
+            [req.body.id_Historico_Receita],
             (error, resultado, fields) => {
                 conn.release()
 

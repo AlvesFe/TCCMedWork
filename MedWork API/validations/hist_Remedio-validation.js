@@ -36,13 +36,13 @@ exports.getRemedios = (req, res, next) => {
 
 exports.getRemedio = (req, res, next) => {
 
-    if(isNullOrWhitespace(req.params.id_Historico_Remedio)){
+    if(isNullOrWhitespace(req.body.id_Historico_Remedio)){
         return res.status(500).send({ 
             error: "erroidhistoricoremediovazio" 
         })
     }
 
-    if(req.params.id_Historico_Remedio.length !== 60){
+    if(req.body.id_Historico_Remedio.length !== 32){
         return res.status(500).send({ 
             error: "erroidhistoricoremedioinvalido" 
         })
@@ -53,7 +53,7 @@ exports.getRemedio = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM Hst_Remedio WHERE id_Historico_Remedio = ?',
-            [req.params.id_Historico_Remedio],
+            [req.body.id_Historico_Remedio],
             (error, resultado, fields) => {
                 conn.release()
 

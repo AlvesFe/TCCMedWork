@@ -10,6 +10,6 @@ const histReceitaRemedioController = require('../validations/hist_Receita_Remedi
 router.get('/', histReceitaRemedioController.getHistoricosReceitaRemedio);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_Historico_Receita_Remedio', histReceitaRemedioController.getHistoricoReceitaRemedio)
+router.post('/:get', histReceitaRemedioController.getHistoricoReceitaRemedio)
 
 module.exports = router;

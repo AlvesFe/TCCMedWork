@@ -37,13 +37,13 @@ exports.getHistoricoFarmacias = (req, res, next) => {
 
 exports.getHistoricoFarmacia = (req, res, next) => {
 
-    if(isNullOrWhitespace(req.params.id_historico_Farmacia)){
+    if(isNullOrWhitespace(req.body.id_historico_Farmacia)){
         return res.status(500).send({ 
             error: "erroidhistoricofarmaciavazio" 
         })
     }
 
-    if(req.params.id_historico_Farmacia.length !== 60){
+    if(req.body.id_historico_Farmacia.length !== 32){
         return res.status(500).send({ 
             error: "erroidhistoricofarmaciainvalido" 
         })
@@ -54,7 +54,7 @@ exports.getHistoricoFarmacia = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM Hst_Farmacia WHERE id_historico_Farmacia = ?',
-            [req.params.id_historico_Farmacia],
+            [req.body.id_historico_Farmacia],
             (error, resultado, fields) => {
                 conn.release()
 

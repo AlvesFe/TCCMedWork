@@ -13,7 +13,7 @@ router.post('/', medicoController.postMedico);
 router.get('/', medicoController.getMedicos);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_Medico', medicoController.getMedico);
+router.post('/get', medicoController.getMedico);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
 router.patch('/', medicoController.patchMedico);

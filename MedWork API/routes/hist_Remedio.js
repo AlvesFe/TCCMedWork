@@ -10,6 +10,6 @@ const histRemedioController = require('../validations/hist_Remedio-validation');
 router.get('/', histRemedioController.getRemedios);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_Historico_Remedio', histRemedioController.getRemedio);
+router.post('/get', histRemedioController.getRemedio);
 
 module.exports = router;

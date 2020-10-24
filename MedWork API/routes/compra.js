@@ -20,7 +20,7 @@ router.post('/', compraController.postCompra);
 router.get('/', compraController.getCompras);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_Compra', compraController.getCompra);
+router.post('/get', compraController.getCompra);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
 router.patch('/', compraController.patchCompra);

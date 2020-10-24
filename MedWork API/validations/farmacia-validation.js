@@ -62,7 +62,7 @@ exports.postFarmacia = (req, res, next) => {
     }
 
     //Verifica o tamanho do campo telefone
-    if (req.body.telefone.length !== 13) {
+    if (req.body.telefone.length < 10) {
         return res.status(500).send({
             error: "errotamanhotelefone"
         })
@@ -158,13 +158,13 @@ exports.getFarmacias = (req, res, next) => {
 
 exports.getFarmacia = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.params.id_Farmacia)) {
+    if (isNullOrWhitespace(req.body.id_Farmacia)) {
         return res.status(500).send({
             error: "erroidfarmaciavazio"
         })
     }
 
-    if (req.params.id_Farmacia.length != 60) {
+    if (req.body.id_Farmacia.length != 60) {
         return res.status(500).send({
             error: "errotamanhoidfarmacia"
         })
@@ -175,7 +175,7 @@ exports.getFarmacia = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM tbl_Farmacia WHERE id_Farmacia = ?',
-            [req.params.id_Farmacia],
+            [req.body.id_Farmacia],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -211,7 +211,7 @@ exports.patchFarmacia = (req, res, next) => {
         }
     }
 
-    if (req.body.telefone.length !== 13) {
+    if (req.body.telefone.length < 10) {
         return res.status(500).send({
             error: "errotamanhotelefone"
         })

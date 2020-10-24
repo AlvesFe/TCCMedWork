@@ -34,13 +34,13 @@ exports.getHistoricoHospitais = (req, res, next) => {
 
 exports.getHistoricoHospital = (req, res, next) => {
 
-    if(isNullOrWhitespace(req.params.id_historico_Hospital)){
+    if(isNullOrWhitespace(req.body.id_historico_Hospital)){
         return res.status(500).send({ 
             error: "erroidhistoricohospitalavazio" 
         })
     }
 
-    if(req.params.id_historico_Hospital.length !== 60){
+    if(req.body.id_historico_Hospital.length !== 32){
         return res.status(500).send({ 
             error: "erroididhistoricohospitalinvalido" 
         })
@@ -51,7 +51,7 @@ exports.getHistoricoHospital = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM Hst_Hospital WHERE id_historico_Hospital = ?',
-            [req.params.id_historico_Hospital],
+            [req.body.id_historico_Hospital],
             (error, resultado, fields) => {
                 conn.release()
 

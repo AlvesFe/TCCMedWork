@@ -191,13 +191,13 @@ exports.getPacientes = (req, res, next) => {
 exports.getPaciente = (req, res, next) => {
 
     //Verifica o tamanho do campo CPF
-    if (req.params.cpf_Paciente.length < 11) {
+    if (req.body.cpf.length < 11) {
         return res.status(500).send({
             error: "errotamanhocpf"
         })
     }
 
-    if (ValidationNumber(req.params.cpf_Paciente)) {
+    if (ValidationNumber(req.body.cpf)) {
         return res.status(500).send({
             error: "errocpfinvalido"
         })
@@ -208,7 +208,7 @@ exports.getPaciente = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM tbl_Paciente WHERE cpf = ?',
-            [req.params.cpf_Paciente],
+            [req.body.cpf],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -340,7 +340,7 @@ exports.deletePaciente = (req, res, next) => {
     }
 
     //Verifica o tamanho do campo CPF
-    if (req.body.cpf.length < 14) {
+    if (req.body.cpf.length < 11) {
         return res.status(500).send({
             error: "errotamanhocpf"
         })

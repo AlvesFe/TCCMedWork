@@ -184,13 +184,13 @@ exports.getRecepcionistas = (req, res, next) => {
 
 exports.getRecepcionista = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.params.id_Recepcionista)) {
+    if (isNullOrWhitespace(req.body.id_Recepcionista)) {
         return res.status(500).send({
             error: "erroidrecepcionistavazio"
         })
     }
 
-    if (req.params.id_Recepcionista.length !== 60) {
+    if (req.body.id_Recepcionista.length !== 60) {
         return res.status(500).send({
             error: "errotamanhoidrecepcionista"
         })
@@ -201,7 +201,7 @@ exports.getRecepcionista = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM tbl_Recepcionista WHERE id_Recepcionista = ?',
-            [req.params.id_Recepcionista],
+            [req.body.id_Recepcionista],
             (error, resultado, fields) => {
                 conn.release()
 

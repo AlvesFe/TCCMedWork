@@ -191,13 +191,13 @@ exports.getMedicos = (req, res, next) => {
 
 exports.getMedico = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.params.id_Medico)) {
+    if (isNullOrWhitespace(req.body.id_Medico)) {
         return res.status(500).send({
             error: "erroidmedicovazio"
         })
     }
 
-    if (req.params.id_Medico.length !== 60) {
+    if (req.body.id_Medico.length !== 60) {
         return res.status(500).send({
             error: "errotamanhoidmedico"
         })
@@ -208,7 +208,7 @@ exports.getMedico = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM tbl_Medico WHERE id_Medico = ?',
-            [req.params.id_Medico],
+            [req.body.id_Medico],
             (error, resultado, fields) => {
                 conn.release()
 

@@ -156,13 +156,13 @@ exports.getHospitais = (req, res, next) => {
 
 exports.getHospital = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.params.id_Hospital)) {
+    if (isNullOrWhitespace(req.body.id_Hospital)) {
         return res.status(500).send({
             error: "erroidhospitalvazio"
         })
     }
 
-    if (req.params.length !== 60) {
+    if (req.body.id_Hospital.length !== 60) {
         return res.status(500).send({
             error: "errotamanhoidhospital"
         })
@@ -173,7 +173,7 @@ exports.getHospital = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM tbl_Hospital WHERE id_Hospital = ?',
-            [req.params.id_Hospital],
+            [req.body.id_Hospital],
             (error, resultado, fields) => {
                 conn.release()
 

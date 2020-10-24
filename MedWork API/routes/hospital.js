@@ -12,7 +12,7 @@ router.post('/', hospitalController.postHospital);
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
 router.get('/', hospitalController.getHospitais);
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_Hospital', hospitalController.getHospital);
+router.post('/get', hospitalController.getHospital);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
 router.patch('/', hospitalController.patchHospital);

@@ -37,13 +37,13 @@ exports.getHistoricosReceitaRemedio = (req, res, next) => {
 
 exports.getHistoricoReceitaRemedio = (req, res, next) => {
 
-    if(isNullOrWhitespace(req.params.id_Historico_Receita_Remedio)){
+    if(isNullOrWhitespace(req.body.id_Historico_Receita_Remedio)){
         return res.status(500).send({ 
             error: "erroidhistoricohospitalavazio" 
         })
     }
 
-    if(req.params.id_Historico_Receita_Remedio.length !== 60){
+    if(req.body.id_Historico_Receita_Remedio.length !== 32){
         return res.status(500).send({ 
             error: "erroidhistoricoreceitaremedioinvalido" 
         })
@@ -54,7 +54,7 @@ exports.getHistoricoReceitaRemedio = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM Hst_Receita_Remedio WHERE id_Historico_Receita_Remedio = ?',
-            [req.params.id_Historico_Receita_Remedio],
+            [req.body.id_Historico_Receita_Remedio],
             (error, resultado, fields) => {
                 conn.release()
 

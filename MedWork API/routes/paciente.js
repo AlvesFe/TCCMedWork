@@ -21,7 +21,7 @@ router.post('/', pacienteController.postPaciente)
 router.get('/', pacienteController.getPacientes)
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:cpf_Paciente', pacienteController.getPaciente)
+router.post('/get', pacienteController.getPaciente)
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
 router.patch('/', pacienteController.patchPaciente)

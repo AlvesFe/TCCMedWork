@@ -85,13 +85,13 @@ exports.getRemediosFarmacias = (req, res, next) => {
 
 exports.getRemedioFarmacia = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.params.id_Remedio_Farmacia)) {
+    if (isNullOrWhitespace(req.body.id_Remedio_Farmacia)) {
         return res.status(500).send({
             error: "erroidremediofarmaciavazio"
         })
     }
 
-    if (req.params.id_Remedio_Farmacia.length !== 60) {
+    if (req.body.id_Remedio_Farmacia.length !== 60) {
         return res.status(500).send({
             error: "errotamanhoidremediofarmacia"
         })
@@ -102,7 +102,7 @@ exports.getRemedioFarmacia = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'SELECT * FROM tbl_Remedio_Farmacia WHERE id_Remedio_Farmacia = ?',
-            [req.params.id_Remedio_Farmacia],
+            [req.body.id_Remedio_Farmacia],
             (error, resultado, fields) => {
                 conn.release()
 

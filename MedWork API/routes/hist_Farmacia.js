@@ -10,6 +10,6 @@ const histFarmaciaController = require('../validations/hist_Farmacia-validation'
 router.get('/', histFarmaciaController.getHistoricoFarmacias);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.get('/:id_historico_Farmacia', histFarmaciaController.getHistoricoFarmacia);
+router.post('/get', histFarmaciaController.getHistoricoFarmacia);
 
 module.exports = router;
