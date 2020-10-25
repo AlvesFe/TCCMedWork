@@ -6,6 +6,7 @@
         "MYSQL_HOST": "localhost",
         "MYSQL_PORT": "3307",
         "PORT": "3001",
-        "JWT_KEY": "networkSenhores"
+        "JWT_KEY": "networkSenhores",
+        "CPF_TOKEN": "1a77a5b656040aace894962324363778"
     }
 }

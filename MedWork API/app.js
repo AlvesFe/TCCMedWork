@@ -26,7 +26,7 @@ const rotaHstHospital = require('./routes/Hist_Hospital')
 const rotaHstFarmacia = require('./routes/hist_Farmacia')
 
 //Utilizando morgan para exibir as respostas do servidor
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 
 //Utilizando o express para usar o body das requisições (JSON)
 app.use(express.urlencoded({ extended: false }));

@@ -10,7 +10,6 @@ const bcrypt = require('bcrypt');
 //Importando AXIOS
 const axios = require('axios');
 
-
 //FUNÇÕES GLOBAIS
 //Função que verifica se determinado valor está em branco ou só com espaços
 function isNullOrWhitespace(field) {
@@ -19,11 +18,7 @@ function isNullOrWhitespace(field) {
 
 // Verifica se é um Número
 function ValidationNumber(value) {
-
-    if (isNaN(value)) {
-        return true;
-    }
-    return false;
+    return isNaN(value);
 }
 
 //Função que verifica se o email inserido é valido
@@ -34,20 +29,21 @@ function validateEmail(email) {
     return (true)
 }
 
-function validateCPF(value) {
+async function validateCPF(value) {
 
-    axios({
+    const resposta = await axios({
         method: 'get',
-        url: `http://geradorapp.com/api/v1/cpf/validate/${value}?token=1a77a5b656040aace894962324363778`
+        url: `http://geradorapp.com/api/v1/cpf/validate/${value}?token=${process.env.CPF_TOKEN}`
     })
-        .then(function (response) {
-            return response.data.status;
-        });
+    .then((response) => {
+        return response.data.status;
+    });
+    
+    return resposta == 1 ?  true : false
 }
 
 //Faz a validação e inserção no banco de dados de um novo cadastro de pacientes
-exports.postPaciente = (req, res, next) => {
-
+exports.postPaciente = async (req, res, next) => {
 
     //Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
@@ -118,11 +114,18 @@ exports.postPaciente = (req, res, next) => {
         })
     }
 
+    if (!await validateCPF(req.body.cpf)) {
+        return res.status(500).send({
+            error: "errocpfinvalido"
+        })
+    }
+
     if (ValidationNumber(req.body.celular)) {
         return res.status(500).send({
             error: "errocelularinvalido"
         })
     }
+    
 
     mysql.getConnection((error, conn) => {
 
