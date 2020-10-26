@@ -23,7 +23,7 @@ export default props => (
         <a href="#/configuracoes">
             <i className="fa fa-cog fa-lg"></i>Configurações
         </a>
-        <a href="#/sair" className="sair">
+        <a href="#/sair">
             <i className="fa fa-times fa-lg"></i>Sair
         </a>
     </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default props => (
-    <div className=''>
+    <div className='col-md-12 col-lg-9 animate__animated animate__fadeIn animate__fast'>
         <div>
             Página Centro de Ajuda
         </div>
