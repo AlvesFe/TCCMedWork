@@ -33,18 +33,20 @@ function isNullOrWhitespace(field) {
 }
 
 //VALIDA CNPJ ATRAVÉS DE UMA API
-async function validateCNPJ(value, callback) {
-    axios({
+async function validateCNPJ(value) {
+    const resposta = await axios({
         method: 'get',
         url: `http://geradorapp.com/api/v1/cnpj/validate/${value}?token=1a77a5b656040aace894962324363778`
     })
-        .then((response) => {
-            //CODIGO
-        });
+    .then((response) => {
+        return response.data.status;
+    });
+
+    return resposta == 1 ?  true : false
 }
 
 //Faz a validação e inserção no banco de dados de um novo cadastro da MedWork
-exports.postAdmMedwork = (req, res, next) => {
+exports.postAdmMedwork = async (req, res, next) => {
 
     //Função que verifica se determinado valor está em branco ou só com espaços
     for (let key in req.body) {
@@ -77,6 +79,12 @@ exports.postAdmMedwork = (req, res, next) => {
     }
 
     if (ValidationNumber(req.body.cnpj)) {
+        return res.status(500).send({
+            error: "errocnpjinvalido"
+        })
+    }
+
+    if(!await validateCNPJ(req.body.cnpj)){
         return res.status(500).send({
             error: "errocnpjinvalido"
         })
@@ -126,7 +134,7 @@ exports.postAdmMedwork = (req, res, next) => {
 
 }
 
-exports.getAdmsMedWork = (req, res, next) => {
+exports.getAdmsMedWork = async (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
 

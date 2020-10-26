@@ -32,18 +32,19 @@ function validateEmail(email) {
     return (true)
 }
 
-function validateCNPJ(value) {
-
-    axios({
+async function validateCNPJ(value) {
+    const resposta = await axios({
         method: 'get',
         url: `http://geradorapp.com/api/v1/cnpj/validate/${value}?token=1a77a5b656040aace894962324363778`
     })
-        .then(function (response) {
-            console.log(response.data.status);
-        });
+    .then((response) => {
+        return response.data.status;
+    });
+
+    return resposta == 1 ?  true : false
 }
 
-exports.postFarmacia = (req, res, next) => {
+exports.postFarmacia = async (req, res, next) => {
 
     //Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
@@ -93,6 +94,11 @@ exports.postFarmacia = (req, res, next) => {
         })
     }
 
+    if(!await validateCNPJ(req.body.cnpj)){
+        return res.status(500).send({
+            error: "errocnpjinvalido"
+        })
+    }
 
 
     mysql.getConnection((error, conn) => {

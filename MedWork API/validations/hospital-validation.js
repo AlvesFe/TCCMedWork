@@ -37,7 +37,19 @@ function isNullOrWhitespace(field) {
     return !field
 }
 
-exports.postHospital = (req, res, next) => {
+async function validateCNPJ(value) {
+    const resposta = await axios({
+        method: 'get',
+        url: `http://geradorapp.com/api/v1/cnpj/validate/${value}?token=1a77a5b656040aace894962324363778`
+    })
+    .then((response) => {
+        return response.data.status;
+    });
+
+    return resposta == 1 ?  true : false
+}
+
+exports.postHospital = async (req, res, next) => {
 
     //Função que verifica se determinado valor está em branco ou só com espaços
     for (let key in req.body) {
@@ -84,15 +96,10 @@ exports.postHospital = (req, res, next) => {
         })
     }
 
-    function validateCNPJ(value) {
-
-        axios({
-            method: 'get',
-            url: `http://geradorapp.com/api/v1/cnpj/validate/${value}?token=1a77a5b656040aace894962324363778`
+    if(!await validateCNPJ(req.body.cnpj)){
+        return res.status(500).send({
+            error: "errocnpjinvalido"
         })
-            .then(function (response) {
-                console.log(response.data.status);
-            });
     }
 
     mysql.getConnection((error, conn) => {

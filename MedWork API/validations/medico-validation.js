@@ -37,18 +37,20 @@ function isNullOrWhitespace(field) {
     return !field
 }
 
-function validateCPF(value) {
+async function validateCPF(value) {
 
-    axios({
+    const resposta = await axios({
         method: 'get',
-        url: `http://geradorapp.com/api/v1/cpf/validate/${value}?token=1a77a5b656040aace894962324363778`
+        url: `http://geradorapp.com/api/v1/cpf/validate/${value}?token=${process.env.CPF_TOKEN}`
     })
-        .then(function (response) {
+        .then((response) => {
             return response.data.status;
         });
+
+    return resposta == 1 ? true : false
 }
 
-exports.postMedico = (req, res, next) => {
+exports.postMedico = async (req, res, next) => {
 
     for (let key in req.body) {
         if (isNullOrWhitespace(req.body[key])) {
@@ -107,6 +109,12 @@ exports.postMedico = (req, res, next) => {
     }
 
     if (ValidationNumber(req.body.cpf)) {
+        return res.status(500).send({
+            error: "errocpfinvalido"
+        })
+    }
+
+    if(!await validateCPF(req.body.cpf)){
         return res.status(500).send({
             error: "errocpfinvalido"
         })
