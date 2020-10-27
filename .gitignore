@@ -12,6 +12,7 @@ MedWork*Database/INSERTS.sql
 
 #WEB
 # Dependências
+MedWork*Web/frontend/node_modules
 MedWork*Web/frontend/Paciente/node_modules
 MedWork*Web/frontend/.pnp
 MedWork*Web/frontend/.pnp.js
