@@ -1,6 +1,3 @@
-#GENERIC
-.vscode/
-
 #API
 # Dependências
 MedWork*API/node_modules/
@@ -29,3 +26,18 @@ MedWork*Web/frontend/.env.production.local
 MedWork*Web/frontend/npm-debug.log*
 MedWork*Web/frontend/yarn-debug.log*
 MedWork*Web/frontend/yarn-error.log*
+
+#MOBILE
+MedWork*Mobile/node_modules
+MedWork*Mobile/.expo
+MedWork*Mobile/npm-debug.
+MedWork*Mobile/*.jks
+MedWork*Mobile/*.p8
+MedWork*Mobile/*.p12
+MedWork*Mobile/*.key
+MedWork*Mobile/*.mobileprovision
+MedWork*Mobile/*.orig.*
+MedWork*Mobile/web-build
+
+# macOS
+MedWork*Mobile/.DS_Store
