@@ -12,7 +12,7 @@ const express = require('express');
 const router = express.Router();
 
 //Importação da controller de Pacientes
-const pacienteController = require('../validations/paciente-validations');
+const pacienteController = require('../controller/paciente-validations');
 
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
 router.post('/', pacienteController.postPaciente)

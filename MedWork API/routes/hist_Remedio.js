@@ -4,7 +4,7 @@ const express = require('express');
 //Uso do método Router do Express para escolher a função desejada
 const router = express.Router();
 
-const histRemedioController = require('../validations/hist_Remedio-validation');
+const histRemedioController = require('../controller/hist_Remedio-validation');
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
 router.get('/', histRemedioController.getRemedios);

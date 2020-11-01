@@ -14,7 +14,7 @@ const router = express.Router();
 //Importação do Banco de dados MySql
 const mysql = require('../mysql').pool;
 
-const histConsultaController = require('../validations/hist_Consulta-validation')
+const histConsultaController = require('../controller/hist_Consulta-validation')
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
 router.get('/', histConsultaController.GetHistoricoConsultas);

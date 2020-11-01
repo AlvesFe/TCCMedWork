@@ -11,7 +11,7 @@ const express = require('express');
 //Uso do método Router do Express para escolher a função desejada
 const router = express.Router();
 
-const compraController = require('../validations/compra-validation');
+const compraController = require('../controller/compra-validation');
 
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
 router.post('/', compraController.postCompra);

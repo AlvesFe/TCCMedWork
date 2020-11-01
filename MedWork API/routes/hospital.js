@@ -8,7 +8,7 @@ const router = express.Router();
 const login = require('../middleware/loginMedWork');
 
 //Camada de validação do hospital
-const hospitalController = require('../validations/hospital-validation');
+const hospitalController = require('../controller/hospital-validation');
 
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
 router.post('/', login, hospitalController.postHospital);

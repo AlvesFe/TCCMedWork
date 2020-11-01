@@ -4,7 +4,7 @@ const express = require('express');
 //Uso do método Router do Express para escolher a função desejada
 const router = express.Router();
 
-const receitaController = require('../validations/receita-validation');
+const receitaController = require('../controller/receita-validation');
 
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
 router.post('/', receitaController.postReceita);

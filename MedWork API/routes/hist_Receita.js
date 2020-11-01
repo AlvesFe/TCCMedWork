@@ -6,7 +6,7 @@ const express = require('express');
 //Uso do método Router do Express para escolher a função desejada
 const router = express.Router();
 
-const histReceitaController = require('../validations/hist_Receita-validation');
+const histReceitaController = require('../controller/hist_Receita-validation');
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
 router.get('/', histReceitaController.getReceitas)
