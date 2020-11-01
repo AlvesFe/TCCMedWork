@@ -72,7 +72,7 @@ exports.postAdmMedwork = async (req, res, next) => {
     }
 
     //Verifica o Tamanho do campo CNPJ 
-    if (req.body.cnpj.length != 8) {
+    if (req.body.cnpj.length != 14) {
         return res.status(500).send({
             error: "errotamanhocnpj"
         })
@@ -156,7 +156,7 @@ exports.getAdmsMedWork = async (req, res, next) => {
 
 exports.getAdmMedWork = (req, res, next) => {
 
-    if (req.body.cnpj_admMedWork.length != 8) {
+    if (req.body.cnpj_admMedWork.length != 14) {
         return res.status(500).send({
             error: "errotamanhocnpj"
         })
@@ -338,9 +338,10 @@ exports.logarAdmMedwork = (req, res, next) => {
                 if (err) { return res.status(401).send({ mensagem: 'Falha na autenticação' }) }
                 if (result) {
                     const token = jwt.sign({
-                        id_Paciente: results[0].id_MedWork,
+                        id_Usuario: results[0].id_MedWork,
                         email: results[0].email,
-                        nome: results[0].nome
+                        nome: results[0].nome,
+                        tipo: "admMedWork",
                     },
                         process.env.JWT_KEY,
                         {
