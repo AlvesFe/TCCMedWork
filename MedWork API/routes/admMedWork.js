@@ -20,24 +20,25 @@ const express = require('express');
 const router = express.Router();
 
 //Importação da controller do AdmMedWork
-const admMedWorkController = require('../validations/admMedWork-validations'); 
+const admMedWorkController = require('../controller/admMedWork-validations'); 
+const admMedWorkModel = require('../model/admMedWork-model');
 
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
-router.post('/', admMedWorkController.postAdmMedwork);
+router.post('/', admMedWorkController.postAdmMedwork, admMedWorkModel.postAdmMedwork);
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
-router.get('/', admMedWorkController.getAdmsMedWork);
+router.get('/', admMedWorkModel.getAdmsMedWork);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.post('/get', admMedWorkController.getAdmMedWork);
+router.post('/get', admMedWorkController.getAdmMedWork, admMedWorkModel.getAdmMedWork);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
-router.patch('/', admMedWorkController.patchAdmMedWork);
+router.patch('/', admMedWorkController.patchAdmMedWork, admMedWorkModel.patchAdmMedWork);
 
 //DELETE - Apaga um valor existente da tabela do banco de dados
-router.delete('/', admMedWorkController.deleteAdmMedWork);
+router.delete('/', admMedWorkController.deleteAdmMedWork, admMedWorkModel.deleteAdmMedWork);
 
 //Metodo de Login
-router.post('/login', admMedWorkController.logarAdmMedwork);
+router.post('/login', admMedWorkController.logarAdmMedwork, admMedWorkModel.logarAdmMedwork);
 
 module.exports = router;
