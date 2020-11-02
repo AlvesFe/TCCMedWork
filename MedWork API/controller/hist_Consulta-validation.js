@@ -14,27 +14,9 @@ function isNullOrWhitespace(field) {
     return !field;
 }
 
-exports.GetHistoricoConsultas = (req, res, next) => {
 
-    mysql.getConnection((error, conn) => {
 
-        if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            'SELECT * FROM Hst_Consulta',
-            (error, resultado, fields) => {
-                conn.release()
-
-                if (error) { return res.status(500).send({ error: error }) }
-
-                res.status(200).send({
-                    data: resultado
-                })
-            }
-        )
-    })
-}
-
-exports.GetHistoricoConsulta = (req, res, next) => {
+exports.getHistoricoConsulta = (req, res, next) => {
 
     if(isNullOrWhitespace(req.body.id_Historico_Consulta)){
         return res.status(500).send({ 
@@ -47,23 +29,5 @@ exports.GetHistoricoConsulta = (req, res, next) => {
             error: "erroidhistoricoconsultainvalido" 
         })
     }
-
-    mysql.getConnection((error, conn) => {
-
-        if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            'SELECT * FROM Hst_Consulta WHERE id_Historico_Consulta = ?',
-            [req.body.id_Historico_Consulta],
-            (error, resultado, fields) => {
-                conn.release()
-
-                if (error) { return res.status(500).send({ error: error }) }
-
-                res.status(200).send({
-                    data: resultado
-                })
-            }
-        )
-    })
-
+    next();
 }

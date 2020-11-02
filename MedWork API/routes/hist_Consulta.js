@@ -11,15 +11,16 @@ const express = require('express');
 //Uso do método Router do Express para escolher a função desejada
 const router = express.Router();
 
-//Importação do Banco de dados MySql
-const mysql = require('../mysql').pool;
-
+//Chamando a controller da tabela hist_Consulta
 const histConsultaController = require('../controller/hist_Consulta-validation')
 
+//Chamando a model da tabela hist_Consulta
+const histConsultaModel = require('../model/hist_Consulta-model')
+
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
-router.get('/', histConsultaController.GetHistoricoConsultas);
+router.get('/', histConsultaModel.getHistoricoConsultas);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.post('/get', histConsultaController.GetHistoricoConsulta);
+router.post('/get', histConsultaController.getHistoricoConsulta, histConsultaModel.getHistoricoConsulta);
 
 module.exports = router;
