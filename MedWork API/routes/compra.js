@@ -11,21 +11,25 @@ const express = require('express');
 //Uso do método Router do Express para escolher a função desejada
 const router = express.Router();
 
+//Chamando a controller da tabela Compra
 const compraController = require('../controller/compra-validation');
 
+//Chamando a Model da tabela Compra
+const compraModel = require('../model/compra-model');
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
-router.post('/', compraController.postCompra);
+router.post('/', compraController.postCompra, compraModel.postCompra);
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
-router.get('/', compraController.getCompras);
+router.get('/', compraController.patchCompra , compraModel.patchCompra);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.post('/get', compraController.getCompra);
+router.post('/get', compraModel.getCompras);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
-router.patch('/', compraController.patchCompra);
+router.patch('/', compraController.patchCompra, compraModel.patchCompra);
 
 //DELETE - Apaga um valor existente da tabela do banco de dados
-router.delete('/', compraController.deleteCompra);
+router.delete('/', compraController.deleteCompra, compraModel.deleteCompra);
 
 module.exports = router;

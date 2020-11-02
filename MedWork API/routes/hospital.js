@@ -26,6 +26,6 @@ router.patch('/', login, hospitalController.patchHospital);
 router.delete('/', login, hospitalController.deleteHospital);
 
 //Metodo de Login
-router.post('/login', login, hospitalController.logarHospital);
+router.post('/login', hospitalController.logarHospital);
 
 module.exports = router;
