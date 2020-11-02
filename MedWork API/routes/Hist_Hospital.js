@@ -9,6 +9,8 @@ const histHospitalController = require('../controller/hist_Hospital-validation')
 
 //Chamando a model da tabela hist_Hospital
 const histHospitalModel = require('../model/hist_Hospital-model');
+
+
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
 router.get('/', histHospitalModel.getHistoricoHospitais);
 
