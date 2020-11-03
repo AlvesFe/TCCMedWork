@@ -11,25 +11,28 @@ const express = require('express');
 //Uso do método Router do Express para escolher a função desejada
 const router = express.Router();
 
-//Importação da controller de Pacientes
+//Chamando a controller da tabela Pacientes
 const pacienteController = require('../controller/paciente-validations');
 
+//Chamando a model da tabela Pacientes
+const pacienteModel = require('../model/paciente-model');
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
-router.post('/', pacienteController.postPaciente)
+router.post('/', pacienteController.postPaciente, pacienteModel.postPaciente)
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
-router.get('/', pacienteController.getPacientes)
+router.get('/', pacienteModel.getPacientes)
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.post('/get', pacienteController.getPaciente)
+router.post('/get', pacienteController.getPaciente, pacienteModel.getPaciente)
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
-router.patch('/', pacienteController.patchPaciente)
+router.patch('/', pacienteController.patchPaciente, pacienteModel.pacthPaciente)
 
 //DELETE - Apaga um valor existente da tabela do banco de dados
-router.delete('/', pacienteController.deletePaciente)
+router.delete('/', pacienteController.deletePaciente, pacienteModel.deletePaciente)
 
 //Metodo de Login
-router.post('/login', pacienteController.logarPaciente)
+router.post('/login', pacienteController.logarPaciente, pacienteModel.logarPaciente)
 
 module.exports = router;
