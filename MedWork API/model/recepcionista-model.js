@@ -168,7 +168,8 @@ exports.logarRecepcionista = (req, res, next) => {
                     const token = jwt.sign({
                         id_Recepcionista: results[0].id_Recepcionista,
                         email: results[0].email,
-                        nome: results[0].nome
+                        nome: results[0].nome,
+                        tipo: "recepcionista",
                     },
                         process.env.JWT_KEY,
                         {

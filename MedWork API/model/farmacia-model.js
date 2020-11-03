@@ -166,7 +166,8 @@ exports.logarFarmacia = (req, res, next) => {
                     const token = jwt.sign({
                         id_Farmacia: results[0].id_Farmacia,
                         email: results[0].email,
-                        nome: results[0].nome
+                        nome: results[0].nome,
+                        tipo: "farmacia",
                     },
                         process.env.JWT_KEY,
                         {

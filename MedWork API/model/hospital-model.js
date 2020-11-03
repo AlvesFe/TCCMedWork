@@ -167,7 +167,8 @@ exports.logarHospital = (req, res, next) => {
                     const token = jwt.sign({
                         id_Hospital: results[0].id_Hospital,
                         email: results[0].email,
-                        nome: results[0].nome
+                        nome: results[0].nome,
+                        tipo: "hospital"
                     },
                         process.env.JWT_KEY,
                         {

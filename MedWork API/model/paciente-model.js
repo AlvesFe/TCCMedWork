@@ -171,7 +171,8 @@ exports.logarPaciente = (req, res, next) => {
                     const token = jwt.sign({
                         id_Paciente: results[0].id_Paciente,
                         email: results[0].email,
-                        nome: results[0].nome
+                        nome: results[0].nome,
+                        tipo: "paciente",
                     },
                         process.env.JWT_KEY,
                         {

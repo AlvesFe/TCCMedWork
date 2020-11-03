@@ -174,7 +174,8 @@ exports.logarMedico = (req, res, next) => {
                     const token = jwt.sign({
                         id_Hospital: results[0].id_Medico,
                         crm: results[0].crm,
-                        nome: results[0].nome
+                        nome: results[0].nome,
+                        tipo: "medico",
                     },
                         process.env.JWT_KEY,
                         {
