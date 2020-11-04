@@ -75,8 +75,8 @@ exports.getRecepcionista = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Recepcionista WHERE id_Recepcionista = ?',
-            [req.body.id_Recepcionista],
+            'SELECT * FROM tbl_Recepcionista WHERE cpf = ?',
+            [req.body.cpf],
             (error, resultado, fields) => {
                 conn.release()
 

@@ -76,8 +76,8 @@ exports.getHospital = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Hospital WHERE id_Hospital = ?',
-            [req.body.id_Hospital],
+            'SELECT * FROM tbl_Hospital WHERE cnpj = ?',
+            [req.body.cnpj],
             (error, resultado, fields) => {
                 conn.release()
 

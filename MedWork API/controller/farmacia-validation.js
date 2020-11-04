@@ -104,15 +104,15 @@ exports.postFarmacia = async (req, res, next) => {
 
 exports.getFarmacia = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.body.id_Farmacia)) {
+    if (isNullOrWhitespace(req.body.cnpj)) {
         return res.status(500).send({
-            error: "erroidfarmaciavazio"
+            error: "errocnpjvazio"
         })
     }
-
-    if (req.body.id_Farmacia.length != 60) {
+    
+    if (req.body.cnpj.length != 14) {
         return res.status(500).send({
-            error: "errotamanhoidfarmacia"
+            error: "errotamanhocnpj"
         })
     }
     next();

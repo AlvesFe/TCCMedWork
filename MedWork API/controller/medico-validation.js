@@ -126,15 +126,15 @@ exports.postMedico = async (req, res, next) => {
 
 exports.getMedico = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.body.id_Medico)) {
+    if (isNullOrWhitespace(req.body.crm)) {
         return res.status(500).send({
-            error: "erroidmedicovazio"
+            error: "errocrmvazio"
         })
     }
 
-    if (req.body.id_Medico.length !== 60) {
+    if (req.body.crm.length !== 7) {
         return res.status(500).send({
-            error: "errotamanhoidmedico"
+            error: "errotamanhocrm"
         })
     }
     next();

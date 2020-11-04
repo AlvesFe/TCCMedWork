@@ -98,13 +98,13 @@ exports.postHospital = async (req, res, next) => {
 
 exports.getHospital = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.body.id_Hospital)) {
+    if (isNullOrWhitespace(req.body.cnpj)) {
         return res.status(500).send({
             error: "erroidhospitalvazio"
         })
     }
 
-    if (req.body.id_Hospital.length !== 60) {
+    if (req.body.cnpj.length !== 14) {
         return res.status(500).send({
             error: "errotamanhoidhospital"
         })

@@ -81,8 +81,8 @@ exports.getMedico = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Medico WHERE id_Medico = ?',
-            [req.body.id_Medico],
+            'SELECT * FROM tbl_Medico WHERE crm = ?',
+            [req.body.crm],
             (error, resultado, fields) => {
                 conn.release()
 

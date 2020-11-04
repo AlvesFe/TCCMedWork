@@ -75,8 +75,8 @@ exports.getFarmacia = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Farmacia WHERE id_Farmacia = ?',
-            [req.body.id_Farmacia],
+            'SELECT * FROM tbl_Farmacia WHERE cnpj = ?',
+            [req.body.cnpj],
             (error, resultado, fields) => {
                 conn.release()
 

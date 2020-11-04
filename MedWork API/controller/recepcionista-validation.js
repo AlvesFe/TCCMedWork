@@ -124,15 +124,15 @@ exports.postRecepcionista = async (req, res, next) => {
 
 exports.getRecepcionista = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.body.id_Recepcionista)) {
+    if (isNullOrWhitespace(req.body.cpf)) {
         return res.status(500).send({
-            error: "erroidrecepcionistavazio"
+            error: "errocpfvazio"
         })
     }
 
-    if (req.body.id_Recepcionista.length !== 60) {
+    if (req.body.cpf.length !== 11) {
         return res.status(500).send({
-            error: "errotamanhoidrecepcionista"
+            error: "errotamanhocpf"
         })
     }
     next();
