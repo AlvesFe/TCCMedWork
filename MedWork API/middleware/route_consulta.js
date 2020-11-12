@@ -22,7 +22,7 @@ function Obtertoken(value) {
 
 exports.postCompra = (req, res, next) => {
 
-    permission = ['paciente'];
+    permission = ['recepcionista'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
@@ -37,7 +37,6 @@ exports.postCompra = (req, res, next) => {
     else if (result === 'Usuário inválido'){
         return res.status(401).send({ mensagem: result})
     }
-
 }
 
 exports.getCompras = (req, res, next) => {
@@ -115,4 +114,3 @@ exports.deleteCompra = (req, res, next) => {
         return res.status(401).send({ mensagem: result})
     }
 }
-

@@ -13,7 +13,6 @@ function Obtertoken(value) {
     try {
         const token = value.headers.authorization.split(' ')[1];
         const decode = jwt.verify(token, process.env.JWT_KEY);
-        console.log(decode);
         return decode;
 
     } catch (error) {
