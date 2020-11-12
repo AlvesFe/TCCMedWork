@@ -27,7 +27,7 @@ exports.postCompra = (req, res, next) => {
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
-        res.status(401).send({ mensagem: 'Usuário não autenticado' });
+        res.status(401).send({ mensagem: decode });
     }
 
     result = ValidateRoute(permission, decode);
@@ -35,8 +35,8 @@ exports.postCompra = (req, res, next) => {
     if  (result === 'next'){
         next();
     }
-    else if ('Usuário inválido'){
-        return res.status(401).send({ mensagem: 'Usuário inválido'})
+    else if (result === 'Usuário inválido'){
+        return res.status(401).send({ mensagem: result})
     }
 
 }
@@ -47,7 +47,7 @@ exports.getCompras = (req, res, next) => {
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
-        res.status(401).send({ mensagem: 'Usuário não autenticado' });
+        res.status(401).send({ mensagem: decode });
     }
 
     result = ValidateRoute(permission, decode);
@@ -55,8 +55,8 @@ exports.getCompras = (req, res, next) => {
     if  (result === 'next'){
         next();
     }
-    else if ('Usuário inválido'){
-        return res.status(401).send({ mensagem: 'Usuário inválido'})
+    else if (result === 'Usuário inválido'){
+        return res.status(401).send({ mensagem: result})
     }
 }
 
@@ -66,7 +66,7 @@ exports.getCompra = (req, res, next) => {
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
-        res.status(401).send({ mensagem: 'Usuário não autenticado' });
+        res.status(401).send({ mensagem: decode });
     }
 
     result = ValidateRoute(permission, decode);
@@ -74,8 +74,8 @@ exports.getCompra = (req, res, next) => {
     if  (result === 'next'){
         next();
     }
-    else if ('Usuário inválido'){
-        return res.status(401).send({ mensagem: 'Usuário inválido'})
+    else if (result === 'Usuário inválido'){
+        return res.status(401).send({ mensagem: result})
     }
 }
 
@@ -85,7 +85,7 @@ exports.patchCompra = (req, res, next) => {
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
-        res.status(401).send({ mensagem: 'Usuário não autenticado' });
+        res.status(401).send({ mensagem: decode });
     }
 
     result = ValidateRoute(permission, decode);
@@ -93,8 +93,8 @@ exports.patchCompra = (req, res, next) => {
     if  (result === 'next'){
         next();
     }
-    else if ('Usuário inválido'){
-        return res.status(401).send({ mensagem: 'Usuário inválido'})
+    else if (result === 'Usuário inválido'){
+        return res.status(401).send({ mensagem: result})
     }
 }
 
@@ -104,7 +104,7 @@ exports.deleteCompra = (req, res, next) => {
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
-        res.status(401).send({ mensagem: 'Usuário não autenticado' });
+        res.status(401).send({ mensagem: decode });
     }
 
     result = ValidateRoute(permission, decode);
@@ -112,8 +112,8 @@ exports.deleteCompra = (req, res, next) => {
     if  (result === 'next'){
         next();
     }
-    else if ('Usuário inválido'){
-        return res.status(401).send({ mensagem: 'Usuário inválido'})
+    else if (result === 'Usuário inválido'){
+        return res.status(401).send({ mensagem: result})
     }
 }
 
