@@ -17,20 +17,23 @@ const pacienteController = require('../controller/paciente-validations');
 //Chamando a model da tabela Pacientes
 const pacienteModel = require('../model/paciente-model');
 
+//Chamando a middleware da tabela Pacientes
+const pacienteMiddleware = require('../middleware/route_paciente');
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
-router.post('/', pacienteController.postPaciente, pacienteModel.postPaciente)
+router.post('/', pacienteMiddleware.postPaciente, pacienteController.postPaciente, pacienteModel.postPaciente)
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
-router.get('/', pacienteModel.getPacientes)
+router.get('/', pacienteMiddleware.getPacientes, pacienteModel.getPacientes)
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.post('/get', pacienteController.getPaciente, pacienteModel.getPaciente)
+router.post('/get', pacienteMiddleware.getPaciente, pacienteController.getPaciente, pacienteModel.getPaciente)
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
-router.patch('/', pacienteController.patchPaciente, pacienteModel.pacthPaciente)
+router.patch('/', pacienteMiddleware.patchPaciente, pacienteController.patchPaciente, pacienteModel.pacthPaciente)
 
 //DELETE - Apaga um valor existente da tabela do banco de dados
-router.delete('/', pacienteController.deletePaciente, pacienteModel.deletePaciente)
+router.delete('/', pacienteMiddleware.deletePaciente, pacienteController.deletePaciente, pacienteModel.deletePaciente)
 
 //Metodo de Login
 router.post('/login', pacienteController.logarPaciente, pacienteModel.logarPaciente)
