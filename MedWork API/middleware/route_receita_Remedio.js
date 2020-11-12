@@ -20,8 +20,8 @@ function Obtertoken(value) {
     }
 }
 
-exports.postMedico = (req, res, next) => {
-    permission = ['hospital'];
+exports.postReceitaRemedio= (req, res, next) => {
+    permission = ['medico'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
@@ -38,8 +38,8 @@ exports.postMedico = (req, res, next) => {
     }
 }
 
-exports.getMedicos = (req, res, next) => {
-    permission = ['paciente', 'farmacia', 'hospital', 'recepcionista', 'medico'];
+exports.getReceitaRemedios = (req, res, next) => {
+    permission = ['medico', 'paciente', 'farmacia'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
@@ -56,8 +56,8 @@ exports.getMedicos = (req, res, next) => {
     }
 }
 
-exports.getMedico = (req, res, next) => {
-    permission = ['paciente', 'farmacia', 'hospital', 'recepcionista', 'medico'];
+exports.getReceitaRemedio = (req, res, next) => {
+    permission = ['medico', 'paciente', 'farmacia'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
@@ -74,8 +74,8 @@ exports.getMedico = (req, res, next) => {
     }
 }
 
-exports.patchMedico = (req, res, next) => {
-    permission = ['hospital'];
+exports.pathReceitaRemedio = (req, res, next) => {
+    permission = ['medico'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
@@ -92,8 +92,8 @@ exports.patchMedico = (req, res, next) => {
     }
 }
 
-exports.deleteMedico = (req, res, next) => {
-    permission = ['hospital'];
+exports.deleteReceitaRemedio = (req, res, next) => {
+    permission = ['medico'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
