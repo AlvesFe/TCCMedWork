@@ -20,8 +20,8 @@ function Obtertoken(value) {
     }
 }
 
-exports.postRecepcionista = (req, res, next) => {
-    permission = ['hospital'];
+exports.postRemedio = (req, res, next) => {
+    permission = ['farmacia'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
@@ -37,9 +37,8 @@ exports.postRecepcionista = (req, res, next) => {
         return res.status(401).send({ mensagem: result })
     }
 }
-
-exports.getRecepcionistas = (req, res, next) => {
-    permission = ['hospital', 'paciente', 'farmacia', 'recepcionista'];
+exports.getRemedios = (req, res, next) => {
+    permission = ['paciente', 'farmacia', 'recepcionista'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
@@ -55,9 +54,8 @@ exports.getRecepcionistas = (req, res, next) => {
         return res.status(401).send({ mensagem: result })
     }
 }
-
-exports.getRecepcionista = (req, res, next) => {
-    permission = ['hospital', 'paciente', 'farmacia', 'recepcionista'];
+exports.getRemedio = (req, res, next) => {
+    permission = ['paciente', 'farmacia', 'recepcionista'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
@@ -73,9 +71,8 @@ exports.getRecepcionista = (req, res, next) => {
         return res.status(401).send({ mensagem: result })
     }
 }
-
-exports.patchRecepcionista = (req, res, next) => {
-    permission = ['hospital'];
+exports.patchRemedio = (req, res, next) => {
+    permission = ['farmacia'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
@@ -91,9 +88,8 @@ exports.patchRecepcionista = (req, res, next) => {
         return res.status(401).send({ mensagem: result })
     }
 }
-
-exports.deleteRecepcionista = (req, res, next) => {
-    permission = ['hospital'];
+exports.deleteRemedio = (req, res, next) => {
+    permission = ['farmacia'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
