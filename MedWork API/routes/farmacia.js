@@ -17,20 +17,23 @@ const farmaciaController = require('../controller/farmacia-validation');
 //Chamando a controller da tabela farmacia
 const farmaciaModel = require('../model/farmacia-model');
 
+//Chamando a Middleware da tabela farmacia
+const farmaciaMiddleware = require('../Middleware/route_farmacia');
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
-router.post('/', farmaciaController.postFarmacia, farmaciaModel.postFarmacia);
+router.post('/', farmaciaMiddleware.postCompra, farmaciaController.postFarmacia, farmaciaModel.postFarmacia);
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
-router.get('/', farmaciaModel.getFarmacias);
+router.get('/', farmaciaMiddleware.getCompras, farmaciaModel.getFarmacias);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.post('/get', farmaciaController.getFarmacia, farmaciaModel.getFarmacia);
+router.post('/get', farmaciaMiddleware.getCompra, farmaciaController.getFarmacia, farmaciaModel.getFarmacia);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
-router.patch('/', farmaciaController.patchFarmacia, farmaciaModel.patchFarmacia);
+router.patch('/', farmaciaMiddleware.patchCompra, farmaciaController.patchFarmacia, farmaciaModel.patchFarmacia);
 
 //DELETE - Apaga um valor existente da tabela do banco de dados
-router.delete('/', farmaciaController.deleteFarmacia, farmaciaModel.deleteFarmacia);
+router.delete('/', farmaciaMiddleware.deleteCompra, farmaciaController.deleteFarmacia, farmaciaModel.deleteFarmacia);
 
 //Metodo de Login
 router.post('/login', farmaciaController.logarFarmacia, farmaciaModel.logarFarmacia);
