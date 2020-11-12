@@ -10,10 +10,13 @@ const histReceitaRemedioController = require('../controller/hist_Receita_Remedio
 //Chamando a model da tabela hist_Receita_Remedio
 const histReceitaRemedioModel = require('../model/hist_Receita_Remedio');
 
+//Chamando a Middleware Historicos
+const histConsultaMiddleware = require('../middleware/routes_historicos');
+
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
-router.get('/', histReceitaRemedioModel.getHistoricosReceitaRemedios);
+router.get('/', histConsultaMiddleware.allHistorico, histReceitaRemedioModel.getHistoricosReceitaRemedios);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.post('/:get', histReceitaRemedioController.getHistoricoReceitaRemedio, histReceitaRemedioModel.getHistoricoReceitaRemedio)
+router.post('/:get', histConsultaMiddleware.allHistorico, histReceitaRemedioController.getHistoricoReceitaRemedio, histReceitaRemedioModel.getHistoricoReceitaRemedio)
 
 module.exports = router;
