@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 //Camda de middleware que verifica se o usuario apropriado está logado
-const login = require('../middleware/loginMedWork');
+const login = require('../middleware/route_MedWork');
 
 //Chamando a controller da tabela Hospital
 const hospitalController = require('../controller/hospital-validation');
