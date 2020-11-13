@@ -1,14 +1,44 @@
+import Axios from 'axios';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import env from './variables';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>APP MEDWORK</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+  const [users,setUsers] = useState();
+
+  async function getUser(){
+    const res = await Axios.get(env.apiUrl+"/paciente").then(res => res.data);
+    setUsers(res.data);
+  }
+
+  useEffect(() => {
+    getUser();
+  },[])
+
+  if (!users){
+    return (
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+      </View>
+    );
+  }
+  else{
+    return (
+      <View style={styles.container}>
+        {users && users.map((element, key) => (
+          <TouchableOpacity key={key}>
+            <Text style={styles.text}>
+              {element.nome}: {element.email}
+            </Text>
+          </TouchableOpacity>
+        ))} 
+        <StatusBar style="auto" />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -18,4 +48,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  text: {
+    fontSize: 16,
+    color: '#000'
+  }
 });
