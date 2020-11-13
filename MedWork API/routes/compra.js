@@ -17,19 +17,21 @@ const compraController = require('../controller/compra-validation');
 //Chamando a Model da tabela Compra
 const compraModel = require('../model/compra-model');
 
+const compraMiddleware = require('../middleware/route_compra');
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
-router.post('/', compraController.postCompra, compraModel.postCompra);
+router.post('/', compraMiddleware.postCompra, compraController.postCompra, compraModel.postCompra);
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
-router.get('/', compraController.patchCompra , compraModel.patchCompra);
+router.get('/', compraMiddleware.getCompras, compraModel.getCompras);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.post('/get', compraModel.getCompras);
+router.post('/get', compraMiddleware.getCompra, compraController.getCompra ,compraModel.getCompra);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
-router.patch('/', compraController.patchCompra, compraModel.patchCompra);
+router.patch('/', compraMiddleware.patchCompra , compraController.patchCompra, compraModel.patchCompra);
 
 //DELETE - Apaga um valor existente da tabela do banco de dados
-router.delete('/', compraController.deleteCompra, compraModel.deleteCompra);
+router.delete('/', compraMiddleware.deleteCompra , compraController.deleteCompra, compraModel.deleteCompra);
 
 module.exports = router;

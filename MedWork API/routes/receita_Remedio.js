@@ -8,22 +8,25 @@ const router = express.Router();
 //Chamando a controller da tabela Receita_Remedio
 const receitaRemedioController = require('../controller/receita_Remedio-validation');
 
-//Chamando a controller da tabela Receita_Remedio
+//Chamando a model da tabela Receita_Remedio
 const receitaRemedioModel = require('../model/receita_Remedio-model');
 
+//Chamando a Middleware da tabela Receita_Remedio
+const receitaRemedioMiddleware = require('../middleware/route_receita_Remedio');
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
-router.post('/', receitaRemedioController.postReceitaRemedio, receitaRemedioModel.postReceitaRemedio);
+router.post('/', receitaRemedioMiddleware.postReceitaRemedio , receitaRemedioController.postReceitaRemedio, receitaRemedioModel.postReceitaRemedio);
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
-router.get('/', receitaRemedioModel.getReceitasRemedios);
+router.get('/', receitaRemedioMiddleware.getReceitaRemedios , receitaRemedioModel.getReceitasRemedios);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.post('/get', receitaRemedioController.getReceitaRemedio, receitaRemedioModel.getReceitasRemedio);
+router.post('/get', receitaRemedioMiddleware.getReceitaRemedio, receitaRemedioController.getReceitaRemedio, receitaRemedioModel.getReceitasRemedio);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
-router.patch('/', receitaRemedioController.patchReceitaRemedio, receitaRemedioModel.patchReceitaRemedio);
+router.patch('/', receitaRemedioMiddleware.pathReceitaRemedio, receitaRemedioController.patchReceitaRemedio, receitaRemedioModel.patchReceitaRemedio);
 
 //DELETE - Apaga um valor existente da tabela do banco de dados
-router.delete('/', receitaRemedioController.deleteReceitaRemedio, receitaRemedioModel.deleteReceitaRemedio);
+router.delete('/', receitaRemedioMiddleware.deleteReceitaRemedio, receitaRemedioController.deleteReceitaRemedio, receitaRemedioModel.deleteReceitaRemedio);
 
 module.exports = router;

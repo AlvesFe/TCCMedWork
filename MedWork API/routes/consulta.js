@@ -17,19 +17,22 @@ const consultaController = require('../controller/consulta-validation');
 //Chamando a model da tabela consulta
 const consultaModel = require('../model/consulta-model');
 
+//Chamando a middleware da tabela consulta
+const consultaMiddleware = require('../middleware/route_consulta');
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
-router.post('/', consultaController.postConsulta, consultaModel.postConsulta);
+router.post('/', consultaMiddleware.postCompra, consultaController.postConsulta, consultaModel.postConsulta);
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
-router.get('/', consultaModel.getConsultas)
+router.get('/', consultaMiddleware.getCompras, consultaModel.getConsultas)
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.post('/get', consultaController.getConsulta, consultaModel.getConsulta)
+router.post('/get', consultaMiddleware.getCompra, consultaController.getConsulta, consultaModel.getConsulta)
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
-router.patch('/', consultaController.patchConsulta, consultaModel.patchConsulta);
+router.patch('/', consultaMiddleware.patchCompra, consultaController.patchConsulta, consultaModel.patchConsulta);
 
 //DELETE - Apaga um valor existente da tabela do banco de dados
-router.delete('/', consultaController.deleteConsulta, consultaModel.deleteConsulta);
+router.delete('/', consultaMiddleware.deleteCompra, consultaController.deleteConsulta, consultaModel.deleteConsulta);
 
 module.exports = router;

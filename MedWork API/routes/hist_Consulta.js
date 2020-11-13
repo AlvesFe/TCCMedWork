@@ -17,10 +17,13 @@ const histConsultaController = require('../controller/hist_Consulta-validation')
 //Chamando a model da tabela hist_Consulta
 const histConsultaModel = require('../model/hist_Consulta-model')
 
+//Chamando a Middleware Historicos
+const histConsultaMiddleware = require('../middleware/routes_historicos');
+
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
-router.get('/', histConsultaModel.getHistoricoConsultas);
+router.get('/', histConsultaMiddleware.allHistorico, histConsultaModel.getHistoricoConsultas);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.post('/get', histConsultaController.getHistoricoConsulta, histConsultaModel.getHistoricoConsulta);
+router.post('/get', histConsultaMiddleware.allHistorico, histConsultaController.getHistoricoConsulta, histConsultaModel.getHistoricoConsulta);
 
 module.exports = router;
