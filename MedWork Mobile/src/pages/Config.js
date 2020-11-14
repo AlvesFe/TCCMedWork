@@ -5,6 +5,7 @@ import { roxo, vermelho } from '../constants/colors.json'
 import { AuthContext } from '../routes/AuthProvider';
 
 export default function Config() {
+  const { logout } = useContext(AuthContext);
   return (
     <View style={styles.container}>
         <FormButton
