@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { ToastAndroid } from 'react-native';
 import env from '../../variables';
 import Axios from 'axios';
 import Toast from 'react-native-toast-message';
@@ -63,7 +64,6 @@ export const AuthProvider = ({ children }) => {
             getUser(decode, response.data.token, setUser);
           })
           .catch(err => {
-            console.log(err);
             toastFail();
             setPassword('')
           })
@@ -72,6 +72,11 @@ export const AuthProvider = ({ children }) => {
           try {
             AsyncStorage.removeItem("userData")
             setUser(null)
+            ToastAndroid.showWithGravity(
+              "Logout realizado com sucesso!",
+              ToastAndroid.LONG,
+              ToastAndroid.BOTTOM
+            )
           } catch (e) {
             console.error(e);
           }
