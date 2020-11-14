@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { View, StyleSheet, Image, Dimensions } from 'react-native';
+import Colors from '../constants/colors.json';
 import { Title } from 'react-native-paper';
 
 import FormInput from '../components/FormInput';
@@ -7,6 +8,7 @@ import FormButton from '../components/FormButton';
 import login from '../api/login';
 
 import Logo from '../assets/logo.png'
+import { colors } from 'react-native-elements';
 
 const { width, height} = Dimensions.get('screen');
 
@@ -22,20 +24,29 @@ export default function LoginPage({ navigation, setUser }) {
             value={email}
             autoCapitalize='none'
             onChangeText={userEmail => setEmail(userEmail)}
+            theme={{colors:{primary: Colors.verde}}}
+            underlineColor= {Colors.verde}
           />
           <FormInput
             labelName='Password'
             value={password}
             secureTextEntry={true}
             onChangeText={userPassword => setPassword(userPassword)}
+            theme={{colors:{primary: Colors.verde}}}
+            underlineColor= {Colors.verde}
           />
           <FormButton
             title='Login'
             modeValue='contained'
             labelStyle={styles.loginButtonLabel}
+<<<<<<< HEAD
             onPress={() => {
               login(email, password, setPassword, setUser);
             }}
+=======
+            color= {Colors.verde}
+            onPress={() => login(email, password)}
+>>>>>>> 70fe98de8f547124052069f59e8a4b62fda3071d
           />
         </View>
     )    
