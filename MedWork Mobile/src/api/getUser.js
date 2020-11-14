@@ -6,7 +6,6 @@ const url = env.API_URL;
 const key = env.JWT_KEY;
 
 export default function getUser(userData, token, setUser) {
-    
     async function fetchUserData() {
         Axios({
             method: 'post',
@@ -21,6 +20,7 @@ export default function getUser(userData, token, setUser) {
         }).then(async response => {
             const { data } = response.data;
             await AsyncStorage.setItem("userData", JSON.stringify(data[0]))
+            await AsyncStorage.setItem("userToken", token)
             setUser(data[0])
         }).catch(err => {
             console.log(err);
