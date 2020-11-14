@@ -1,24 +1,32 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image, Dimensions } from 'react-native';
 import { Title } from 'react-native-paper';
+
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import Login from '../api/login';
+
+import Logo from '../assets/logo.png'
+
+const { width, height} = Dimensions.get('screen');
 
 export default function LoginPage({ navigation }) {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
+    useEffect(()=>{
+        console.log("Altura: ", height)
+        console.log("Largura: ", width)
+    },[])
+
     return (
         <View style={styles.container}>
-          <Title style={styles.titleText}>MEDWORK</Title>
+          <Image style={styles.image} source={Logo} />
           <FormInput
             labelName='E-mail'
             value={email}
             autoCapitalize='none'
             onChangeText={userEmail => setEmail(userEmail)}
-            underlineColor={'#99c13d'}
-            selectionColor={'#99c13d'}
           />
           <FormInput
             labelName='Password'
@@ -52,6 +60,10 @@ const styles = StyleSheet.create({
     },
     navButtonText: {
       fontSize: 16
+    },
+    image: {
+        height: height/4,
+        width: height/4
     }
-  });
-  
+
+});
