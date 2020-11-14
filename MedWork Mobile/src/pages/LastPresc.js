@@ -9,7 +9,7 @@ export default function PerfilPage({user, setUser}) {
 
   return (
     <View style={styles.container}>
-      <Text>A home do cara vai aqui</Text>
+      <Text>A ultima prescrição do cara vai aqui</Text>
     </View>
   )
 }

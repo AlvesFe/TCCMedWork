@@ -9,9 +9,7 @@ export default function PerfilPage({user, setUser}) {
 
   return (
     <View style={styles.container}>
-      <Button onPress={async() => {
-        logout();
-      }}> Sair </Button>
+      <Text>O Perfil do cara vai aqui</Text>
     </View>
   )
 }
@@ -19,6 +17,7 @@ export default function PerfilPage({user, setUser}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
