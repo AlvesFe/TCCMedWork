@@ -8,7 +8,6 @@ import FormButton from '../components/FormButton';
 import login from '../api/login';
 
 import Logo from '../assets/logo.png'
-import { colors } from 'react-native-elements';
 
 const { width, height} = Dimensions.get('screen');
 
@@ -38,15 +37,10 @@ export default function LoginPage({ navigation, setUser }) {
           <FormButton
             title='Login'
             modeValue='contained'
-            labelStyle={styles.loginButtonLabel}
-<<<<<<< HEAD
+            labelStyle={styles.loginButtonLabel} 
             onPress={() => {
               login(email, password, setPassword, setUser);
             }}
-=======
-            color= {Colors.verde}
-            onPress={() => login(email, password)}
->>>>>>> 70fe98de8f547124052069f59e8a4b62fda3071d
           />
         </View>
     )    
