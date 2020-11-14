@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   buttonContainer: {
-    width: width / 2,
+    width: width / 1.5,
     height: height / 15
   }
 });

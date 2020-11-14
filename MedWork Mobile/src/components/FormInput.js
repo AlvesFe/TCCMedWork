@@ -18,9 +18,9 @@ export default function FormInput({ labelName, ...rest }) {
 
 const styles = StyleSheet.create({
   input: {
-    marginTop: 10,
+    marginTop: 15,
     marginBottom: 10,
-    width: width / 1.5,
+    width: width / 1.25,
     height: height / 15,
   }
 });

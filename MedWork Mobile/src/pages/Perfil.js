@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { AuthContext } from '../routes/AuthProvider';
 
-export default function HomePage({user, setUser}) {
+export default function PerfilPage({user, setUser}) {
 
   const { logout } = useContext(AuthContext);
 
