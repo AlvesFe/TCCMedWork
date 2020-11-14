@@ -18,7 +18,7 @@ const farmaciaController = require('../controller/farmacia-validation');
 const farmaciaModel = require('../model/farmacia-model');
 
 //Chamando a Middleware da tabela farmacia
-const farmaciaMiddleware = require('../Middleware/route_farmacia');
+const farmaciaMiddleware = require('../middleware/route_farmacia');
 
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
 router.post('/', farmaciaMiddleware.postCompra, farmaciaController.postFarmacia, farmaciaModel.postFarmacia);
