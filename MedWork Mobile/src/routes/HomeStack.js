@@ -8,7 +8,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
-import HomePage from '../pages/Home';
+import Inicio from '../routes/InicioStack';
 import ProfilePage from '../pages/Perfil';
 import LastPrescPage from '../pages/LastPresc';
 import PrescPage from '../pages/Prescs';
@@ -27,7 +27,7 @@ export default function HomeStack() {
         >
             <Tab.Screen 
                 name="Inicio" 
-                component={HomePage}  
+                component={Inicio}  
                 options={{
                     tabBarLabel: 'Inicio',
                     tabBarIcon: ({ color }) => (

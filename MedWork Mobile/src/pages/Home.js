@@ -1,10 +1,8 @@
 import React, {useContext} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
 import { AuthContext } from '../routes/AuthProvider';
 
-export default function PerfilPage({user, setUser}) {
-
+export default function HomePage() {
   const { logout } = useContext(AuthContext);
 
   return (
