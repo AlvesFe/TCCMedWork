@@ -4,7 +4,7 @@ import FormButton from '../components/FormButton';
 import { roxo, vermelho } from '../constants/colors.json'
 import { AuthContext } from '../routes/AuthProvider';
 
-export default function Config() {
+export default function Config({ navigation }) {
   const { logout } = useContext(AuthContext);
   return (
     <View style={styles.container}>
@@ -23,7 +23,7 @@ export default function Config() {
             labelStyle={styles.helpCenter} 
             color={roxo}
             onPress={() => {
-              logout();
+              navigation.navigate('Centro de Ajuda')
             }}
         />
         <FormButton
