@@ -172,6 +172,7 @@ exports.logarPaciente = (req, res, next) => {
                         id_Paciente: results[0].id_Paciente,
                         email: results[0].email,
                         nome: results[0].nome,
+                        cpf: results[0].cpf,
                         tipo: "paciente",
                     },
                         process.env.JWT_KEY,
