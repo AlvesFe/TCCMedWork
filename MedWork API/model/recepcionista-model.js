@@ -12,7 +12,7 @@ exports.postRecepcionista = (req, res, next) => {
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query('SELECT * FROM Tbl_Recepcionista WHERE cpf = ? OR rg = ? OR email = ?', [req.body.cpf, req.body.rg, req.body.email],
+        conn.query('SELECT * FROM tbl_Recepcionista WHERE cpf = ? OR rg = ? OR email = ?', [req.body.cpf, req.body.rg, req.body.email],
             (error, resultado, field) => {
                 conn.release()
                 if (error) { return res.status(500).send({ error: error }) }

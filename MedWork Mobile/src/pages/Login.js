@@ -4,20 +4,15 @@ import { Title } from 'react-native-paper';
 
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
-import Login from '../api/login';
+import login from '../api/login';
 
 import Logo from '../assets/logo.png'
 
 const { width, height} = Dimensions.get('screen');
 
-export default function LoginPage({ navigation }) {
+export default function LoginPage({ navigation, setUser }) {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
-
-    useEffect(()=>{
-        console.log("Altura: ", height)
-        console.log("Largura: ", width)
-    },[])
 
     return (
         <View style={styles.container}>
@@ -38,7 +33,9 @@ export default function LoginPage({ navigation }) {
             title='Login'
             modeValue='contained'
             labelStyle={styles.loginButtonLabel}
-            onPress={() => login(email, password)}
+            onPress={() => {
+              login(email, password, setPassword, setUser);
+            }}
           />
         </View>
     )    
@@ -65,5 +62,4 @@ const styles = StyleSheet.create({
         height: height/4,
         width: height/4
     }
-
 });
