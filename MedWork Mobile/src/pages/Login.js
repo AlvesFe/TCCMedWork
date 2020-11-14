@@ -12,45 +12,51 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width, height} = Dimensions.get('screen');
 
-export default function LoginPage() {
+export default function LoginPage({ navigation }) {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
     const { login } = useContext(AuthContext);
 
     return (
-        <View style={styles.container}>
-          <Image style={styles.image} source={Logo} />
-          <Text style={styles.phraseOne}>Seja bem-vindo, paciente!</Text>
-          <Text style={styles.phraseTwo}>FAÇA LOGIN PARA ACESSAR SUAS INFORMAÇÕES</Text>
-          <FormInput
-            labelName='E-mail'
-            value={email}
-            autoCapitalize='none'
-            onChangeText={userEmail => setEmail(userEmail)}
-            theme={{colors:{primary: verde}}}
-            underlineColor={verde}
-          />
-          <FormInput
-            labelName='Password'
-            value={password}
-            secureTextEntry={true}
-            onChangeText={userPassword => setPassword(userPassword)}
-            theme={{colors:{primary: verde}}}
-            underlineColor={verde}
-          />
-          <FormButton
-            title='Login'
-            modeValue='contained'
-            labelStyle={styles.loginButtonLabel} 
-            color={roxo}
-            onPress={() => {
-              login(email, password, setPassword);
-            }}
-          />
-          <TouchableOpacity><Text style={styles.resetPasswordText}>NÃO CONSIGO FAZER LOGIN</Text></TouchableOpacity>
-          <Text style={styles.copyrightText}>© 2020 MedWork</Text>
-        </View>
+      <View style={styles.container}>
+        <Image style={styles.image} source={Logo} />
+        <Text style={styles.phraseOne}>Seja bem-vindo, paciente!</Text>
+        <Text style={styles.phraseTwo}>FAÇA LOGIN PARA ACESSAR SUAS INFORMAÇÕES</Text>
+        <FormInput
+          labelName='E-mail'
+          value={email}
+          autoCapitalize='none'
+          onChangeText={userEmail => setEmail(userEmail)}
+          theme={{colors:{primary: verde}}}
+          underlineColor={verde}
+        />
+        <FormInput
+          labelName='Password'
+          value={password}
+          secureTextEntry={true}
+          onChangeText={userPassword => setPassword(userPassword)}
+          theme={{colors:{primary: verde}}}
+          underlineColor={verde}
+        />
+        <FormButton
+          title='Login'
+          modeValue='contained'
+          labelStyle={styles.loginButtonLabel} 
+          color={roxo}
+          onPress={() => {
+            login(email, password, setPassword);
+          }}
+        />
+        <TouchableOpacity
+          onPress={() =>{ 
+            navigation.navigate('Recuperar Senha')
+          }}
+        >
+          <Text style={styles.resetPasswordText}>NÃO CONSIGO FAZER LOGIN</Text>
+        </TouchableOpacity>
+        <Text style={styles.copyrightText}>© 2020 MedWork</Text>
+      </View>
     )    
 }
 
