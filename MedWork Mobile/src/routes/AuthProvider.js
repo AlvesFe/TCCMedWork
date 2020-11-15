@@ -5,7 +5,6 @@ import Axios from 'axios';
 import Toast from 'react-native-toast-message';
 import jwt from 'expo-jwt';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import getUser from '../api/getUser';
 
 const url = env.API_URL;
 const key = env.JWT_KEY;
@@ -60,17 +59,19 @@ export const AuthProvider = ({ children }) => {
           })
           .then(async response => {
             toastSuccess();
-            const decode = jwt.decode(response.data.token, key, {timeSkew: 30});
-            getUser(decode, response.data.token, setUser);
+            await AsyncStorage.setItem("userToken", response.data.token)
+            setUser(response.data.token)
           })
           .catch(err => {
             toastFail();
+            console.log(err);
             setPassword('')
           })
         },
         logout: () => {
           try {
             AsyncStorage.removeItem("userData")
+            AsyncStorage.removeItem("userToken")
             setUser(null)
             ToastAndroid.showWithGravity(
               "Logout realizado com sucesso!",

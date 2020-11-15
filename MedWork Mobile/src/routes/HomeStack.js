@@ -7,7 +7,6 @@ import { roxo } from '../constants/colors.json';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-
 import Inicio from '../routes/InicioStack';
 import ProfilePage from '../pages/Perfil';
 import LastPrescPage from '../pages/LastPresc';

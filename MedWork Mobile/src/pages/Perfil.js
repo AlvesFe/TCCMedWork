@@ -8,6 +8,7 @@ import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import useStatusBar from '../util/StatusBar';
+import patchUser from '../api/patchUser';
 
 const { height } = Dimensions.get('screen')
 
@@ -31,7 +32,7 @@ export default function PerfilPage() {
   }
 
   useEffect(() => {
-    getUserData()
+  
   },[])
 
   useEffect(() => {
@@ -121,7 +122,7 @@ export default function PerfilPage() {
                 onChangeText={text => setUser({...user, email:text})}
                 theme={{colors:{primary: verde}}}
                 underlineColor={verde}
-                disabled={viewing}
+                disabled={true}
               />
               <FormInput
                 labelName='Alergias'
@@ -145,17 +146,27 @@ export default function PerfilPage() {
               }
               {
                 !viewing &&
+                <View>
                 <FormButton
                   title='Salvar'
                   modeValue='contained'
                   labelStyle={styles.alterButton} 
                   color={roxo}
                   onPress={() => {
-                    setViewing(true);
+                    patchUser(user, setViewing, setUser)
                   }}
                 />
+                <FormButton
+                  title='Salvar'
+                  modeValue='contained'
+                  labelStyle={styles.alterButton} 
+                  color={roxo}
+                  onPress={() => {
+                    patchUser(user, setViewing, setUser)
+                  }}
+                />
+                </View>
               }
-
             </View>
           </ScrollView>
         </SafeAreaView>

@@ -5,59 +5,60 @@ import { AuthContext } from '../routes/AuthProvider';
 
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
-//import login from '../api/login';
 
 import Logo from '../assets/logo.png'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import useStatusBar from '../util/StatusBar';
 
 const { width, height} = Dimensions.get('screen');
 
 export default function LoginPage({ navigation }) {
-    const [email,setEmail] = useState('');
-    const [password,setPassword] = useState('');
+  useStatusBar("dark-content", "#f5f5f5" )
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
 
-    const { login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
-    return (
-      <View style={styles.container}>
-        <Image style={styles.image} source={Logo} />
-        <Text style={styles.phraseOne}>Seja bem-vindo, paciente!</Text>
-        <Text style={styles.phraseTwo}>FAÇA LOGIN PARA ACESSAR SUAS INFORMAÇÕES</Text>
-        <FormInput
-          labelName='E-mail'
-          value={email}
-          autoCapitalize='none'
-          onChangeText={userEmail => setEmail(userEmail)}
-          theme={{colors:{primary: verde}}}
-          underlineColor={verde}
-        />
-        <FormInput
-          labelName='Password'
-          value={password}
-          secureTextEntry={true}
-          onChangeText={userPassword => setPassword(userPassword)}
-          theme={{colors:{primary: verde}}}
-          underlineColor={verde}
-        />
-        <FormButton
-          title='Login'
-          modeValue='contained'
-          labelStyle={styles.loginButtonLabel} 
-          color={roxo}
-          onPress={() => {
-            login(email, password, setPassword);
-          }}
-        />
-        <TouchableOpacity
-          onPress={() =>{ 
-            navigation.navigate('Recuperar Senha')
-          }}
-        >
-          <Text style={styles.resetPasswordText}>NÃO CONSIGO FAZER LOGIN</Text>
-        </TouchableOpacity>
-        <Text style={styles.copyrightText}>© 2020 MedWork</Text>
-      </View>
-    )    
+  return (
+    <View style={styles.container}>
+      <Image style={styles.image} source={Logo} />
+      <Text style={styles.phraseOne}>Seja bem-vindo, paciente!</Text>
+      <Text style={styles.phraseTwo}>FAÇA LOGIN PARA ACESSAR SUAS INFORMAÇÕES</Text>
+      <FormInput
+        labelName='E-mail'
+        value={email}
+        autoCapitalize='none'
+        onChangeText={userEmail => setEmail(userEmail)}
+        theme={{colors:{primary: verde}}}
+        underlineColor={verde}
+      />
+      <FormInput
+        labelName='Password'
+        value={password}
+        secureTextEntry={true}
+        onChangeText={userPassword => setPassword(userPassword)}
+        theme={{colors:{primary: verde}}}
+        underlineColor={verde}
+      />
+      <FormButton
+        title='Login'
+        modeValue='contained'
+        labelStyle={styles.loginButtonLabel} 
+        color={roxo}
+        onPress={() => {
+          login(email, password, setPassword);
+        }}
+      />
+      <TouchableOpacity
+        onPress={() =>{ 
+          navigation.navigate('Recuperar Senha')
+        }}
+      >
+        <Text style={styles.resetPasswordText}>NÃO CONSIGO FAZER LOGIN</Text>
+      </TouchableOpacity>
+      <Text style={styles.copyrightText}>© 2020 MedWork</Text>
+    </View>
+  )    
 }
 
 const styles = StyleSheet.create({
