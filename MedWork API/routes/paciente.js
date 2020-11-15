@@ -38,4 +38,13 @@ router.delete('/', pacienteMiddleware.deletePaciente, pacienteController.deleteP
 //Metodo de Login
 router.post('/login', pacienteController.logarPaciente, pacienteModel.logarPaciente)
 
+//Metodo de Recuperar Senha
+router.post('/recuperarsenha', pacienteController.recuperarSenha, pacienteModel.recuperarSenha)
+
+//Metodo de Recuperar Senha
+router.post('/confirmetoken', pacienteController.confirmetoken)
+
+//Metodo de Recuperar Senha
+router.patch('/resetarsenha', pacienteController.resetsenha, pacienteModel.resetsenha)
+
 module.exports = router;
