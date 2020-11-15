@@ -4,8 +4,44 @@ const jwt = require('jsonwebtoken');
 //Importação do Banco de dados MySql
 const mysql = require('../mysql').pool;
 
+const handlebars = require('handlebars')
+const fs = require('fs')
+
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+const configSMTP = require('../config/smtp');
+
+function SendMail(transport, data) {
+
+     const template = readHTMLFile(__dirname + '/../src/template/AlterarSenha.html', function(err, html){
+        const template = handlebars.compile(html);
+        const parametros = {
+            token: data.token
+        };       
+        const htmlTosend = template(parametros);
+        const mailSend = transport.sendMail({
+            from:  "MedWork <Medwork.developer@gmail.com>",
+            to: data.email,
+            text: '',
+            subject: 'Alterar Senha - MedWork',
+            html: htmlTosend
+        })
+    })
+    return true;
+}
+
+const readHTMLFile = (path, callback) => {
+    fs.readFile(path, {encoding:  'utf-8'}, function (err, html){
+        if(err){
+            throw err;
+            callback(err);
+        }
+        else{
+            callback(null, html);
+        }
+    })
+}
 
 exports.postPaciente = (req, res, next) => {
 
@@ -186,4 +222,91 @@ exports.logarPaciente = (req, res, next) => {
         })
     })
 
-} 
+}
+
+exports.recuperarSenha = async (req, res ,next) => {
+
+    mysql.getConnection((error, conn) => {
+        if (error) { return res.status(500).send({ error: error }) }
+        const query = `SELECT * FROM tbl_Paciente WHERE email = ?`;
+
+        conn.query(query, [req.body.email], (error, results, fields) => {
+            conn.release();
+            if (error) { return res.status(500).send({ error: error }) }
+            if (results.length <= 0) {
+                return res.status(401).send({ mensagem: 'Usuario não Encontrado' })
+            }
+            const token = jwt.sign({
+                email: req.body.email
+            },
+                process.env.JWT_KEY,
+                {
+                    expiresIn: "20m"
+                })
+
+                data = {
+                    email: req.body.email,
+                    token
+                }
+            const transport = nodemailer.createTransport({
+                host: configSMTP.host,
+                port: configSMTP.port,
+                secure: false,
+                auth: {
+                    user: configSMTP.user,
+                    pass: configSMTP.pass
+                },
+                tls: {
+                    rejectUnauthorized: false
+                }
+            })
+
+            if(SendMail(transport, data)){
+                res.status(200).send({
+                    success: "Verifique a Caixa de Email"
+                })
+            };
+        })
+    })
+}
+
+exports.resetsenha = (req, res, next) => {
+
+    try{
+        console.log(req.body.token);
+        const decode = jwt.verify(req.body.token, process.env.JWT_KEY);
+        if(decode){
+            mysql.getConnection((error, conn) => {
+
+                if (error) { return res.status(500).send({ error: error }) }
+        
+                bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+                    if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
+        
+                    conn.query(
+                        `UPDATE tbl_Paciente
+                            SET
+                            senha = ?
+                            WHERE email = ?`,
+                        [hash, decode.email],
+                        (error, resultado, fields) => {
+                            conn.release()
+        
+                            if (error) { return res.status(500).send({ error: error }) }
+        
+                            res.status(202).send({
+                                mensagem: 'Senha Atualizado'
+                            })
+                        }
+                    )
+        
+                })
+            })
+        }
+    }
+    catch(error){
+        return res.status(500).send({
+            error: "errotokeninvalido"
+        })
+    }
+}
