@@ -13,14 +13,14 @@ const nodemailer = require('nodemailer');
 
 function SendMail(transport, data) {
 
-     const template = readHTMLFile(__dirname + '/../src/template/AlterarSenha.html', function(err, html){
+    const template = readHTMLFile(__dirname + '/../src/template/AlterarSenha.html', function (err, html) {
         const template = handlebars.compile(html);
         const parametros = {
             token: data.token
-        };       
+        };
         const htmlTosend = template(parametros);
         const mailSend = transport.sendMail({
-            from:  "MedWork <Medwork.developer@gmail.com>",
+            from: "MedWork <Medwork.developer@gmail.com>",
             to: data.email,
             text: '',
             subject: 'Alterar Senha - MedWork',
@@ -31,12 +31,12 @@ function SendMail(transport, data) {
 }
 
 const readHTMLFile = (path, callback) => {
-    fs.readFile(path, {encoding:  'utf-8'}, function (err, html){
-        if(err){
+    fs.readFile(path, { encoding: 'utf-8' }, function (err, html) {
+        if (err) {
             throw err;
             callback(err);
         }
-        else{
+        else {
             callback(null, html);
         }
     })
@@ -128,41 +128,72 @@ exports.getPaciente = (req, res, next) => {
 }
 
 exports.pacthPaciente = (req, res, next) => {
-    mysql.getConnection((error, conn) => {
+    mysql.getConnection(async (error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
+        const result = await conn.query(`SELECT senha FROM tbl_Paciente WHERE cpf = ?`, [req.body.cpf],
+            async (error, resultado, fields) => {
 
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
+                if (error) { return res.status(500).send({ error: error }) }
 
-            conn.query(
-                `UPDATE tbl_Paciente
-                    SET
-                    dt_Nascimento = ?,
-                    nome = ?,
-                    telefone = ?,
-                    tp_sanguineo= ?,
-                    alergia = ?,
-                    endereco = ?,
-                    celular = ?,
-                    ativo = ?,
-                    senha = ?,
-                    alt_senha = ?,
-                    foto = ?
-                    WHERE cpf = ?`,
-                [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, hash, req.body.alt_senha, req.body.foto, req.body.cpf],
-                (error, resultado, fields) => {
-                    conn.release()
-
-                    if (error) { return res.status(500).send({ error: error }) }
-
-                    res.status(202).send({
-                        mensagem: 'Paciente Atualizado'
-                    })
-                }
-            )
-
-        })
+                bcrypt.compare(req.body.senha, resultado[0].senha, async (err, result) => {
+                    if (result) {
+                        conn.query(
+                            `UPDATE tbl_Paciente
+                                        SET
+                                        dt_Nascimento = ?,
+                                        nome = ?,
+                                        telefone = ?,
+                                        tp_sanguineo= ?,
+                                        alergia = ?,
+                                        endereco = ?,
+                                        celular = ?,
+                                        ativo = ?,
+                                        senha = ?,
+                                        alt_senha = ?,
+                                        foto = ?
+                                        WHERE cpf = ?`,
+                            [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, resultado[0].senha, req.body.alt_senha, req.body.foto, req.body.cpf],
+                            (error, resultado, fields) => {
+                                conn.release()
+                                console.log("B");
+                                if (error) { return res.status(500).send({ error: error }) }
+                                res.status(202).send({
+                                    mensagem: 'Paciente Atualizado'
+                                })
+                            }
+                        )
+                    }
+                    else {
+                        const senha = await (bcrypt.hash(req.body.senha, 10));
+                        conn.query(
+                            `UPDATE tbl_Paciente
+                                            SET
+                                            dt_Nascimento = ?,
+                                            nome = ?,
+                                            telefone = ?,
+                                            tp_sanguineo= ?,
+                                            alergia = ?,
+                                            endereco = ?,
+                                            celular = ?,
+                                            ativo = ?,
+                                            senha = ?,
+                                            alt_senha = ?,
+                                            foto = ?
+                                            WHERE cpf = ?`,
+                            [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, senha, req.body.alt_senha, req.body.foto, req.body.cpf],
+                            (error, resultado, fields) => {
+                                conn.release()
+                                if (error) { return res.status(500).send({ error: error }) }
+                                console.log("A");
+                                res.status(202).send({
+                                    mensagem: 'Paciente Atualizado'
+                                })
+                            }
+                        )
+                    }
+                })
+            })
     })
 }
 
@@ -223,7 +254,7 @@ exports.logarPaciente = (req, res, next) => {
 
 }
 
-exports.recuperarSenha = async (req, res ,next) => {
+exports.recuperarSenha = async (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
@@ -243,10 +274,10 @@ exports.recuperarSenha = async (req, res ,next) => {
                     expiresIn: "20m"
                 })
 
-                data = {
-                    email: req.body.email,
-                    token
-                }
+            data = {
+                email: req.body.email,
+                token
+            }
             const transport = nodemailer.createTransport({
                 host: process.env.API_NODEMAILER_HOST,
                 port: process.env.API_NODEMAILER_PORT,
@@ -260,7 +291,7 @@ exports.recuperarSenha = async (req, res ,next) => {
                 }
             })
 
-            if(SendMail(transport, data)){
+            if (SendMail(transport, data)) {
                 res.status(200).send({
                     success: "Verifique a Caixa de Email"
                 })
@@ -271,17 +302,17 @@ exports.recuperarSenha = async (req, res ,next) => {
 
 exports.resetsenha = (req, res, next) => {
 
-    try{
+    try {
         console.log(req.body.token);
         const decode = jwt.verify(req.body.token, process.env.JWT_KEY);
-        if(decode){
+        if (decode) {
             mysql.getConnection((error, conn) => {
 
                 if (error) { return res.status(500).send({ error: error }) }
-        
+
                 bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
                     if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
-        
+
                     conn.query(
                         `UPDATE tbl_Paciente
                             SET
@@ -290,20 +321,20 @@ exports.resetsenha = (req, res, next) => {
                         [hash, decode.email],
                         (error, resultado, fields) => {
                             conn.release()
-        
+
                             if (error) { return res.status(500).send({ error: error }) }
-        
+
                             res.status(202).send({
                                 mensagem: 'Senha Atualizado'
                             })
                         }
                     )
-        
+
                 })
             })
         }
     }
-    catch(error){
+    catch (error) {
         return res.status(500).send({
             error: "errotokeninvalido"
         })
