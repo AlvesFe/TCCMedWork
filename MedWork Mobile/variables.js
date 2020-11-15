@@ -5,7 +5,7 @@ export const key = "networkSenhores"
 
 const ENV = {
   dev: {
-    API_URL: "http://192.168.15.1:3001",
+    API_URL: "http://192.168.1.48:3001",
     JWT_KEY: "networkSenhores"
   },
   staging: {

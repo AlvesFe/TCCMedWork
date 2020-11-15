@@ -156,7 +156,6 @@ exports.pacthPaciente = (req, res, next) => {
                             [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, resultado[0].senha, req.body.alt_senha, req.body.foto, req.body.cpf],
                             (error, resultado, fields) => {
                                 conn.release()
-                                console.log("B");
                                 if (error) { return res.status(500).send({ error: error }) }
                                 res.status(202).send({
                                     mensagem: 'Paciente Atualizado'
@@ -185,7 +184,6 @@ exports.pacthPaciente = (req, res, next) => {
                             (error, resultado, fields) => {
                                 conn.release()
                                 if (error) { return res.status(500).send({ error: error }) }
-                                console.log("A");
                                 res.status(202).send({
                                     mensagem: 'Paciente Atualizado'
                                 })

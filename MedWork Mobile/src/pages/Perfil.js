@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import useStatusBar from '../util/StatusBar';
 import patchUser from '../api/patchUser';
 
-const { height } = Dimensions.get('screen')
+const { height ,width } = Dimensions.get('screen')
 
 export default function PerfilPage() {
   useStatusBar("light-content", roxo )
@@ -32,12 +32,12 @@ export default function PerfilPage() {
   }
 
   useEffect(() => {
-  
+    getUserData();
   },[])
 
-  useEffect(() => {
-    console.log(user);
-  },[user])
+  // useEffect(() => {
+  //   console.log(user);
+  // },[user])
 
   return (
     <>
@@ -142,29 +142,32 @@ export default function PerfilPage() {
                   onPress={() => {
                     setViewing(false);
                   }}
+                  width={width/4}
+                  height={height/15}
                 />
               }
               {
                 !viewing &&
                 <View>
-                <FormButton
-                  title='Salvar'
-                  modeValue='contained'
-                  labelStyle={styles.alterButton} 
-                  color={roxo}
-                  onPress={() => {
-                    patchUser(user, setViewing, setUser)
-                  }}
-                />
-                <FormButton
-                  title='Salvar'
-                  modeValue='contained'
-                  labelStyle={styles.alterButton} 
-                  color={roxo}
-                  onPress={() => {
-                    patchUser(user, setViewing, setUser)
-                  }}
-                />
+                  <FormButton
+                    title='Salvar'
+                    modeValue='contained'
+                    labelStyle={styles.alterButton} 
+                    color={roxo}
+                    onPress={() => {
+                      patchUser(user, setViewing, setUser)
+                    }}
+                  />
+                  <FormButton
+                    title='Cancelar'
+                    modeValue='contained'
+                    labelStyle={styles.alterButton} 
+                    color={roxo}
+                    onPress={() => {
+                      setViewing(true)
+                      getUserData()
+                    }}
+                  />
                 </View>
               }
             </View>
@@ -197,5 +200,5 @@ const styles = StyleSheet.create({
   },
   alterButton: {
     fontSize: 18
-  },
+  }
 })
