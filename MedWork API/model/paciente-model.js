@@ -136,38 +136,37 @@ exports.pacthPaciente = (req, res, next) => {
 
                 if (error) { return res.status(500).send({ error: error }) }
 
-                bcrypt.compare(req.body.senha, resultado[0].senha, async (err, result) => {
-                    if (result) {
-                        conn.query(
-                            `UPDATE tbl_Paciente
-                                        SET
-                                        dt_Nascimento = ?,
-                                        nome = ?,
-                                        telefone = ?,
-                                        tp_sanguineo= ?,
-                                        alergia = ?,
-                                        endereco = ?,
-                                        celular = ?,
-                                        ativo = ?,
-                                        senha = ?,
-                                        alt_senha = ?,
-                                        foto = ?
-                                        WHERE cpf = ?`,
-                            [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, resultado[0].senha, req.body.alt_senha, req.body.foto, req.body.cpf],
-                            (error, resultado, fields) => {
-                                conn.release()
-                                console.log("B");
-                                if (error) { return res.status(500).send({ error: error }) }
-                                res.status(202).send({
-                                    mensagem: 'Paciente Atualizado'
-                                })
-                            }
-                        )
-                    }
-                    else {
-                        const senha = await (bcrypt.hash(req.body.senha, 10));
-                        conn.query(
-                            `UPDATE tbl_Paciente
+                if (req.body.senha === resultado[0].senha) {
+                    conn.query(
+                        `UPDATE tbl_Paciente
+                                    SET
+                                    dt_Nascimento = ?,
+                                    nome = ?,
+                                    telefone = ?,
+                                    tp_sanguineo= ?,
+                                    alergia = ?,
+                                    endereco = ?,
+                                    celular = ?,
+                                    ativo = ?,
+                                    senha = ?,
+                                    alt_senha = ?,
+                                    foto = ?
+                                    WHERE cpf = ?`,
+                        [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, resultado[0].senha, req.body.alt_senha, req.body.foto, req.body.cpf],
+                        (error, resultado, fields) => {
+                            conn.release()
+                            console.log("B");
+                            if (error) { return res.status(500).send({ error: error }) }
+                            res.status(202).send({
+                                mensagem: 'Paciente Atualizado'
+                            })
+                        }
+                    )
+                }
+                else {
+                    const senha = await (bcrypt.hash(req.body.senha, 10));
+                    conn.query(
+                        `UPDATE tbl_Paciente
                                             SET
                                             dt_Nascimento = ?,
                                             nome = ?,
@@ -181,18 +180,17 @@ exports.pacthPaciente = (req, res, next) => {
                                             alt_senha = ?,
                                             foto = ?
                                             WHERE cpf = ?`,
-                            [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, senha, req.body.alt_senha, req.body.foto, req.body.cpf],
-                            (error, resultado, fields) => {
-                                conn.release()
-                                if (error) { return res.status(500).send({ error: error }) }
-                                console.log("A");
-                                res.status(202).send({
-                                    mensagem: 'Paciente Atualizado'
-                                })
-                            }
-                        )
-                    }
-                })
+                        [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, senha, req.body.alt_senha, req.body.foto, req.body.cpf],
+                        (error, resultado, fields) => {
+                            conn.release()
+                            if (error) { return res.status(500).send({ error: error }) }
+                            console.log("A");
+                            res.status(202).send({
+                                mensagem: 'Paciente Atualizado'
+                            })
+                        }
+                    )
+                }
             })
     })
 }
