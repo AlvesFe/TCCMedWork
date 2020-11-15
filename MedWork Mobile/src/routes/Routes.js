@@ -7,28 +7,33 @@ import Loading from "../components/Loading";
 import LoginPage from "../pages/Login";
 import HomeStack from "./HomeStack";
 import LoginStack from "./LoginStack";
+import getUserData from "../api/getUserData";
+import { set } from "react-native-reanimated";
 
 export default function Routes() {
     const { user, setUser } = useContext(AuthContext);
-    const [loading, setLoading] = useState(true);
+    const [userData,setUserData] = useState({});
+    const [loading, setLoading] = useState(false);
     const [initializing, setInitializing] = useState(true); 
 
+    async function getUser(){
+        const item = await AsyncStorage.getItem("userToken").then(res => {
+            return res;
+        })
+        setUser(item)
+    }
+
     useEffect(() => {
-        fetchUser();
+        try {
+            getUser(user);
+        } catch (error) {}
     },[])
 
-    async function fetchUser() {
+    useEffect(() => {
         try {
-            const item = await AsyncStorage.getItem("userData").then(res => {
-                return JSON.parse(res);
-            })
-            setUser(item)
-            if (initializing) setInitializing(false)
-            setLoading(false)
-        } catch (error) {
-            console.log(error);
-        }
-    }
+            getUserData(user, setUserData)
+        } catch (error) {}
+    },[user])
 
     if (loading) {
         return(
