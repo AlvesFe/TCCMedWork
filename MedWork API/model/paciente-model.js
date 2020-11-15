@@ -10,7 +10,6 @@ const fs = require('fs')
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
-const configSMTP = require('../config/smtp');
 
 function SendMail(transport, data) {
 
@@ -249,12 +248,12 @@ exports.recuperarSenha = async (req, res ,next) => {
                     token
                 }
             const transport = nodemailer.createTransport({
-                host: configSMTP.host,
-                port: configSMTP.port,
+                host: process.env.API_NODEMAILER_HOST,
+                port: process.env.API_NODEMAILER_PORT,
                 secure: false,
                 auth: {
-                    user: configSMTP.user,
-                    pass: configSMTP.pass
+                    user: process.env.API_NODEMAILER_USER,
+                    pass: process.env.API_NODEMAILER_PASS
                 },
                 tls: {
                     rejectUnauthorized: false

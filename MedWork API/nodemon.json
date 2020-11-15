@@ -1,5 +1,5 @@
 {
-    "env":{
+    "env": {
         "MYSQL_USER": "root",
         "MYSQL_PASSWORD": "",
         "MYSQL_DATABASE": "MedWork",
@@ -7,6 +7,10 @@
         "MYSQL_PORT": "3307",
         "PORT": "3001",
         "JWT_KEY": "networkSenhores",
-        "CPF_TOKEN": "1a77a5b656040aace894962324363778"
+        "CPF_TOKEN": "1a77a5b656040aace894962324363778",
+        "API_NODEMAILER_HOST": "smtp.gmail.com",
+        "API_NODEMAILER_PORT": 587,
+        "API_NODEMAILER_USER": "medwork.developer@gmail.com",
+        "API_NODEMAILER_PASS": "Medwork123"
     }
 }
