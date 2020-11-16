@@ -130,35 +130,68 @@ exports.getHospital = (req, res, next) => {
 
 exports.patchHospital = (req, res, next) => {
 
-    mysql.getConnection((error, conn) => {
-
+    mysql.getConnection(async (error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
 
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
+        conn.query('SELECT * FROM tbl_Hospital WHERE id_Hospital = ?', [req.body.id_Hospital], async (error, resultado, field) => {
 
-            conn.query(
-                `UPDATE tbl_Hospital
-                    SET
-                       nome = ?,
-                       endereco = ?,
-                       telefone = ?,
-                       ativo = ?,
-                       foto = ?,
-                       senha = ?
-                    WHERE id_Hospital = ?`,
-                [req.body.nome, req.body.endereco, req.body.telefone, req.body.ativo, req.body.foto, hash, req.body.id_Hospital],
-                (error, resultado, field) => {
-                    conn.release()
+            if(resultado[0]){
+                if(resultado[0].senha === req.body.senha){
+                    conn.query(
+                        `UPDATE tbl_Hospital
+                                    SET
+                                       nome = ?,
+                                       endereco = ?,
+                                       telefone = ?,
+                                       ativo = ?,
+                                       foto = ?,
+                                       senha = ?
+                                    WHERE id_Hospital = ?`,
+                        [req.body.nome, req.body.endereco, req.body.telefone, req.body.ativo, req.body.foto, resultado[0].senha, req.body.id_Hospital],
+                        (error, resultado, field) => {
+                            conn.release()
 
-                    if (error) { return res.status(500).send({ error: error }) }
+                            if (error) { return res.status(500).send({ error: error }) }
 
-                    res.status(202).send({
-                        mensagem: 'Hospital Atualizado',
-                        response: resultado.insertId
-                    })
+                            res.status(202).send({
+                                mensagem: 'Hospital Atualizado',
+                                response: resultado.insertId
+                            })
+                        }
+                    )
+
                 }
-            )
+                else{
+                    const senha = await bcrypt.hash(req.body.senha, 10)
+
+                    conn.query(
+                        `UPDATE tbl_Hospital
+                                    SET
+                                       nome = ?,
+                                       endereco = ?,
+                                       telefone = ?,
+                                       ativo = ?,
+                                       foto = ?,
+                                       senha = ?
+                                    WHERE id_Hospital = ?`,
+                        [req.body.nome, req.body.endereco, req.body.telefone, req.body.ativo, req.body.foto, senha, req.body.id_Hospital],
+                        (error, resultado, field) => {
+                            conn.release()
+
+                            if (error) { return res.status(500).send({ error: error }) }
+
+                            res.status(202).send({
+                                mensagem: 'Hospital Atualizado',
+                                response: resultado.insertId
+                            })
+                        }
+                    )
+                }
+            }
+            else{
+                if (error) { return res.status(500).send({ error: "Usuario não encontrado" }) }
+            }
+
         })
     })
 }

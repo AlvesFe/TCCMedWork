@@ -79,7 +79,7 @@ exports.getHospital = (req, res, next) => {
 
 exports.patchHospital = (req, res, next) => {
 
-    permission = ['admMedWork'];
+    permission = ['admMedWork', 'hospital'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
