@@ -31,4 +31,10 @@ router.delete('/', hospitalMiddleware.deleteHospital, hospitalController.deleteH
 //Metodo de Login
 router.post('/login', hospitalController.logarHospital, hospitalModel.logarHospital);
 
+router.post('/recuperarsenha', hospitalController.recuperarSenha, hospitalModel.recuperarSenha)
+
+router.post('/confirmetoken', hospitalController.confirmetoken)
+
+router.patch('/resetarsenha', hospitalController.restSenha, hospitalModel.resetsenha)
+
 module.exports = router;
