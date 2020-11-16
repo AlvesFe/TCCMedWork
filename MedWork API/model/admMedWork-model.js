@@ -27,7 +27,7 @@ const readHTMLFile = (path, callback) => {
 
 function SendMail(transport, data) {
 
-        readHTMLFile(__dirname + '/../src/template/AlterarSenha.html', function (err, html) {
+    readHTMLFile(__dirname + '/../src/template/AlterarSenha.html', function (err, html) {
         const template = handlebars.compile(html);
         const parametros = {
             token: data.token
@@ -129,33 +129,69 @@ exports.getAdmMedWork = (req, res, next) => {
 
 exports.patchAdmMedWork = (req, res, next) => {
 
-    mysql.getConnection((error, conn) => {
+    mysql.getConnection(async (error, conn) => {
 
-        if (error) { return res.status(500).send({ error: error }) }
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
-            conn.query(
-                `UPDATE tbl_MedWork
-                    SET
-                        nome = ?,
-                        senha = ?,
-                        ativo = ?,
-                        foto = ?
-                    WHERE cnpj = ?`
-                ,
-                [req.body.nome, hash, req.body.ativo, req.body.foto, req.body.cnpj],
-                (error, resultado, field) => {
-                    conn.release()
 
-                    if (error) { return res.status(500).send({ error: error }) }
+        const result = await conn.query(`SELECT * FROM tbl_MedWork WHERE cnpj = ?`, [req.body.cnpj],
+            async (error, resultado, fields) => {
+                if (error) { return res.status(500).send({ error: error }) }
+                console.log(resultado);
+                if (resultado[0]) {
+                    if (req.body.senha === resultado[0].senha) {
+                        conn.query(
+                            `UPDATE tbl_MedWork
+                            SET
+                                nome = ?,
+                                senha = ?,
+                                ativo = ?,
+                                foto = ?
+                            WHERE cnpj = ?`
+                            ,
+                            [req.body.nome, resultado[0].senha, req.body.ativo, req.body.foto, req.body.cnpj],
+                            (error, resultado, field) => {
+                                conn.release()
 
-                    res.status(202).send({
-                        mensagem: 'AdmMedWork Atualizado'
-                    })
+                                if (error) { return res.status(500).send({ error: error }) }
+
+                                res.status(202).send({
+                                    mensagem: 'AdmMedWork Atualizado'
+                                })
+                            }
+                        )
+                    }
+                    else {
+                        const senha = await (bcrypt.hash(req.body.senha, 10));
+
+                        conn.query(
+                            `UPDATE tbl_MedWork
+                            SET
+                                nome = ?,
+                                senha = ?,
+                                ativo = ?,
+                                foto = ?
+                            WHERE cnpj = ?`
+                            ,
+                            [req.body.nome, senha, req.body.ativo, req.body.foto, req.body.cnpj],
+                            (error, resultado, field) => {
+                                conn.release()
+
+                                if (error) { return res.status(500).send({ error: error }) }
+
+                                res.status(202).send({
+                                    mensagem: 'AdmMedWork Atualizado'
+                                })
+                            }
+                        )
+                    }
                 }
-            )
-        })
+                else{
+                    return res.status(500).send({ mensagem: 'Usuario não encontrado' })
+                }
+
+            })
+
     })
+
 }
 
 exports.deleteAdmMedWork = (req, res, next) => {
