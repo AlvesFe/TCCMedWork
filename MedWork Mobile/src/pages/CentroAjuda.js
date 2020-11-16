@@ -14,7 +14,7 @@ export default function CentroAjuda({navigation}) {
                   Cras viverra dapibus ligula, vel ullamcorper ante ultricies at. 
                 </Text>
               </List.Accordion>
-              <List.Accordion title="Como usar MedWork" id="2">
+              <List.Accordion title="Como usar a MedWork" id="2">
                 <Text style={{marginHorizontal: 20}}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                   Morbi quis erat a tellus sollicitudin finibus. 

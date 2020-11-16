@@ -13,7 +13,7 @@ import useStatusBar from '../util/StatusBar';
 const { width, height} = Dimensions.get('screen');
 
 export default function LoginPage({ navigation }) {
-  useStatusBar("dark-content", "#f5f5f5" )
+  useStatusBar("dark-content", "#f5f5f5")
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
 
