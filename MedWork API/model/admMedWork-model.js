@@ -7,6 +7,43 @@ const mysql = require('../mysql').pool;
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
 
+const nodemailer = require('nodemailer');
+
+const handlebars = require('handlebars');
+
+const fs = require('fs');
+
+const readHTMLFile = (path, callback) => {
+    fs.readFile(path, { encoding: 'utf-8' }, function (err, html) {
+        if (err) {
+            throw err;
+            callback(err);
+        }
+        else {
+            callback(null, html);
+        }
+    })
+}
+
+function SendMail(transport, data) {
+
+        readHTMLFile(__dirname + '/../src/template/AlterarSenha.html', function (err, html) {
+        const template = handlebars.compile(html);
+        const parametros = {
+            token: data.token
+        };
+        const htmlTosend = template(parametros);
+        transport.sendMail({
+            from: "MedWork <Medwork.developer@gmail.com>",
+            to: data.email,
+            text: '',
+            subject: 'Alterar Senha - MedWork',
+            html: htmlTosend
+        })
+    })
+    return true;
+}
+
 exports.postAdmMedwork = async (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
@@ -174,5 +211,91 @@ exports.logarAdmMedwork = (req, res, next) => {
             })
         })
     })
+}
+
+exports.recuperarSenha = async (req, res, next) => {
+
+    mysql.getConnection((error, conn) => {
+        if (error) { return res.status(500).send({ error: error }) }
+        const query = `SELECT * FROM tbl_MedWork WHERE email = ?`;
+
+        conn.query(query, [req.body.email], (error, results, fields) => {
+            conn.release();
+            if (error) { return res.status(500).send({ error: error }) }
+            if (results.length <= 0) {
+                return res.status(401).send({ mensagem: 'Usuario não Encontrado' })
+            }
+            const token = jwt.sign({
+                email: req.body.email
+            },
+                process.env.JWT_KEY,
+                {
+                    expiresIn: "20m"
+                })
+
+            data = {
+                email: req.body.email,
+                token
+            }
+            const transport = nodemailer.createTransport({
+                host: process.env.API_NODEMAILER_HOST,
+                port: process.env.API_NODEMAILER_PORT,
+                secure: false,
+                auth: {
+                    user: process.env.API_NODEMAILER_USER,
+                    pass: process.env.API_NODEMAILER_PASS
+                },
+                tls: {
+                    rejectUnauthorized: false
+                }
+            })
+
+            if (SendMail(transport, data)) {
+                res.status(200).send({
+                    success: "Verifique a Caixa de Email"
+                })
+            };
+        })
+    })
+}
+
+exports.resetsenha = (req, res, next) => {
+
+    try {
+        const decode = jwt.verify(req.body.token, process.env.JWT_KEY);
+        if (decode) {
+            mysql.getConnection((error, conn) => {
+
+                if (error) { return res.status(500).send({ error: error }) }
+
+                bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+                    if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
+
+                    conn.query(
+                        `UPDATE tbl_MedWork
+                            SET
+                            senha = ?
+                            WHERE email = ?`,
+                        [hash, decode.email],
+                        (error, resultado, fields) => {
+                            conn.release()
+
+                            if (error) { return res.status(500).send({ error: error }) }
+
+                            res.status(202).send({
+                                mensagem: 'Senha Atualizado'
+                            })
+                        }
+                    )
+
+                })
+            })
+        }
+    }
+    catch (error) {
+        return res.status(500).send({
+            error: "errotokeninvalido"
+        })
+    }
 
 }

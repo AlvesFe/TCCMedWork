@@ -301,7 +301,6 @@ exports.recuperarSenha = async (req, res, next) => {
 exports.resetsenha = (req, res, next) => {
 
     try {
-        console.log(req.body.token);
         const decode = jwt.verify(req.body.token, process.env.JWT_KEY);
         if (decode) {
             mysql.getConnection((error, conn) => {

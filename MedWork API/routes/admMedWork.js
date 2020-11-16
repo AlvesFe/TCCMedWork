@@ -47,4 +47,10 @@ router.delete('/', admMedWorkMiddleware.allAdmMedWork, admMedWorkController.dele
 //Metodo de Login
 router.post('/login', admMedWorkController.logarAdmMedwork, admMedWorkModel.logarAdmMedwork);
 
+router.post('/recuperarsenha', admMedWorkController.recuperarSenha, admMedWorkModel.recuperarSenha)
+
+router.post('/confirmetoken', admMedWorkController.confirmetoken)
+
+router.patch('/resetarsenha', admMedWorkController.restSenha, admMedWorkModel.resetsenha)
+
 module.exports = router;
