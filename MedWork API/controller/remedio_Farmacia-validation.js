@@ -97,3 +97,19 @@ exports.deleteREmedioFarmacia = (req, res, next) => {
     }
     next();
 }
+
+exports.getFarmaciaRemedios = (req, res, next) => {
+
+    if (isNullOrWhitespace(req.body.id_Remedio)) {
+        return res.status(500).send({
+            error: "erroidremediovazio"
+        })
+    }
+
+    if (req.body.id_Remedio.length !== 60) {
+        return res.status(500).send({
+            error: "errotamanhoidremedio"
+        })
+    }
+    next();
+}

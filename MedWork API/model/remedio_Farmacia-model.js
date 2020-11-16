@@ -113,3 +113,27 @@ exports.deleteRemedioFarmacia = (req, res, next) => {
         )
     })
 }
+
+exports.getFarmaciaRemedios = (req, res, next) => {
+
+    mysql.getConnection((error, conn) =>{
+
+        if (error) { return res.status(500).send({ error: error }) }
+
+        conn.query(`SELECT fm.nome as Farmcia, fm.foto, rm.nome, rm.preco
+        FROM tbl_Farmacia fm
+        INNER JOIN tbl_Remedio_Farmacia AS rf ON fk_id_Farmacia = id_Farmacia
+        INNER JOIN tbl_Remedio rm ON fk_id_remedio = id_remedio
+        WHERE id_remedio = ? AND rf.estoque > 0`, [req.body.id_Remedio], 
+        (error, resultado, field) => {
+            if (error) { return res.status(500).send({ error: error }) }
+
+            res.status(202).send({
+                success: 1,
+                data: resultado
+            })
+        })
+
+    })
+
+}

@@ -28,4 +28,7 @@ router.patch('/', remedioFarmaciaMiddleware.patchRemedioFarmacia, remedioFarmaci
 //DELETE - Apaga um valor existente da tabela do banco de dados
 router.delete('/', remedioFarmaciaMiddleware.deleteRemedioFarmacia, remedioFarmaciaController.deleteREmedioFarmacia, remedioFarmaciaModel.deleteRemedioFarmacia);
 
+//POST - Busca farmcaias com determinado remedio
+router.post('/getfarmaremedios', remedioFarmaciaController.getFarmaciaRemedios, remedioFarmaciaModel.getFarmaciaRemedios);
+
 module.exports = router;
