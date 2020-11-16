@@ -79,7 +79,7 @@ exports.getCompra = (req, res, next) => {
 
 exports.patchCompra = (req, res, next) => {
 
-    permission = ['admMedWork'];
+    permission = ['admMedWork', 'farmacia'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {

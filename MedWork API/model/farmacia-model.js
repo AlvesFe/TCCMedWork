@@ -129,37 +129,67 @@ exports.getFarmacia = (req, res, next) => {
 
 exports.patchFarmacia = (req, res, next) => {
     mysql.getConnection((error, conn) => {
-
         if (error) { return res.status(500).send({ error: error }) }
 
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
+        conn.query(`SELECT * FROM tbl_Farmacia WHERE id_Farmacia = ?`, [req.body.id_Farmacia], async (error, resultado, field) =>{
+            if (error) { return res.status(500).send({ error: error }) }
 
-            conn.query(
-                `UPDATE tbl_Farmacia
-                    SET
-                    nome = ?, 
-                    telefone = ?, 
-                    endereco = ?, 
-                    detalhes = ?, 
-                    ativo = ?, 
-                    senha = ?, 
-                    foto = ?
-                    WHERE id_Farmacia = ?`,
-                [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, hash, req.body.foto, req.body.id_Farmacia],
-                (error, resultado, field) => {
-                    conn.release()
+            if (resultado[0]) {
+                if(resultado[0].senha === req.body.senha){
 
-                    if (error) { return res.status(500).send({ error: error }) }
+                    conn.query(
+                        `UPDATE tbl_Farmacia
+                            SET
+                            nome = ?, 
+                            telefone = ?, 
+                            endereco = ?, 
+                            detalhes = ?, 
+                            ativo = ?, 
+                            senha = ?, 
+                            foto = ?
+                            WHERE id_Farmacia = ?`,
+                        [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, resultado[0].senha, req.body.foto, req.body.id_Farmacia],
+                        (error, resultado, field) => {
+                            conn.release()
+        
+                            if (error) { return res.status(500).send({ error: error }) }
+        
+                            res.status(202).send({
+                                mensagem: 'Farmacia Atualizada',
+                                response: resultado.insertId
+                            })
+                        }
+                    )
 
-                    res.status(202).send({
-                        mensagem: 'Farmacia Atualizada',
-                        response: resultado.insertId
-                    })
                 }
-            )
-
-        })
+                else{
+                    const senha = await (bcrypt.hash(req.body.senha, 10));
+                    conn.query(
+                        `UPDATE tbl_Farmacia
+                            SET
+                            nome = ?, 
+                            telefone = ?, 
+                            endereco = ?, 
+                            detalhes = ?, 
+                            ativo = ?, 
+                            senha = ?, 
+                            foto = ?
+                            WHERE id_Farmacia = ?`,
+                        [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, senha, req.body.foto, req.body.id_Farmacia],
+                        (error, resultado, field) => {
+                            conn.release()
+        
+                            if (error) { return res.status(500).send({ error: error }) }
+        
+                            res.status(202).send({
+                                mensagem: 'Farmacia Atualizada',
+                                response: resultado.insertId
+                            })
+                        }
+                    )
+                }
+            }
+        })  
     })
 }
 
