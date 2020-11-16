@@ -38,4 +38,13 @@ router.delete('/', farmaciaMiddleware.deleteCompra, farmaciaController.deleteFar
 //Metodo de Login
 router.post('/login', farmaciaController.logarFarmacia, farmaciaModel.logarFarmacia);
 
+//Metodo de Recuperar Senha
+router.post('/recuperarsenha', farmaciaController.recuperarSenha, farmaciaModel.recuperarSenha)
+
+//Metodo de Recuperar Senha
+router.post('/confirmetoken', farmaciaController.confirmetoken)
+
+//Metodo de Recuperar Senha
+router.patch('/resetarsenha', farmaciaController.restSenha, farmaciaModel.resetsenha)
+
 module.exports = router;

@@ -214,3 +214,61 @@ exports.logarFarmacia = (req, res, next) => {
     }
     next();
 }
+
+exports.confirmetoken = (req, res ,next) => {
+
+    if(isNullOrWhitespace(req.body.token)){
+        res.status(500).send({
+            error: "errortokenvazio"
+        })
+    }
+
+    try{
+        const decode = jwt.verify(req.body.token, process.env.JWT_KEY);
+        res.status(200).send({
+            success: "sucessotoken"
+        })
+    }
+    catch(error){
+        res.status(500).send({error: "errotokeninvalido"})
+    }
+
+}
+
+exports.recuperarSenha = (req, res, next) => {
+
+    for (let key in req.body) {
+        if (isNullOrWhitespace(req.body[key])) {
+            return res.status(500).send({
+                error: "erro" + key + "vazio"
+            })
+        }
+    }
+
+    //Verifica se o email é valido
+    if (validateEmail(req.body.email)) {
+        return res.status(500).send({
+            error: "erroemailinvalido"
+        })
+    }
+    next();
+}
+
+exports.restSenha = (req, res, next) => {
+
+    for (let key in req.body) {
+        if (isNullOrWhitespace(req.body[key])) {
+            return res.status(500).send({
+                error: "erro" + key + "vazio"
+            })
+        }
+    }
+
+    if(req.body.senha !== req.body.confsenha){
+        return res.status(500).send({
+            error: "errosenhasnaoconferem"
+        })
+    }
+    next();
+
+}

@@ -135,7 +135,6 @@ exports.patchAdmMedWork = (req, res, next) => {
         const result = await conn.query(`SELECT * FROM tbl_MedWork WHERE cnpj = ?`, [req.body.cnpj],
             async (error, resultado, fields) => {
                 if (error) { return res.status(500).send({ error: error }) }
-                console.log(resultado);
                 if (resultado[0]) {
                     if (req.body.senha === resultado[0].senha) {
                         conn.query(
