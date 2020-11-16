@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { View, Text, StyleSheet, Dimensions, ScrollView, SafeAreaView } from 'react-native';
-import { Appbar, Avatar } from 'react-native-paper';
+import { Appbar, Avatar, Button } from 'react-native-paper';
 import { roxo, verde } from '../constants/colors.json';
 import Loading from '../components/Loading'; 
 import DefaultUser from '../assets/defaultUser.png';
@@ -46,7 +46,7 @@ export default function PerfilPage() {
           colors:{primary: roxo}
         }}
       >
-        <Appbar.Content title="Meu perfil" subtitle="Visualizar" />
+        <Appbar.Content title="Meu perfil" subtitle={viewing ? "Visualizar" : "Alterar"} />
       </Appbar.Header>
       {
         carregando && <Loading />
@@ -142,32 +142,36 @@ export default function PerfilPage() {
                   onPress={() => {
                     setViewing(false);
                   }}
-                  width={width/4}
-                  height={height/15}
                 />
               }
               {
                 !viewing &&
-                <View>
-                  <FormButton
-                    title='Salvar'
-                    modeValue='contained'
-                    labelStyle={styles.alterButton} 
-                    color={roxo}
-                    onPress={() => {
-                      patchUser(user, setViewing, setUser)
-                    }}
-                  />
-                  <FormButton
-                    title='Cancelar'
-                    modeValue='contained'
-                    labelStyle={styles.alterButton} 
-                    color={roxo}
-                    onPress={() => {
-                      setViewing(true)
-                      getUserData()
-                    }}
-                  />
+                <View style={styles.alterContainer}>
+                  <View >
+                    <Button
+                      mode='contained'
+                      color={roxo}
+                      contentStyle={styles.editingButtons}
+                      onPress={() => {
+                        patchUser(user, setViewing, setUser)
+                      }}
+                      style={styles.editingButtonsView}
+                    >
+                      Salvar
+                    </Button>
+                  </View> 
+                    <Button
+                      mode='contained'
+                      color={roxo}
+                      contentStyle={styles.editingButtons}
+                      onPress={() => {
+                        setViewing(true)
+                        getUserData()
+                      }}
+                      style={styles.editingButtonsView}
+                    >
+                      Cancelar
+                    </Button>
                 </View>
               }
             </View>
@@ -200,5 +204,16 @@ const styles = StyleSheet.create({
   },
   alterButton: {
     fontSize: 18
+  },
+  editingButtonsView: {
+    marginHorizontal: 5
+  },
+  editingButtons:{
+    width: width/3,
+    height: height/15
+  },
+  alterContainer: {
+    flexDirection: 'row',
+    marginTop:10
   }
 })
