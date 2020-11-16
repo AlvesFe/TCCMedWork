@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { AuthContext } from '../routes/AuthProvider';
 import { roxo } from '../constants/colors.json';
-import env from '../../variables';
+import { Video } from 'expo-av';
 
 export default function HomePage() {
   return (
@@ -13,9 +12,24 @@ export default function HomePage() {
         <Text style={styles.subTitle}>Confira nosso vídeo:</Text>
       </View>
       <View>
-        {/* <Video/> */}
+        <View style={styles.videoContainer}>
+          <Video
+            source={require('../../assets/videoplayback.mp4')}
+            rate={1.0}
+            volume={1.0}
+            isMuted={false}
+            resizeMode="cover"
+            shouldPlay={false}
+            useNativeControls
+            isLooping={false}
+            style={styles.videoStyle}
+          />
+          <View>
+            <Text style={styles.title}>MedWork - Boas Vindas</Text>
+          </View>
+        </View>
       </View>
-      <Text style={styles.title}>MedWork - Boas Vindas</Text>
+
     </View>
   )
 }
@@ -29,11 +43,21 @@ const styles = StyleSheet.create({
     color: roxo,
     textAlign: "center",
     fontSize: 30,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    flexDirection: 'column'
   },
   subTitle: {
     marginTop: 10,
     marginHorizontal: 15,
     textAlign: 'justify'
+  },
+  videoContainer: {
+    flex: 1,
+    marginTop: 30,
+    width: '98%'
+  },
+  videoStyle: {
+    height: 250,
+    width: '100%',
   },
 })
