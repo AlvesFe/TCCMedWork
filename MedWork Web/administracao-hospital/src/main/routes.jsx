@@ -31,7 +31,7 @@ export default props => (
         <PrivateRoute path='/inicio' component={PesquisarMedico} />
         <PrivateRoute path='/pesquisar-medico' component={PesquisarMedico} />
         <PrivateRoute path='/cadastrar-medico' component={CadastrarMedico} />
-        <PrivateRoute path='/cadastrar-recepcionista' component={CadastrarRecepcionista} />
+        <PrivateRoute path='/cadastrar-recepcionista' component={CadastrarRecepcionista } />
         <PrivateRoute path='/centro-de-ajuda' component={CentroAjuda} />
         <PrivateRoute path='/configuracoes' component={Configuracoes} />
         <PrivateRoute path='/sair' component={PesquisarMedico} />
