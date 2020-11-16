@@ -75,7 +75,7 @@ exports.getRecepcionista = (req, res, next) => {
 }
 
 exports.patchRecepcionista = (req, res, next) => {
-    permission = ['hospital'];
+    permission = ['hospital', 'recepcionista'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {

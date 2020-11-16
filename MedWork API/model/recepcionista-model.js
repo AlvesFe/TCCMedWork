@@ -134,34 +134,66 @@ exports.patchRecepcionista = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
 
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
-
-            conn.query(
-                `UPDATE tbl_Recepcionista
-                    SET
-                       nome = ?,
-                       dt_nascimento = ?,
-                       tp_sanguineo = ?,
-                       ativo = ?,
-                       endereco = ?,
-                       senha =?,
-                       celular = ?,
-                       telefone = ?
-                    WHERE id_Recepcionista = ?`,
-                [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.ativo, req.body.endereco, hash, req.body.celular, req.body.telefone, req.body.id_Recepcionista],
-                (error, resultado, field) => {
-                    conn.release()
-
-                    if (error) { return res.status(500).send({ error: error }) }
-
-                    res.status(202).send({
-                        mensagem: 'Recepcionista Atualizado',
-                        response: resultado.insertId
-                    })
+        conn.query(`SELECT * FROM tbl_Recepcionista WHERE id_Recepcionista = ?`, [req.body.id_Recepcionista], async (error, resultado, field) => {
+            if(resultado[0]){
+                if(resultado[0].senha === req.body.senha){
+                    conn.query(
+                        `UPDATE tbl_Recepcionista
+                            SET
+                               nome = ?,
+                               dt_nascimento = ?,
+                               tp_sanguineo = ?,
+                               ativo = ?,
+                               endereco = ?,
+                               senha =?,
+                               celular = ?,
+                               telefone = ?
+                            WHERE id_Recepcionista = ?`,
+                        [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.ativo, req.body.endereco, resultado[0].senha, req.body.celular, req.body.telefone, req.body.id_Recepcionista],
+                        (error, resultado, field) => {
+                            conn.release()
+        
+                            if (error) { return res.status(500).send({ error: error }) }
+        
+                            res.status(202).send({
+                                mensagem: 'Recepcionista Atualizado',
+                                response: resultado.insertId
+                            })
+                        }
+                    )
                 }
-            )
+                else{
+                    const senha = await bcrypt.hash(req.body.senha, 10);
 
+                    conn.query(
+                        `UPDATE tbl_Recepcionista
+                            SET
+                               nome = ?,
+                               dt_nascimento = ?,
+                               tp_sanguineo = ?,
+                               ativo = ?,
+                               endereco = ?,
+                               senha =?,
+                               celular = ?,
+                               telefone = ?
+                            WHERE id_Recepcionista = ?`,
+                        [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.ativo, req.body.endereco, senha, req.body.celular, req.body.telefone, req.body.id_Recepcionista],
+                        (error, resultado, field) => {
+                            conn.release()
+        
+                            if (error) { return res.status(500).send({ error: error }) }
+        
+                            res.status(202).send({
+                                mensagem: 'Recepcionista Atualizado',
+                                response: resultado.insertId
+                            })
+                        }
+                    )
+                }
+            }
+            else{
+                return res.status(500).send({ error: "Usuario Não encontrado" }) 
+            }
         })
     })
 }
