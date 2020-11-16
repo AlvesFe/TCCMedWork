@@ -10,7 +10,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Inicio from '../routes/InicioStack';
 import ProfilePage from '../pages/Perfil';
 import LastPrescPage from '../pages/LastPresc';
-import PrescPage from '../pages/Prescs';
+import PrescPage from '../routes/PrescStack';
 import Config from '../routes/ConfigStack';
 
 const { height } = Dimensions.get('screen');
@@ -45,23 +45,12 @@ export default function HomeStack() {
                 }}
             />
             <Tab.Screen 
-                name="Ultima Prescrição" 
-                component={LastPrescPage}  
-                options={{
-                    tabBarLabel: <Text style={{fontSize: 9.80}}>Ultima prescrição</Text>,
-                    tabBarIcon: ({ color }) => (
-                      <FontAwesome5 name="file-invoice" color={color} size={20} />
-                    )  
-                }}
-                
-            />
-            <Tab.Screen 
                 name="Histórico de prescrições" 
                 component={PrescPage}  
                 options={{
                     tabBarLabel: 'Prescrições',
                     tabBarIcon: ({ color }) => (
-                      <FontAwesome5 name="history" color={color} size={20} />
+                      <FontAwesome5 name="file-invoice" color={color} size={20} />
                     )  
                 }}
             />
@@ -75,7 +64,6 @@ export default function HomeStack() {
                     )  
                 }}
             />
-
         </Tab.Navigator>
     );
 }
