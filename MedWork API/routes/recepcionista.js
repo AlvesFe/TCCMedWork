@@ -31,4 +31,13 @@ router.delete('/', recepcionistaMiddleware.deleteRecepcionista, recepcionistaCon
 //Metodo de Login
 router.post('/login', recepcionistaController.LogarRecepcionista, recepcionistaModel.logarRecepcionista);
 
+//Metodo de Recuperar Senha
+router.post('/recuperarsenha', recepcionistaController.recuperarSenha, recepcionistaModel.recuperarSenha)
+
+//Metodo de Recuperar Senha
+router.post('/confirmetoken', recepcionistaController.confirmetoken)
+
+//Metodo de Recuperar Senha
+router.patch('/resetarsenha', recepcionistaController.resetsenha, recepcionistaModel.resetsenha)
+
 module.exports = router;
