@@ -31,4 +31,10 @@ router.delete('/', medicoMiddleware.deleteMedico, medicoController.deleteMedico,
 //LOGAR
 router.post('/login', medicoController.logarMedico, medicoModel.logarMedico);
 
+router.post('/recuperarsenha', medicoController.recuperarSenha, medicoModel.recuperarSenha)
+
+router.post('/confirmetoken', medicoController.confirmetoken)
+
+router.patch('/resetarsenha', medicoController.restSenha, medicoModel.resetsenha)
+
 module.exports = router;
