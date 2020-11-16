@@ -7,14 +7,11 @@ export const api_key = "AIzaSyAT1u72BEre__s7KGO7a6B9HE5nvznnobk"
 
 const ENV = {
   dev: {
-<<<<<<< HEAD
     API_URL: "http://192.168.15.11:3001",
     JWT_KEY: "networkSenhores",
-    API_YTB_KEY: "AIzaSyAT1u72BEre__s7KGO7a6B9HE5nvznnobk"
-=======
+    API_YTB_KEY: "AIzaSyAT1u72BEre__s7KGO7a6B9HE5nvznnobk",
     API_URL: "http://192.168.1.48:3001",
     JWT_KEY: "networkSenhores"
->>>>>>> 2a81b48710e345347a27fea354b6ec774337eadd
   },
   staging: {
     API_URL: prodUrl,
