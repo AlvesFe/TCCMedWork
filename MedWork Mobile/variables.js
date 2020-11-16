@@ -10,8 +10,6 @@ const ENV = {
     API_URL: "http://192.168.15.11:3001",
     JWT_KEY: "networkSenhores",
     API_YTB_KEY: "AIzaSyAT1u72BEre__s7KGO7a6B9HE5nvznnobk",
-    API_URL: "http://192.168.1.48:3001",
-    JWT_KEY: "networkSenhores"
   },
   staging: {
     API_URL: prodUrl,

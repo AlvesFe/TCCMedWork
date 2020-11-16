@@ -85,3 +85,19 @@ exports.deleteREceita = (req, res, next) => {
     }
     next();
 }
+
+exports.listReceita = (req, res, next) => {
+
+    if (isNullOrWhitespace(req.body.id_Paciente)) {
+        return res.status(500).send({
+            error: "erroidpacientevazio"
+        })
+    }
+
+    // if (req.body.id_Paciente.length !== 60) {
+    //     return res.status(500).send({
+    //         error: "errotamanhoidpaciente"
+    //     })
+    // }
+    next();
+}
