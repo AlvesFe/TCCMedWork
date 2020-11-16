@@ -29,6 +29,6 @@ router.patch('/', remedioFarmaciaMiddleware.patchRemedioFarmacia, remedioFarmaci
 router.delete('/', remedioFarmaciaMiddleware.deleteRemedioFarmacia, remedioFarmaciaController.deleteREmedioFarmacia, remedioFarmaciaModel.deleteRemedioFarmacia);
 
 //POST - Busca farmcaias com determinado remedio
-router.post('/getfarmaremedios', remedioFarmaciaController.getFarmaciaRemedios, remedioFarmaciaModel.getFarmaciaRemedios);
+router.post('/getfarmaremedios', remedioFarmaciaMiddleware.getFarmaciaRemedios, remedioFarmaciaController.getFarmaciaRemedios, remedioFarmaciaModel.getFarmaciaRemedios);
 
 module.exports = router;

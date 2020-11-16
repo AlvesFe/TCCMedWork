@@ -94,10 +94,10 @@ exports.listReceita = (req, res, next) => {
         })
     }
 
-    // if (req.body.id_Paciente.length !== 60) {
-    //     return res.status(500).send({
-    //         error: "errotamanhoidpaciente"
-    //     })
-    // }
+    if (req.body.id_Paciente.length !== 60) {
+        return res.status(500).send({
+            error: "errotamanhoidpaciente"
+        })
+    }
     next();
 }
