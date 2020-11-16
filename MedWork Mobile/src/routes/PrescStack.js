@@ -1,7 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import PrescPage from '../pages/Prescs';
-import Header from '../components/Header'
+import Header from '../components/Header';
+import ViewPresc from '../pages/ViewPresc';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,11 @@ export default function PrescStack() {
             name='Histórico de Prescrições' 
             component={PrescPage} 
             options={Header("Histórico de Prescrições")}
+          />
+          <Stack.Screen 
+            name='Prescrição' 
+            component={ViewPresc} 
+            options={Header("Precrição")}
           />
         </Stack.Navigator>
     );

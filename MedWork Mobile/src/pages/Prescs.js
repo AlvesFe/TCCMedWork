@@ -1,13 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { Button, DataTable } from 'react-native-paper';
-import { key } from '../../variables';
 import getReceitas from '../api/getReceitas';
-import { vermelho } from '../constants/colors.json';
+import { vermelho,roxo } from '../constants/colors.json';
 
-const { height ,width } = Dimensions.get('screen')
-
-export default function PerfilPage() {
+export default function PrescsPage({navigation}) {
 
   const [receitas,setReceitas] = useState(null);
 
@@ -28,16 +25,18 @@ export default function PerfilPage() {
           {
             receitas && 
             receitas.map((element, key) =>(
-              <>
               <DataTable.Row key={key}>
-                <DataTable.Cell>{element.nome}</DataTable.Cell>
-                <DataTable.Cell >{element.dt_Emissao.slice(0, -14)}</DataTable.Cell>
-                <DataTable.Cell >{element.Quantidade}</DataTable.Cell>
-                <DataTable.Cell >  
-                    <Text style={styles.listButton} onPress={()=> console.log("show")}>VER</Text>
+                <DataTable.Cell style={styles.listText} key={Math.random(Date.now()+1)}>{element.nome}</DataTable.Cell>
+                <DataTable.Cell key={Math.random(Date.now()+2)}>{element.dt_Emissao.slice(0, -14)}</DataTable.Cell>
+                <DataTable.Cell key={Math.random(Date.now()+3)}>{element.Quantidade}</DataTable.Cell>
+                <DataTable.Cell key={Math.random(Date.now()+4)}>  
+                    <Text key={Math.random(Date.now()+5)} 
+                      style={styles.listButton} onPress={()=> navigation.navigate("Prescrição", { receita: element })}
+                    >
+                    VER
+                    </Text>
                 </DataTable.Cell>
               </DataTable.Row>
-              </>
             ))
           }
           
@@ -76,4 +75,7 @@ const styles = StyleSheet.create({
   listButton: {
     color: vermelho,
   },
+  listText:{
+    color: "#FFF"
+  }
 })
