@@ -124,7 +124,7 @@ exports.listReceita = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            `SELECT dt_Emissao, nome, Quantidade FROM tbl_Receita 
+            `SELECT id_Receita dt_Emissao, nome, Quantidade FROM tbl_Receita 
             INNER JOIN tbl_Receita_Remedio ON fk_id_Receita = id_Receita
             INNER JOIN tbl_Remedio ON id_Remedio = fk_id_Remedio WHERE fk_id_Paciente = ?`,
             [req.body.id_Paciente],
