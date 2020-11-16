@@ -28,6 +28,8 @@ router.patch('/', receitaMiddleware.pathReceita, receitaController.patchReceita,
 //DELETE - Apaga um valor existente da tabela do banco de dados
 router.delete('/', receitaMiddleware.deleteReceita, receitaController.deleteREceita, receitaModel.deleteReceita);
 
-router.post('/listreceitas', receitaMiddleware.listReceitas, receitaController.listReceita,receitaModel.listReceita )
+router.post('/listreceitas', receitaMiddleware.listReceitas, receitaController.listReceita,receitaModel.listReceita );
+
+router.post('/detalhesreceita', receitaController.detalhesReceita, receitaModel.detalhesReceita)
 
 module.exports = router;

@@ -101,3 +101,19 @@ exports.listReceita = (req, res, next) => {
     }
     next();
 }
+
+exports.detalhesReceita = (req, res, next) => {
+
+    if (isNullOrWhitespace(req.body.id_Receita)) {
+        return res.status(500).send({
+            error: "erroidpacientevazio"
+        })
+    }
+
+    if (req.body.id_Receita.length !== 60) {
+        return res.status(500).send({
+            error: "errotamanhoidreceita"
+        })
+    }
+    next();
+}
