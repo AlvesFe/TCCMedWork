@@ -1,38 +1,70 @@
-import React, {useContext, useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Button, Divider, DataTable } from 'react-native-paper';
-import { set } from 'react-native-reanimated';
 import getDetalhesReceita from '../api/getDetalhesReceita';
+import { roxo } from '../constants/colors.json';
 import Loading from '../components/Loading';
+import Button from '../components/FormButton'
 
-export default function ViewPresc({route, navigation}) {
+export default function ViewPresc({ route, navigation }) {
 
-  const [detalhes,setDetalhes] = useState(null);
-  const [carregando,setCarregando] = useState(true);
-  const {receita} = route.params
+  const [detalhes, setDetalhes] = useState(null);
+  const [carregando, setCarregando] = useState(true);
+  const { receita } = route.params
 
-  useEffect(()=>{
+  useEffect(() => {
     getDetalhesReceita(receita, setDetalhes)
-  },[])
+  }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     if (detalhes) {
       console.log(detalhes);
       console.log(receita);
       setCarregando(false)
     }
-  },[detalhes])
+  }, [detalhes])
 
-  if(carregando){
+  if (carregando) {
     return <Loading />
   }
 
   return (
     <View style={styles.container}>
-      <Text>ID: {receita.id_Receita}</Text>
-      <View style={{flexDirection: 'row'}}>
+      <Text style={styles.titlePage}>Descrição Prescrição</Text>
+      <Text style={styles.subTitle}>ID: {receita.id_Receita}</Text>
+      <View style={styles.containerInfos}>
         <Text style={styles.infos}>Dr(a): {detalhes.Medico}</Text>
         <Text style={styles.infos}>Especialidade: {detalhes.especialidade}</Text>
+        <Text style={styles.infos}>CRM: {detalhes.crm}</Text>
+      </View>
+      <View style={styles.containerInfos}>
+        <Text style={styles.infos}>Data de emissão: {detalhes.dt_Emissao.slice(0, -14)}</Text>
+        <Text style={styles.infos}>Válido até: {detalhes.dt_Validade.slice(0, -14)}</Text>
+      </View>
+      <View style={styles.containerInfos}>
+        <Text style={styles.infos}>Paciente: {detalhes.Paciente}</Text>
+        <Text style={styles.infos}>CPF: {detalhes.cpf}</Text>
+        <Text style={styles.infos}>RG: {detalhes.rg}</Text>
+      </View>
+      <View style={styles.containerInfos}>
+        <Text style={styles.infos}>Medicamento: {detalhes.Remedio}</Text>
+        <Text style={styles.infos}>Quantidade: {detalhes.Quantidade}</Text>
+      </View>
+      <View style={styles.containerInfos}>
+        <Text style={styles.infos}>Dosagem: {detalhes.dosagem}</Text>
+      </View>
+      <View style={styles.containerInfos}>
+        <Text style={styles.infos}>Outras orientações: {detalhes.orientacoes}</Text>
+      </View>
+      <View style={styles.alignButton}>
+        <Button
+          title='Buscar'
+          modeValue='contained'
+          labelStyle={styles.loginButtonLabel}
+          color={roxo}
+          onPress={() => {
+            login(email, password, setPassword);
+          }}
+        />
       </View>
     </View>
   )
@@ -41,11 +73,39 @@ export default function ViewPresc({route, navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    alignSelf: 'center',
     alignItems: 'center',
     backgroundColor: '#F1F1F1'
   },
-  infos:{
-    marginHorizontal: 5
-  }
+  alignButton: {
+    marginTop: 20
+  },
+  infos: {
+    marginHorizontal: 5,
+    marginTop: 17,
+    borderBottomWidth: 1,
+    borderColor: '#808080',
+    fontSize: 17
+  },
+  titlePage: {
+    color: roxo,
+    marginTop: 50,
+    textAlign: 'center',
+    fontSize: 30,
+  },
+  subTitle: {
+    color: roxo,
+    marginTop: 45,
+    textAlign: 'center',
+    fontSize: 18,
+    marginBottom: 20
+  },
+  containerInfos: {
+    flexDirection: 'row',
+  },
+  loginButtonLabel: {
+    fontSize: 18,
+    textAlign: 'center',
+  },
 })
