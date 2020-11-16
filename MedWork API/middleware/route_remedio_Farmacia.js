@@ -105,3 +105,23 @@ exports.deleteRemedioFarmacia = (req, res, next) => {
         return res.status(401).send({ mensagem: result })
     }
 }
+
+exports.getFarmaciaRemedios = (req, res, next) => {
+
+    permission = ['paciente', 'farmacia'];
+    decode = Obtertoken(req);
+
+    if (decode === 'Usuário não autenticado') {
+        res.status(401).send({ mensagem: decode });
+    }
+
+    result = ValidateRoute(permission, decode);
+
+    if (result === 'next') {
+        next();
+    }
+    else if (result === 'Usuário inválido') {
+        return res.status(401).send({ mensagem: result })
+    }
+
+}

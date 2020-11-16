@@ -124,7 +124,7 @@ exports.listReceita = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            `SELECT dt_Emissao, nome, Quantidade FROM tbl_Receita 
+            `SELECT id_Receita, dt_Emissao, nome, Quantidade FROM tbl_Receita 
             INNER JOIN tbl_Receita_Remedio ON fk_id_Receita = id_Receita
             INNER JOIN tbl_Remedio ON id_Remedio = fk_id_Remedio WHERE fk_id_Paciente = ?`,
             [req.body.id_Paciente],
@@ -139,5 +139,28 @@ exports.listReceita = (req, res, next) => {
             }
         )
     })
+}
 
+exports.detalhesReceita = (req, res, next) => {
+
+    mysql.getConnection((error, conn) => {
+
+        conn.query(`
+        SELECT rc.dt_Emissao, rc.dt_Validade, rc.dosagem, rc.orientacoes, pc.nome AS Paciente, pc.cpf, pc.rg, rr.Quantidade , md.nome AS Medico, md.especialidade, md.crm, rm.nome AS Remedio
+        FROM tbl_Receita AS rc
+        INNER JOIN tbl_Paciente AS pc ON rc.fk_id_Paciente = id_Paciente
+        INNER JOIN tbl_Medico AS md ON rc.fk_id_Medico = id_Medico
+        INNER JOIN tbl_Receita_Remedio AS rr ON rr.fk_id_Receita = id_Receita
+        INNER JOIN tbl_Remedio AS rm ON id_Remedio = rr.fk_id_Remedio
+        WHERE id_Receita = ?`, [req.body.id_Receita],
+        (error, resultado, field) => {
+            conn.release()
+            if (error) { return res.status(500).send({ error: error }) }
+
+            res.status(200).send({
+                success: 1,
+                data: resultado
+            })
+        })
+    })
 }
