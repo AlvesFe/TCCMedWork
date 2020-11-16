@@ -9,6 +9,7 @@ MedWork*Database/INSERTS.sql
 
 #WEB
 # Dependências
+MedWork*Web/medico/node_modules
 MedWork*Web/administracao/node_modules
 MedWork*Web/recepcao/node_modules
 MedWork*Web/administracao-hospital/node_modules
