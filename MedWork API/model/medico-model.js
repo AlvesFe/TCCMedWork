@@ -139,34 +139,69 @@ exports.patchMedico = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
 
-        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
+        conn.query(`SELECT * FROM tbl_Medico WHERE id_Medico = ?`, [req.body.id_Medico], async (error, resposta, field) => {
+            if(resposta[0]){
+                if(resposta[0].senha === req.body.senha){
 
-            conn.query(
-                `UPDATE tbl_Medico
-                    SET
-                    nome = ?,
-                    especialidade = ?,
-                    telefone = ?,
-                    celular = ?,
-                    dt_Nascimento = ?,
-                    ativo = ?,
-                    foto = ?,
-                    senha = ?,
-                    tp_sanguineo = ?
-                    WHERE id_Medico = ?`,
-                [req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, req.body.ativo, req.body.foto, hash, req.body.tp_sanguineo, req.body.id_Medico],
-                (error, resultado, field) => {
-                    conn.release()
+                    conn.query(
+                        `UPDATE tbl_Medico
+                            SET
+                            nome = ?,
+                            especialidade = ?,
+                            telefone = ?,
+                            celular = ?,
+                            dt_Nascimento = ?,
+                            ativo = ?,
+                            foto = ?,
+                            senha = ?,
+                            tp_sanguineo = ?
+                            WHERE id_Medico = ?`,
+                        [req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, req.body.ativo, req.body.foto, resposta[0].senha, req.body.tp_sanguineo, req.body.id_Medico],
+                        (error, resultado, field) => {
+                            conn.release()
+        
+                            if (error) { return res.status(500).send({ error: error }) }
+        
+                            res.status(202).send({
+                                mensagem: 'Medico Atualizado',
+                                response: resultado.insertId
+                            })
+                        }
+                    )
 
-                    if (error) { return res.status(500).send({ error: error }) }
-
-                    res.status(202).send({
-                        mensagem: 'Medico Atualizado',
-                        response: resultado.insertId
-                    })
                 }
-            )
+                else{
+                    const senha = await bcrypt.hash(req.body.senha, 10);
+                    conn.query(
+                        `UPDATE tbl_Medico
+                            SET
+                            nome = ?,
+                            especialidade = ?,
+                            telefone = ?,
+                            celular = ?,
+                            dt_Nascimento = ?,
+                            ativo = ?,
+                            foto = ?,
+                            senha = ?,
+                            tp_sanguineo = ?
+                            WHERE id_Medico = ?`,
+                        [req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, req.body.ativo, req.body.foto, senha, req.body.tp_sanguineo, req.body.id_Medico],
+                        (error, resultado, field) => {
+                            conn.release()
+        
+                            if (error) { return res.status(500).send({ error: error }) }
+        
+                            res.status(202).send({
+                                mensagem: 'Medico Atualizado',
+                                response: resultado.insertId
+                            })
+                        }
+                    )
+                }
+            }
+            else{
+                if (error) { return res.status(500).send({ error: error }) }
+            }
         })
     })
 }

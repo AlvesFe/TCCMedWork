@@ -75,7 +75,7 @@ exports.getMedico = (req, res, next) => {
 }
 
 exports.patchMedico = (req, res, next) => {
-    permission = ['hospital'];
+    permission = ['hospital', 'medico'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
