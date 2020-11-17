@@ -48,6 +48,16 @@ function SendMail(transport, data) {
 exports.postHospital = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
+
+        const foto = () =>{
+            if(req.file){
+               return req.file.filename
+            }
+            else{
+                return "default.png"
+            }
+        }
+
         if (error) { return res.status(500).send({ error: error }) }
         conn.query('SELECT * FROM tbl_Hospital WHERE email = ? OR cnpj = ?', [req.body.email, req.body.cnpj],
             (error, resultado, field) => {
@@ -63,8 +73,8 @@ exports.postHospital = (req, res, next) => {
 
                             const id_Hospital = bcrypt.hashSync(Date.now().toString(), 10);
                             conn.query(
-                                'INSERT INTO tbl_Hospital (id_Hospital, cnpj, nome, endereco, telefone, email, senha, fk_id_MedWork)VALUES(?,?,?,?,?,?,?,?)',
-                                [id_Hospital, req.body.cnpj, req.body.nome, req.body.endereco, req.body.telefone, req.body.email, hash, req.body.fk_id_MedWork],
+                                'INSERT INTO tbl_Hospital (id_Hospital, cnpj, nome, endereco, telefone, email, senha, fk_id_MedWork, foto)VALUES(?,?,?,?,?,?,?,?,?)',
+                                [id_Hospital, req.body.cnpj, req.body.nome, req.body.endereco, req.body.telefone, req.body.email, hash, req.body.fk_id_MedWork, foto()],
                                 (error, resultado, field) => {
                                     conn.release()
 
@@ -136,6 +146,15 @@ exports.patchHospital = (req, res, next) => {
         conn.query('SELECT * FROM tbl_Hospital WHERE id_Hospital = ?', [req.body.id_Hospital], async (error, resultado, field) => {
 
             if(resultado[0]){
+                const foto = () =>{
+                    if(req.file){
+                       return req.file.filename
+                    }
+                    else{
+                        return "default.png"
+                    }
+                }
+
                 if(resultado[0].senha === req.body.senha){
                     conn.query(
                         `UPDATE tbl_Hospital
@@ -147,7 +166,7 @@ exports.patchHospital = (req, res, next) => {
                                        foto = ?,
                                        senha = ?
                                     WHERE id_Hospital = ?`,
-                        [req.body.nome, req.body.endereco, req.body.telefone, req.body.ativo, req.body.foto, resultado[0].senha, req.body.id_Hospital],
+                        [req.body.nome, req.body.endereco, req.body.telefone, req.body.ativo, foto(), resultado[0].senha, req.body.id_Hospital],
                         (error, resultado, field) => {
                             conn.release()
 
@@ -174,7 +193,7 @@ exports.patchHospital = (req, res, next) => {
                                        foto = ?,
                                        senha = ?
                                     WHERE id_Hospital = ?`,
-                        [req.body.nome, req.body.endereco, req.body.telefone, req.body.ativo, req.body.foto, senha, req.body.id_Hospital],
+                        [req.body.nome, req.body.endereco, req.body.telefone, req.body.ativo, foto(), senha, req.body.id_Hospital],
                         (error, resultado, field) => {
                             conn.release()
 
