@@ -182,6 +182,15 @@ exports.pacthPaciente = (req, res, next) => {
                 }
                 else {
                     const senha = await (bcrypt.hash(req.body.senha, 10));
+
+                    const foto = () =>{
+                        if(req.file){
+                           return req.file.filename
+                        }
+                        else{
+                            return "default.png"
+                        }
+                   }
                     conn.query(
                         `UPDATE tbl_Paciente
                                             SET
@@ -197,7 +206,7 @@ exports.pacthPaciente = (req, res, next) => {
                                             alt_senha = ?,
                                             foto = ?
                                             WHERE cpf = ?`,
-                        [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, senha, req.body.alt_senha, req.body.foto, req.body.cpf],
+                        [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, senha, req.body.alt_senha, foto(), req.body.cpf],
                         (error, resultado, fields) => {
                             conn.release()
                             if (error) { return res.status(500).send({ error: error }) }
