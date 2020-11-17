@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import getDetalhesReceita from '../api/getDetalhesReceita';
 import { roxo } from '../constants/colors.json';
 import Loading from '../components/Loading';
-import Button from '../components/FormButton'
+import Button from '../components/FormButton';
+
+const { width, height } = Dimensions.get('window');
 
 export default function ViewPresc({ route, navigation }) {
 
@@ -62,7 +64,7 @@ export default function ViewPresc({ route, navigation }) {
           labelStyle={styles.loginButtonLabel}
           color={roxo}
           onPress={() => {
-            login(email, password, setPassword);
+            navigation.navigate('Buscar Medicamentos')
           }}
         />
       </View>
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
     marginTop: 17,
     borderBottomWidth: 1,
     borderColor: '#808080',
-    fontSize: 17
+    fontSize: width/27
   },
   titlePage: {
     color: roxo,

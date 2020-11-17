@@ -60,32 +60,32 @@ export default function patchUser(user, setViewing, setUser) {
         return token
     }
 
-    // async function sendUserData() {
-    //     const token = await getToken();
-    //     Axios({
-    //         method: 'patch',
-    //         url: url+"/paciente",
-    //         data: userfinal,
-    //         headers: {
-    //             'Content-Type' : 'multipart/formdata',
-    //             'Authorization' : 'bearer '+token
-    //         }
-    //     }).then(async response => {
-    //         await AsyncStorage.setItem("userData", JSON.stringify(user))
-    //         setViewing(true)
-    //         toastSuccess(response.data.mensagem);
-    //     }).catch(async err => {
-    //         const item = await AsyncStorage.getItem("userData").then(res => {
-    //             return JSON.parse(res);
-    //         })
+    async function sendUserData() {
+        const token = await getToken();
+        Axios({
+            method: 'patch',
+            url: url+"/paciente",
+            data: userfinal,
+            headers: {
+                'Content-Type' : 'multipart/formdata',
+                'Authorization' : 'bearer '+token
+            }
+        }).then(async response => {
+            await AsyncStorage.setItem("userData", JSON.stringify(user))
+            setViewing(true)
+            toastSuccess(response.data.mensagem);
+        }).catch(async err => {
+            const item = await AsyncStorage.getItem("userData").then(res => {
+                return JSON.parse(res);
+            })
 
-    //         const phrase = "Campo "+err.response.data.errormes+" vazio!"
+            const phrase = "Campo "+err.response.data.errormes+" vazio!"
 
-    //         toastFail(phrase)
-    //         setViewing(true)
-    //         setUser(item)
-    //     })
-    // }
+            toastFail(phrase)
+            setViewing(true)
+            setUser(item)
+        })
+    }
 
-    // return sendUserData();
+    return sendUserData();
 }

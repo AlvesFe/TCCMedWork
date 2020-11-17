@@ -3,12 +3,14 @@ import { View, Text, StyleSheet, Dimensions, ScrollView, SafeAreaView } from 're
 import { Appbar, Avatar, Button } from 'react-native-paper';
 import { roxo, verde } from '../constants/colors.json';
 import Loading from '../components/Loading'; 
-import DefaultUser from '../assets/defaultUser.png';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import useStatusBar from '../util/StatusBar';
 import patchUser from '../api/patchUser';
+import env from '../../variables';
+
+const url = env.API_URL;
 
 const { height ,width } = Dimensions.get('screen')
 
@@ -22,12 +24,12 @@ export default function PerfilPage() {
   async function getUserData() {
     try {
       const item = await AsyncStorage.getItem("userData").then(res => {
-          return JSON.parse(res);
+        return JSON.parse(res);
       })
       setUser(item)
       setCarregando(false)
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   }
 
@@ -56,7 +58,7 @@ export default function PerfilPage() {
         <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
-              <Avatar.Image size={height/8} source={DefaultUser} />
+              <Avatar.Image size={height/8} source={{uri : 'http://192.168.1.48:3001/uploads/paciente/default.png'}} />
               <Text style={styles.name}>{user.nome}</Text>
             </View>
             <View style={styles.infoContainer}>

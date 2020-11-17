@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import PrescPage from '../pages/Prescs';
 import Header from '../components/Header';
 import ViewPresc from '../pages/ViewPresc';
+import BuscaMeds from '../pages/BuscarMedicamento';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,11 @@ export default function PrescStack() {
             name='Prescrição' 
             component={ViewPresc} 
             options={Header("Precrição")}
+          />
+          <Stack.Screen 
+            name='Buscar Medicamentos' 
+            component={BuscaMeds} 
+            options={Header("Buscar Medicamentos")}
           />
         </Stack.Navigator>
     );
