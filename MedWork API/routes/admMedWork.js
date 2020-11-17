@@ -28,9 +28,38 @@ const admMedWorkModel = require('../model/admMedWork-model');
 //Importação da Middleware do AdmMedWork
 const admMedWorkMiddleware = require('../middleware/route_admMedWork');
 
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, callback){
+        callback(null, './uploads/medwork')
+    },
+    filename: async function(req, file, callback){
+        console.log(file.originalname.split('.').pop());
+        callback(null, new Date().getTime().toString()+'.' + file.originalname.split('.').pop())
+    }
+})
+
+const fileFilter = (req, file, callback) => {
+
+    if(file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg'){
+        callback(null, true);
+    }
+    else{
+        callback(null, false);
+    }
+}
+
+const upload = multer({ 
+    storage: storage,
+    limits:{
+        fieldSize: 1024 * 1024 * 5,
+    },
+    fileFilter: fileFilter
+}) 
 
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
-router.post('/', admMedWorkMiddleware.allAdmMedWork, admMedWorkController.postAdmMedwork, admMedWorkModel.postAdmMedwork);
+router.post('/', admMedWorkMiddleware.allAdmMedWork, upload.single('image'), admMedWorkController.postAdmMedwork, admMedWorkModel.postAdmMedwork);
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
 router.get('/',  admMedWorkMiddleware.allAdmMedWork, admMedWorkModel.getAdmsMedWork);
@@ -38,8 +67,8 @@ router.get('/',  admMedWorkMiddleware.allAdmMedWork, admMedWorkModel.getAdmsMedW
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
 router.post('/get', admMedWorkMiddleware.allAdmMedWork, admMedWorkController.getAdmMedWork, admMedWorkModel.getAdmMedWork);
 
-//UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
-router.patch('/', admMedWorkMiddleware.allAdmMedWork, admMedWorkController.patchAdmMedWork, admMedWorkModel.patchAdmMedWork);
+//UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados
+router.patch('/', upload.single('image'), admMedWorkMiddleware.allAdmMedWork, admMedWorkController.patchAdmMedWork, admMedWorkModel.patchAdmMedWork);
 
 //DELETE - Apaga um valor existente da tabela do banco de dados
 router.delete('/', admMedWorkMiddleware.allAdmMedWork, admMedWorkController.deleteAdmMedWork, admMedWorkModel.deleteAdmMedWork);

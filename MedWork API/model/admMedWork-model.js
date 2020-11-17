@@ -25,6 +25,15 @@ const readHTMLFile = (path, callback) => {
     })
 }
 
+const foto = (req) =>{
+    if(req.file){
+       return req.file.filename
+    }
+    else{
+        return "default.png"
+    }
+}
+
 function SendMail(transport, data) {
 
     readHTMLFile(__dirname + '/../src/template/AlterarSenha.html', function (err, html) {
@@ -63,8 +72,8 @@ exports.postAdmMedwork = async (req, res, next) => {
                             const id_MedWork = bcrypt.hashSync(Date.now().toString(), 10);
 
                             conn.query(
-                                'INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, cnpj)VALUES(?,?,?,?,?)',
-                                [id_MedWork, req.body.nome, req.body.email, hash, req.body.cnpj],
+                                'INSERT INTO tbl_MedWork (id_MedWork, foto, nome, email, senha, cnpj)VALUES(?,?,?,?,?,?)',
+                                [id_MedWork, foto(req), req.body.nome, req.body.email, hash, req.body.cnpj],
                                 (error, resultado, field) => {
                                     conn.release()
 
@@ -130,10 +139,16 @@ exports.getAdmMedWork = (req, res, next) => {
 exports.patchAdmMedWork = (req, res, next) => {
 
     mysql.getConnection(async (error, conn) => {
-
-
-        const result = await conn.query(`SELECT * FROM tbl_MedWork WHERE cnpj = ?`, [req.body.cnpj],
+        conn.query(`SELECT * FROM tbl_MedWork WHERE cnpj = ?`, [req.body.cnpj],
             async (error, resultado, fields) => {
+                const foto = () =>{
+                    if(req.file){
+                       return req.file.filename
+                    }
+                    else{
+                        return "default.png"
+                    }
+                }
                 if (error) { return res.status(500).send({ error: error }) }
                 if (resultado[0]) {
                     if (req.body.senha === resultado[0].senha) {
@@ -146,10 +161,9 @@ exports.patchAdmMedWork = (req, res, next) => {
                                 foto = ?
                             WHERE cnpj = ?`
                             ,
-                            [req.body.nome, resultado[0].senha, req.body.ativo, req.body.foto, req.body.cnpj],
+                            [req.body.nome, resultado[0].senha, req.body.ativo, foto(), req.body.cnpj],
                             (error, resultado, field) => {
                                 conn.release()
-
                                 if (error) { return res.status(500).send({ error: error }) }
 
                                 res.status(202).send({
@@ -170,7 +184,7 @@ exports.patchAdmMedWork = (req, res, next) => {
                                 foto = ?
                             WHERE cnpj = ?`
                             ,
-                            [req.body.nome, senha, req.body.ativo, req.body.foto, req.body.cnpj],
+                            [req.body.nome, senha, req.body.ativo, foto(), req.body.cnpj],
                             (error, resultado, field) => {
                                 conn.release()
 
