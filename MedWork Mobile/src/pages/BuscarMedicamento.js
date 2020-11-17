@@ -4,15 +4,19 @@ import { Button, DataTable } from 'react-native-paper';
 
 export default function BuscaMeds({route, navigation}) {
 
-  return (
-    <View style={styles.container}>
-        <Text>a</Text>
-    </View>
-  )
+    const {detalhes} = route.params
+
+    return (
+        <View style={styles.container}>
+            <Text>{detalhes.id_Remedio}</Text>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 })

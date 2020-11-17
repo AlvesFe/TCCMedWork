@@ -64,7 +64,7 @@ export default function ViewPresc({ route, navigation }) {
           labelStyle={styles.loginButtonLabel}
           color={roxo}
           onPress={() => {
-            navigation.navigate('Buscar Medicamentos')
+            navigation.navigate('Buscar Medicamentos', {detalhes})
           }}
         />
       </View>
