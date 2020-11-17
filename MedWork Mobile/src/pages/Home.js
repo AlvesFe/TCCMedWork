@@ -14,7 +14,7 @@ export default function HomePage() {
       <View>
         <View style={styles.videoContainer}>
           <Video
-            source={require('../../assets/videoplayback.mp4')}
+            source={require('../assets/videoplayback.mp4')}
             rate={1.0}
             volume={1.0}
             isMuted={false}
