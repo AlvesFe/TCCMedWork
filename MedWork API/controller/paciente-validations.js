@@ -1,7 +1,7 @@
 //Importando AXIOS
 const axios = require('axios');
 
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 //FUNÇÕES GLOBAIS
 //Função que verifica se determinado valor está em branco ou só com espaços
@@ -38,7 +38,7 @@ async function validateCPF(value) {
 //Faz a validação e inserção no banco de dados de um novo cadastro de pacientes
 exports.postPaciente = async (req, res, next) => {
 
-    //Laço que verifica se todos os campos possuem valor
+    // Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
         if (isNullOrWhitespace(req.body[key])) {
             return res.status(500).send({
@@ -136,7 +136,6 @@ exports.getPaciente = (req, res, next) => {
             error: "errocpfinvalido"
         })
     }
-
     next();
 }
 
