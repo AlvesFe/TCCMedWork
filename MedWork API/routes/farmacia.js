@@ -20,8 +20,38 @@ const farmaciaModel = require('../model/farmacia-model');
 //Chamando a Middleware da tabela farmacia
 const farmaciaMiddleware = require('../middleware/route_farmacia');
 
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, callback){
+        callback(null, './uploads/farmacia')
+    },
+    filename: async function(req, file, callback){
+        console.log(file.originalname.split('.').pop());
+        callback(null, new Date().getTime().toString()+'.' + file.originalname.split('.').pop())
+    }
+})
+
+const fileFilter = (req, file, callback) => {
+
+    if(file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg'){
+        callback(null, true);
+    }
+    else{
+        callback(null, false);
+    }
+}
+
+const upload = multer({ 
+    storage: storage,
+    limits:{
+        fieldSize: 1024 * 1024 * 5,
+    },
+    fileFilter: fileFilter
+}) 
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
-router.post('/', farmaciaMiddleware.postCompra, farmaciaController.postFarmacia, farmaciaModel.postFarmacia);
+router.post('/', farmaciaMiddleware.postCompra, upload.single('image'), farmaciaController.postFarmacia, farmaciaModel.postFarmacia);
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
 router.get('/', farmaciaMiddleware.getCompras, farmaciaModel.getFarmacias);
@@ -30,7 +60,7 @@ router.get('/', farmaciaMiddleware.getCompras, farmaciaModel.getFarmacias);
 router.post('/get', farmaciaMiddleware.getCompra, farmaciaController.getFarmacia, farmaciaModel.getFarmacia);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
-router.patch('/', farmaciaMiddleware.patchCompra, farmaciaController.patchFarmacia, farmaciaModel.patchFarmacia);
+router.patch('/', farmaciaMiddleware.patchCompra, upload.single('image'), farmaciaController.patchFarmacia, farmaciaModel.patchFarmacia);
 
 //DELETE - Apaga um valor existente da tabela do banco de dados
 router.delete('/', farmaciaMiddleware.deleteCompra, farmaciaController.deleteFarmacia, farmaciaModel.deleteFarmacia);

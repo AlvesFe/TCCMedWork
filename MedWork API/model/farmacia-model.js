@@ -54,7 +54,14 @@ exports.postFarmacia = (req, res, next) => {
                 if (error) { return res.status(500).send({ error: error }) }
                 if (!resultado[0]) {
                     mysql.getConnection((error, conn) => {
-
+                        const foto = () =>{
+                            if(req.file){
+                               return req.file.filename
+                            }
+                            else{
+                                return "default.png"
+                            }
+                        }
                         if (error) { return res.status(500).send({ error: error }) }
 
                         bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
@@ -63,8 +70,8 @@ exports.postFarmacia = (req, res, next) => {
                             const id_Farmacia = bcrypt.hashSync(Date.now().toString(), 10);
 
                             conn.query(
-                                'INSERT INTO tbl_Farmacia(id_Farmacia, nome, telefone, endereco, detalhes, cnpj, senha, email, fk_id_MedWork)VALUES(?,?,?,?,?,?,?,?,?)',
-                                [id_Farmacia, req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.cnpj, hash, req.body.email, req.body.fk_id_MedWork],
+                                'INSERT INTO tbl_Farmacia(id_Farmacia, foto, nome, telefone, endereco, detalhes, cnpj, senha, email, fk_id_MedWork)VALUES(?,?,?,?,?,?,?,?,?,?)',
+                                [id_Farmacia, foto(), req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.cnpj, hash, req.body.email, req.body.fk_id_MedWork],
                                 (error, resultado, field) => {
                                     conn.release()
 
@@ -133,7 +140,14 @@ exports.patchFarmacia = (req, res, next) => {
 
         conn.query(`SELECT * FROM tbl_Farmacia WHERE id_Farmacia = ?`, [req.body.id_Farmacia], async (error, resultado, field) =>{
             if (error) { return res.status(500).send({ error: error }) }
-
+            const foto = () =>{
+                if(req.file){
+                   return req.file.filename
+                }
+                else{
+                    return "default.png"
+                }
+            }
             if (resultado[0]) {
                 if(resultado[0].senha === req.body.senha){
 
@@ -148,7 +162,7 @@ exports.patchFarmacia = (req, res, next) => {
                             senha = ?, 
                             foto = ?
                             WHERE id_Farmacia = ?`,
-                        [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, resultado[0].senha, req.body.foto, req.body.id_Farmacia],
+                        [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, resultado[0].senha, foto(), req.body.id_Farmacia],
                         (error, resultado, field) => {
                             conn.release()
         
@@ -175,7 +189,7 @@ exports.patchFarmacia = (req, res, next) => {
                             senha = ?, 
                             foto = ?
                             WHERE id_Farmacia = ?`,
-                        [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, senha, req.body.foto, req.body.id_Farmacia],
+                        [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, senha, foto(), req.body.id_Farmacia],
                         (error, resultado, field) => {
                             conn.release()
         
