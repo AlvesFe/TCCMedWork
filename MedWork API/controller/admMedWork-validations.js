@@ -71,13 +71,6 @@ exports.postAdmMedwork = async (req, res, next) => {
         })
     }
 
-    //Verifica o Tamanho do campo CNPJ 
-    if (req.body.cnpj.length != 14) {
-        return res.status(500).send({
-            error: "errotamanhocnpj"
-        })
-    }
-
     if (ValidationNumber(req.body.cnpj)) {
         return res.status(500).send({
             error: "errocnpjinvalido"
@@ -135,12 +128,6 @@ exports.patchAdmMedWork = (req, res, next) => {
     if (req.body.senha.length < 8) {
         return res.status(500).send({
             error: "errotamanhosenha"
-        })
-    }
-
-    if (req.body.cnpj.length != 8) {
-        return res.status(500).send({
-            error: "errotamanhocnpj"
         })
     }
 
