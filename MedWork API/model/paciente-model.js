@@ -62,9 +62,18 @@ exports.postPaciente = (req, res, next) => {
 
                             const id_Paciente = bcrypt.hashSync(Date.now().toString(), 10);
 
+                            const foto = () =>{
+                                 if(req.file){
+                                    return req.file.filename
+                                 }
+                                 else{
+                                     return "default.png"
+                                 }
+                            }
+
                             conn.query(
-                                'INSERT INTO tbl_Paciente (id_Paciente ,dt_nascimento, nome, telefone, tp_sanguineo, alergia, rg, email, cpf, endereco, celular, senha, fk_id_Recepcionista)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',
-                                [id_Paciente, req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.rg, req.body.email, req.body.cpf, req.body.endereco, req.body.celular, hash, req.body.fk_id_Recepcionista],
+                                'INSERT INTO tbl_Paciente (id_Paciente, foto,dt_nascimento, nome, telefone, tp_sanguineo, alergia, rg, email, cpf, endereco, celular, senha, fk_id_Recepcionista)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                                [id_Paciente, foto(), req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.rg, req.body.email, req.body.cpf, req.body.endereco, req.body.celular, hash, req.body.fk_id_Recepcionista],
                                 (error, resultado, fields) => {
                                     conn.release()
 
@@ -136,6 +145,15 @@ exports.pacthPaciente = (req, res, next) => {
 
                 if (error) { return res.status(500).send({ error: error }) }
 
+                const foto = () =>{
+                    if(req.file){
+                       return req.file.filename
+                    }
+                    else{
+                        return "default.png"
+                    }
+                }
+
                 if (req.body.senha === resultado[0].senha) {
                     conn.query(
                         `UPDATE tbl_Paciente
@@ -152,7 +170,7 @@ exports.pacthPaciente = (req, res, next) => {
                                     alt_senha = ?,
                                     foto = ?
                                     WHERE cpf = ?`,
-                        [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, resultado[0].senha, req.body.alt_senha, req.body.foto, req.body.cpf],
+                        [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, resultado[0].senha, req.body.alt_senha, foto(), req.body.cpf],
                         (error, resultado, fields) => {
                             conn.release()
                             if (error) { return res.status(500).send({ error: error }) }
@@ -164,6 +182,15 @@ exports.pacthPaciente = (req, res, next) => {
                 }
                 else {
                     const senha = await (bcrypt.hash(req.body.senha, 10));
+
+                    const foto = () =>{
+                        if(req.file){
+                           return req.file.filename
+                        }
+                        else{
+                            return "default.png"
+                        }
+                   }
                     conn.query(
                         `UPDATE tbl_Paciente
                                             SET
@@ -179,7 +206,7 @@ exports.pacthPaciente = (req, res, next) => {
                                             alt_senha = ?,
                                             foto = ?
                                             WHERE cpf = ?`,
-                        [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, senha, req.body.alt_senha, req.body.foto, req.body.cpf],
+                        [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, senha, req.body.alt_senha, foto(), req.body.cpf],
                         (error, resultado, fields) => {
                             conn.release()
                             if (error) { return res.status(500).send({ error: error }) }
