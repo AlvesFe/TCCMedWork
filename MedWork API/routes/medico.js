@@ -13,8 +13,37 @@ const medicoModel = require('../model/medico-model');
 //Chamando a middleware da tabela Medico
 const medicoMiddleware = require('../middleware/route_medico');
 
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, callback){
+        callback(null, './uploads/medico')
+    },
+    filename: async function(req, file, callback){
+        callback(null, new Date().getTime().toString()+'.' + file.originalname.split('.').pop())
+    }
+})
+
+const fileFilter = (req, file, callback) => {
+
+    if(file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg'){
+        callback(null, true);
+    }
+    else{
+        callback(null, false);
+    }
+}
+
+const upload = multer({ 
+    storage: storage,
+    limits:{
+        fieldSize: 1024 * 1024 * 5,
+    },
+    fileFilter: fileFilter
+})
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
-router.post('/', medicoMiddleware.postMedico, medicoController.postMedico, medicoModel.postMedico);
+router.post('/', medicoMiddleware.postMedico, upload.single('image'), medicoController.postMedico, medicoModel.postMedico);
 
 //READ (GET) - Busca e exibe todos os valores existentes da tabela do banco de dados
 router.get('/', medicoMiddleware.getMedicos, medicoModel.getMedicos);
@@ -23,7 +52,7 @@ router.get('/', medicoMiddleware.getMedicos, medicoModel.getMedicos);
 router.post('/get', medicoMiddleware.getMedico, medicoController.getMedico, medicoModel.getMedico);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
-router.patch('/', medicoMiddleware.patchMedico, medicoController.patchMedico, medicoModel.patchMedico);
+router.patch('/', medicoMiddleware.patchMedico, upload.single('image'), medicoController.patchMedico, medicoModel.patchMedico);
 
 //DELETE - Apaga um valor existente da tabela do banco de dados
 router.delete('/', medicoMiddleware.deleteMedico, medicoController.deleteMedico, medicoModel.deleteMedico);

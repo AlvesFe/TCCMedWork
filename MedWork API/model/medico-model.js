@@ -63,13 +63,22 @@ exports.postMedico = (req, res, next) => {
 
                             if (error) { return res.status(500).send({ error: error }) }
 
+                            const foto = () => {
+                                if (req.file) {
+                                    return req.file.filename
+                                }
+                                else {
+                                    return "default.png"
+                                }
+                            }
+
                             bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
                                 if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
                                 const id_Medico = bcrypt.hashSync(Date.now().toString(), 10);
                                 conn.query(
-                                    'INSERT INTO tbl_Medico (id_Medico, crm, email, nome, especialidade, telefone, celular, dt_Nascimento, senha, tp_sanguineo, cpf, rg, fk_id_Hospital)VALUES(?, ?,?,?,?,?,?,?,?,?,?,?,?)',
-                                    [id_Medico, req.body.crm, req.body.email, req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, hash, req.body.tp_sanguineo, req.body.cpf, req.body.rg, req.body.fk_id_Hospital],
+                                    'INSERT INTO tbl_Medico (id_Medico, foto, crm, email, nome, especialidade, telefone, celular, dt_Nascimento, senha, tp_sanguineo, cpf, rg, fk_id_Hospital)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                                    [id_Medico, foto(), req.body.crm, req.body.email, req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, hash, req.body.tp_sanguineo, req.body.cpf, req.body.rg, req.body.fk_id_Hospital],
                                     (error, resultado, field) => {
                                         conn.release()
 
@@ -140,9 +149,17 @@ exports.patchMedico = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
 
         conn.query(`SELECT * FROM tbl_Medico WHERE id_Medico = ?`, [req.body.id_Medico], async (error, resposta, field) => {
-            if(resposta[0]){
-                if(resposta[0].senha === req.body.senha){
-
+            if (resposta[0]) {
+                const foto = () => {
+                    if (req.file) {
+                        console.log(req.file)
+                        return req.file.filename
+                    }
+                    else {
+                        return "default.png"
+                    }
+                }
+                if (resposta[0].senha === req.body.senha) {
                     conn.query(
                         `UPDATE tbl_Medico
                             SET
@@ -156,12 +173,11 @@ exports.patchMedico = (req, res, next) => {
                             senha = ?,
                             tp_sanguineo = ?
                             WHERE id_Medico = ?`,
-                        [req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, req.body.ativo, req.body.foto, resposta[0].senha, req.body.tp_sanguineo, req.body.id_Medico],
+                        [req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, req.body.ativo, foto(), resposta[0].senha, req.body.tp_sanguineo, req.body.id_Medico],
                         (error, resultado, field) => {
                             conn.release()
-        
                             if (error) { return res.status(500).send({ error: error }) }
-        
+
                             res.status(202).send({
                                 mensagem: 'Medico Atualizado',
                                 response: resultado.insertId
@@ -170,7 +186,7 @@ exports.patchMedico = (req, res, next) => {
                     )
 
                 }
-                else{
+                else {
                     const senha = await bcrypt.hash(req.body.senha, 10);
                     conn.query(
                         `UPDATE tbl_Medico
@@ -185,12 +201,13 @@ exports.patchMedico = (req, res, next) => {
                             senha = ?,
                             tp_sanguineo = ?
                             WHERE id_Medico = ?`,
-                        [req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, req.body.ativo, req.body.foto, senha, req.body.tp_sanguineo, req.body.id_Medico],
+                        [req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, req.body.ativo, foto(), senha, req.body.tp_sanguineo, req.body.id_Medico],
                         (error, resultado, field) => {
                             conn.release()
-        
+                            console.log("AQUI")
+                            console.log(foto())
                             if (error) { return res.status(500).send({ error: error }) }
-        
+
                             res.status(202).send({
                                 mensagem: 'Medico Atualizado',
                                 response: resultado.insertId
@@ -199,7 +216,7 @@ exports.patchMedico = (req, res, next) => {
                     )
                 }
             }
-            else{
+            else {
                 if (error) { return res.status(500).send({ error: error }) }
             }
         })
