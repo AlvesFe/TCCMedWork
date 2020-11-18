@@ -58,7 +58,7 @@ export default function PerfilPage() {
         <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
-              <Avatar.Image size={height/8} source={{uri : 'http://192.168.1.48:3001/uploads/paciente/default.png'}} />
+              <Avatar.Image size={height/8} source={{uri : env.API_URL + '/uploads/paciente/default.png'}} />
               <Text style={styles.name}>{user.nome}</Text>
             </View>
             <View style={styles.infoContainer}>

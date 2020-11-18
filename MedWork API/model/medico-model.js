@@ -152,7 +152,6 @@ exports.patchMedico = (req, res, next) => {
             if (resposta[0]) {
                 const foto = () => {
                     if (req.file) {
-                        console.log(req.file)
                         return req.file.filename
                     }
                     else {
@@ -204,8 +203,6 @@ exports.patchMedico = (req, res, next) => {
                         [req.body.nome, req.body.especialidade, req.body.telefone, req.body.celular, req.body.dt_Nascimento, req.body.ativo, foto(), senha, req.body.tp_sanguineo, req.body.id_Medico],
                         (error, resultado, field) => {
                             conn.release()
-                            console.log("AQUI")
-                            console.log(foto())
                             if (error) { return res.status(500).send({ error: error }) }
 
                             res.status(202).send({
