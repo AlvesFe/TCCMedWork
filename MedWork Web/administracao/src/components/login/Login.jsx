@@ -1,15 +1,14 @@
 import React, { Component, useState } from 'react';
-
+import doLogin from '../api/login'
 import Logotipo from '../template/logotipo'
 import './Login.css'
-
 
 class Login extends Component {
 
     constructor() {
         super()
         this.state = {
-            identificacao: "",
+            email: "",
             senha: ""
         }
         this.onChange = (e) => {
@@ -20,7 +19,7 @@ class Login extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
+            doLogin(this.state)
         }
     }
 
@@ -39,7 +38,7 @@ class Login extends Component {
                         <p className='pt-3'>Faça Login</p>
                         <div className='container'>
                             <div className='py-2'>
-                                <input type="text" className='form-control' name="identificacao" id="identificacao" placeholder='Identificação' value={this.state.identificacao} onChange={this.onChange} />
+                                <input type="text" className='form-control' name="email" id="email" placeholder='Identificação' value={this.state.email} onChange={this.onChange} />
                             </div>
                             <div className='py-2'>
                                 <input type="password" className='form-control' name="senha" id="senha" placeholder="Senha" value={this.state.senha} onChange={this.onChange} />
