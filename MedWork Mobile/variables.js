@@ -1,13 +1,13 @@
 import Constants from 'expo-constants';
 
-export const prodUrl = "http://192.168.1.48:3001";
+export const prodUrl = "http://192.168.15.45:3001";
 export const key = "networkSenhores"
 export const api_key = "AIzaSyAT1u72BEre__s7KGO7a6B9HE5nvznnobk"
 
 
 const ENV = {
   dev: {
-    API_URL: "http://192.168.1.48:3001",
+    API_URL: "http://192.168.15.45:3001",
     JWT_KEY: "networkSenhores",
     API_YTB_KEY: "AIzaSyAT1u72BEre__s7KGO7a6B9HE5nvznnobk",
   },
