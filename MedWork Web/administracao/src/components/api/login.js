@@ -1,7 +1,7 @@
 import React from 'react'
 import Axios from 'axios'
 
-const API_URL = "http://192.168.15.45:3001"
+const API_URL = "http://localhost:3001"
 
 export default function doLogin (dados) {
     Axios ({
@@ -14,5 +14,7 @@ export default function doLogin (dados) {
         }
     }).then(response => {
         console.log(response);
+    }).catch(err => {
+        console.log(err.response);
     })
 }
