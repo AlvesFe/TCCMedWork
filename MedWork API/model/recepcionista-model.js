@@ -57,6 +57,15 @@ exports.postRecepcionista = (req, res, next) => {
                 if (!resultado[0]) {
                     mysql.getConnection((error, conn) => {
 
+                        const foto = () =>{
+                            if(req.file){
+                               return req.file.filename
+                            }
+                            else{
+                                return "default.png"
+                            }
+                       }
+
                         //Criptografa a senha inserida pelo usuario no momento de cadastro
                         if (error) { return res.status(500).send({ error: error }) }
 
@@ -64,8 +73,8 @@ exports.postRecepcionista = (req, res, next) => {
                             if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
                             const id_Recepcionista = bcrypt.hashSync(Date.now().toString(), 10);
                             conn.query(
-                                'INSERT INTO tbl_Recepcionista (id_Recepcionista, nome, dt_Nascimento, tp_sanguineo, endereco, cpf, senha, rg, email, celular, telefone, fk_id_Hospital)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
-                                [id_Recepcionista, req.body.nome, req.body.dt_Nascimento, req.body.tp_sanguineo, req.body.endereco, req.body.cpf, hash, req.body.rg, req.body.email, req.body.celular, req.body.telefone, req.body.fk_id_Hospital],
+                                'INSERT INTO tbl_Recepcionista (id_Recepcionista, foto, nome, dt_Nascimento, tp_sanguineo, endereco, cpf, senha, rg, email, celular, telefone, fk_id_Hospital)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                                [id_Recepcionista, foto(), req.body.nome, req.body.dt_Nascimento, req.body.tp_sanguineo, req.body.endereco, req.body.cpf, hash, req.body.rg, req.body.email, req.body.celular, req.body.telefone, req.body.fk_id_Hospital],
                                 (error, resultado, field) => {
                                     conn.release()
 
@@ -136,6 +145,14 @@ exports.patchRecepcionista = (req, res, next) => {
 
         conn.query(`SELECT * FROM tbl_Recepcionista WHERE id_Recepcionista = ?`, [req.body.id_Recepcionista], async (error, resultado, field) => {
             if(resultado[0]){
+                const foto = () =>{
+                    if(req.file){
+                       return req.file.filename
+                    }
+                    else{
+                        return "default.png"
+                    }
+               }
                 if(resultado[0].senha === req.body.senha){
                     conn.query(
                         `UPDATE tbl_Recepcionista
@@ -147,9 +164,10 @@ exports.patchRecepcionista = (req, res, next) => {
                                endereco = ?,
                                senha =?,
                                celular = ?,
+                               foto = ?,
                                telefone = ?
                             WHERE id_Recepcionista = ?`,
-                        [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.ativo, req.body.endereco, resultado[0].senha, req.body.celular, req.body.telefone, req.body.id_Recepcionista],
+                        [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.ativo, req.body.endereco, resultado[0].senha, req.body.celular, foto(), req.body.telefone, req.body.id_Recepcionista],
                         (error, resultado, field) => {
                             conn.release()
         
@@ -175,9 +193,10 @@ exports.patchRecepcionista = (req, res, next) => {
                                endereco = ?,
                                senha =?,
                                celular = ?,
+                               foto = ?,
                                telefone = ?
                             WHERE id_Recepcionista = ?`,
-                        [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.ativo, req.body.endereco, senha, req.body.celular, req.body.telefone, req.body.id_Recepcionista],
+                        [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.ativo, req.body.endereco, senha, req.body.celular, foto(), req.body.telefone, req.body.id_Recepcionista],
                         (error, resultado, field) => {
                             conn.release()
         
