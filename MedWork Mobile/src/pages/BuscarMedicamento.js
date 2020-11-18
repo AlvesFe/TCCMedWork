@@ -41,20 +41,22 @@ export default function BuscaMeds({ route, navigation }) {
                 (
                     farmaciaRem.map((item, key) => (
                         <>
-                            <View style={styles.container}>
+                            <View key={key} style={styles.container}>
                                 <Image
+                                    key={Date.now().toString().slice(0,-2)}
                                     style={styles.stretch}
                                     source={{ uri: `${env.API_URL}/uploads/farmacia/${item.foto}` }}
                                 />
                             </View>
-                            <View style={styles.detalhesContainer}>
-                                <Text style={styles.Title}>{item.Farmacia}</Text>
-                                <Text style={styles.subTitle}>{item.nome}</Text>
-                                <View style={styles.containerRow}>
-                                    <Text style={styles.Title}>{ item.preco }</Text>
-                                    <View style={styles.containerButton}>
+                            <View key={Date.now().toString()+key} style={styles.detalhesContainer}>
+                                <Text key={Date.now().toString()-key} style={styles.Title}>{item.Farmacia}</Text>
+                                <Text key={Date.now().toString()/(key+25)}style={styles.subTitle}>{item.nome}</Text>
+                                <View key={Date.now().toString().slice(0,-5)} style={styles.containerRow}>
+                                    <Text key={Date.now().toString().slice(0,-6)} style={styles.Title}>{ item.preco }</Text>
+                                    <View key={Date.now().toString().slice(0,-3)} style={styles.containerButton}>
                                         <Button
                                             mode='contained'
+                                            key={Date.now().toString().slice(0,-2)}
                                             title='COMPRAR'
                                             color={verde_claro}
                                             contentStyle={styles.editingButtons}
@@ -94,8 +96,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     stretch: {
-        width: width / 2 + 170,
-        height: height / 3.8,
+        width: width / 1.05,
+        height: height / 4.3,
+        borderRadius: 5,
         resizeMode: 'stretch',
     },
     detalhesContainer: {
