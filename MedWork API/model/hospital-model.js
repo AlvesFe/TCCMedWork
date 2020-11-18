@@ -49,11 +49,11 @@ exports.postHospital = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
 
-        const foto = () =>{
-            if(req.file){
-               return req.file.filename
+        const foto = () => {
+            if (req.file) {
+                return req.file.filename
             }
-            else{
+            else {
                 return "default.png"
             }
         }
@@ -144,18 +144,17 @@ exports.patchHospital = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
 
         conn.query('SELECT * FROM tbl_Hospital WHERE id_Hospital = ?', [req.body.id_Hospital], async (error, resultado, field) => {
-
-            if(resultado[0]){
-                const foto = () =>{
-                    if(req.file){
-                       return req.file.filename
-                    }
-                    else{
-                        return "default.png"
-                    }
+            const foto = () => {
+                if (req.file) {
+                    return req.file.filename
                 }
-
-                if(resultado[0].senha === req.body.senha){
+                else {
+                    return "default.png"
+                }
+            }
+            console.log(foto())
+            if (resultado[0]) {
+                if (resultado[0].senha === req.body.senha) {
                     conn.query(
                         `UPDATE tbl_Hospital
                                     SET
@@ -180,7 +179,7 @@ exports.patchHospital = (req, res, next) => {
                     )
 
                 }
-                else{
+                else {
                     const senha = await bcrypt.hash(req.body.senha, 10)
 
                     conn.query(
@@ -207,7 +206,7 @@ exports.patchHospital = (req, res, next) => {
                     )
                 }
             }
-            else{
+            else {
                 if (error) { return res.status(500).send({ error: "Usuario não encontrado" }) }
             }
 
