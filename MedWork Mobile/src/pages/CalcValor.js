@@ -13,7 +13,8 @@ const { height, width } = Dimensions.get('screen');
 let data = [
     { value: '1 CX', },
     { value: '2 CX', },
-    { value: '3 CX', }];
+    { value: '3 CX', }
+];
 
 
 export default function CalcValor({ route, navigation }) {
@@ -52,6 +53,7 @@ export default function CalcValor({ route, navigation }) {
                         contentStyle={styles.editingButtons}
                         style={styles.editingButtonsView}
                         labelStyle={styles.labelStyle}
+                        onPress={() => navigation.goBack()}
                     >VOLTAR</Button>
                     <Button
                         mode='contained'
@@ -60,6 +62,9 @@ export default function CalcValor({ route, navigation }) {
                         contentStyle={styles.editingButtons}
                         style={styles.editingButtonsView}
                         labelStyle={styles.labelStyle}
+                        onPress={
+                            () => navigation.navigate('Entrega', { item, detalhes, Quantidade })
+                        }
                     >PRÓXIMO</Button>
                 </View>
             </View>

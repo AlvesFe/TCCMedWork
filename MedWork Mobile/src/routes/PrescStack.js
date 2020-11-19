@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import ViewPresc from '../pages/ViewPresc';
 import BuscaMeds from '../pages/BuscarMedicamento';
 import CalcValor from '../pages/CalcValor';
+import Entrega from '../pages/Entrega';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,11 @@ export default function PrescStack() {
             name='Calcular Valor' 
             component={CalcValor} 
             options={Header("Calcular Valor")}
+          />
+          <Stack.Screen 
+            name='Entrega' 
+            component={Entrega} 
+            options={Header("Entrega")}
           />
         </Stack.Navigator>
     );
