@@ -47,10 +47,10 @@ export default function Entrega({ route, navigation }) {
             </View>
             <View style={styles.containerEndereco}>
                 <Text style={styles.labelText}>Endereço de Entrega:</Text>
-                <Text style={styles.info}>R. Manoel José Garcia, Nº53</Text>
+                <Text style={styles.info}>{user.endereco}</Text>
             </View>
             <View style={styles.containerInfo}>
-                <Text style={styles.labelText}>OBS: TAXA DE ENTREGA: R$10,00</Text>
+                <Text style={styles.labelText}>OBS: TAXA DE ENTREGA: R${item.taxa}</Text>
             </View>
             <View style={styles.containerButtonsPai}>
                 <View style={styles.containerButtons}>
@@ -80,9 +80,6 @@ export default function Entrega({ route, navigation }) {
                         contentStyle={styles.editingButtons}
                         style={styles.editingButtonsView}
                         labelStyle={styles.labelStyle}
-                        onPress={
-                            () => navigation.navigate('Entrega', { item, detalhes, Quantidade })
-                        }
                     >PRÓXIMO</Button>
                 </View>
             </View>
