@@ -63,7 +63,7 @@ export default function BuscaMeds({ route, navigation }) {
                                             style={styles.editingButtonsView}
                                             labelStyle={styles.labelStyle}
                                             onPress={() => {
-                                                navigation.navigate('Calcular Valor', { farmaciaRem })
+                                                navigation.navigate('Calcular Valor', { item, detalhes })
                                             }}
                                         >COMPRAR</Button>
                                     </View>
