@@ -13,8 +13,10 @@ export default function doLogin (dados) {
             'Content-Type': 'application/json'
         }
     }).then(response => {
-        console.log(response);
+        const {data} = response;
+        console.log(data);
+        return data
     }).catch(err => {
-        console.log(err.response);
+        console.log(err);
     })
 }
