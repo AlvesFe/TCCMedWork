@@ -2,16 +2,19 @@ import React, { useContext, useEffect, useState, Component } from 'react';
 import { Button, Divider, TextInput } from 'react-native-paper';
 import env from '../../variables';
 import { Azul, vermelho, verde } from '../constants/colors.json';
-import { View, Text, StyleSheet, Dimensions, Image, Animated } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image, Animated, KeyboardAvoidingView } from 'react-native';
 import getFarmaciaRemedio from '../api/getFarmaciaRemedio';
 import Loading from '../components/Loading';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const { height, width } = Dimensions.get('screen');
 
 export default function ConfirmarEntrega({ route, navigation }) {
     const [user, setUser] = useState({});
     const [carregando, setCarregando] = useState(true);
+    const [valor,setValor] = useState('0.00');
     const { item, detalhes, Quantidade } = route.params
     async function getUserData() {
         const data = await AsyncStorage.getItem("userData").then(res => {
@@ -30,73 +33,86 @@ export default function ConfirmarEntrega({ route, navigation }) {
     }
 
     return (
-        <>
-            <View style={styles.container}>
-                <Image
-                    style={styles.stretch}
-                    source={{ uri: `${env.API_URL}/uploads/farmacia/${item.foto}` }}
-                />
-            </View>
-            <View style={styles.containerBody}>
-                <Text style={styles.labelTitle}>ENDEREÇO:</Text>
-                <Text style={styles.info}>{user.endereco}</Text>
-            </View>
-            <View style={styles.containerRow}>
-                <View style={styles.containerCow}>
-                    <Text style={styles.labelStatus}>PRODUTO:</Text>
-                    <Text style={styles.labelStatus}>QUANTIDADE:</Text>
-                    <Text style={styles.labelStatus}>TOTAL PRODUTO:</Text>
-                    <Text style={styles.labelStatus}>TAXA DE ENTREGA:</Text>
-                </View>
-                <View style={styles.containerCow}>
-                    <Text style={styles.infosStatus}>{item.nome}</Text>
-                    <Text style={styles.infosStatus}>{Quantidade} CX</Text>
-                    <Text style={styles.infosStatus}>R${item.preco * Quantidade}</Text>
-                    <Text style={styles.infosStatus}>R${item.taxa}</Text>
-                </View>
-            </View>
-            <View>
-                <View style={styles.alignCenter}>
-                    <Divider style={styles.dividor} />
-                </View>
-                <View style={styles.containerRowResult}>
-                    <View style={styles.containerCow}>
-                        <Text style={styles.labelStatusTt}>TOTAL:</Text>
+        // <SafeAreaView>
+            <ScrollView>
+                <KeyboardAvoidingView>
+                    <View style={styles.container}>
+                        <Image
+                            style={styles.stretch}
+                            source={{ uri: `${env.API_URL}/uploads/farmacia/${item.foto}` }}
+                        />
+                        </View>
+                        <View style={styles.containerBody}>
+                            <Text style={styles.labelTitle}>ENDEREÇO:</Text>
+                            <Text style={styles.info}>{user.endereco}</Text>
+                        </View>
+                        <View style={styles.containerRow}>
+                            <View style={styles.containerCow}>
+                                <Text style={styles.labelStatus}>PRODUTO:</Text>
+                                <Text style={styles.labelStatus}>QUANTIDADE:</Text>
+                                <Text style={styles.labelStatus}>TOTAL PRODUTO:</Text>
+                                <Text style={styles.labelStatus}>TAXA DE ENTREGA:</Text>
+                            </View>
+                            <View style={styles.containerCow}>
+                                <Text style={styles.infosStatus}>{item.nome}</Text>
+                                <Text style={styles.infosStatus}>{Quantidade} CX</Text>
+                                <Text style={styles.infosStatus}>R${item.preco * Quantidade}</Text>
+                                <Text style={styles.infosStatus}>R${item.taxa}</Text>
+                            </View>
+                        </View>
+                        <View>
+                            <View style={styles.alignCenter}>
+                                <Divider style={styles.dividor} />
+                            </View>
+                            <View style={styles.containerRowResult}>
+                                <View style={styles.containerCow}>
+                                    <Text style={styles.labelStatusTt}>TOTAL:</Text>
+                                </View>
+                                <View style={styles.containerCow}>
+                                    <Text style={styles.labelStatus}>R${item.preco * Quantidade + item.taxa}</Text>
+                                </View>
+                            </View>
+                            <View style={styles.container}>
+                                <Text style={styles.labelTitle}>PRECISA DE TROCO?</Text>
+                                <TextInput
+                                    label="Dinheiro"
+                                    style={styles.input}
+                                    numberOfLines={1}
+                                    onChangeText={(text)=> {
+                                        setValor(text)
+                                    }}
+                                    theme={{ colors: { primary: verde } }}
+                                    underlineColor={verde}
+                                />
+                                <View style={styles.containerRow}>
+                                    <Button
+                                        mode='contained'
+                                        title='COMPRAR'
+                                        color={vermelho}
+                                        contentStyle={styles.editingButtons}
+                                        style={styles.editingButtonsView}
+                                        labelStyle={styles.labelStyle}
+                                        onPress={()=>{
+                                            navigation.goBack();
+                                        }}
+                                    >VOLTAR</Button>
+                                    <Button
+                                        mode='contained'
+                                        title='COMPRAR'
+                                        color={verde}
+                                        contentStyle={styles.editingButtons}
+                                        style={styles.editingButtonsView}
+                                        labelStyle={styles.labelStyle}
+                                        onPress={()=>{
+                                            navigation.navigate('Confirmar Pedido', { item, detalhes, Quantidade, valor })
+                                        }}
+                                    >FINALIZAR</Button>
+                            </View>
+                        </View>
                     </View>
-                    <View style={styles.containerCow}>
-                        <Text style={styles.labelStatus}>R${item.preco * Quantidade + item.taxa}</Text>
-                    </View>
-                </View>
-                <View style={styles.container}>
-                    <Text style={styles.labelTitle}>PRECISA DE TROCO?</Text>
-                    <TextInput
-                        label="Dinheiro"
-                        style={styles.input}
-                        numberOfLines={1}
-                        theme={{ colors: { primary: verde } }}
-                        underlineColor={verde}
-                    />
-                    <View style={styles.containerRow}>
-                        <Button
-                            mode='contained'
-                            title='COMPRAR'
-                            color={vermelho}
-                            contentStyle={styles.editingButtons}
-                            style={styles.editingButtonsView}
-                            labelStyle={styles.labelStyle}
-                        >VOLTAR</Button>
-                        <Button
-                            mode='contained'
-                            title='COMPRAR'
-                            color={verde}
-                            contentStyle={styles.editingButtons}
-                            style={styles.editingButtonsView}
-                            labelStyle={styles.labelStyle}
-                        >FINALIZAR</Button>
-                    </View>
-                </View>
-            </View>
-        </>
+                </KeyboardAvoidingView>
+            </ScrollView>
+        /* </SafeAreaView> */
     )
 }
 
@@ -171,7 +187,6 @@ const styles = StyleSheet.create({
     },
     input: {
         marginTop: 5,
-        marginBottom: 10,
         width: width / 1.8,
         height: height / 15,
     },
