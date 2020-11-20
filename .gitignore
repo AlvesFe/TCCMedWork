@@ -24,6 +24,7 @@ MedWork*Mobile/*.key
 MedWork*Mobile/*.mobileprovision
 MedWork*Mobile/*.orig.*
 MedWork*Mobile/web-build
+MedWork*Mobile/variables.js
 
 # macOS
 MedWork*Mobile/.DS_Store

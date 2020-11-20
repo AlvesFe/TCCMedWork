@@ -14,10 +14,6 @@ export default function Retirada({ route, navigation }) {
   console.log(item.preco);
   console.log(detalhes);
 
-  // if (carregando) {
-  //   return <Loading />
-  // }
-
   return (
     <>
       <View style={styles.container}>
