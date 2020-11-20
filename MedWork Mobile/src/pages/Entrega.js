@@ -89,6 +89,7 @@ export default function Entrega({ route, navigation }) {
                             style={styles.editingButtonsView}
                             labelStyle={styles.labelStyle}
                             onPress={() =>{
+                                navigation.navigate('Confirmar Entrega', { detalhes, item, Quantidade })
                             }}
                         >PRÓXIMO</Button>
                     }

@@ -7,6 +7,7 @@ import BuscaMeds from '../pages/BuscarMedicamento';
 import CalcValor from '../pages/CalcValor';
 import Entrega from '../pages/Entrega';
 import Retirada from '../pages/Retirada';
+import ConfirmarEntrega from '../pages/ConfirmarEntrega';
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,11 @@ export default function PrescStack() {
             name='Retirada' 
             component={Retirada} 
             options={Header("Retirada")}
+          />
+          <Stack.Screen 
+            name='Confirmar Entrega' 
+            component={ConfirmarEntrega} 
+            options={Header("Confirmar Entrega")}
           />
         </Stack.Navigator>
     );
