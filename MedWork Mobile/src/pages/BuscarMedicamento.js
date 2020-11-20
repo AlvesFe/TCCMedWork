@@ -38,7 +38,7 @@ export default function BuscaMeds({ route, navigation }) {
                         <>
                             <View key={key} style={styles.container}>
                                 <Image
-                                    key={Date.now().toString().slice(0,-2)}
+                                    key={key}
                                     style={styles.stretch}
                                     source={{ uri: `${env.API_URL}/uploads/farmacia/${item.foto}` }}
                                 />
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     labelStyle: {
-        fontSize: 25,
+        fontSize: 20,
         fontWeight: "bold"
     },
     containerButton: {

@@ -5,7 +5,7 @@ import { Azul, vermelho } from '../constants/colors.json';
 import { View, Text, StyleSheet, Dimensions, Image, Animated } from 'react-native';
 import getFarmaciaRemedio from '../api/getFarmaciaRemedio';
 import Loading from '../components/Loading';
-import { Dropdown  } from 'react-native-material-dropdown-v2';
+import { Dropdown } from 'react-native-material-dropdown-v2';
 
 
 const { height, width } = Dimensions.get('screen');
@@ -95,12 +95,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#707070'
     },
-    labelText: {
-        marginTop: 18,
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#707070'
-    },
     precoText: {
         marginTop: 18,
         fontSize: 23,
@@ -127,7 +121,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     labelStyle: {
-        fontSize: 25,
+        fontSize: 20,
         fontWeight: "bold"
     },
     containerButtons: {

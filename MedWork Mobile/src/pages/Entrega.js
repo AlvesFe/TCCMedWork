@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     editingButtonsRt: {
-        width: width / 2.1,
+        width: width / 1.5,
         height: height / 15,
         borderColor: '#7d7d8f',
         borderWidth: 1,
