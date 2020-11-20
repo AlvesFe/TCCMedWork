@@ -37,7 +37,7 @@ export default function Entrega({ route, navigation }) {
             <View style={styles.container}>
                 <Image
                     style={styles.stretch}
-                    source={{ uri: `${env.API_URL}/uploads/farmacia/Drogasil.png` }}
+                    source={{ uri: `${env.API_URL}/uploads/farmacia/${item.foto}` }}
                 />
                 <View style={styles.container}>
                     <Text style={styles.tarjaStyle}>ATENÇÃO!</Text>
