@@ -7,7 +7,7 @@ import Loading from '../components/Loading';
 
 const { height, width } = Dimensions.get('screen');
 
-export default function ConfircaoPedido({ route, navigation }) {
+export default function ConfirmacaoPedido({ route, navigation }) {
 
     const [carregando,setCarregando] = useState(true);
 
