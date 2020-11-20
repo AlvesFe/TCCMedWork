@@ -6,6 +6,7 @@ import ViewPresc from '../pages/ViewPresc';
 import BuscaMeds from '../pages/BuscarMedicamento';
 import CalcValor from '../pages/CalcValor';
 import Entrega from '../pages/Entrega';
+import Retirada from '../pages/Retirada';
 
 const Stack = createStackNavigator();
 
@@ -39,6 +40,11 @@ export default function PrescStack() {
             name='Entrega' 
             component={Entrega} 
             options={Header("Entrega")}
+          />
+          <Stack.Screen 
+            name='Retirada' 
+            component={Retirada} 
+            options={Header("Retirada")}
           />
         </Stack.Navigator>
     );

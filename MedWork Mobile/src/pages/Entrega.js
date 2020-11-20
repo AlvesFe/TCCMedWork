@@ -61,6 +61,9 @@ export default function Entrega({ route, navigation }) {
                         contentStyle={styles.editingButtonsRt}
                         style={styles.editingButtonsView}
                         labelStyle={styles.labelStyleRt}
+                        onPress={()=>{
+                            navigation.navigate('Retirada', { item, detalhes, Quantidade })
+                        }}
                     >RETIRAR NO LOCAL</Button>
                 </View>
                 <View style={styles.containerButtons}>
@@ -84,6 +87,8 @@ export default function Entrega({ route, navigation }) {
                             contentStyle={styles.editingButtons}
                             style={styles.editingButtonsView}
                             labelStyle={styles.labelStyle}
+                            onPress={() =>{
+                            }}
                         >PRÓXIMO</Button>
                     }
                 </View>
