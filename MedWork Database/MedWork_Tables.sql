@@ -112,8 +112,10 @@ CREATE TABLE IF NOT EXISTS tbl_Consulta(
 #TABELA COMPRA
 CREATE TABLE IF NOT EXISTS tbl_Compra(
 	id_Compra VARCHAR(60) NOT NULL PRIMARY KEY,
-    cod_fiscal VARCHAR(40) NOT NULL,
+    cod_fiscal VARCHAR(60) UNIQUE NOT NULL,
     quantidade INT UNSIGNED NOT NULL,
+    valorRecebido DECIMAL(10,2) UNSIGNED NOT NULL,
+    valorDevolvido DECIMAL(10,2) UNSIGNED NULL,
     fk_id_Paciente VARCHAR(60) NOT NULL,
     fk_id_Remedio VARCHAR(60) NOT NULL
 );

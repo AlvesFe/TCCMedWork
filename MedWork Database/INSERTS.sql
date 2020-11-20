@@ -90,7 +90,6 @@ VALUES
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA RECEITA_REMEDIO
-
 INSERT INTO tbl_Receita_Remedio (id_Receita_Remedio, Quantidade, fk_id_Receita, fk_id_Remedio)
 VALUES
 (MD5(1), 10, MD5(2), MD5(1));
@@ -99,6 +98,9 @@ INSERT INTO tbl_Receita_Remedio (id_Receita_Remedio, Quantidade, fk_id_Receita, 
 VALUES
 (MD5(2), 5, MD5(1), MD5(2));
 
+INSERT INTO tbl_Receita_Remedio (id_Receita_Remedio, Quantidade, fk_id_Receita, fk_id_Remedio)
+VALUES
+(MD5(3), 5, MD5(2), MD5(2));
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA REMEDIO_FARMACIA
@@ -127,12 +129,12 @@ VALUES
 
 -- TABELA COMPRA 
 
-INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, fk_id_Paciente, fk_id_Remedio)
+INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, valorRecebido, valorDevolvido, fk_id_Paciente, fk_id_Remedio)
 VALUES
-(MD5(1), '5874569458452', 1, MD5(2), MD5(2));
+(MD5(1), '5874569458452', 1, 50, 7.60, MD5(2), MD5(2));
 
-INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, fk_id_Paciente, fk_id_Remedio)
+INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, valorRecebido, valorDevolvido, fk_id_Paciente, fk_id_Remedio)
 VALUES
-(MD5(2), '4859415165165', 5, MD5(1), MD5(1));
+(MD5(2), '4859415165165', 5, 25, 1.40, MD5(1), MD5(1));
 
 -- -----------------------------------------------------------------------------------------------------------

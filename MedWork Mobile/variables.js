@@ -1,8 +1,7 @@
 import Constants from 'expo-constants';
 
-export const prodUrl = "http://192.168.15.13:3001";
+export const prodUrl = "http://192.168.15.12:3001";
 export const key = "networkSenhores"
-export const api_key = "AIzaSyAT1u72BEre__s7KGO7a6B9HE5nvznnobk"
 
 // export const ImagesPaciente = prodUrl +"/uploads/paciente";
 // export const ImagesFarmacia = prodUrl +"/uploads/farmacia";
@@ -14,19 +13,16 @@ export const api_key = "AIzaSyAT1u72BEre__s7KGO7a6B9HE5nvznnobk"
 
 const ENV = {
   dev: {
-    API_URL: "http://192.168.15.13:3001",
+    API_URL: "http://192.168.15.12:3001",
     JWT_KEY: "networkSenhores",
-    API_YTB_KEY: "AIzaSyAT1u72BEre__s7KGO7a6B9HE5nvznnobk",
   },
   staging: {
     API_URL: prodUrl,
     JWT_KEY: key,
-    API_YTB_KEY: api_key
   },
   prod: {
     API_URL: prodUrl,
     JWT_KEY: key,
-    API_YTB_KEY:api_key
   }
 };
 
