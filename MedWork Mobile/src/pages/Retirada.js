@@ -49,7 +49,7 @@ export default function Retirada({ route, navigation }) {
             style={styles.editingButtonsView}
             labelStyle={styles.labelStyleCr}
             onPress={
-              () => navigation.navigate('Entrega', { item, detalhes, Quantidade })
+              () => navigation.navigate('Confirmar Retirada', { item, detalhes, Quantidade })
             }
           >CONFIRMAR RETIRADA</Button>
         </View>
