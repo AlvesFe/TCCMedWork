@@ -133,11 +133,11 @@ VALUES
 
 -- TABELA COMPRA 
 
-INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, valorRecebido, valorDevolvido, fk_id_Paciente, fk_id_Remedio)
+INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, valorRecebido, valorDevolvido, tipo, fk_id_Paciente, fk_id_Remedio)
 VALUES
 (MD5(1), '5874569458452', 1, 50, 7.60, MD5(2), MD5(2));
 
-INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, valorRecebido, valorDevolvido, fk_id_Paciente, fk_id_Remedio)
+INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, valorRecebido, valorDevolvido, tipo, fk_id_Paciente, fk_id_Remedio)
 VALUES
 (MD5(2), '4859415165165', 5, 25, 1.40, MD5(1), MD5(1));
 

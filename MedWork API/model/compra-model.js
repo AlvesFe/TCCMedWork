@@ -12,8 +12,8 @@ exports.postCompra = (req, res, next) => {
 
         const id_Compra = bcrypt.hashSync(Date.now().toString(), 10);
         conn.query(
-            'INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, valorRecebido, valorDevolvido, fk_id_Paciente, fk_id_Remedio)VALUES(?, ?,?,?,?)',
-            [id_Compra, req.body.cod_fiscal, req.body.quantidade, req.body.valorRecebido, req.body.valorDevolvido, req.body.fk_id_Paciente, req.body.fk_id_Remedio],
+            'INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, valorRecebido, valorDevolvido, tipo, fk_id_Paciente, fk_id_Remedio)VALUES(?, ?,?,?,?)',
+            [id_Compra, req.body.cod_fiscal, req.body.quantidade, req.body.valorRecebido, req.body.valorDevolvido, req.body.tipo, req.body.fk_id_Paciente, req.body.fk_id_Remedio],
             (error, resultado, field) => {
                 conn.release()
 
