@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-native-paper';
 import env from '../../variables';
 import { Azul, vermelho, cinza, verde } from '../constants/colors.json';
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
+import Loading from '../components/Loading';
+import postCompra from '../api/postCompra';
 
 const { height, width } = Dimensions.get('screen');
 
 export default function ConfirmarRetirada({ route, navigation }) {
 
     const [carregando, setCarregando] = useState(true);
-    const { item } = route.params
+    const { item, detalhes, Quantidade, valor } = route.params
+
+    useEffect(() => {
+        postCompra(item, detalhes, Quantidade, "Entrega", setCarregando, navigation, valor)
+    },[])
+
+    if(carregando) {
+        return <Loading/>
+    }
 
     return (
         <>
@@ -35,6 +45,7 @@ export default function ConfirmarRetirada({ route, navigation }) {
                     contentStyle={styles.editingButtons}
                     style={styles.editingButtonsView}
                     labelStyle={styles.labelStyle}
+                    onPress={() => navigation.navigate('Histórico de Prescrições')}
                 >FECHAR</Button>
             </View>
         </>
