@@ -12,15 +12,15 @@ export default function ViewPresc({ route, navigation }) {
   const [detalhes, setDetalhes] = useState(null);
   const [carregando, setCarregando] = useState(true);
   const { receita } = route.params
+  console.log(detalhes);
 
   useEffect(() => {
     getDetalhesReceita(receita, setDetalhes)
+    console.log(receita);
   }, [])
 
   useEffect(() => {
     if (detalhes) {
-      console.log(detalhes);
-      console.log(receita);
       setCarregando(false)
     }
   }, [detalhes])
@@ -48,8 +48,8 @@ export default function ViewPresc({ route, navigation }) {
         <Text style={styles.infos}>RG: {detalhes.rg}</Text>
       </View>
       <View style={styles.containerInfos}>
-        <Text style={styles.infos}>Medicamento: {detalhes.Remedio}</Text>
-        <Text style={styles.infos}>Quantidade: {detalhes.Quantidade}</Text>
+        <Text style={styles.infos}>Medicamento: {receita.nome}</Text>
+        <Text style={styles.infos}>Quantidade: {receita.Quantidade}</Text>
       </View>
       <View style={styles.containerInfos}>
         <Text style={styles.infos}>Dosagem: {detalhes.dosagem}</Text>
