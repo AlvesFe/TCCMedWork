@@ -4,15 +4,26 @@ import { verde, roxo, cinza } from '../constants/colors.json';
 
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
-//import login from '../api/login';
+import Loading from '../components/Loading';
 
 import Logo from '../assets/logo.png'
+import getRecoveryToken from '../api/getRecoveryToken';
 
 const { width, height} = Dimensions.get('screen');
 
 export default function RecuperarSenhaPage({route, navigation}) {
     const [token,setToken] = useState('');
+    const [carregando,setCarregando] = useState(true);
     const {email} = route.params;
+
+    useEffect(() =>{
+      getRecoveryToken(email, navigation, setCarregando)
+    },[])
+
+    if (carregando) {
+      return <Loading />
+    }
+
     return (
         <View style={styles.container}>
             <Image style={styles.image} source={Logo} />
@@ -26,7 +37,7 @@ export default function RecuperarSenhaPage({route, navigation}) {
                 underlineColor={verde}
             />
             <FormButton
-                title='Recuperar senha'
+                title='Confirmar Token'
                 modeValue='contained'
                 labelStyle={styles.buttonLabel} 
                 color={roxo}

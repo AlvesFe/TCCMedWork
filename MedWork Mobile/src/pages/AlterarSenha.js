@@ -1,19 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { roxo, cinza, verde } from '../constants/colors.json'
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import Logo from '../assets/logo.png'
 
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
+import Loading from '../components/Loading';
+import validateToken from '../api/validateToken';
+import AlterarSenha from '../api/patchAlterarSenha';
 
 
 const { height, width } = Dimensions.get('screen');
 
 export default function ValidarTokenPage({route, navigation}) {
+    const [carregando,setCarregando] = useState(true);
     const [senha, setSenha] = useState('');
-    const [confSesnha, setconfSesnha] = useState('');
+    const [confSenha, setconfSenha] = useState('');
     const {token} = route.params
-    console.log(token);
+
+    useEffect(() =>{
+        validateToken(token, navigation, setCarregando)
+    },[])
+
+
+    if (carregando) {
+        return <Loading/>
+    }
+    
     return (
         <>
             <View style={styles.container}>
@@ -21,6 +34,7 @@ export default function ValidarTokenPage({route, navigation}) {
                 <Text style={styles.phraseOne}>Insira uma senha que seja facíl de Lembrar! Em Seguida Realize o seu Login</Text>
                 <FormInput
                     labelName='Senha'
+                    secureTextEntry={true}
                     value={senha}
                     autoCapitalize='none'
                     onChangeText={senhaValue => setSenha(senhaValue)}
@@ -29,17 +43,21 @@ export default function ValidarTokenPage({route, navigation}) {
                 />
                 <FormInput
                     labelName='Confirmar Senha'
-                    value={confSesnha}
+                    secureTextEntry={true}
+                    value={confSenha}
                     autoCapitalize='none'
-                    onChangeText={confSenhaValue => setconfSesnha(confSenhaValue)}
+                    onChangeText={confSenhaValue => setconfSenha(confSenhaValue)}
                     theme={{ colors: { primary: verde } }}
                     underlineColor={verde}
                 />
                 <FormButton
-                    title='PROXIMO'
+                    title='ALTERAR'
                     modeValue='contained'
                     labelStyle={styles.buttonLabel}
                     color={roxo}
+                    onPress={()=>{
+                        AlterarSenha(senha, confSenha, navigation, token)
+                    }}
                 />
                 <Text style={styles.copyrightText}>© 2020 MedWork</Text>
             </View>
