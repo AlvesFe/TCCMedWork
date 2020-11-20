@@ -114,6 +114,11 @@ const styles = StyleSheet.create({
     color: '#797979',
     fontSize: width / 24
   },
+  info: {
+    marginTop: 20,
+    color: '#797979',
+    fontSize: width / 24
+  },
   infoTotal: {
     marginTop: 20,
     color: '#707070',
