@@ -5,7 +5,7 @@ import { Azul, vermelho } from '../constants/colors.json';
 import { View, Text, StyleSheet, Dimensions, Image, Animated } from 'react-native';
 import getFarmaciaRemedio from '../api/getFarmaciaRemedio';
 import Loading from '../components/Loading';
-import { Dropdown } from 'react-native-material-dropdown-v2';
+import { Dropdown  } from 'react-native-material-dropdown-v2';
 
 
 const { height, width } = Dimensions.get('screen');
@@ -40,6 +40,7 @@ export default function CalcValor({ route, navigation }) {
                             onChangeText= {(event) => {
                                 const value = event.split(' ')[0];
                                 SetQuantidade(value);
+                                console.log(value);
                             }}
                         />
                     </View>

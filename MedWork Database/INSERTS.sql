@@ -1,21 +1,21 @@
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA MEDWORK
-INSERT INTO Tbl_MedWork (id_MedWork, nome, email, senha, cnpj) 
+INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, cnpj) 
 VALUES 
 (MD5(1), 'Felipe', 'FelipaoReact@gmail.com', 'Felipo123', '12345678');
 
-INSERT INTO Tbl_MedWork (id_MedWork, nome, email, senha, cnpj) 
+INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, cnpj) 
 VALUES 
 (MD5(2),'Lemos', 'LemosDeveloper@gmail.com', 'JavaeBom', '87654321');
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA HOSPITAL
-INSERT INTO Tbl_Hospital (id_Hospital, cnpj, nome, endereco, telefone, email, senha, fk_id_MedWork) 
+INSERT INTO tbl_Hospital (id_Hospital, cnpj, nome, endereco, telefone, email, senha, fk_id_MedWork) 
 VALUES 
 (MD5(1), '12345678', 'Albert Einstein', 'R. Da desgraça, Jd. da Morte', '11985946110', 'Albert@gmail.com', 'Covid123', MD5(1));
 
-INSERT INTO Tbl_Hospital (id_Hospital, cnpj, nome, endereco, telefone, email, senha, fk_id_MedWork) 
+INSERT INTO tbl_Hospital (id_Hospital, cnpj, nome, endereco, telefone, email, senha, fk_id_MedWork) 
 VALUES 
 (MD5(2), '87654321', 'Alpha Med', 'R. Da consolação, Jd. das flores', '11547865661', 'MedAlpha@gmail.com', 'Covid321', MD5(2));
 
@@ -34,10 +34,10 @@ VALUES
 
 -- TABELA RECEPCIONISTA
 
-INSERT INTO tbl_recepcionista (id_Recepcionista, nome, dt_nascimento, tp_sanguineo, endereco, cpf, senha, rg, email, celular, telefone, fk_id_Hospital)
+INSERT INTO tbl_Recepcionista (id_Recepcionista, nome, dt_nascimento, tp_sanguineo, endereco, cpf, senha, rg, email, celular, telefone, fk_id_Hospital)
 VALUES
 (MD5(1), 'Claudia', '1990-06-15', 'A+', 'Murão de carapicuíba', '2783261855', '123456', '192013987', 'Claudinha@gmail.com', '11985564552', '1128777456', MD5(1));
-INSERT INTO tbl_recepcionista (id_Recepcionista, nome, dt_nascimento, tp_sanguineo, endereco, cpf, senha, rg, email, celular, telefone, fk_id_Hospital)
+INSERT INTO tbl_Recepcionista (id_Recepcionista, nome, dt_nascimento, tp_sanguineo, endereco, cpf, senha, rg, email, celular, telefone, fk_id_Hospital)
 VALUES
 (MD5(2), 'Natasha', '2000-05-12', 'O+', 'Murão de carapicuíba', '2453261642', '654321', '123456789', 'NatashaCaldeirao@gmail.com', '11948884552', '1128147456', MD5(2));
 -- -----------------------------------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ VALUES
 
 INSERT INTO tbl_Paciente (id_Paciente, dt_nascimento, nome, telefone, tp_sanguineo, alergia, rg, email, cpf, endereco, celular, senha, fk_id_Recepcionista)
 VALUES
-(MD5(1), '1995-05-30', 'Enzo', '1165999458', 'A-', 'Nozes', '564897564', 'Enzo123@gmail.com', '54864578945', 'R. da Gloria, Jd. Depresão', '11654564231', '111111', MD5(2));
+(MD5(1), '1995-05-30', 'Enzo', '1165999458', 'A-', 'Nozes', '564897564', 'Enzo123@gmail.com', '54864578945', 'R. da Gloria, Jd. Depresão', '11654564231', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', MD5(2));
 
 INSERT INTO tbl_Paciente (id_Paciente, dt_nascimento, nome, telefone, tp_sanguineo, alergia, rg, email, cpf, endereco, celular, senha, fk_id_Recepcionista)
 VALUES
@@ -103,11 +103,11 @@ VALUES
 
 -- TABELA REMEDIO_FARMACIA
 
-INSERT INTO tbl_Remedio_farmacia (id_Remedio_farmacia, estoque, fk_id_Farmacia, fk_id_Remedio)
+INSERT INTO tbl_Remedio_Farmacia (id_Remedio_farmacia, estoque, fk_id_Farmacia, fk_id_Remedio)
 VALUES
 (MD5(1), 30, MD5(1), MD5(1));
 
-INSERT INTO tbl_Remedio_farmacia (id_Remedio_farmacia, estoque, fk_id_Farmacia, fk_id_Remedio)
+INSERT INTO tbl_Remedio_Farmacia (id_Remedio_farmacia, estoque, fk_id_Farmacia, fk_id_Remedio)
 VALUES
 (MD5(2), 150, MD5(1), MD5(2));
 
@@ -115,11 +115,11 @@ VALUES
 
 -- TABELA CONSULTA
 
-INSERT INTO tbl_consulta (id_Consulta, dt_Consulta, descricao, fk_id_Paciente, fk_id_Medico, fk_id_Receita)
+INSERT INTO tbl_Consulta (id_Consulta, dt_Consulta, descricao, fk_id_Paciente, fk_id_Medico, fk_id_Receita)
 VALUES
 (MD5(1), '2020-08-14', 'Ta com dangue', MD5(1), MD5(1), MD5(2));
 
-INSERT INTO tbl_consulta (id_Consulta, dt_Consulta, descricao, fk_id_Paciente, fk_id_Medico, fk_id_Receita)
+INSERT INTO tbl_Consulta (id_Consulta, dt_Consulta, descricao, fk_id_Paciente, fk_id_Medico, fk_id_Receita)
 VALUES
 (MD5(2), '2020-09-15', 'Ta com Colica', MD5(2), MD5(2), MD5(1));
 

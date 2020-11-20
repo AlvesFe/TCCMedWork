@@ -25,7 +25,7 @@ export default function Entrega({ route, navigation }) {
 
     useEffect(() => {
         getUserData();
-        console.log(user);
+        console.log(item);
     },[])
 
     if (carregando) {
@@ -50,7 +50,7 @@ export default function Entrega({ route, navigation }) {
                 <Text style={styles.info}>{user.endereco}</Text>
             </View>
             <View style={styles.containerInfo}>
-                <Text style={styles.labelText}>OBS: TAXA DE ENTREGA: R${item.taxa}</Text>
+                <Text style={styles.labelText}>TAXA DE ENTREGA: R${item.taxa}</Text>
             </View>
             <View style={styles.containerButtonsPai}>
                 <View style={styles.containerButtons}>
@@ -73,14 +73,19 @@ export default function Entrega({ route, navigation }) {
                         labelStyle={styles.labelStyle}
                         onPress={() => navigation.goBack()}
                     >VOLTAR</Button>
-                    <Button
-                        mode='contained'
-                        title='PRÓXIMO'
-                        color={Azul}
-                        contentStyle={styles.editingButtons}
-                        style={styles.editingButtonsView}
-                        labelStyle={styles.labelStyle}
-                    >PRÓXIMO</Button>
+
+                    {
+                        item.tarja !== "PRETA" &&
+
+                        <Button
+                            mode='contained'
+                            title='PRÓXIMO'
+                            color={Azul}
+                            contentStyle={styles.editingButtons}
+                            style={styles.editingButtonsView}
+                            labelStyle={styles.labelStyle}
+                        >PRÓXIMO</Button>
+                    }
                 </View>
             </View>
         </>

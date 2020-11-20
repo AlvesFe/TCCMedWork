@@ -21,12 +21,7 @@ export default function BuscaMeds({ route, navigation }) {
 
     useEffect(() => {
         getFarmaciaRem();
-    }, [])
-
-    useEffect(() => {
-        console.log(farmaciaRem);
-        console.log(carregando);
-    }, [farmaciaRem])
+    }, []);
 
     if (carregando) {
         return <Loading />
@@ -48,9 +43,9 @@ export default function BuscaMeds({ route, navigation }) {
                                     source={{ uri: `${env.API_URL}/uploads/farmacia/${item.foto}` }}
                                 />
                             </View>
-                            <View key={Date.now().toString()+key} style={styles.detalhesContainer}>
-                                <Text key={Date.now().toString()-key} style={styles.Title}>{item.Farmacia}</Text>
-                                <Text key={Date.now().toString()/(key+25)}style={styles.subTitle}>{item.nome}</Text>
+                            <View key={Date.now()+key} style={styles.detalhesContainer}>
+                                <Text key={Date.now()-key} style={styles.Title}>{item.Farmacia}</Text>
+                                <Text key={Date.now()/(key+25)}style={styles.subTitle}>{item.nome}</Text>
                                 <View key={Date.now().toString().slice(0,-5)} style={styles.containerRow}>
                                     <Text key={Date.now().toString().slice(0,-6)} style={styles.Title}>{ item.preco }</Text>
                                     <View key={Date.now().toString().slice(0,-3)} style={styles.containerButton}>
