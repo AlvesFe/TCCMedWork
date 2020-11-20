@@ -245,7 +245,7 @@ exports.logarPaciente = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        const query = `SELECT * FROM tbl_Paciente WHERE email = ?`;
+        const query = `SELECT * FROM tbl_Paciente WHERE email = ? AND ativo = 1`;
 
         conn.query(query, [req.body.email], (error, results, fields) => {
             conn.release();
