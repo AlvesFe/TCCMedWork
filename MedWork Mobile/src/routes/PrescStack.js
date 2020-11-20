@@ -8,6 +8,8 @@ import CalcValor from '../pages/CalcValor';
 import Entrega from '../pages/Entrega';
 import Retirada from '../pages/Retirada';
 import ConfirmarEntrega from '../pages/ConfirmarEntrega';
+import ConfircaoPedido from '../pages/ConfirmacaoPedido';
+import ConfirmarRetirada from '../pages/ConfirmarRetirada';
 
 const Stack = createStackNavigator();
 
@@ -25,7 +27,7 @@ export default function PrescStack() {
           <Stack.Screen 
             name='Prescrição' 
             component={ViewPresc} 
-            options={Header("Precrição")}
+            options={Header("Prescrição")}
           />
           <Stack.Screen 
             name='Buscar Medicamentos' 
@@ -48,10 +50,21 @@ export default function PrescStack() {
             options={Header("Retirada")}
           />
           <Stack.Screen 
+            name='Confirmar Retirada' 
+            component={ConfirmarRetirada} 
+            options={Header("Retirada")}
+          />
+          <Stack.Screen 
             name='Confirmar Entrega' 
             component={ConfirmarEntrega} 
             options={Header("Confirmar Entrega")}
           />
+          <Stack.Screen 
+            name='Confirmar Pedido' 
+            component={ConfircaoPedido} 
+            options={Header("Confirmar Entrega")}
+          />
+
         </Stack.Navigator>
     );
 }
