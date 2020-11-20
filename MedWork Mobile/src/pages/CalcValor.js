@@ -37,7 +37,7 @@ export default function CalcValor({ route, navigation }) {
                         <Dropdown
                             label='SELECIONE'
                             data={data}
-                            onChangeText= {(event) => {
+                            onChangeText={(event) => {
                                 const value = event.split(' ')[0];
                                 SetQuantidade(value);
                                 console.log(value);
@@ -47,26 +47,28 @@ export default function CalcValor({ route, navigation }) {
                 </View>
                 <Text style={styles.precoText}>TOTAL: R${item.preco * Quantidade}</Text>
                 <View style={styles.containerButtons}>
-                    <Button
-                        mode='contained'
-                        title='VOLTAR'
-                        color={vermelho}
-                        contentStyle={styles.editingButtons}
-                        style={styles.editingButtonsView}
-                        labelStyle={styles.labelStyle}
-                        onPress={() => navigation.goBack()}
-                    >VOLTAR</Button>
-                    <Button
-                        mode='contained'
-                        title='PRÓXIMO'
-                        color={Azul}
-                        contentStyle={styles.editingButtons}
-                        style={styles.editingButtonsView}
-                        labelStyle={styles.labelStyle}
-                        onPress={
-                            () => navigation.navigate('Entrega', { item, detalhes, Quantidade })
-                        }
-                    >PRÓXIMO</Button>
+                    <View style={styles.containerButtons}>
+                        <Button
+                            mode='contained'
+                            title='VOLTAR'
+                            color={vermelho}
+                            contentStyle={styles.editingButtons}
+                            style={styles.editingButtonsView}
+                            labelStyle={styles.labelStyle}
+                            onPress={() => navigation.goBack()}
+                        >VOLTAR</Button>
+                        <Button
+                            mode='contained'
+                            title='PRÓXIMO'
+                            color={Azul}
+                            contentStyle={styles.editingButtons}
+                            style={styles.editingButtonsView}
+                            labelStyle={styles.labelStyle}
+                            onPress={
+                                () => navigation.navigate('Entrega', { item, detalhes, Quantidade })
+                            }
+                        >PRÓXIMO</Button>
+                    </View>
                 </View>
             </View>
         </>
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     dropdownElement: {
-        width: width /1.12,
+        width: width / 1.12,
         marginTop: 10,
         marginBottom: 30
     }
