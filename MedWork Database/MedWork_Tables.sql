@@ -116,6 +116,7 @@ CREATE TABLE IF NOT EXISTS tbl_Compra(
     quantidade INT UNSIGNED NOT NULL,
     valorRecebido DECIMAL(10,2) UNSIGNED NOT NULL,
     valorDevolvido DECIMAL(10,2) UNSIGNED NULL,
+    tipo VARCHAR(20) NOT NULL,
     fk_id_Paciente VARCHAR(60) NOT NULL,
     fk_id_Remedio VARCHAR(60) NOT NULL
 );
