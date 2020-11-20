@@ -45,9 +45,9 @@ export default function Retirada({ route, navigation }) {
             style={styles.editingButtonsView}
             labelStyle={styles.labelStyleCr}
             onPress={
-              () => navigation.navigate('Entrega', { item, detalhes, Quantidade })
+              () => navigation.navigate('Confirmar Retirada', { item, detalhes, Quantidade })
             }
-          >CONFIRMAR RETIRADA</Button>
+          >CONFIRMAR</Button>
         </View>
       </View>
     </>
@@ -84,14 +84,13 @@ const styles = StyleSheet.create({
     height: height / 15,
     borderColor: '#7d7d8f',
     borderWidth: 1,
-
   },
   labelStyle: {
-    fontSize: 20,
+    fontSize: width / 20,
     fontWeight: "bold"
   },
   labelStyleCr: {
-    fontSize: width / 27,
+    fontSize: width / 20,
     fontWeight: "bold"
   },
   containerButtons: {
