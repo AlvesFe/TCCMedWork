@@ -87,6 +87,10 @@ INSERT INTO tbl_Receita (id_Receita, dosagem, dt_Emissao, orientacoes, dt_Valida
 VALUES
 (MD5(2) ,'10mg', '2020-08-15', 'Sintomas diferentes consultar o medico', '2020-09-18', MD5(2), MD5(1));
 
+INSERT INTO tbl_Receita (id_Receita, dosagem, dt_Emissao, orientacoes, dt_Validade, fk_id_Medico, fk_id_Paciente)
+VALUES
+(MD5(3) ,'20kg', '2020-09-30', 'Sintomas diferentes consultar o coveiro', '2020-10-02', MD5(2), MD5(1));
+
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA RECEITA_REMEDIO
@@ -100,7 +104,7 @@ VALUES
 
 INSERT INTO tbl_Receita_Remedio (id_Receita_Remedio, Quantidade, fk_id_Receita, fk_id_Remedio)
 VALUES
-(MD5(3), 5, MD5(2), MD5(2));
+(MD5(3), 10, MD5(3), MD5(2));
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA REMEDIO_FARMACIA
