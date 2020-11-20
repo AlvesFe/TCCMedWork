@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS tbl_Farmacia(
     senha VARCHAR(60) NOT NULL,
     email VARCHAR(90) NOT NULL UNIQUE,
     foto VARCHAR(100) NOT NULL DEFAULT('default.png'),
-    taxa DECIMAL(2,2) UNSIGNED NOT NULL,
+    taxa DECIMAL(10,2) UNSIGNED NOT NULL,
     fk_id_MedWork VARCHAR(60) NOT NULL
 );
 

@@ -5,7 +5,6 @@ MedWork*API/node_modules/
 MedWork*API/*.log
 
 #DATABASE
-MedWork*Database/INSERTS.sql
 
 #WEB
 # Dependências
