@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import Loading from '../components/Loading';
+import env from '../../variables';
 
 const { width, height } = Dimensions.get('window');
 
@@ -10,23 +11,32 @@ export default function Retirada({ route, navigation }) {
   const { item, detalhes, Quantidade } = route.params
 
 
-  if (carregando) {
-    return <Loading />
-  }
+  // if (carregando) {
+  //   return <Loading />
+  // }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.titlePage}>Tela de retirada</Text>
-    </View>
+    <>
+      <View style={styles.container}>
+        <Image
+          style={styles.stretch}
+          source={{ uri: `${env.API_URL}/uploads/farmacia/${item.foto}` }}
+        />
+      </View>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignSelf: 'center',
+    marginTop: 10,
     alignItems: 'center',
-    backgroundColor: '#F1F1F1',
-  }
+    justifyContent: 'flex-start',
+  },
+  stretch: {
+    width: width / 1.05,
+    height: height / 4.3,
+    borderRadius: 5,
+    resizeMode: 'stretch',
+  },
 })

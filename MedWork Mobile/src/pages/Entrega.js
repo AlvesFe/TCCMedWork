@@ -78,6 +78,7 @@ export default function Entrega({ route, navigation }) {
                     >VOLTAR</Button>
 
                     {
+                        console.log(item.tarja),
                         item.tarja !== "PRETA" &&
 
                         <Button

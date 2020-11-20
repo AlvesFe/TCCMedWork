@@ -46,6 +46,17 @@ exports.postCompra = (req, res, next) => {
             error: "errocodfiscalinvalida"
         })
     }
+
+    if(ValidationNumber(req.body.valorRecebido)){
+        return res.status(500).send({
+            error: "errovalorrecebidoinvalida"
+        })
+    }
+    if(ValidationNumber(req.body.valorDevolvido)){
+        return res.status(500).send({
+            error: "errovalordevolvidoinvalida"
+        })
+    }
     next();
 }
 
