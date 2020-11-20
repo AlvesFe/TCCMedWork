@@ -22,10 +22,12 @@ function ValidationNumber(value) {
 exports.postCompra = (req, res, next) => {
 
     for (let key in req.body) {
-        if (!req.body[key]) {
-            return res.status(500).send({
-                error: "erro" + key + "vazio"
-            })
+        if(key !== "valorRecebido" && key !== "valorDevolvido"){
+            if (!req.body[key]) {
+                return res.status(500).send({
+                    error: "erro" + key + "vazio"
+                })
+            }
         }
     }
 
