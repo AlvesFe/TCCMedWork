@@ -248,6 +248,7 @@ exports.logarAdmMedwork = (req, res, next) => {
                         id_Usuario: results[0].id_MedWork,
                         email: results[0].email,
                         nome: results[0].nome,
+                        cnpj: results[0].cnpj,
                         tipo: "admMedWork",
                     },
                         process.env.JWT_KEY,
