@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import useStatusBar from '../util/StatusBar';
 import patchUser from '../api/patchUser';
 import env from '../../variables';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 const url = env.API_URL;
 
@@ -22,10 +23,6 @@ export default function PerfilPage() {
   const [user, setUser] = useState({});
   const [carregando, setCarregando] = useState(true);
   const [viewing, setViewing] = useState(true);
-
-  function upload(data) {
-    console.log(data);
-  }
 
   useEffect(() => {
     (async () => {
@@ -46,12 +43,12 @@ export default function PerfilPage() {
       quality: 1,
     });
 
-    console.log(result);  
-    setUser({...user, foto: result.uri})
+    setUser({ ...user, foto: result.uri })
 
     if (!result.cancelled) {
       setImage(result.uri);
-    }
+      setUser({ ...user, image: result});
+    }    
   };
 
   async function getUserData() {
@@ -70,6 +67,10 @@ export default function PerfilPage() {
     getUserData();
   }, [])
 
+  useEffect(() => {
+    if(user) console.log(user)
+  },[user])
+
   return (
     <>
       <Appbar.Header
@@ -87,8 +88,12 @@ export default function PerfilPage() {
         <SafeAreaView style={styles.container}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
-              <TouchableOpacity  onPress={pickImage}>
-                <Avatar.Image size={height / 8} source={{ uri: image != null ? image.uri :env.API_URL + '/uploads/paciente/default.png' }} />
+              <TouchableOpacity disabled={viewing} onPress={pickImage}>
+                <Avatar.Image size={height / 6} source={{ uri: image != null ? image : env.API_URL + '/uploads/paciente/' + user.foto }} />
+                {
+                  viewing === false ? <FontAwesome name='camera' style={styles.labelImage} size={20} color='#fff'/>: null
+                }
+                
               </TouchableOpacity>
               <Text style={styles.name}>{user.nome}</Text>
             </View>
@@ -233,7 +238,7 @@ const styles = StyleSheet.create({
     marginVertical: height / 30
   },
   name: {
-    fontSize: 20
+    fontSize: 22,
   },
   alterButton: {
     fontSize: 18
@@ -248,5 +253,15 @@ const styles = StyleSheet.create({
   alterContainer: {
     flexDirection: 'row',
     marginTop: 10
+  },
+  labelImage: {
+    borderRadius: height,
+    marginTop: 88,
+    marginRight: 10,
+    opacity: 0.9,
+    position:'absolute',
+    alignSelf: 'flex-end',
+    backgroundColor: '#363636',
+    padding: 6
   }
 })

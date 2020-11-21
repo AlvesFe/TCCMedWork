@@ -37,7 +37,6 @@ async function validateCPF(value) {
 
 //Faz a validação e inserção no banco de dados de um novo cadastro de pacientes
 exports.postPaciente = async (req, res, next) => {
-
     // Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
         if (isNullOrWhitespace(req.body[key])) {
@@ -141,7 +140,7 @@ exports.getPaciente = (req, res, next) => {
 
 //Atualiza os dados de um determinado paciente
 exports.patchPaciente = (req, res, next) => {
-
+    
     //Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
         if (!req.body[key]) {

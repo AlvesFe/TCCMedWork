@@ -31,7 +31,6 @@ const storage = multer.diskStorage({
         callback(null, './uploads/paciente')
     },
     filename: async function(req, file, callback){
-        console.log(file.originalname.split('.').pop());
         callback(null, new Date().getTime().toString()+'.' + file.originalname.split('.').pop())
     }
 })
@@ -52,7 +51,7 @@ const upload = multer({
         fieldSize: 1024 * 1024 * 5,
     },
     fileFilter: fileFilter
-}) 
+});
 
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
 router.post('/', pacienteMiddleware.postPaciente, upload.single('image'), pacienteController.postPaciente, pacienteModel.postPaciente)
