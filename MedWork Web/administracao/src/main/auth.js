@@ -1,9 +1,4 @@
-module.exports = {
-    isAuth() {
-        var user = localStorage.getItem('current_user')
-        if (!user)
-            return false
-
-        return true
-    }
-}
+export const isAuth = () => {
+    const user = localStorage.getItem('current_user');    
+    return user ? true : false 
+};

@@ -1,16 +1,23 @@
 import React from 'react'
 import Axios from 'axios'
-import { API_URL } from '../../variables.json'
 
-export default async function doLogin (dados) {
+const API_URL = "http://localhost:3001"
 
-    console.log(dados);
-    // Axios ({
-    //     method:"post",
-    //     url:API_URL+"/admMedWork/login",
-    //     data: dados,
-    //     headers:{
-    //         'Content-Type': 'application/json'
-    //     }
-    // })
+
+export default function doLogin (dados) {
+    Axios ({
+        method:'post',
+        url:API_URL+"/admMedWork/login",
+        data: dados,
+        headers:{
+            'Access-Control-Allow-Origin' : '*',
+            'Content-Type': 'application/json'
+        }
+    }).then(response => {
+        const {data} = response;
+        localStorage.setItem('current_user', data.token)
+        window.location.reload(true);
+    }).catch(err => {
+        console.log(err);
+    })
 }

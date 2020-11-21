@@ -1,10 +1,8 @@
 import React, { Component, useState } from 'react';
 import axios from 'axios'
-// import doLogin from '../api/login'
+import doLogin from '../../main/api/login'
 import Logotipo from '../template/logotipo'
 import './Login.css'
-
-const URL = "http://192.168.15.45:3001/admMedWork/login"
 
 class Login extends Component {
 
@@ -22,11 +20,7 @@ class Login extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            const email = this.state.email
-            const senha = this.state.senha
-            const dados = [email, senha]
-
-            axios.post(`${URL}`, dados)
+            doLogin(this.state)
         }
     }
 
