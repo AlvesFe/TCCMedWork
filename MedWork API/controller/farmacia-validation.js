@@ -99,6 +99,12 @@ exports.postFarmacia = async (req, res, next) => {
             error: "errocnpjinvalido"
         })
     }
+
+    if(ValidationNumber(req.body.taxa)){
+        return res.status(500).send({
+            error: "errotaxainvalida"
+        })
+    }
     next();    
 }
 

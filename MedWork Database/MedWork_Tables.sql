@@ -84,6 +84,7 @@ CREATE TABLE IF NOT EXISTS tbl_Farmacia(
     senha VARCHAR(60) NOT NULL,
     email VARCHAR(90) NOT NULL UNIQUE,
     foto VARCHAR(100) NOT NULL DEFAULT('default.png'),
+    taxa DECIMAL(10,2) UNSIGNED NOT NULL,
     fk_id_MedWork VARCHAR(60) NOT NULL
 );
 
@@ -111,8 +112,13 @@ CREATE TABLE IF NOT EXISTS tbl_Consulta(
 #TABELA COMPRA
 CREATE TABLE IF NOT EXISTS tbl_Compra(
 	id_Compra VARCHAR(60) NOT NULL PRIMARY KEY,
-    cod_fiscal VARCHAR(40) NOT NULL,
+    cod_fiscal VARCHAR(60) UNIQUE NOT NULL,
     quantidade INT UNSIGNED NOT NULL,
+    valorRecebido DECIMAL(10,2) UNSIGNED NOT NULL,
+    valorDevolvido DECIMAL(10,2) UNSIGNED NULL,
+    tipo VARCHAR(20) NOT NULL,
+    endereco VARCHAR(100) NOT NULL,
+    fk_id_Farmacia VARCHAR(60) NOT NULL,
     fk_id_Paciente VARCHAR(60) NOT NULL,
     fk_id_Remedio VARCHAR(60) NOT NULL
 );
@@ -213,6 +219,11 @@ ALTER TABLE
     tbl_Compra
 ADD
     CONSTRAINT fk_id_Remedio_Cmp FOREIGN KEY(fk_id_Remedio) REFERENCES tbl_Remedio(id_Remedio);
+    
+ALTER TABLE
+	tbl_Compra
+ADD
+	CONSTRAINT fk_id_Farmacia_Cmp FOREIGN KEY(fk_id_Farmacia) REFERENCES tbl_Farmacia(id_Farmacia);
 
 #REMEDIO_FARMACIA
 ALTER TABLE

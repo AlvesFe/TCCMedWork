@@ -5,7 +5,6 @@ MedWork*API/node_modules/
 MedWork*API/*.log
 
 #DATABASE
-MedWork*Database/INSERTS.sql
 
 #WEB
 # Dependências
@@ -25,6 +24,7 @@ MedWork*Mobile/*.key
 MedWork*Mobile/*.mobileprovision
 MedWork*Mobile/*.orig.*
 MedWork*Mobile/web-build
+MedWork*Mobile/variables.js
 
 # macOS
 MedWork*Mobile/.DS_Store

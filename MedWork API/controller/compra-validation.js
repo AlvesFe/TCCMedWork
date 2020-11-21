@@ -22,28 +22,33 @@ function ValidationNumber(value) {
 exports.postCompra = (req, res, next) => {
 
     for (let key in req.body) {
-        if (!req.body[key]) {
-            return res.status(500).send({
-                error: "erro" + key + "vazio"
-            })
+        
+        if (key === "valorRecebido" || key === "valorDevolvido") {
+            
+        }
+        else{
+            if (!req.body[key]) {
+                return res.status(500).send({
+                    error: "erro" + key + "vazio"
+                })
+            }
         }
     }
 
-    if (req.body.cod_fiscal.length != 40) {
-        return res.status(500).send({
-            error: "errotamanhocodigofiscal"
-        })
-    }
-
-    if(ValidationNumber(req.body.quantidade)){
+    if (ValidationNumber(req.body.quantidade)) {
         return res.status(500).send({
             error: "erroquantidadeinvalida"
         })
     }
 
-    if(ValidationNumber(req.body.cod_fiscal)){
+    if (ValidationNumber(req.body.valorRecebido)) {
         return res.status(500).send({
-            error: "errocodfiscalinvalida"
+            error: "errovalorrecebidoinvalida"
+        })
+    }
+    if (ValidationNumber(req.body.valorDevolvido)) {
+        return res.status(500).send({
+            error: "errovalordevolvidoinvalida"
         })
     }
     next();
@@ -62,7 +67,7 @@ exports.getCompra = (req, res, next) => {
             error: "errotamanhoidcompra"
         })
     }
-    
+
     next();
 }
 
@@ -82,7 +87,7 @@ exports.patchCompra = (req, res, next) => {
         })
     }
 
-    if(ValidationNumber(req.body.quantidade)){
+    if (ValidationNumber(req.body.quantidade)) {
         return res.status(500).send({
             error: "erroquantidadeinvalida"
         })
