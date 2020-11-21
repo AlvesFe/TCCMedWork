@@ -40,7 +40,6 @@ export default function CalcValor({ route, navigation }) {
                             onChangeText={(event) => {
                                 const value = event.split(' ')[0];
                                 SetQuantidade(value);
-                                console.log(value);
                             }}
                         />
                     </View>

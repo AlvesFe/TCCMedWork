@@ -38,7 +38,7 @@ export default function BuscaMeds({ route, navigation }) {
                         <>
                             <View key={key} style={styles.container}>
                                 <Image
-                                    key={key}
+                                    key={key+30}
                                     style={styles.stretch}
                                     source={{ uri: `${env.API_URL}/uploads/farmacia/${item.foto}` }}
                                 />
