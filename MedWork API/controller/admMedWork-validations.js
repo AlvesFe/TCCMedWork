@@ -50,7 +50,7 @@ exports.postAdmMedwork = async (req, res, next) => {
 
     //Função que verifica se determinado valor está em branco ou só com espaços
     for (let key in req.body) {
-        if (!req.body[key]) {
+        if (isNullOrWhitespace(req.body[key])) {
             return res.status(500).send({
                 error: "erro" + key + "vazio"
             })
@@ -124,7 +124,6 @@ exports.patchAdmMedWork = (req, res, next) => {
             }
         }
     }
-
     if (req.body.senha.length < 8) {
         return res.status(500).send({
             error: "errotamanhosenha"
