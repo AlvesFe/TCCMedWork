@@ -3,7 +3,7 @@
 -- TABELA MEDWORK
 INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, cnpj) 
 VALUES 
-(MD5(1), 'Felipe', 'FelipaoReact@gmail.com', 'Felipo123', '12345678');
+(MD5(1), 'Felipe', 'FelipaoReact@gmail.com', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', '12345678');
 
 INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, cnpj) 
 VALUES 
