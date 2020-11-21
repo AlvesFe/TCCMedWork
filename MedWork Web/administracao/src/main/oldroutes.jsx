@@ -1,6 +1,6 @@
 import React from 'react';
-import { Router, Route, Redirect, hashHistory } from 'react-router'
-import './auth'
+import { Router, Route, Redirect, hashHistory, Router } from 'react-router'
+import { isAuth } from "./auth";
 
 import Login from '../components/login/Login'
 import Recuperacao from '../components/login/Recuperacao'
@@ -11,16 +11,9 @@ import CentroAjuda from '../components/centro-ajuda'
 import Configuracoes from '../components/configuracoes'
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
-
-    <Route {...rest} render={
-        props => (
-            isAuth() ? (
-                <Component {...props} />
-            ) : (
-                    <Redirect to={{ pathname: '/login' }} />
-                )
-        )
-    } />
+    <Route {...rest} render={props =>{
+        isAuth() ? <Component {...props}/> : <Redirect to={{ pathname: '/', state: { from: props.location}} }/>
+    }} />
 )
 
 export default props => (
@@ -35,6 +28,5 @@ export default props => (
         <PrivateRoute path='/centro-de-ajuda' component={CentroAjuda} />
         <PrivateRoute path='/configuracoes' component={Configuracoes} />
         <PrivateRoute path='/sair' component={PesquisarEstabelecimento} />
-        <Redirect from='*' to='/login' />
     </Router>
 )
