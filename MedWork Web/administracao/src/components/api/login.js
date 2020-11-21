@@ -3,6 +3,7 @@ import Axios from 'axios'
 
 const API_URL = "http://192.168.15.45:3001"
 
+
 export default function doLogin (dados) {
     Axios ({
         method:'post',
