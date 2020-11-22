@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cadastrarRecepcionista from '../main/api/cadastrarRecepcionista';
 import Menu from './template/menu'
 
 export default class CadastrarDrogaria extends Component {
@@ -7,9 +8,9 @@ export default class CadastrarDrogaria extends Component {
         super()
         this.state = {
             nomeMedico: "",
-            dataNascimento:"",
-            tipoSanguineo:"",
-            status: "",
+            image: {},
+            dataNascimento: "",
+            tipoSanguineo: "",
             endereco: "",
             cpf: "",
             rg: "",
@@ -27,6 +28,22 @@ export default class CadastrarDrogaria extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
             console.log(this.state)
+            const req = cadastrarRecepcionista(this.state);
+            if (req) {
+                this.setState({
+                    nomeMedico: "",
+                    image: {},
+                    dataNascimento: "",
+                    tipoSanguineo: "",
+                    endereco: "",
+                    cpf: "",
+                    rg: "",
+                    email: "",
+                    celular: "",
+                    telefone: "",
+                    senhaProvisoria: ""
+                })
+            }
         }
     }
 
@@ -49,17 +66,9 @@ export default class CadastrarDrogaria extends Component {
                                 <label htmlFor="dataNascimento" className='font-weight-bold mb-0'>Data de nascimento</label>
                                 <input type="text" className="form-control form-control-lg" id="dataNascimento" placeholder='DD/MM/AAAA' name='dataNascimento' value={this.state.dataNascimento} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-2 py-1'>
+                            <div className='form-group col-4 py-1'>
                                 <label htmlFor="tipoSanguineo" className='font-weight-bold mb-0'>Tipo sanguíneo</label>
                                 <input type="text" className="form-control form-control-lg" id="tipoSanguineo" placeholder='O+' name='tipoSanguineo' value={this.state.tipoSanguineo} onChange={this.onChange} />
-                            </div>
-                            <div className='form-group col-2 py-1'>
-                                <label htmlFor="status" className='font-weight-bold mb-0'>Status</label>
-                                <select className="form-control form-control-lg" id="status" name='status' value={this.state.status} onChange={this.onChange}>
-                                    <option value="">Escolha</option>
-                                    <option value="1">Ativo</option>
-                                    <option value="0">Inativo</option>
-                                </select>
                             </div>
                             <div className='form-group col-6 py-1'>
                                 <label htmlFor="endereco" className='font-weight-bold mb-0'>Endereço</label>

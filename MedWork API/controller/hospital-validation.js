@@ -106,12 +106,6 @@ exports.getHospital = (req, res, next) => {
         })
     }
 
-    if (req.body.cnpj.length !== 14) {
-        return res.status(500).send({
-            error: "errotamanhoidhospital"
-        })
-    }
-
     next();
 }
 

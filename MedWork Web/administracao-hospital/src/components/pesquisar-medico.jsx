@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import getMedico from '../main/api/getMedico';
 import Menu from './template/menu'
 
 class PesquisarMedico extends Component {
@@ -17,6 +18,7 @@ class PesquisarMedico extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
             console.log(this.state)
+            getMedico(this.state);
         }
     }
 

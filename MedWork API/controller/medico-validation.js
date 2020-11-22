@@ -132,12 +132,6 @@ exports.getMedico = (req, res, next) => {
             error: "errocrmvazio"
         })
     }
-
-    if (req.body.crm.length !== 7) {
-        return res.status(500).send({
-            error: "errotamanhocrm"
-        })
-    }
     next();
 }
 
