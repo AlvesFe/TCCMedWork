@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cadastrarMedico from '../main/api/cadastrarMedico';
 import Menu from './template/menu'
 
 export default class CadastrarHospital extends Component {
@@ -7,8 +8,9 @@ export default class CadastrarHospital extends Component {
         super()
         this.state = {
             nomeMedico: "",
-            dataNascimento:"",
-            tipoSanguineo:"",
+            image: {},
+            dataNascimento: "",
+            tipoSanguineo: "",
             status: "",
             endereco: "",
             crm: "",
@@ -29,7 +31,27 @@ export default class CadastrarHospital extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
+            const req = cadastrarMedico(this.state);
+
+            if (req) {
+                this.setState({
+                    nomeMedico: "",
+                    image: {},
+                    dataNascimento: "",
+                    tipoSanguineo: "",
+                    status: "",
+                    endereco: "",
+                    crm: "",
+                    cpf: "",
+                    rg: "",
+                    especialidade: "",
+                    email: "",
+                    celular: "",
+                    telefone: "",
+                    senhaProvisoria: "",
+                    alergia: ""
+                })
+            }
         }
     }
 
@@ -104,7 +126,7 @@ export default class CadastrarHospital extends Component {
                             </div>
                             <div className='form-group col-12 py-1'>
                                 <label htmlFor="alergia" className='font-weight-bold mb-0'>Alergia a medicamentos ou remédios</label>
-                                <textarea className="form-control form-control-lg" id="alergia" placeholder='Ex: Nenhuma alergia' name='alergia' value={this.state.alergia} onChange={this.onChange}/>
+                                <textarea className="form-control form-control-lg" id="alergia" placeholder='Ex: Nenhuma alergia' name='alergia' value={this.state.alergia} onChange={this.onChange} />
                             </div>
                         </div>
                         <div className='col-12 text-center py-2'>

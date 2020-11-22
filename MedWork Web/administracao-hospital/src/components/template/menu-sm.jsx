@@ -1,6 +1,11 @@
 import React from 'react';
 import './menu.css'
 
+function deslogar() {
+    localStorage.removeItem('current_user')
+    localStorage.removeItem('user_data')
+    window.location.reload();
+}
 
 export default props => (
     <div className="Menu-sm fixed-bottom d-block d-lg-none">
@@ -19,10 +24,10 @@ export default props => (
         <a href="#/centro-de-ajuda">
             <i className="fa fa-info-circle fa-2x"></i>
         </a>
-        <a href="#/configuracoes">
+        {/* <a href="#/configuracoes">
             <i className="fa fa-cog fa-2x"></i>
-        </a>
-        <a href="#/sair">
+        </a> */}
+        <a href="#" onClick={deslogar}>
             <i className="fa fa-times fa-2x"></i>
         </a>
     </div>

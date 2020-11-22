@@ -1,8 +1,14 @@
 import React, { Component, useState } from 'react';
+import doLogin from '../../main/api/login';
 
 import Logotipo from '../template/logotipo'
 import './Login.css'
 
+function deslogar() {
+    localStorage.removeItem('current_user')
+    localStorage.removeItem('user_data')
+    window.location.reload();
+}
 
 class Login extends Component {
 
@@ -20,7 +26,7 @@ class Login extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
+            doLogin(this.state)
         }
     }
 
