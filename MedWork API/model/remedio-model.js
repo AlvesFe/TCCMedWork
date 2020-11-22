@@ -53,8 +53,8 @@ exports.getRemedio = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Remedio WHERE id_Remedio = ?',
-            [req.body.id_Remedio],
+            'SELECT * FROM tbl_Remedio WHERE codigo = ?',
+            [req.body.codigo],
             (error, resultado, fields) => {
                 conn.release()
 

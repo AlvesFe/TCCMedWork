@@ -44,15 +44,9 @@ exports.postRemedio = (req, res, next) => {
 
 exports.getRemedio = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.body.id_Remedio)) {
+    if (isNullOrWhitespace(req.body.codigo)) {
         return res.status(500).send({
             error: "erroidremediovazio"
-        })
-    }
-
-    if (req.body.id_Remedio.length !== 60) {
-        return res.status(500).send({
-            error: "errotamanhoidremedio"
         })
     }
     next();

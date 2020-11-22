@@ -1,9 +1,7 @@
-module.exports = {
-    isAuth() {
-        var user = localStorage.getItem('current_user')
-        if (!user)
-            return false
+import getMedico from "./api/getMedico";
 
-        return true
-    }
+export const isAuth = () => {
+    const user = localStorage.getItem('current_user');
+    user ? getMedico() : null
+    return user ? true : false
 }

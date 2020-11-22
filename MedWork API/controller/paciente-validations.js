@@ -124,17 +124,12 @@ exports.postPaciente = async (req, res, next) => {
 exports.getPaciente = (req, res, next) => {
 
     //Verifica o tamanho do campo CPF
-    if (req.body.cpf.length < 11) {
-        return res.status(500).send({
-            error: "errotamanhocpf"
-        })
-    }
-
     if (ValidationNumber(req.body.cpf)) {
         return res.status(500).send({
             error: "errocpfinvalido"
         })
     }
+    
     next();
 }
 

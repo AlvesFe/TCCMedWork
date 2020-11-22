@@ -38,7 +38,7 @@ exports.postRemedio = (req, res, next) => {
     }
 }
 exports.getRemedios = (req, res, next) => {
-    permission = ['paciente', 'farmacia', 'recepcionista'];
+    permission = ['paciente', 'farmacia', 'recepcionista', 'medico'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
@@ -55,7 +55,7 @@ exports.getRemedios = (req, res, next) => {
     }
 }
 exports.getRemedio = (req, res, next) => {
-    permission = ['paciente', 'farmacia', 'recepcionista'];
+    permission = ['paciente', 'farmacia', 'recepcionista', 'medico'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
