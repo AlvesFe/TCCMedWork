@@ -22,15 +22,15 @@ export default props => (
         <a href="#/cadastrar-drogaria">
             <i className="pills icon mr-3"></i>
             Cadastrar drogaria
-        </a>
+        </a>0/#/login
         <a href="#/centro-de-ajuda">
             <i className="question circle outline icon mr-3"></i>
             Centro de ajuda
         </a>
-        <a href="#/configuracoes">
+        {/* <a href="#/configuracoes">
             <i className="cog icon mr-3"></i>
             Configurações
-        </a>
+        </a> */}
         <a href="#" onClick={deslogar}>
             <i className="sign-out icon mr-3"></i>
             Sair

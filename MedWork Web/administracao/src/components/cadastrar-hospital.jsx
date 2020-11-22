@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cadastrarHospital from '../main/api/cadastrarHospital';
 import Menu from './template/menu'
 
 export default class CadastrarHospital extends Component {
@@ -8,11 +9,12 @@ export default class CadastrarHospital extends Component {
         this.state = {
             nomeEmpresa: "",
             cnpj: "",
-            status: "",
+            image: {},
             endereco: "",
             telefone: "",
             email: "",
-            senhaProvisoria: ""
+            senhaProvisoria: "",
+            confirmarSenha: ""
         }
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -22,7 +24,20 @@ export default class CadastrarHospital extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
+            const req = cadastrarHospital(this.state);
+
+            if (req) {
+                this.setState({
+                    nomeEmpresa: "",
+                    cnpj: "",
+                    image: {},
+                    endereco: "",
+                    telefone: "",
+                    email: "",
+                    senhaProvisoria: "",
+                    confirmarSenha: ""
+                })
+            }
         }
     }
 
@@ -41,19 +56,11 @@ export default class CadastrarHospital extends Component {
                                 <label htmlFor="pesquisarEstabelecimento" className='font-weight-bold mb-0'>Nome da empresa</label>
                                 <input type="text" className="form-control form-control-lg" id="pesquisarEstabelecimento" placeholder='Nome da empresa' name="nomeEmpresa" value={this.state.nomeEmpresa} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-3 py-1'>
+                            <div className='form-group col-6 py-1'>
                                 <label htmlFor="cnpj" className='font-weight-bold mb-0'>CNPJ</label>
                                 <input type="text" className="form-control form-control-lg" id="cnpj" placeholder='xx.xxx.xxx/xxxx-xx' name='cnpj' value={this.state.cnpj} onChange={this.onChange} />
                             </div>
 
-                            <div className='form-group col-3 py-1'>
-                                <label htmlFor="status" className='font-weight-bold mb-0'>Status</label>
-                                <select className="form-control form-control-lg" id="status" name='status' value={this.state.status} onChange={this.onChange}>
-                                    <option value="">Escolha</option>
-                                    <option value="1">Ativo</option>
-                                    <option value="0">Inativo</option>
-                                </select>
-                            </div>
                             <div className='form-group col-8 py-1'>
                                 <label htmlFor="endereco" className='font-weight-bold mb-0'>Endereço</label>
                                 <input type="text" className="form-control form-control-lg" id="endereco" placeholder='Ex: Avenida paulista, 2222, São Paulo - SP' name='endereco' value={this.state.endereco} onChange={this.onChange} />
@@ -62,13 +69,17 @@ export default class CadastrarHospital extends Component {
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
                                 <input type="text" className="form-control form-control-lg" id="telefone" placeholder='(xx) xxxx-xxxx' name='telefone' value={this.state.telefone} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-6 py-1'>
+                            <div className='form-group col-4 py-1'>
                                 <label htmlFor="email" className='font-weight-bold mb-0'>E-mail</label>
                                 <input type="text" className="form-control form-control-lg" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-6 py-1'>
+                            <div className='form-group col-4 py-1'>
                                 <label htmlFor="senhaProvisoria" className='font-weight-bold mb-0'>Senha provisória</label>
                                 <input type="password" className="form-control form-control-lg" id="senhaProvisoria" placeholder='••••••••••' name='senhaProvisoria' value={this.state.senhaProvisoria} onChange={this.onChange} />
+                            </div>
+                            <div className='form-group col-4 py-1'>
+                                <label htmlFor="senhaProvisoria" className='font-weight-bold mb-0'>Confirmar Senha</label>
+                                <input type="password" className="form-control form-control-lg" id="confirmarSenha" placeholder='••••••••••' name='confirmarSenha' value={this.state.confirmarSenha} onChange={this.onChange} />
                             </div>
                         </div>
                         <div className='col-12 text-center py-2'>

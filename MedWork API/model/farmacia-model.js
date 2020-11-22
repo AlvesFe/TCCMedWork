@@ -70,7 +70,7 @@ exports.postFarmacia = (req, res, next) => {
                             const id_Farmacia = bcrypt.hashSync(Date.now().toString(), 10);
 
                             conn.query(
-                                'INSERT INTO tbl_Farmacia(id_Farmacia, foto, nome, telefone, endereco, detalhes, cnpj, senha, taxa, email, fk_id_MedWork)VALUES(?,?,?,?,?,?,?,?,?,?)',
+                                'INSERT INTO tbl_Farmacia(id_Farmacia, foto, nome, telefone, endereco, detalhes, cnpj, senha, taxa, email, fk_id_MedWork)VALUES(?,?,?,?,?,?,?,?,?,?,?)',
                                 [id_Farmacia, foto(), req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.cnpj, hash, req.body.taxa, req.body.email, req.body.fk_id_MedWork],
                                 (error, resultado, field) => {
                                     conn.release()

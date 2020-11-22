@@ -1,7 +1,9 @@
 import React from 'react'
 import Axios from 'axios'
+import variables from "./variables";
 
-const API_URL = "http://localhost:3001"
+const env = variables()
+const {API_URL} = env
 
 
 export default function doLogin (dados) {

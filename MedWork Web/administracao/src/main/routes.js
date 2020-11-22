@@ -19,7 +19,7 @@ export default function routes() {
                 <Route path='/cadastrar-hospital' component={CadastrarHospital} />
                 <Route path='/cadastrar-drogaria' component={CadastrarDrogaria} />
                 <Route path='/centro-de-ajuda' component={CentroAjuda} />
-                <Route path='/configuracoes' component={Configuracoes} />
+                {/* <Route path='/configuracoes' component={Configuracoes} /> */}
                 <Redirect from='*' to="/inicio" />
             </Router>
         )
