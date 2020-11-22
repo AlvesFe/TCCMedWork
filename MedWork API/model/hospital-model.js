@@ -256,6 +256,7 @@ exports.logarHospital = (req, res, next) => {
                         id_Hospital: results[0].id_Hospital,
                         email: results[0].email,
                         nome: results[0].nome,
+                        cnpj:  results[0].cnpj,
                         tipo: "hospital"
                     },
                         process.env.JWT_KEY,
