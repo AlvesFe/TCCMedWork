@@ -12,20 +12,39 @@ exports.postCompra = (req, res, next) => {
 
         const id_Compra = bcrypt.hashSync(Date.now().toString(), 10);
         const cod_fiscal = bcrypt.hashSync(Date.now().toString(), 10);
-        conn.query(
-            'INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, valorRecebido, valorDevolvido, tipo, endereco, fk_id_Farmacia, fk_id_Paciente, fk_id_Remedio)VALUES(?,?,?,?,?,?,?,?,?,?)',
-            [id_Compra, cod_fiscal, req.body.quantidade, req.body.valorRecebido, req.body.valorDevolvido, req.body.tipo, req.body.endereco, req.body.fk_id_Farmacia, req.body.fk_id_Paciente, req.body.fk_id_Remedio],
-            (error, resultado, field) => {
-                conn.release()
-
-                if (error) { return res.status(500).send({ error: error }) }
-
-                res.status(201).send({
-                    mensagem: 'Compra Cadastrada',
-                    id_Compra: id_Compra
+        conn.query('SELECT estoque FROM tbl_Remedio_Farmacia WHERE fk_id_Farmacia = ? AND fk_id_Remedio = ?', 
+        [req.body.fk_id_Farmacia, req.body.fk_id_Remedio],
+        ((error, result, field) => {
+            if (error) { return res.status(500).send({ error: error }) }
+            
+            if(result[0].estoque >= req.body.quantidade){
+                const Estoque = (result[0].estoque - req.body.quantidade);
+                conn.query(
+                    'INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, valorRecebido, valorDevolvido, tipo, endereco, fk_id_Farmacia, fk_id_Paciente, fk_id_Remedio)VALUES(?,?,?,?,?,?,?,?,?,?)',
+                    [id_Compra, cod_fiscal, req.body.quantidade, req.body.valorRecebido, req.body.valorDevolvido, req.body.tipo, req.body.endereco, req.body.fk_id_Farmacia, req.body.fk_id_Paciente, req.body.fk_id_Remedio],
+                    (error, resultado, field) => {
+                        if (error) { return res.status(500).send({ error: error }) }
+                        
+                        conn.query('UPDATE tbl_remedio_farmacia SET estoque = ? WHERE fk_id_Farmacia = ? AND fk_id_Remedio = ?', [Estoque, req.body.fk_id_Farmacia, req.body.fk_id_Remedio], 
+                        (error, resultado, field) =>{
+                            conn.release()
+                            console.log(resultado)
+                            res.status(201).send({
+                                mensagem: 'Compra Cadastrada',
+                                id_Compra: id_Compra
+                            })
+                            if (error) { return res.status(500).send({ error: error }) }
+                        })
+                    }
+                )
+            }
+            else{
+                res.status(500).send({
+                    error: 'Estoque Insuficiente',
                 })
             }
-        )
+        })
+        )  
     })
 }
 
