@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import getPaciente from '../main/api/getPaciente';
+import CadastrarPaciente from './cadastrar-paciente';
 import Menu from './template/menu'
 
 class PesquisarPaciente extends Component {
@@ -15,8 +17,8 @@ class PesquisarPaciente extends Component {
             this.setState(state)
         }
         this.onSubmit = (e) => {
-            e.preventDefault()
-            console.log(this.state)
+            e.preventDefault();
+            getPaciente(this.state.cpf);
         }
     }
 

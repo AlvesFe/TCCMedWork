@@ -258,6 +258,7 @@ exports.logarRecepcionista = (req, res, next) => {
                         id_Recepcionista: results[0].id_Recepcionista,
                         email: results[0].email,
                         nome: results[0].nome,
+                        cpf: results[0].cpf,
                         tipo: "recepcionista",
                     },
                         process.env.JWT_KEY,

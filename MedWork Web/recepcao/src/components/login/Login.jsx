@@ -1,4 +1,5 @@
 import React, { Component, useState } from 'react';
+import doLogin from '../../main/api/login';
 
 import Logotipo from '../template/logotipo'
 import './Login.css'
@@ -21,6 +22,7 @@ class Login extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
             console.log(this.state)
+            doLogin(this.state);
         }
     }
 

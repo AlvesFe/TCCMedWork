@@ -3,6 +3,12 @@ import React from 'react';
 import Logotipo from './logotipo-dash'
 import './menu.css'
 
+function deslogar() {
+    localStorage.removeItem('current_user')
+    localStorage.removeItem('user_data')
+    window.location.reload();
+}
+
 export default props => (
     <div className="Menu col-md-4 col-lg-3 d-none d-lg-block">
         <a href="#/inicio"><h4 className='text-center'><Logotipo /></h4></a>
@@ -22,7 +28,7 @@ export default props => (
             <i className="cog icon mr-3"></i>
             Configurações
         </a>
-        <a href="#/sair">
+        <a href="#/sair" onClick={deslogar}>
             <i className="sign-out icon mr-3"></i>
             Sair
         </a>
