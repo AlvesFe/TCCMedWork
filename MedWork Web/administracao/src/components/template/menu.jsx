@@ -5,7 +5,8 @@ import './menu.css'
 
 function deslogar() {
     localStorage.removeItem('current_user')
-    window.location.reload(true);
+    localStorage.removeItem('user_data')
+    window.location.reload();
 }
 
 export default props => (
