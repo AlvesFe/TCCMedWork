@@ -5,18 +5,18 @@ export default class MinhasInformacoes extends Component {
 
     constructor() {
         super()
+        const stringData = localStorage.getItem('user_data')
+        const userData = JSON.parse(stringData);
         this.state = {
-            nome: "",
-            crm: "",
-            dataNascimento:"",
-            tipoSanguineo:"",
-            endereco: "",
-            cpf: "",
-            rg: "",
-            email: "",
-            celular: "",
-            telefone: "",
-            alergias: ""
+            nome: userData.nome,
+            crm: userData.crm,
+            dataNascimento: userData.dt_Nascimento.slice(0, -14),
+            tipoSanguineo: userData.tp_sanguineo,
+            cpf: userData.cpf,
+            rg: userData.rg,
+            email: userData.email,
+            celular: userData.celular,
+            telefone: userData.telefone,
         }
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -43,7 +43,7 @@ export default class MinhasInformacoes extends Component {
                         <div className="col-12 py-2 form-row">
                             <div className='form-group col-6 py-1'>
                                 <label htmlFor="nomeMedico" className='font-weight-bold mb-0'>Nome</label>
-                                <input type="text" className="form-control form-control-lg" id="nomeMedico" placeholder='Nome' name="nome" value={this.state.nomeMedico} onChange={this.onChange} />
+                                <input type="text" className="form-control form-control-lg" id="nomeMedico" placeholder='Nome' name="nome" value={this.state.nome} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-2 py-1'>
                                 <label htmlFor="crm" className='font-weight-bold mb-0'>CRM</label>
@@ -58,14 +58,10 @@ export default class MinhasInformacoes extends Component {
                                 <input type="text" className="form-control form-control-lg" id="tipoSanguineo" placeholder='O+' name='tipoSanguineo' value={this.state.tipoSanguineo} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-6 py-1'>
-                                <label htmlFor="endereco" className='font-weight-bold mb-0'>Endereço</label>
-                                <input type="text" className="form-control form-control-lg" id="endereco" placeholder='Ex: Avenida paulista, 2222, São Paulo - SP' name='endereco' value={this.state.endereco} onChange={this.onChange} />
-                            </div>
-                            <div className='form-group col-3 py-1'>
                                 <label htmlFor="cpf" className='font-weight-bold mb-0'>CPF</label>
                                 <input type="text" className="form-control form-control-lg" id="cpf" placeholder='xxx.xxx.xxx-xx' name='cpf' value={this.state.cpf} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-3 py-1'>
+                            <div className='form-group col-6 py-1'>
                                 <label htmlFor="rg" className='font-weight-bold mb-0'>RG</label>
                                 <input type="text" className="form-control form-control-lg" id="rg" placeholder='xx.xxx.xxx-x' name='rg' value={this.state.rg} onChange={this.onChange} />
                             </div>
@@ -81,11 +77,6 @@ export default class MinhasInformacoes extends Component {
                             <div className='form-group col-3 py-1'>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
                                 <input type="text" className="form-control form-control-lg" id="telefone" placeholder='(xx) xxxx-xxxx' name='telefone' value={this.state.telefone} onChange={this.onChange} />
-                            </div>
-
-                            <div className='form-group col-12 py-1'>
-                                <label htmlFor="alergias" className='font-weight-bold mb-0'>Alergia a medicamentos ou remédios</label>
-                                <textarea className="form-control form-control-lg" id="alergias" rows='5' placeholder='Ex: tomar a cada 8 horas durante 3 dias' name='alergias' value={this.state.alergias} onChange={this.onChange}/>
                             </div>
                         </div>
                         <div className='col-12 text-center py-2'>
