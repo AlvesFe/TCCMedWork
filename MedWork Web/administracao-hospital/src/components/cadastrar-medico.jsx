@@ -74,17 +74,9 @@ export default class CadastrarHospital extends Component {
                                 <label htmlFor="dataNascimento" className='font-weight-bold mb-0'>Data de nascimento</label>
                                 <input type="text" className="form-control form-control-lg" id="dataNascimento" placeholder='DD/MM/AAAA' name='dataNascimento' value={this.state.dataNascimento} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-2 py-1'>
+                            <div className='form-group col-4 py-1'>
                                 <label htmlFor="tipoSanguineo" className='font-weight-bold mb-0'>Tipo sanguíneo</label>
                                 <input type="text" className="form-control form-control-lg" id="tipoSanguineo" placeholder='O+' name='tipoSanguineo' value={this.state.tipoSanguineo} onChange={this.onChange} />
-                            </div>
-                            <div className='form-group col-2 py-1'>
-                                <label htmlFor="status" className='font-weight-bold mb-0'>Status</label>
-                                <select className="form-control form-control-lg" id="status" name='status' value={this.state.status} onChange={this.onChange}>
-                                    <option value="">Escolha</option>
-                                    <option value="1">Ativo</option>
-                                    <option value="0">Inativo</option>
-                                </select>
                             </div>
                             <div className='form-group col-6 py-1'>
                                 <label htmlFor="endereco" className='font-weight-bold mb-0'>Endereço</label>
