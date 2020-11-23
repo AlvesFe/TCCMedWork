@@ -19,7 +19,7 @@ export default function cadastrarReceita(dados, paciente, remedio) {
         dosagem: dados.dosagem,
         dt_Emissao: new Date(),
         orientacoes: dados.orientacoes,
-        dt_Validade: dados.validade,
+        dt_Validade: dados.validade.replace(/[^\d]+/g,''),
         fk_id_Medico: userData.id_Medico,
         Quantidade: dados.quantidade,
         fk_id_Paciente: paciente.id_Paciente,

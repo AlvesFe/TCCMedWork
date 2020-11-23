@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import InputMask from 'react-input-mask';
 import cadastrarReceita from '../main/api/cadastrarReceita';
 import getPaciente from '../main/api/getPaciente';
 import getRemedio from '../main/api/getRemedio';
@@ -56,7 +57,7 @@ export default class Atendimento extends Component {
                         <div className="col-12 form-row">
                             <div className='form-group col-12 py-1'>
                                 <label htmlFor="cpf" className='font-weight-bold mb-0'>CPF</label>
-                                <input type="text" className="form-control form-control-sm" id="cpf" placeholder='xxx.xxx.xxx-xx' name='cpf' value={this.state.cpf} onChange={this.onChange} />
+                                <InputMask mask="999.999.999-99" className="form-control form-control-sm" id="cpf" placeholder='xxx.xxx.xxx-xx' name='cpf' value={this.state.cpf} onChange={this.onChange} />
                             </div>
                             <div className='col-12'>
                                 <hr />
@@ -75,7 +76,7 @@ export default class Atendimento extends Component {
                             </div>
                             <div className='form-group col-2 py-1'>
                                 <label htmlFor="crm" className='font-weight-bold mb-0'>Validade</label>
-                                <input type="text" className="form-control form-control-sm" id="validade" placeholder='dd/mm/aaaa' name="validade" value={this.state.validade} onChange={this.onChange} />
+                                <InputMask mask="99/99/9999" className="form-control form-control-sm" id="validade" placeholder='dd/mm/aaaa' name="validade" value={this.state.validade} onChange={this.onChange} />
                             </div>
 
                             <div className='form-group col-12 py-1'>
