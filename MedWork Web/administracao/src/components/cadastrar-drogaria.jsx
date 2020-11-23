@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UploadImagem from './template/upload-imagem'
+import InputMask from 'react-input-mask';
 import cadastrarFarmacia from '../main/api/cadastrarFarmacia';
 import Menu from './template/menu'
 
@@ -12,6 +13,7 @@ export default class CadastrarDrogaria extends Component {
             cnpj: "",
             endereco: "",
             telefone: "",
+            taxa: "",
             detalhes: "",
             email: "",
             senhaProvisoria: ""
@@ -34,6 +36,7 @@ export default class CadastrarDrogaria extends Component {
                     endereco: "",
                     telefone: "",
                     detalhes: "",
+                    taxa: "",
                     email: "",
                     senhaProvisoria: ""
                 })
@@ -59,15 +62,19 @@ export default class CadastrarDrogaria extends Component {
                             </div>
                             <div className='form-group col-6 py-1'>
                                 <label htmlFor="cnpj" className='font-weight-bold mb-0'>CNPJ</label>
-                                <input type="text" className="form-control form-control-lg" id="cnpj" placeholder='xx.xxx.xxx/xxxx-xx' name="cnpj" value={this.state.cnpj} onChange={this.onChange} />
+                                <InputMask mask="99.999.999/9999-99" className="form-control form-control-lg" id="cnpj" placeholder='xx.xxx.xxx/xxxx-xx' name="cnpj" value={this.state.cnpj} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-8 py-1'>
                                 <label htmlFor="endereco" className='font-weight-bold mb-0'>Endereço</label>
                                 <input type="text" className="form-control form-control-lg" id="endereco" placeholder='Ex: Avenida paulista, 2222, São Paulo - SP' name='endereco' value={this.state.endereco} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-4 py-1'>
+                            <div className='form-group col-2 py-1'>
+                                <label htmlFor="endereco" className='font-weight-bold mb-0'>Taxa</label>
+                                <InputMask mask="99.99" className="form-control form-control-lg" id="taxa" placeholder='R$2.50' name='taxa' value={this.state.taxa} onChange={this.onChange}/>
+                            </div>
+                            <div className='form-group col-2 py-1'>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
-                                <input type="text" className="form-control form-control-lg" id="telefone" placeholder='(xx) xxxx-xxxx' name='telefone' value={this.state.telefone} onChange={this.onChange} />
+                                <InputMask mask="(99) 9999-9999" className="form-control form-control-lg" id="telefone" placeholder='(xx) xxxx-xxxx' name='telefone' value={this.state.telefone} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-12 py-1'>
                                 <label htmlFor="detalhes" className='font-weight-bold mb-0'>Detalhes</label>

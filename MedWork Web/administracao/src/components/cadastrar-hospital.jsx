@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UploadImagem from './template/upload-imagem'
+import InputMask from 'react-input-mask'
 
 import cadastrarHospital from '../main/api/cadastrarHospital';
 import Menu from './template/menu'
@@ -26,8 +27,7 @@ export default class CadastrarHospital extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            const req = cadastrarHospital(this.state);
-            console.log(this.state);
+            cadastrarHospital(this.state);
             if (req) {
                 this.setState({
                     nomeEmpresa: "",
@@ -64,7 +64,7 @@ export default class CadastrarHospital extends Component {
                             </div>
                             <div className='form-group col-6 py-1'>
                                 <label htmlFor="cnpj" className='font-weight-bold mb-0'>CNPJ</label>
-                                <input type="text" className="form-control form-control-lg" id="cnpj" placeholder='xx.xxx.xxx/xxxx-xx' name='cnpj' value={this.state.cnpj} onChange={this.onChange} />
+                                <InputMask mask="99.999.999/9999-99" className="form-control form-control-lg" id="cnpj" placeholder='xx.xxx.xxx/xxxx-xx' name='cnpj' value={this.state.cnpj} onChange={this.onChange}/>
                             </div>
 
                             <div className='form-group col-8 py-1'>
@@ -73,7 +73,7 @@ export default class CadastrarHospital extends Component {
                             </div>
                             <div className='form-group col-4 py-1'>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
-                                <input type="text" className="form-control form-control-lg" id="telefone" placeholder='(xx) xxxx-xxxx' name='telefone' value={this.state.telefone} onChange={this.onChange} />
+                                <InputMask mask="(99) 9999-9999" className="form-control form-control-lg" id="telefone" placeholder='(xx) xxxx-xxxx' name='telefone' value={this.state.telefone} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-4 py-1'>
                                 <label htmlFor="email" className='font-weight-bold mb-0'>E-mail</label>

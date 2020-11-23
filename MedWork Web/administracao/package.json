@@ -36,6 +36,7 @@
   "dependencies": {
     "bootstrap-icons": "^1.1.0",
     "jwt-decode": "^3.1.2",
+    "react-input-mask": "^2.0.4",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-icon": "^2.3.3",
     "semantic-ui-react": "^2.0.1"

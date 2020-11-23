@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import getAllEstabelecimentos from '../main/api/getAllEstabelecimentos';
 import getEstabelecimentos from '../main/api/getEstabelecimentos';
+import InputMask from 'react-input-mask';
 import Menu from './template/menu'
 
 class PesquisarEstabelecimento extends Component {
@@ -40,7 +41,7 @@ class PesquisarEstabelecimento extends Component {
                     <div className='row justify-content-center py-5'>
                         <div className="col-8 py-5">
                             <label htmlFor="pesquisarEstabelecimento" className='font-weight-bold mb-0'>CNPJ</label>
-                            <input type="number" className="form-control form-control-lg" id="pesquisarEstabelecimento" name="cnpj" placeholder='61.585.865/0240-93' value={this.state.cnpj} onChange={this.onChange}  />
+                            <InputMask mask="99.999.999/9999-99" className="form-control form-control-lg" id="pesquisarEstabelecimento" name="cnpj" placeholder='61.585.865/0240-93' value={this.state.cnpj} onChange={this.onChange} />
                             <div className='text-center py-3'>
                                 <button className='btn-roxo'  onClick={this.onSubmit}>PESQUISAR</button>
                             </div>

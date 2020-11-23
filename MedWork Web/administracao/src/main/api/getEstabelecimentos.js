@@ -9,7 +9,7 @@ export default function getEstabelecimentos(dados) {
     const token = localStorage.getItem('current_user')
 
     const data = {
-        cnpj: dados
+        cnpj: dados.replace(/[^\d]+/g,'')
     }
 
 

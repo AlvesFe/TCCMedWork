@@ -14,16 +14,15 @@ export default function cadastrarFarmacia(dados) {
     const data = {
         image: dados.image, 
         nome: dados.nomeEmpresa, 
-        telefone: dados.telefone, 
+        telefone: dados.telefone.replace(/[^\d]+/g,''), 
         endereco: dados.endereco, 
         detalhes: dados.detalhes, 
-        cnpj: dados.cnpj, 
+        cnpj: dados.cnpj.replace(/[^\d]+/g,''), 
         senha: dados.senhaProvisoria, 
-        taxa: 2.50, 
+        taxa: dados.taxa, 
         email: dados.email, 
         fk_id_MedWork: userData.id_MedWork
     }
-
     const dataFinal = new FormData();
 
     for (const key in data) {

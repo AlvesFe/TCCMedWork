@@ -11,15 +11,15 @@ export default function cadastrarHospital(dados) {
     const stringData = localStorage.getItem('user_data')
     const userData = JSON.parse(stringData)
 
-    if (dados.senhaProvisoria !== dados.confirmarSenha) {
+    if (dados.senhaProvisoria != dados.confirmarSenha) {
         return {erro: "senhasnaoconferem"}
     }
 
     const data = {
-        cnpj: dados.cnpj,
+        cnpj: dados.cnpj.replace(/[^\d]+/g,''),
         nome: dados.nomeEmpresa,
         endereco: dados.endereco,
-        telefone: dados.telefone,
+        telefone: dados.telefone.replace(/[^\d]+/g,''),
         email: dados.email,
         senha: dados.senhaProvisoria,
         fk_id_MedWork: userData.id_MedWork
@@ -30,14 +30,14 @@ export default function cadastrarHospital(dados) {
     for (const key in data) {
         dataFinal.append(key, data[key])
     }
-
-    if(dados.image){
-        let localUri = dados.image;
-        let filename = localUri.split('/').pop();
-        let match = /\.(\w+)$/.exec(filename);
-        let type = match ? `image/${match[1]}` : `image`;
-        userfinal.append("image", {uri: localUri, name: filename, type})
-    }
+    console.log(data);
+    // if(dados.image){
+    //     let localUri = dados.image;
+    //     let filename = localUri.split('/').pop();
+    //     let match = /\.(\w+)$/.exec(filename);
+    //     let type = match ? `image/${match[1]}` : `image`;
+    //     userfinal.append("image", {uri: localUri, name: filename, type})
+    // }
 
     return Axios ({
         method:'POST',
@@ -50,6 +50,7 @@ export default function cadastrarHospital(dados) {
         }
     }).then(response => {
         const {data} = response;
+        console.log(data)
         if(data){
             return true
         }
