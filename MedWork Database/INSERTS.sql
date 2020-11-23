@@ -3,27 +3,27 @@
 -- TABELA ESTABELECIMENTOS
 INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(1), '12345678912345', 'MedWork');
+(MD5(1), '12345678912345', 'admMedWork');
 
 INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(2), '54321987654321', 'MedWork');
+(MD5(2), '54321987654321', 'admMedWork');
 
 INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(3), '25874563254236', 'Hospital');
+(MD5(3), '25874563254236', 'hospital');
 
 INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(4), '58974123658974', 'Hospital');
+(MD5(4), '58974123658974', 'hospital');
 
 INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(5), '58975412355548', 'Farmacia');
+(MD5(5), '58975412355548', 'farmacia');
 
 INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(6), '65458756452310', 'Farmacia');
+(MD5(6), '65458756452310', 'farmacia');
 -- ------------------------------------------------------------------------------------------------------------- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA MEDWORK

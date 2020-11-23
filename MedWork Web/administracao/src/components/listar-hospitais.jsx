@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import ListagemEstabelecimento from './template/listagem-estabelecimento'
 import cadastrarFarmacia from '../main/api/cadastrarFarmacia';
+import getHospital from '../main/api/getHospital';
 import Menu from './template/menu'
 
 export default class ListarEstabelecimento extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            image: {},
-            nomeEmpresa: "teste",
-            tipoEstabelecimento: "",
-            cnpj: "",
-            endereco: "",
+            hospitais: {},
         }
+        getHospital().then(response => {
+            console.log(response)
+        })
     }
 
 
@@ -25,7 +25,7 @@ export default class ListarEstabelecimento extends Component {
                     <div className='row justify-content-center py-3'>
                         <div className="col-12 py-3 form-row">
 
-                            <ListagemEstabelecimento/>
+                            <ListagemEstabelecimento />
 
                         </div>
                     </div>

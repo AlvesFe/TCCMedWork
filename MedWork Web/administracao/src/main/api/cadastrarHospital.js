@@ -31,6 +31,14 @@ export default function cadastrarHospital(dados) {
         dataFinal.append(key, data[key])
     }
 
+    if(dados.image){
+        let localUri = dados.image;
+        let filename = localUri.split('/').pop();
+        let match = /\.(\w+)$/.exec(filename);
+        let type = match ? `image/${match[1]}` : `image`;
+        userfinal.append("image", {uri: localUri, name: filename, type})
+    }
+
     return Axios ({
         method:'POST',
         url:API_URL+"/hospital",
@@ -42,8 +50,12 @@ export default function cadastrarHospital(dados) {
         }
     }).then(response => {
         const {data} = response;
-        console.log(data);
-        return true
+        if(data){
+            return true
+        }
+        else{
+            return false
+        }
     }).catch(err => {
         console.log(err);
         return false

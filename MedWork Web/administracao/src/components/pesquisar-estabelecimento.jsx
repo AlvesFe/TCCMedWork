@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import getAllEstabelecimentos from '../main/api/getAllEstabelecimentos';
+import getEstabelecimentos from '../main/api/getEstabelecimentos';
 import Menu from './template/menu'
 
 class PesquisarEstabelecimento extends Component {
@@ -17,6 +19,15 @@ class PesquisarEstabelecimento extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
             console.log(this.state)
+            getEstabelecimentos(this.state.cnpj).then(response =>  {
+                console.log(response);
+            });
+        }
+        this.onSubmitAll = (e) => {
+            e.preventDefault();
+            getAllEstabelecimentos().then(response => {
+                console.log(response);
+            });
         }
     }
 
@@ -36,7 +47,7 @@ class PesquisarEstabelecimento extends Component {
                         </div>
                     </div>
                     <div className='text-center container pt-5'>
-                        <a className='btn-roxo my-1' href='#/ver-todos-estabelecimentos'>VER TODOS (GERAL)</a>
+                        <a className='btn-roxo my-1' href='#/ver-todos-estabelecimentos' onClick={this.onSubmitAll}>VER TODOS (GERAL)</a>
                         <a className='btn-roxo mx-4 my-1' href='#/ver-hospitais'>VER TODOS (HOSPITAIS)</a>
                         <a className='btn-roxo my-1' href='#/ver-drogarias'>VER TODOS (DROGARIAS)</a>
 

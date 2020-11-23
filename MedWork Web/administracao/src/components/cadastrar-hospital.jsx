@@ -27,7 +27,7 @@ export default class CadastrarHospital extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
             const req = cadastrarHospital(this.state);
-
+            console.log(this.state);
             if (req) {
                 this.setState({
                     nomeEmpresa: "",

@@ -88,13 +88,7 @@ exports.postAdmMedwork = async (req, res, next) => {
 
 exports.getAdmMedWork = (req, res, next) => {
 
-    // if (req.body.cnpj_admMedWork.length != 14) {
-    //     return res.status(500).send({
-    //         error: "errotamanhocnpj"
-    //     })
-    // }
-
-    if (ValidationNumber(req.body.cnpj_admMedWork)) {
+    if (ValidationNumber(req.body.cnpj)) {
         return res.status(500).send({
             error: "errocnpjinvalido"
         })

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ListagemEstabelecimento from './template/listagem-estabelecimento'
 import cadastrarFarmacia from '../main/api/cadastrarFarmacia';
 import Menu from './template/menu'
+import getFarmacias from '../main/api/getFarmacias';
 
 export default class ListarEstabelecimento extends Component {
     constructor(props) {
@@ -13,6 +14,10 @@ export default class ListarEstabelecimento extends Component {
             cnpj: "",
             endereco: "",
         }
+
+        getFarmacias().then(response => {
+            console.log(response);
+        })
     }
 
     render() {

@@ -16,9 +16,9 @@ export default function getMedWork() {
     }
     
     const data = {
-        cnpj_admMedWork: decode.cnpj
+        cnpj: decode.cnpj
     }
-
+    
     Axios ({
         method:'post',
         url:API_URL+"/admMedWork/get",

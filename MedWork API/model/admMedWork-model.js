@@ -68,7 +68,7 @@ exports.postAdmMedwork = async (req, res, next) => {
 
                         if (error) { return res.status(500).send({ error: error }) }
                         const id_Estabelecimento = bcrypt.hashSync(Date.now().toString(), 10);
-                        conn.query('INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) VALUES (?,?,?)', [id_Estabelecimento, req.body.cnpj, 'MedWork'],
+                        conn.query('INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) VALUES (?,?,?)', [id_Estabelecimento, req.body.cnpj, 'admMedWork'],
                             (error, resultado, field) => {
                                 if (error) { return res.status(500).send({ error: error }) }
 
@@ -132,7 +132,7 @@ exports.getAdmMedWork = (req, res, next) => {
             `SELECT mw.*, cnpj FROM tbl_MedWork AS mw
             INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento
             WHERE cnpj = ?`,
-            [req.body.cnpj_admMedWork],
+            [req.body.cnpj],
             (error, resultado, fields) => {
                 conn.release()
 

@@ -67,7 +67,7 @@ exports.postFarmacia = (req, res, next) => {
                         if (error) { return res.status(500).send({ error: error }) }
                         const id_Estabelecimento = bcrypt.hashSync(Date.now().toString(), 10);
                         conn.query(`INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) VALUES (?,?,?)`,
-                            [id_Estabelecimento, req.body.cnpj, 'Farmacia'], (error, resultado, field) => {
+                            [id_Estabelecimento, req.body.cnpj, 'farmacia'], (error, resultado, field) => {
                                 if (error) { return res.status(500).send({ error: error }) }
                                 bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
                                     if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
