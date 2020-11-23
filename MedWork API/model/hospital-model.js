@@ -59,7 +59,9 @@ exports.postHospital = (req, res, next) => {
         }
 
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query('SELECT * FROM tbl_Hospital WHERE email = ? OR cnpj = ?', [req.body.email, req.body.cnpj],
+        conn.query(`SELECT hp.*, cnpj FROM tbl_Hospital AS hp
+        INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento 
+        WHERE email = ? OR cnpj = ?`, [req.body.email, req.body.cnpj],
             (error, resultado, field) => {
                 conn.release()
                 if (error) { return res.status(500).send({ error: error }) }
@@ -67,25 +69,28 @@ exports.postHospital = (req, res, next) => {
                     mysql.getConnection((error, conn) => {
 
                         if (error) { return res.status(500).send({ error: error }) }
+                        const id_Estabelecimento = bcrypt.hashSync(Date.now().toString(), 10);
+                        conn.query('INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) VALUES (?,?,?)', [id_Estabelecimento, req.body.cnpj, 'Hospital'],
+                        (error, result, field) => {
+                            bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+                                if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
-                        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-                            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
+                                const id_Hospital = bcrypt.hashSync(Date.now().toString(), 10);
+                                conn.query(
+                                    'INSERT INTO tbl_Hospital (id_Hospital, nome, endereco, telefone, email, senha, fk_id_MedWork, foto, fk_id_Estabelecimento)VALUES(?,?,?,?,?,?,?,?,?)',
+                                    [id_Hospital, req.body.nome, req.body.endereco, req.body.telefone, req.body.email, hash, req.body.fk_id_MedWork, foto(), id_Estabelecimento],
+                                    (error, resultado, field) => {
+                                        conn.release()
 
-                            const id_Hospital = bcrypt.hashSync(Date.now().toString(), 10);
-                            conn.query(
-                                'INSERT INTO tbl_Hospital (id_Hospital, cnpj, nome, endereco, telefone, email, senha, fk_id_MedWork, foto)VALUES(?,?,?,?,?,?,?,?,?)',
-                                [id_Hospital, req.body.cnpj, req.body.nome, req.body.endereco, req.body.telefone, req.body.email, hash, req.body.fk_id_MedWork, foto()],
-                                (error, resultado, field) => {
-                                    conn.release()
+                                        if (error) { return res.status(500).send({ error: error }) }
 
-                                    if (error) { return res.status(500).send({ error: error }) }
-
-                                    res.status(201).send({
-                                        mensagem: 'Hospital Cadastrado',
-                                        id_Hospital: id_Hospital
-                                    })
-                                }
-                            )
+                                        res.status(201).send({
+                                            mensagem: 'Hospital Cadastrado',
+                                            id_Hospital: id_Hospital
+                                        })
+                                    }
+                                )
+                            })
                         })
                     })
                 }
@@ -103,7 +108,8 @@ exports.getHospitais = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Hospital',
+            `SELECT hp.*, cnpj FROM tbl_Hospital AS hp
+            INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento`,
             (error, resultado, fields) => {
                 conn.release()
 
@@ -123,7 +129,8 @@ exports.getHospital = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Hospital WHERE cnpj = ?',
+            `SELECT hp.*, cnpj FROM tbl_Hospital AS hp
+            INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento WHERE cnpj = ?`,
             [req.body.cnpj],
             (error, resultado, fields) => {
                 conn.release()
@@ -215,24 +222,30 @@ exports.patchHospital = (req, res, next) => {
 }
 
 exports.deleteHospital = (req, res, next) => {
-
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
-
-        conn.query(
-            `DELETE FROM tbl_Hospital WHERE id_Hospital = ?`,
-            [req.body.id_Hospital],
-            (error, resultado, field) => {
-                conn.release()
-
-                if (error) { return res.status(500).send({ error: error }) }
-
-                res.status(202).send({
-                    mensagem: 'Hospital excluído com sucesso'
-                })
-            }
-        )
+        conn.query(`SELECT hp.*, cnpj FROM tbl_Hospital AS hp
+        INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento
+        WHERE id_Hospital = ?`, [req.body.id_Hospital],
+        (error, result, field) => {
+            conn.query(
+                `DELETE FROM tbl_Hospital WHERE id_Hospital = ?`,
+                [result[0].id_Hospital],
+                (error, resultado, field) => {
+                    conn.query('DELETE FROM tbl_Estabelecimentos WHERE id_Estabelecimento = ?', [result[0].fk_id_Estabelecimento],
+                    (error, result, field) => {
+                        conn.release()
+    
+                        if (error) { return res.status(500).send({ error: error }) }
+        
+                        res.status(202).send({
+                            mensagem: 'Hospital excluído com sucesso'
+                        })
+                    }) 
+                }
+            )
+        }) 
     })
 }
 
@@ -240,7 +253,8 @@ exports.logarHospital = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        const query = `SELECT * FROM tbl_Hospital WHERE email = ?`;
+        const query = `SELECT hp.*, cnpj FROM tbl_Hospital AS hp
+        INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento WHERE email = ?`;
 
         conn.query(query, [req.body.email], (error, results, fields) => {
             conn.release();
@@ -256,7 +270,7 @@ exports.logarHospital = (req, res, next) => {
                         id_Hospital: results[0].id_Hospital,
                         email: results[0].email,
                         nome: results[0].nome,
-                        cnpj:  results[0].cnpj,
+                        cnpj: results[0].cnpj,
                         tipo: "hospital"
                     },
                         process.env.JWT_KEY,

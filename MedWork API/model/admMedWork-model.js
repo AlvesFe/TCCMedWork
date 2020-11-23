@@ -25,11 +25,11 @@ const readHTMLFile = (path, callback) => {
     })
 }
 
-const foto = (req) =>{
-    if(req.file){
-       return req.file.filename
+const foto = (req) => {
+    if (req.file) {
+        return req.file.filename
     }
-    else{
+    else {
         return "default.png"
     }
 }
@@ -57,7 +57,9 @@ exports.postAdmMedwork = async (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query('SELECT * FROM tbl_MedWork WHERE email = ? OR cnpj = ?', [req.body.email, req.body.cnpj],
+        conn.query(`SELECT mw.*, cnpj FROM tbl_MedWork AS mw
+        INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento
+        WHERE cnpj = ? OR email = ?`, [req.body.email, req.body.cnpj],
             (error, resultado, field) => {
                 conn.release()
                 if (error) { return res.status(500).send({ error: error }) }
@@ -65,27 +67,32 @@ exports.postAdmMedwork = async (req, res, next) => {
                     mysql.getConnection((error, conn) => {
 
                         if (error) { return res.status(500).send({ error: error }) }
+                        const id_Estabelecimento = bcrypt.hashSync(Date.now().toString(), 10);
+                        conn.query('INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) VALUES (?,?,?)', [id_Estabelecimento, req.body.cnpj, 'MedWork'],
+                            (error, resultado, field) => {
+                                if (error) { return res.status(500).send({ error: error }) }
 
-                        bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-                            if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
+                                bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+                                    if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
-                            const id_MedWork = bcrypt.hashSync(Date.now().toString(), 10);
+                                    const id_MedWork = bcrypt.hashSync(Date.now().toString(), 10);
 
-                            conn.query(
-                                'INSERT INTO tbl_MedWork (id_MedWork, foto, nome, email, senha, cnpj)VALUES(?,?,?,?,?,?)',
-                                [id_MedWork, foto(req), req.body.nome, req.body.email, hash, req.body.cnpj],
-                                (error, resultado, field) => {
-                                    conn.release()
+                                    conn.query(
+                                        'INSERT INTO tbl_MedWork (id_MedWork, foto, nome, email, senha, fk_id_Estabelecimento)VALUES(?,?,?,?,?,?)',
+                                        [id_MedWork, foto(req), req.body.nome, req.body.email, hash, id_Estabelecimento],
+                                        (error, resultado, field) => {
+                                            conn.release()
 
-                                    if (error) { return res.status(500).send({ error: error }) }
+                                            if (error) { return res.status(500).send({ error: error }) }
 
-                                    res.status(201).send({
-                                        mensagem: 'Usuário Cadastrado',
-                                        id_Medwork: id_MedWork
-                                    })
-                                }
-                            )
-                        })
+                                            res.status(201).send({
+                                                mensagem: 'Usuário Cadastrado',
+                                                id_Medwork: id_MedWork
+                                            })
+                                        }
+                                    )
+                                })
+                            })
                     })
                 }
                 else {
@@ -101,7 +108,8 @@ exports.getAdmsMedWork = async (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_MedWork',
+            `SELECT mw.*, cnpj FROM tbl_MedWork AS mw
+            INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento`,
             (error, resultado, fields) => {
                 conn.release()
 
@@ -121,7 +129,9 @@ exports.getAdmMedWork = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_MedWork WHERE cnpj = ?',
+            `SELECT mw.*, cnpj FROM tbl_MedWork AS mw
+            INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento
+            WHERE cnpj = ?`,
             [req.body.cnpj_admMedWork],
             (error, resultado, fields) => {
                 conn.release()
@@ -139,13 +149,15 @@ exports.getAdmMedWork = (req, res, next) => {
 exports.patchAdmMedWork = (req, res, next) => {
 
     mysql.getConnection(async (error, conn) => {
-        conn.query(`SELECT * FROM tbl_MedWork WHERE cnpj = ?`, [req.body.cnpj],
+        conn.query(`SELECT mw.*, cnpj FROM tbl_MedWork AS mw
+        INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento
+        WHERE cnpj = ?`, [req.body.cnpj],
             async (error, resultado, fields) => {
-                const foto = () =>{
-                    if(req.file){
-                       return req.file.filename
+                const foto = () => {
+                    if (req.file) {
+                        return req.file.filename
                     }
-                    else{
+                    else {
                         return "default.png"
                     }
                 }
@@ -159,9 +171,9 @@ exports.patchAdmMedWork = (req, res, next) => {
                                 senha = ?,
                                 ativo = ?,
                                 foto = ?
-                            WHERE cnpj = ?`
+                            WHERE id_MedWork = ?`
                             ,
-                            [req.body.nome, resultado[0].senha, req.body.ativo, foto(), req.body.cnpj],
+                            [req.body.nome, resultado[0].senha, req.body.ativo, foto(), resultado[0].id_MedWork],
                             (error, resultado, field) => {
                                 conn.release()
                                 if (error) { return res.status(500).send({ error: error }) }
@@ -182,9 +194,9 @@ exports.patchAdmMedWork = (req, res, next) => {
                                 senha = ?,
                                 ativo = ?,
                                 foto = ?
-                            WHERE cnpj = ?`
+                            WHERE id_MedWork = ?`
                             ,
-                            [req.body.nome, senha, req.body.ativo, foto(), req.body.cnpj],
+                            [req.body.nome, senha, req.body.ativo, foto(), resultado[0].id_MedWork],
                             (error, resultado, field) => {
                                 conn.release()
 
@@ -197,7 +209,7 @@ exports.patchAdmMedWork = (req, res, next) => {
                         )
                     }
                 }
-                else{
+                else {
                     return res.status(500).send({ mensagem: 'Usuario não encontrado' })
                 }
 
@@ -212,19 +224,27 @@ exports.deleteAdmMedWork = (req, res, next) => {
     mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query(
-            `DELETE FROM tbl_MedWork WHERE cnpj = ?`,
-            [req.body.cnpj],
-            (error, resultado, field) => {
-                conn.release()
-
-                if (error) { return res.status(500).send({ error: error }) }
-
-                res.status(202).send({
-                    mensagem: 'AdmMedWork excluído com sucesso'
-                })
-            }
-        )
+        conn.query(`SELECT mw.*, cnpj FROM tbl_MedWork AS mw
+        INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento
+        WHERE cnpj = ?`, [req.body.cnpj],
+        (error, result, field) => {
+            conn.query(
+                `DELETE FROM tbl_MedWork WHERE id_MedWork = ?`,
+                [result[0].id_MedWork],
+                (error, resultado, field) => {
+                    conn.query('DELETE FROM tbl_Estabelecimentos WHERE id_Estabelecimento = ?', [result[0].fk_id_Estabelecimento],
+                    (error, result, field) => {
+                        conn.release()
+    
+                        if (error) { return res.status(500).send({ error: error }) }
+        
+                        res.status(202).send({
+                            mensagem: 'AdmMedWork excluído com sucesso'
+                        })
+                    }) 
+                }
+            )
+        }) 
     })
 }
 
@@ -232,7 +252,9 @@ exports.logarAdmMedwork = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        const query = `SELECT * FROM tbl_MedWork WHERE email = ?`;
+        const query = `SELECT mw.*, cnpj FROM tbl_MedWork AS mw
+        INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento
+        WHERE email = ?`;
 
         conn.query(query, [req.body.email], (error, results, fields) => {
             conn.release();

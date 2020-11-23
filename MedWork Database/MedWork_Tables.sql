@@ -8,6 +8,15 @@ USE MedWork;
 #######################################################################################
 #CRIAÇÃO DAS TABELAS
 
+#TABELA ESTABELECIMENTOS
+
+CREATE TABLE IF NOT EXISTS tbl_Estabelecimentos(
+	id_Estabelecimento VARCHAR(60) NOT NULL,
+    cnpj VARCHAR(20) NOT NULL UNIQUE,
+    Estabelecimento VARCHAR(20) NOT NULL,
+    PRIMARY KEY(id_Estabelecimento)
+);
+
 #TABELA PACIENTE
 CREATE TABLE IF NOT EXISTS tbl_Paciente(
     id_Paciente VARCHAR(60) NOT NULL PRIMARY KEY,
@@ -31,7 +40,6 @@ CREATE TABLE IF NOT EXISTS tbl_Paciente(
 #TABELA HOSPITAL
 CREATE TABLE IF NOT EXISTS tbl_Hospital(
     id_Hospital VARCHAR(60) NOT NULL PRIMARY KEY,
-    cnpj VARCHAR(20) NOT NULL UNIQUE,
     nome VARCHAR(50) NOT NULL,
     endereco VARCHAR(150) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
@@ -39,6 +47,7 @@ CREATE TABLE IF NOT EXISTS tbl_Hospital(
     foto VARCHAR(100) NOT NULL DEFAULT('default.png'),
     email VARCHAR(90) NOT NULL UNIQUE,
     senha VARCHAR(60) NOT NULL,
+    fk_id_Estabelecimento VARCHAR(60) NOT NULL,
     fk_id_MedWork VARCHAR(60) NOT NULL
 );
 
@@ -80,12 +89,12 @@ CREATE TABLE IF NOT EXISTS tbl_Farmacia(
     telefone VARCHAR(20) NOT NULL,
     endereco VARCHAR(150) NOT NULL,
     detalhes TEXT NOT NULL,
-    cnpj VARCHAR(20) NOT NULL UNIQUE,
     ativo BOOLEAN NOT NULL DEFAULT TRUE,
     senha VARCHAR(60) NOT NULL,
     email VARCHAR(90) NOT NULL UNIQUE,
     foto VARCHAR(100) NOT NULL DEFAULT('default.png'),
     taxa DECIMAL(10,2) UNSIGNED NOT NULL,
+    fk_id_Estabelecimento VARCHAR(60) NOT NULL,
     fk_id_MedWork VARCHAR(60) NOT NULL
 );
 
@@ -163,13 +172,14 @@ CREATE TABLE IF NOT EXISTS tbl_MedWork(
     nome VARCHAR(50) NOT NULL,
     email VARCHAR(90) NOT NULL UNIQUE,
     senha VARCHAR(60) NOT NULL,
-    cnpj VARCHAR(20) NOT NULL UNIQUE,
     ativo BOOL NOT NULL DEFAULT TRUE,
-    foto VARCHAR(100) NOT NULL DEFAULT('default.png')
+    foto VARCHAR(100) NOT NULL DEFAULT('default.png'),
+    fk_id_Estabelecimento VARCHAR(60) NOT NULL
 );
 
 #######################################################################################
 #CRIANDO FOREIGN KEY
+
 #PACIENTE
 ALTER TABLE
     tbl_Paciente
@@ -188,11 +198,16 @@ ALTER TABLE
 ADD
     CONSTRAINT fk_id_Hospital_Rec FOREIGN KEY(fk_id_Hospital) REFERENCES tbl_Hospital(id_Hospital);
 
-#Farmacia
+#FARMACIA
 ALTER TABLE
     tbl_Farmacia
 ADD
     CONSTRAINT fk_id_MedWork_Farm FOREIGN KEY(fk_id_MedWork) REFERENCES tbl_MedWork(id_Medwork);
+    
+ALTER TABLE
+	tbl_Farmacia
+ADD
+	CONSTRAINT fk_id_Estabelecimento_Farm FOREIGN KEY(fk_id_Estabelecimento) REFERENCES tbl_Estabelecimentos(id_Estabelecimento);
 
 #RECEITA
 ALTER TABLE
@@ -210,6 +225,11 @@ ALTER TABLE
     tbl_Hospital
 ADD
     CONSTRAINT fk_id_MedWork_Hosp FOREIGN KEY(fk_id_MedWork) REFERENCES tbl_MedWork(id_MedWork);
+
+ALTER TABLE
+	tbl_Hospital
+ADD
+	CONSTRAINT fk_id_Estabelecimento_Hosp FOREIGN KEY(fk_id_Estabelecimento) REFERENCES tbl_Estabelecimentos(id_Estabelecimento);
 
 #COMPRA
 ALTER TABLE
@@ -264,6 +284,12 @@ ALTER TABLE
     tbl_Consulta
 ADD
     CONSTRAINT fk_id_Receita_Cs FOREIGN KEY(fk_id_Receita) REFERENCES tbl_Receita(id_Receita);
+    
+#MEDWORK
+ALTER TABLE
+	tbl_MedWork
+ADD
+	CONSTRAINT fk_id_Estabelecimento_Med FOREIGN KEY(fk_id_Estabelecimento) REFERENCES tbl_Estabelecimentos(id_Estabelecimento);
 
 #######################################################################################
 -- -----------------------------------------------------------------------------------------------------------------------------------------------

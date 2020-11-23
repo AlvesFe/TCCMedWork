@@ -1,35 +1,61 @@
 -- -----------------------------------------------------------------------------------------------------------
 
--- TABELA MEDWORK
-INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, cnpj) 
+-- TABELA ESTABELECIMENTOS
+INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(1), 'Felipe', 'FelipaoReact@gmail.com', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', '12345678');
+(MD5(1), '12345678912345', 'MedWork');
 
-INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, cnpj) 
+INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(2),'Lemos', 'LemosDeveloper@gmail.com', 'JavaeBom', '87654321');
+(MD5(2), '54321987654321', 'MedWork');
+
+INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
+VALUES 
+(MD5(3), '25874563254236', 'Hospital');
+
+INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
+VALUES 
+(MD5(4), '58974123658974', 'Hospital');
+
+INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
+VALUES 
+(MD5(5), '58975412355548', 'Farmacia');
+
+INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
+VALUES 
+(MD5(6), '65458756452310', 'Farmacia');
+-- ------------------------------------------------------------------------------------------------------------- -----------------------------------------------------------------------------------------------------------
+
+-- TABELA MEDWORK
+INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, fk_id_Estabelecimento) 
+VALUES 
+(MD5(1), 'Felipe', 'FelipaoReact@gmail.com', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', MD5(1));
+
+INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, fk_id_Estabelecimento) 
+VALUES 
+(MD5(2),'Lemos', 'LemosDeveloper@gmail.com', 'JavaeBom', MD5(2));
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA HOSPITAL
-INSERT INTO tbl_Hospital (id_Hospital, cnpj, nome, endereco, telefone, email, senha, fk_id_MedWork) 
+INSERT INTO tbl_Hospital (id_Hospital, nome, endereco, telefone, email, senha, fk_id_MedWork, fk_id_Estabelecimento) 
 VALUES 
-(MD5(1), '12345678', 'Albert Einstein', 'R. Da desgraça, Jd. da Morte', '11985946110', 'Albert@gmail.com', 'Covid123', MD5(1));
+(MD5(1), 'Albert Einstein', 'R. Da desgraça, Jd. da Morte', '11985946110', 'Albert@gmail.com', 'Covid123', MD5(1), MD5(3));
 
-INSERT INTO tbl_Hospital (id_Hospital, cnpj, nome, endereco, telefone, email, senha, fk_id_MedWork) 
+INSERT INTO tbl_Hospital (id_Hospital, nome, endereco, telefone, email, senha, fk_id_MedWork, fk_id_Estabelecimento) 
 VALUES 
-(MD5(2), '87654321', 'Alpha Med', 'R. Da consolação, Jd. das flores', '11547865661', 'MedAlpha@gmail.com', 'Covid321', MD5(2));
+(MD5(2), 'Alpha Med', 'R. Da consolação, Jd. das flores', '11547865661', 'MedAlpha@gmail.com', 'Covid321', MD5(2), MD5(4));
 
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA FARMACIA
 
-INSERT INTO tbl_Farmacia(id_Farmacia, nome, telefone, endereco, detalhes, cnpj, senha, email, taxa, fk_id_MedWork)
+INSERT INTO tbl_Farmacia(id_Farmacia, nome, telefone, endereco, detalhes, senha, email, taxa, fk_id_MedWork, fk_id_Estabelecimento)
 VALUES
-(MD5(1), 'Drogasil', '1156444781', 'R. Manoel, Jd. Ana Estela', 'As Melhores Drogas =D', '56489754', 'Dangue123', 'Drogasil@gmail.com', 2.50, MD5(1));
+(MD5(1), 'Drogasil', '1156444781', 'R. Manoel, Jd. Ana Estela', 'As Melhores Drogas =D', 'Dangue123', 'Drogasil@gmail.com', 2.50, MD5(1), MD5(5));
 
-INSERT INTO tbl_Farmacia(id_Farmacia, nome, telefone, endereco, detalhes, cnpj, senha, email, taxa, fk_id_MedWork)
+INSERT INTO tbl_Farmacia(id_Farmacia, nome, telefone, endereco, detalhes, senha, email, taxa, fk_id_MedWork, fk_id_Estabelecimento)
 VALUES
-(MD5(2), 'FarmaConde', '116458455', 'Vila Dirce, Jd. Planalto', 'A Melhor do Mercado', '32654990', 'Dangue321', 'CondeFarma@gmail.com', 02.50, MD5(2));
+(MD5(2), 'FarmaConde', '116458455', 'Vila Dirce, Jd. Planalto', 'A Melhor do Mercado', 'Dangue321', 'CondeFarma@gmail.com', 02.50, MD5(2), MD5(6));
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA RECEPCIONISTA
