@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import UploadImagem from './template/upload-imagem'
+
 import cadastrarHospital from '../main/api/cadastrarHospital';
 import Menu from './template/menu'
 
@@ -52,6 +54,10 @@ export default class CadastrarHospital extends Component {
 
                     <div className='row justify-content-center py-3'>
                         <div className="col-10 py-5 form-row">
+                            <div className='col-12 mb-1'>
+                                <UploadImagem />
+                            </div>
+
                             <div className='form-group col-6 py-1'>
                                 <label htmlFor="pesquisarEstabelecimento" className='font-weight-bold mb-0'>Nome da empresa</label>
                                 <input type="text" className="form-control form-control-lg" id="pesquisarEstabelecimento" placeholder='Nome da empresa' name="nomeEmpresa" value={this.state.nomeEmpresa} onChange={this.onChange} />

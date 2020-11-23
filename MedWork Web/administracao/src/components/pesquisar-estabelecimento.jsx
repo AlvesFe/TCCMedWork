@@ -36,9 +36,9 @@ class PesquisarEstabelecimento extends Component {
                         </div>
                     </div>
                     <div className='text-center container pt-5'>
-                        <button className='btn-roxo my-1'>VER TODOS(GERAL)</button>
-                        <button className='btn-roxo mx-4 my-1'>VER TODOS (HOSPITAIS)</button>
-                        <button className='btn-roxo my-1'>VER TODOS (DROGARIAS)</button>
+                        <a className='btn-roxo my-1' href='#/ver-todos-estabelecimentos'>VER TODOS (GERAL)</a>
+                        <a className='btn-roxo mx-4 my-1' href='#/ver-hospitais'>VER TODOS (HOSPITAIS)</a>
+                        <a className='btn-roxo my-1' href='#/ver-drogarias'>VER TODOS (DROGARIAS)</a>
 
                     </div>
                 </div>

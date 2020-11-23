@@ -5,6 +5,9 @@ import { isAuth } from "./auth";
 import Login from '../components/login/Login'
 import Recuperacao from '../components/login/Recuperacao'
 import PesquisarEstabelecimento from '../components/pesquisar-estabelecimento'
+import ListarTodosEstabelecimentos from '../components/listar-todos-estabelecimentos'
+import ListarHospitais from '../components/listar-hospitais'
+import ListarDrogarias from '../components/listar-drogarias'
 import CadastrarHospital from '../components/cadastrar-hospital'
 import CadastrarDrogaria from '../components/cadastrar-drogaria'
 import CentroAjuda from '../components/centro-ajuda'
@@ -16,6 +19,9 @@ export default function routes() {
             <Router history={hashHistory}>
                 <Route path='/inicio' component={PesquisarEstabelecimento} />
                 <Route path='/pesquisar-estabelecimento' component={PesquisarEstabelecimento} />
+                <Route path='/ver-todos-estabelecimentos' component={ListarTodosEstabelecimentos} />
+                <Route path='/ver-hospitais' component={ListarHospitais} />
+                <Route path='/ver-drogarias' component={ListarDrogarias} />
                 <Route path='/cadastrar-hospital' component={CadastrarHospital} />
                 <Route path='/cadastrar-drogaria' component={CadastrarDrogaria} />
                 <Route path='/centro-de-ajuda' component={CentroAjuda} />
