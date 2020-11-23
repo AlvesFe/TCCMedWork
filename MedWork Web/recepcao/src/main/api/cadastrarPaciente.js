@@ -13,20 +13,19 @@ export default function cadastrarPaciente(dados) {
 
     const data = {
         image: dados.foto,
-        dt_Nascimento: dados.dataNascimento, 
+        dt_Nascimento: dados.dataNascimento.replace(/[^\d]+/g,''), 
         nome: dados.nomePaciente, 
-        telefone: dados.telefone, 
+        telefone: dados.telefone.replace(/[^\d]+/g,''), 
         tp_sanguineo: dados.tipoSanguineo, 
         alergia: dados.alergia, 
-        rg: dados.rg, 
+        rg: dados.rg.replace(/[^\d]+/g,''), 
         email: dados.email, 
-        cpf: dados.cpf, 
+        cpf: dados.cpf.replace(/[^\d]+/g,''), 
         endereco: dados.endereco, 
-        celular: dados.celular, 
+        celular: dados.celular.replace(/[^\d]+/g,''), 
         senha: dados.senhaProvisoria, 
         fk_id_Recepcionista: userData.id_Recepcionista
     }
-
     const dataFinal = new FormData();
 
     for (const key in data) {

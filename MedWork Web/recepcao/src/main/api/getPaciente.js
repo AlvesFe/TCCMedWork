@@ -10,7 +10,7 @@ export default function getPaciente(dados) {
 
 
     const data = {
-        cpf: dados
+        cpf: dados.replace(/[^\d]+/g,'')
     }
 
     return Axios({

@@ -131,12 +131,6 @@ exports.getRecepcionista = (req, res, next) => {
             error: "errocpfvazio"
         })
     }
-
-    if (req.body.cpf.length !== 11) {
-        return res.status(500).send({
-            error: "errotamanhocpf"
-        })
-    }
     next();
 }
 

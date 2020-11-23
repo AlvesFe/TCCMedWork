@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import getPaciente from '../main/api/getPaciente';
 import CadastrarPaciente from './cadastrar-paciente';
+import InputMask from 'react-input-mask';
 import Menu from './template/menu'
 
 class PesquisarPaciente extends Component {
@@ -31,7 +32,7 @@ class PesquisarPaciente extends Component {
                     <div className='row justify-content-center py-5'>
                         <div className="col-8 py-5">
                             <label htmlFor="pesquisarPaciente" className='font-weight-bold mb-0'>CPF</label>
-                            <input type="text" className="form-control form-control-lg" id="pesquisarPaciente" name="cpf" placeholder='12.456.789-10' value={this.state.cpf} onChange={this.onChange}  />
+                            <InputMask mask="999.999.999-99" className="form-control form-control-lg" id="pesquisarPaciente" name="cpf" placeholder='123.456.789-10' value={this.state.cpf} onChange={this.onChange}  />
                             <div className='text-center py-3'>
                                 <button className='btn-roxo'  onClick={this.onSubmit}>PESQUISAR</button>
                             </div>
