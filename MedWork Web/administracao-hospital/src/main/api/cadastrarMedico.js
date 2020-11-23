@@ -17,13 +17,13 @@ export default function cadastrarMedico(dados) {
         email: dados.email,
         nome: dados.nomeMedico,
         especialidade: dados.especialidade,
-        telefone: dados.telefone,
-        celular: dados.celular,
-        dt_Nascimento: dados.dataNascimento,
+        telefone: dados.telefone.replace(/[^\d]+/g,''),
+        celular: dados.celular.replace(/[^\d]+/g,''),
+        dt_Nascimento: dados.dataNascimento.replace(/[^\d]+/g,''),
         senha: dados.senhaProvisoria,
         tp_sanguineo: dados.tipoSanguineo,
-        cpf: dados.cpf,
-        rg: dados.rg,
+        cpf: dados.cpf.replace(/[^\d]+/g,''),
+        rg: dados.rg.replace(/[^\d]+/g,''),
         fk_id_Hospital: userData.id_Hospital
     }
 

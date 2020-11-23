@@ -14,15 +14,15 @@ export default function cadastrarRecepcionista(dados) {
     const data = {
         image: dados.image, 
         nome: dados.nomeMedico, 
-        dt_Nascimento: dados.dataNascimento, 
+        dt_Nascimento: dados.dataNascimento.replace(/[^\d]+/g,''), 
         tp_sanguineo: dados.tipoSanguineo, 
         endereco: dados.endereco, 
-        cpf: dados.cpf, 
+        cpf: dados.cpf.replace(/[^\d]+/g,''), 
         senha: dados.senhaProvisoria, 
-        rg: dados.rg, 
+        rg: dados.rg.replace(/[^\d]+/g,''), 
         email: dados.email, 
-        celular: dados.celular, 
-        telefone: dados.telefone, 
+        celular: dados.celular.replace(/[^\d]+/g,''), 
+        telefone: dados.telefone.replace(/[^\d]+/g,''), 
         fk_id_Hospital: userData.id_Hospital
     }
     const dataFinal = new FormData();
