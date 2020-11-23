@@ -23,7 +23,7 @@ export default props => (
         <a href="#/cadastrar-drogaria">
             <i className="pills icon mr-3"></i>
             Cadastrar drogaria
-        </a>0/#/login
+        </a>
         <a href="#/centro-de-ajuda">
             <i className="question circle outline icon mr-3"></i>
             Centro de ajuda
