@@ -126,10 +126,11 @@ CREATE TABLE IF NOT EXISTS tbl_Compra(
 
 #TABELA REMEDIO_FARMACIA
 CREATE TABLE IF NOT EXISTS tbl_Remedio_Farmacia(
-	id_Remedio_Farmacia VARCHAR(60) NOT NULL PRIMARY KEY,
+	id_Remedio_Farmacia VARCHAR(60) NOT NULL UNIQUE,
     estoque INT UNSIGNED NOT NULL,
     fk_id_Farmacia VARCHAR(60) NOT NULL,
-    fk_id_Remedio VARCHAR(60) NOT NULL
+    fk_id_Remedio VARCHAR(60) NOT NULL,
+    PRIMARY KEY(fk_id_Farmacia, fk_id_Remedio)
 );
 
 #TABELA RECEITA_REMEDIO
