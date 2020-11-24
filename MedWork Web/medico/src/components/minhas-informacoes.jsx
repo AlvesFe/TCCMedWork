@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import patchUser from '../main/api/patchUser'
 import InputMask from 'react-input-mask';
+import UploadImagem from '../components/template/upload-imagem'
 import Menu from './template/menu'
 
 export default class MinhasInformacoes extends Component {
@@ -12,6 +13,7 @@ export default class MinhasInformacoes extends Component {
         console.log(userData);
         this.state = {
             id_Medico: userData.id_Medico,
+            image: {},
             nome: userData.nome,
             image: userData.foto,
             ativo: userData.ativo,
@@ -47,6 +49,9 @@ export default class MinhasInformacoes extends Component {
                     <h2 className='text-center font-weight-light'>MINHAS INFORMAÇÕES</h2>
 
                     <div className='row justify-content-center py-3'>
+                        <UploadImagem onChange={(event) => {
+                            this.setState({ image: event.target.files[0] });
+                        }} />
                         <div className="col-12 py-2 form-row">
                             <div className='form-group col-6 py-1'>
                                 <label htmlFor="nomeMedico" className='font-weight-bold mb-0'>Nome</label>
@@ -91,7 +96,7 @@ export default class MinhasInformacoes extends Component {
                             </div>
                             <div className='form-group col-3 py-1'>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
-                                <InputMask mask="(99) 9999-9999"  className="form-control form-control-lg" id="telefone" placeholder='(xx) xxxx-xxxx' name='telefone' value={this.state.telefone} onChange={this.onChange}/>
+                                <InputMask mask="(99) 9999-9999" className="form-control form-control-lg" id="telefone" placeholder='(xx) xxxx-xxxx' name='telefone' value={this.state.telefone} onChange={this.onChange} />
                             </div>
                         </div>
                         <div className='col-12 text-center py-2'>
