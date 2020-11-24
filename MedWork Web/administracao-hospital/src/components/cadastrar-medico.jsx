@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import cadastrarMedico from '../main/api/cadastrarMedico';
 import InputMask from 'react-input-mask';
+import UploadImagem from '../components/template/upload-imagem'
 import Menu from './template/menu'
 
 export default class CadastrarHospital extends Component {
@@ -64,8 +65,12 @@ export default class CadastrarHospital extends Component {
                 <Menu />
                 <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast'>
                     <h2 className='text-center font-weight-light'>CADASTRAR MÉDICO</h2>
-
                     <div className='row justify-content-center py-3'>
+                        <div className='col-12'>
+                            <UploadImagem onChange={(event) => {
+                                this.setState({ image: event.target.files[0] });
+                            }} />
+                        </div>
                         <div className="col-12 py-5 form-row">
                             <div className='form-group col-5 py-1'>
                                 <label htmlFor="nomeMedico" className='font-weight-bold mb-0'>Nome</label>
