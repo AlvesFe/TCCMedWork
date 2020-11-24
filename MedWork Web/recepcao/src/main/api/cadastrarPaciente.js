@@ -12,7 +12,7 @@ export default function cadastrarPaciente(dados) {
     const userData = JSON.parse(stringData)
 
     const data = {
-        image: dados.foto,
+        image: dados.image,
         dt_Nascimento: dados.dataNascimento.replace(/[^\d]+/g,''), 
         nome: dados.nomePaciente, 
         telefone: dados.telefone.replace(/[^\d]+/g,''), 

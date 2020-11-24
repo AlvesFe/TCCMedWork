@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import cadastrarPaciente from '../main/api/cadastrarPaciente';
+import UploadImagem from '../components/template/upload-imagem'
 import Menu from './template/menu'
 import InputMask from 'react-input-mask';
 
@@ -9,7 +10,7 @@ export default class CadastrarPaciente extends Component {
         super()
         this.state = {
             nomePaciente: "",
-            foto: {},
+            image: {},
             dataNascimento: "",
             tipoSanguineo: "",
             endereco: "",
@@ -33,7 +34,7 @@ export default class CadastrarPaciente extends Component {
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
             const campo = e.target.name
-            state[campo] = campo == "cpf" ? cpfMask(e.target.value): e.target.value
+            state[campo] = campo == "cpf" ? cpfMask(e.target.value) : e.target.value
             // this.setState({telefone: cpfMask(e.target.value)})
             this.setState(state)
         }
@@ -69,6 +70,9 @@ export default class CadastrarPaciente extends Component {
                     <h2 className='text-center font-weight-light'>CADASTRAR PACIENTE</h2>
 
                     <div className='row justify-content-center py-3'>
+                        <UploadImagem onChange={(event) => {
+                            this.setState({ image: event.target.files[0] });
+                        }} />
                         <div className="col-12 py-5 form-row">
                             <div className='form-group col-5 py-1'>
                                 <label htmlFor="nomePaciente" className='font-weight-bold mb-0'>Nome</label>
@@ -88,7 +92,7 @@ export default class CadastrarPaciente extends Component {
                             </div>
                             <div className='form-group col-3 py-1'>
                                 <label htmlFor="cpf" className='font-weight-bold mb-0'>CPF</label>
-                                <InputMask mask="999.999.999-99" className="form-control form-control-lg" id="cpf" placeholder='xxx.xxx.xxx-xx' name='cpf' value={this.state.cpf} onChange={this.onChange}/>
+                                <InputMask mask="999.999.999-99" className="form-control form-control-lg" id="cpf" placeholder='xxx.xxx.xxx-xx' name='cpf' value={this.state.cpf} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-3 py-1'>
                                 <label htmlFor="rg" className='font-weight-bold mb-0'>RG</label>
@@ -104,7 +108,7 @@ export default class CadastrarPaciente extends Component {
                             </div>
                             <div className='form-group col-2 py-1'>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
-                                <InputMask mask="(99) 9999-9999" className="form-control form-control-lg" id="telefone" placeholder='(xx) xxxx-xxxx' name='telefone' value={this.state.telefone} onChange={this.onChange}/>
+                                <InputMask mask="(99) 9999-9999" className="form-control form-control-lg" id="telefone" placeholder='(xx) xxxx-xxxx' name='telefone' value={this.state.telefone} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-2 py-1'>
                                 <label htmlFor="senhaProvisoria" className='font-weight-bold mb-0'>Senha provisória</label>
