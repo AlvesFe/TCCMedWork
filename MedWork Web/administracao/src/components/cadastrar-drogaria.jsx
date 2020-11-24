@@ -54,7 +54,9 @@ export default class CadastrarDrogaria extends Component {
                     <div className='row justify-content-center py-3'>
                         <div className="col-10 py-3 form-row">
                             <div className='col-12'>
-                                <UploadImagem />
+                                <UploadImagem onChange={(event) => {
+                                    this.setState({ image: event.target.files[0] });
+                                }} />
                             </div>
                             <div className='form-group col-6 py-1'>
                                 <label htmlFor="pesquisarEstabelecimento" className='font-weight-bold mb-0'>Nome da empresa</label>
@@ -70,7 +72,7 @@ export default class CadastrarDrogaria extends Component {
                             </div>
                             <div className='form-group col-2 py-1'>
                                 <label htmlFor="endereco" className='font-weight-bold mb-0'>Taxa</label>
-                                <InputMask mask="99.99" className="form-control form-control-lg" id="taxa" placeholder='R$2.50' name='taxa' value={this.state.taxa} onChange={this.onChange}/>
+                                <InputMask mask="99.99" className="form-control form-control-lg" id="taxa" placeholder='R$2.50' name='taxa' value={this.state.taxa} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-2 py-1'>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>

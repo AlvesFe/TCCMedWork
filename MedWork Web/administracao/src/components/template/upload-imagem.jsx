@@ -1,11 +1,11 @@
 import React from 'react'
 
-const onChange = (e) => {
-    console.log(e.target.value)
+// const onChange = (e) => {
+//     console.log(e.target.value)
     
-}
+// }
 
-const UploadImagem = () => (
+const UploadImagem = ({onChange}) => (
     <div className='container text-center bg-light border borde-muted rounded py-2' >
         <i className="image outline huge icon"></i>
         <div className="input-group">

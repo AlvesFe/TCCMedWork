@@ -11,9 +11,9 @@ export default function cadastrarHospital(dados) {
     const stringData = localStorage.getItem('user_data')
     const userData = JSON.parse(stringData)
 
-    if (dados.senhaProvisoria != dados.confirmarSenha) {
-        return {erro: "senhasnaoconferem"}
-    }
+    // if (dados.senhaProvisoria != dados.confirmarSenha) {
+    //     return {erro: "senhasnaoconferem"}
+    // }
 
     const data = {
         cnpj: dados.cnpj.replace(/[^\d]+/g,''),
@@ -30,15 +30,10 @@ export default function cadastrarHospital(dados) {
     for (const key in data) {
         dataFinal.append(key, data[key])
     }
-    console.log(data);
-    // if(dados.image){
-    //     let localUri = dados.image;
-    //     let filename = localUri.split('/').pop();
-    //     let match = /\.(\w+)$/.exec(filename);
-    //     let type = match ? `image/${match[1]}` : `image`;
-    //     userfinal.append("image", {uri: localUri, name: filename, type})
-    // }
-
+    
+    if(dados.image){
+        dataFinal.append("image", dados.image)
+    }
     return Axios ({
         method:'POST',
         url:API_URL+"/hospital",

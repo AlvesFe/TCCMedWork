@@ -12,7 +12,6 @@ export default function cadastrarFarmacia(dados) {
     const userData = JSON.parse(stringData)
 
     const data = {
-        image: dados.image, 
         nome: dados.nomeEmpresa, 
         telefone: dados.telefone.replace(/[^\d]+/g,''), 
         endereco: dados.endereco, 
@@ -27,6 +26,10 @@ export default function cadastrarFarmacia(dados) {
 
     for (const key in data) {
         dataFinal.append(key, data[key])
+    }
+
+    if(dados.image){
+        dataFinal.append("image", dados.image)
     }
 
     return Axios ({

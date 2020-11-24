@@ -27,7 +27,7 @@ export default class CadastrarHospital extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            cadastrarHospital(this.state);
+            const req = cadastrarHospital(this.state);
             if (req) {
                 this.setState({
                     nomeEmpresa: "",
@@ -55,7 +55,9 @@ export default class CadastrarHospital extends Component {
                     <div className='row justify-content-center py-3'>
                         <div className="col-10 py-5 form-row">
                             <div className='col-12 mb-1'>
-                                <UploadImagem />
+                                <UploadImagem onChange={(event) => {
+                                    this.setState({image: event.target.files[0]});
+                                }} />
                             </div>
 
                             <div className='form-group col-6 py-1'>
@@ -64,7 +66,7 @@ export default class CadastrarHospital extends Component {
                             </div>
                             <div className='form-group col-6 py-1'>
                                 <label htmlFor="cnpj" className='font-weight-bold mb-0'>CNPJ</label>
-                                <InputMask mask="99.999.999/9999-99" className="form-control form-control-lg" id="cnpj" placeholder='xx.xxx.xxx/xxxx-xx' name='cnpj' value={this.state.cnpj} onChange={this.onChange}/>
+                                <InputMask mask="99.999.999/9999-99" className="form-control form-control-lg" id="cnpj" placeholder='xx.xxx.xxx/xxxx-xx' name='cnpj' value={this.state.cnpj} onChange={this.onChange} />
                             </div>
 
                             <div className='form-group col-8 py-1'>
