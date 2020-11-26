@@ -33,27 +33,29 @@ export default class CadastrarHospital extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            const req = cadastrarMedico(this.state);
-
-            if (req) {
-                this.setState({
-                    nomeMedico: "",
-                    image: {},
-                    dataNascimento: "",
-                    tipoSanguineo: "",
-                    status: "",
-                    endereco: "",
-                    crm: "",
-                    cpf: "",
-                    rg: "",
-                    especialidade: "",
-                    email: "",
-                    celular: "",
-                    telefone: "",
-                    senhaProvisoria: "",
-                    alergia: ""
-                })
-            }
+            cadastrarMedico(this.state).then(res => {
+                if (res == true) {
+                    if (req) {
+                        this.setState({
+                            nomeMedico: "",
+                            image: {},
+                            dataNascimento: "",
+                            tipoSanguineo: "",
+                            status: "",
+                            endereco: "",
+                            crm: "",
+                            cpf: "",
+                            rg: "",
+                            especialidade: "",
+                            email: "",
+                            celular: "",
+                            telefone: "",
+                            senhaProvisoria: "",
+                            alergia: ""
+                        })
+                    }
+                }
+            });
         }
     }
 

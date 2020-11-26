@@ -30,22 +30,23 @@ export default class CadastrarDrogaria extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
             console.log(this.state)
-            const req = cadastrarRecepcionista(this.state);
-            if (req) {
-                this.setState({
-                    nomeMedico: "",
-                    image: {},
-                    dataNascimento: "",
-                    tipoSanguineo: "",
-                    endereco: "",
-                    cpf: "",
-                    rg: "",
-                    email: "",
-                    celular: "",
-                    telefone: "",
-                    senhaProvisoria: ""
-                })
-            }
+            cadastrarRecepcionista(this.state).then(res => {
+                if (res) {
+                    this.setState({
+                        nomeMedico: "",
+                        image: {},
+                        dataNascimento: "",
+                        tipoSanguineo: "",
+                        endereco: "",
+                        cpf: "",
+                        rg: "",
+                        email: "",
+                        celular: "",
+                        telefone: "",
+                        senhaProvisoria: ""
+                    })
+                }
+            });     
         }
     }
 
