@@ -54,7 +54,7 @@ export default class CadastrarDrogaria extends Component {
                     <div className='row justify-content-center py-3'>
                         <div className="col-10 py-3 form-row">
                             <div className='col-12'>
-                                <UploadImagem onChange={(event) => {
+                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : "http://localhost:3001/uploads/farmacia/default.png"} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
                                 }} />
                             </div>
