@@ -143,18 +143,6 @@ export default function Event(Action) {
                 title: 'Recepcionista Cadastrada!'
             })
             break;
-        case "Encontrado":
-            Toast.fire({
-                icon: 'success',
-                title: 'Dados Encontrados!'
-            })
-            break;
-        case "Não Encontrado":
-            Toast.fire({
-                icon: 'error',
-                title: 'Dados Não Encontrados!'
-            })
-            break;
     }
 
 

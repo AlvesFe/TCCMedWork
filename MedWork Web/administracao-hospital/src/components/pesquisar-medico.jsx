@@ -31,7 +31,7 @@ class PesquisarMedico extends Component {
                     <div className='row justify-content-center py-5'>
                         <div className="col-8 py-5">
                             <label htmlFor="pesquisarMedico" className='font-weight-bold mb-0'>CRM</label>
-                            <input type="number" className="form-control form-control-lg" id="pesquisarMedico" name="crm" placeholder='01.234-SP' value={this.state.crm} onChange={this.onChange}  />
+                            <input type="text" className="form-control form-control-lg" id="pesquisarMedico" name="crm" placeholder='01.234-SP' value={this.state.crm} onChange={this.onChange}  />
                             <div className='text-center py-3'>
                                 <button className='btn-roxo'  onClick={this.onSubmit}>PESQUISAR</button>
                             </div>

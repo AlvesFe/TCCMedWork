@@ -1,5 +1,6 @@
 import Axios from 'axios'
 import variables from "./variables";
+import Event from '../../event/Alerts'
 import jwt_decode from "jwt-decode";
 
 const env = variables()
@@ -24,9 +25,10 @@ export default function getMedico(dados) {
         }
     }).then(response => {
         const { data } = response;
+        data.data[0] ? Event("Encontrado") : Event("Não Encontrado") 
         console.log(data.data[0]);
         return data.data[0];
     }).catch(err => {
-        console.log(err.response);
+        Event(err.response.data.error)
     })
 }
