@@ -29,10 +29,9 @@ export default function doLogin (dados) {
         Toast.fire({
             icon: 'success',
             title: 'Logado com sucesso'
-        }).then((res) => {
+        }).then(() => {
             window.location.reload();
         })
-        //window.location.reload();
     }).catch(err => {
         Toast.fire({
             icon: 'error',

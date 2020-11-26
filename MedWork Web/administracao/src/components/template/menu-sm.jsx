@@ -1,11 +1,6 @@
 import React from 'react';
-import './menu.css'
-
-function deslogar() {
-    localStorage.removeItem('current_user')
-    localStorage.removeItem('user_data')
-    window.location.reload();
-}
+import './menu.css';
+import { deslogar } from '../../main/api/deslogar';
 
 export default props => (
     <div className="Menu-sm fixed-bottom d-block d-lg-none">
