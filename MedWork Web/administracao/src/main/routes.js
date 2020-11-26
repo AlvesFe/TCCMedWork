@@ -4,6 +4,8 @@ import { isAuth } from "./auth";
 
 import Login from '../components/login/Login'
 import Recuperacao from '../components/login/Recuperacao'
+import ValidacaoCodigo from '../components/login/Confirmar'
+import RedefinirSenha from '../components/login/Redefinir-senha'
 import PesquisarEstabelecimento from '../components/pesquisar-estabelecimento'
 import ListarTodosEstabelecimentos from '../components/listar-todos-estabelecimentos'
 import ListarHospitais from '../components/listar-hospitais'
@@ -34,6 +36,8 @@ export default function routes() {
             <Router history={hashHistory}>
                 <Route path='/login' component={Login} />
                 <Route path='/esqueci-minha-senha' component={Recuperacao} />
+                <Route path='/confirmar' component={ValidacaoCodigo} />
+                <Route path='/redefinir-senha' component={RedefinirSenha} />
                 <Redirect from='*' to="/login" />
             </Router>
         )

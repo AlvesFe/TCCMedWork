@@ -4,14 +4,14 @@ import recuperarSenha from '../../main/api/recuperarSenha';
 import Logotipo from '../template/logotipo'
 import './Login.css'
 
-class Recuperacao extends Component {
+class Confirmar extends Component {
 
 
-        constructor(props) {
-        super(props)
+    constructor() {
+        super()
         this.state = {
-            email: "",
-            EmailNaoCadastrado: "d-none"
+            codigo: "",
+            TokenErro: "d-none"
         }
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -19,21 +19,19 @@ class Recuperacao extends Component {
             state[campo] = e.target.value
             this.setState(state)
         }
-        this.onSubmit = (e) => {
-            var emailCadastrado = 'leonardo_lemos@outlook.com.br'
-            var mostrar = ''
-            e.preventDefault()
-            console.log(this.state)
-            recuperarSenha(this.state);
 
-            if (this.state.email == emailCadastrado) {
-                this.setState({
-                    EmailNaoCadastrado: "d-none"
-                })
+        this.onSubmit = (e) => {
+            var tokenzinho = '123456'
+            var mostrar = ''
+
+            e.preventDefault()
+
+            if (this.state.codigo == tokenzinho) {
+
                 console.log('certinho')
             } else {
                 this.setState({
-                    EmailNaoCadastrado: e.mostrar
+                    TokenErro: e.mostrar
                 })
             }
 
@@ -53,34 +51,31 @@ class Recuperacao extends Component {
                         <div className='bg-danger font-weight-bolder text-white px-5 py-1'>
                             ADMINISTRAÇÃO
                     </div>
-                        <p className='text-center pt-3'>Insira seu e-mail para que possamos <br /> enviar um link de redifinição de senha</p>
+                        <p className='text-center pt-3'>Insira o código que foi enviado em seu email.</p>
                         <div className='container'>
-                        <div className={this.state.EmailNaoCadastrado}>
+                            <div className={this.state.TokenErro}>
                                 <div className="alert alert-danger" role="alert">
-                                    E-mail não cadastrado em nossa base de dados!
+                                    O código está incorreto!
                                 </div>
                             </div>
                             <div className='py-2'>
-                                <input type="text" className='form-control' name="email" id="email" placeholder='E-mail' value={this.state.email} onChange={this.onChange} />
+                                <input type="text" className='form-control' name="codigo" id="codigo" placeholder='Código' value={this.state.codigo} onChange={this.onChange} />
                             </div>
 
                             <div className=' py-2'>
                                 <button className='btn-roxo' onClick={this.onSubmit}>Enviar</button>
                             </div>
                         </div>
-                        <div className=' pt-3'>
-                            <p>Relembrou sua senha? <a href="#login" className='text-dark'>Faça login!</a></p>
-                        </div>
+
                         <div className=' small pt-4'>
                             <p className='text-dark mb-0'> Termos de Uso e Privacidade.</p>
                             <p className='text-muted'> &copy; MedWork 2020</p>
                         </div>
                     </div>
-
                 </div>
             </div>
         )
     }
 }
 
-export default Recuperacao
+export default Confirmar

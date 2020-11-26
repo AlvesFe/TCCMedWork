@@ -51,7 +51,6 @@ class PesquisarEstabelecimento extends Component {
                         <a className='btn-roxo my-1' href='#/ver-todos-estabelecimentos' onClick={this.onSubmitAll}>VER TODOS (GERAL)</a>
                         <a className='btn-roxo mx-4 my-1' href='#/ver-hospitais'>VER TODOS (HOSPITAIS)</a>
                         <a className='btn-roxo my-1' href='#/ver-drogarias'>VER TODOS (DROGARIAS)</a>
-
                     </div>
                 </div>
             </div >
