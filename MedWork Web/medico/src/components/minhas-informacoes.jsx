@@ -76,7 +76,7 @@ export default class MinhasInformacoes extends Component {
                             </div>
                             <div className='form-group col-3 py-1'>
                                 <label htmlFor="especialidade" className='font-weight-bold mb-0'>Especialidade</label>
-                                <input type="text" className="form-control form-control-lg" id="especialidade" placeholder='Cirurgião' name='especialidade' value={this.state.especiealidade} onChange={this.onChange} />
+                                <input type="text" className="form-control form-control-lg" id="especiealidade" placeholder='Cirurgião' name='especiealidade' value={this.state.especiealidade} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-3 py-1'>
                                 <label htmlFor="rg" className='font-weight-bold mb-0'>RG</label>

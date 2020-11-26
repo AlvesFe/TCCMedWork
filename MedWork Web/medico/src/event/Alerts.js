@@ -11,70 +11,64 @@ const Toast = Swal.mixin({
 export default function Event(Action) {
 
     switch (Action) {
+        case "erroidremediovazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe o Codigo do Remedio!'
+            })
+            break;
+        case "Informe o CPF":
+            Toast.fire({
+                icon: 'error',
+                title: 'CPF Invalido!'
+            })
+            break;
+        case "errodosagemvazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe a Dosagem!'
+            })
+            break;
+        case "erroorientacoesvazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe as Orientações!'
+            })
+            break;
+        case "errodt_Validadevazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe a Validade!'
+            })
+            break;
+        case "errodt_Validadevazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe a Validade!'
+            })
+            break;
+        case "erroQuantidadevazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe a Quantidade!'
+            })
+            break;
+        case "erroquantidadeinvalida":
+            Toast.fire({
+                icon: 'error',
+                title: 'Quantidade Invalida!'
+            })
+            break;
+        case "Receita_Remedio Cadastrada":
+            Toast.fire({
+                icon: 'success',
+                title: 'Receita Cadastrada!'
+            })
+            break;
         case "erronomevazio":
             Toast.fire({
                 icon: 'error',
-                title: 'Informe um Nome!'
-            })
-            break;
-        case "erroenderecovazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Informe um Endereço!'
-            })
-            break;
-        case "errotelefonevazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Telefone Invalido!'
-            })
-            break;
-        case "erroemailvazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Email Invalido!'
-            })
-            break;
-        case "errosenhavazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Digite uma Senha!'
-            })
-            break;
-        case "errotamanhotelefone":
-            Toast.fire({
-                icon: 'error',
-                title: 'Telefone Invalido!'
-            })
-            break;
-        case "erroemailinvalido":
-            Toast.fire({
-                icon: 'error',
-                title: 'Email Invalido!'
-            })
-            break;
-        case "errotamanhosenha":
-            Toast.fire({
-                icon: 'error',
-                title: 'Senha deve Conter 8 Digitos!'
-            })
-            break;
-        case "errodadosjainseridos":
-            Toast.fire({
-                icon: 'error',
-                title: 'Dados Já Cadastrado!'
-            })
-            break;
-        case "Dados Encontrados":
-            Toast.fire({
-                icon: 'success',
-                title: 'Dados Encontrados!'
-            })
-            break;
-        case "errocrmvazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Informe o CRM!'
+                title: 'Informe o Nome!'
             })
             break;
         case "erroespecialidadevazio":
@@ -83,66 +77,55 @@ export default function Event(Action) {
                 title: 'Informe a Especialidade!'
             })
             break;
+        case "errotelefonevazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe o Telefone!'
+            })
+            break;
         case "errocelularvazio":
             Toast.fire({
                 icon: 'error',
-                title: 'Celular Invalido!'
+                title: 'Informe o Celular!'
             })
             break;
         case "errodt_Nascimentovazio":
             Toast.fire({
                 icon: 'error',
-                title: 'Informe a Data de Nascimento'
+                title: 'Informe a Data de Nascimento!'
             })
             break;
         case "errotp_sanguineovazio":
             Toast.fire({
                 icon: 'error',
-                title: 'Informe o Tipo Sanguíneo'
+                title: 'Informe o Tipo Sanguíneo!'
             })
             break;
-        case "errocpfvazio":
+        case "errotelefoneinvalido":
             Toast.fire({
                 icon: 'error',
-                title: 'Informe o CPF'
+                title: 'Telefone Invalido!'
             })
             break;
-        case "errorgvazio":
+        case "errotamanhotelefone":
             Toast.fire({
                 icon: 'error',
-                title: 'Informe o RG'
+                title: 'Telefone Invalido!'
             })
             break;
-        case "errotamanhocpf":
+        case "errotamanhoceleular":
             Toast.fire({
                 icon: 'error',
-                title: 'CPF invalido!'
+                title: 'Celular Invalido!'
             })
             break;
-        case "errocpfinvalido":
-            Toast.fire({
-                icon: 'error',
-                title: 'CPF não Econtrado!'
-            })
-            break;
-        case "errotamanhorg":
-            Toast.fire({
-                icon: 'error',
-                title: 'RG invalido!'
-            })
-            break;
-        case "Medico Cadastrado":
+        case "Medico Atualizado":
             Toast.fire({
                 icon: 'success',
-                title: 'Medico Cadastrado!'
+                title: 'Medico Atualizado!'
             })
             break;
-        case "Recepcionista Cadastrado":
-            Toast.fire({
-                icon: 'success',
-                title: 'Recepcionista Cadastrada!'
-            })
-            break;
+       
     }
 
 

@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import Event from '../../event/Alerts';
 import variables from "./variables";
 
 const env = variables()
@@ -22,6 +23,7 @@ export default function getPaciente(dados) {
         }
     }).then(response => {
         const { data } = response;
+        !data.data[0] ? Event("Informe o CPF"): null
         return data.data[0];
     }).catch(err => {
         console.log(err.response);
