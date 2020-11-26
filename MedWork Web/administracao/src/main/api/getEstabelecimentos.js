@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import Event from '../../event/Alerts';
 import variables from "./variables";
 
 const env = variables()
@@ -41,8 +42,9 @@ export default function getEstabelecimentos(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data.data[0]);
+        console.log(data);
         return PegarInformacoes(data.data[0].Estabelecimento).then(dados => {
+            Event("Dados Encontrados");
             return dados
         });
         

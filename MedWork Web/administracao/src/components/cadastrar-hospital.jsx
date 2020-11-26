@@ -27,19 +27,23 @@ export default class CadastrarHospital extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            const req = cadastrarHospital(this.state);
-            if (req) {
-                this.setState({
-                    nomeEmpresa: "",
-                    cnpj: "",
-                    image: {},
-                    endereco: "",
-                    telefone: "",
-                    email: "",
-                    senhaProvisoria: "",
-                    confirmarSenha: ""
-                })
-            }
+            cadastrarHospital(this.state).then(res => {
+                console.log(res)
+                if (res === true) {
+                    this.setState({
+                        nomeEmpresa: "",
+                        cnpj: "",
+                        image: {},
+                        endereco: "",
+                        telefone: "",
+                        email: "",
+                        senhaProvisoria: "",
+                        confirmarSenha: ""
+                    })
+                }
+            });
+            
+            
         }
     }
 
@@ -81,13 +85,9 @@ export default class CadastrarHospital extends Component {
                                 <label htmlFor="email" className='font-weight-bold mb-0'>E-mail</label>
                                 <input type="text" className="form-control form-control-lg" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-4 py-1'>
+                            <div className='form-group col-8 py-1'>
                                 <label htmlFor="senhaProvisoria" className='font-weight-bold mb-0'>Senha provisória</label>
                                 <input type="password" className="form-control form-control-lg" id="senhaProvisoria" placeholder='••••••••••' name='senhaProvisoria' value={this.state.senhaProvisoria} onChange={this.onChange} />
-                            </div>
-                            <div className='form-group col-4 py-1'>
-                                <label htmlFor="senhaProvisoria" className='font-weight-bold mb-0'>Confirmar Senha</label>
-                                <input type="password" className="form-control form-control-lg" id="confirmarSenha" placeholder='••••••••••' name='confirmarSenha' value={this.state.confirmarSenha} onChange={this.onChange} />
                             </div>
                         </div>
                         <div className='col-12 text-center py-2'>
