@@ -40,24 +40,24 @@ export default class CadastrarPaciente extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            const res = cadastrarPaciente(this.state);
-
-            if (res) {
-                this.setState({
-                    nomePaciente: "",
-                    foto: {},
-                    dataNascimento: "",
-                    tipoSanguineo: "",
-                    endereco: "",
-                    cpf: "",
-                    rg: "",
-                    email: "",
-                    celular: "",
-                    telefone: "",
-                    senhaProvisoria: "",
-                    alergia: ""
-                })
-            }
+            cadastrarPaciente(this.state).then(res => {
+                if (res) {
+                    this.setState({
+                        nomePaciente: "",
+                        foto: {},
+                        dataNascimento: "",
+                        tipoSanguineo: "",
+                        endereco: "",
+                        cpf: "",
+                        rg: "",
+                        email: "",
+                        celular: "",
+                        telefone: "",
+                        senhaProvisoria: "",
+                        alergia: ""
+                    })
+                }
+            });  
         }
     }
 
