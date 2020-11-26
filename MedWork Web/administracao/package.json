@@ -40,6 +40,6 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-icon": "^2.3.3",
     "semantic-ui-react": "^2.0.1",
-    "sweetalert2-react": "^0.8.3"
+    "sweetalert2": "^10.10.3"
   }
 }

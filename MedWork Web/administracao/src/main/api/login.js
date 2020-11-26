@@ -1,10 +1,18 @@
 import React from 'react'
 import Axios from 'axios'
 import variables from "./variables";
+import Swal from 'sweetalert2';
 
 const env = variables()
 const {API_URL} = env
 
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true    
+}) 
 
 export default function doLogin (dados) {
     Axios ({
@@ -18,8 +26,18 @@ export default function doLogin (dados) {
     }).then(response => {
         const {data} = response;
         localStorage.setItem('current_user', data.token)
-        window.location.reload();
+        Toast.fire({
+            icon: 'success',
+            title: 'Logado com sucesso'
+        }).then((res) => {
+            window.location.reload();
+        })
+        //window.location.reload();
     }).catch(err => {
+        Toast.fire({
+            icon: 'error',
+            title: 'Falha no login'
+        })
         console.log(err);
     })
 }
