@@ -27,7 +27,7 @@ export default props => (
             <i className="cog icon mr-3"></i>
             Configurações
         </a> */}
-        <a href="#" className='fixed-bottom' onClick={deslogar}>
+        <a href="#" onClick={deslogar}>
             <i className="sign-out icon mr-3"></i>
             Sair
         </a>
