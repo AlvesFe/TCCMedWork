@@ -48,7 +48,7 @@ exports.postFarmacia = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query(`SELECT fm.*, cnpj FROM tbl_farmacia AS fm
+        conn.query(`SELECT fm.*, cnpj FROM tbl_Farmacia AS fm
         INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento 
         WHERE email = ? OR cnpj = ?`, [req.body.email, req.body.cnpj],
             (error, resultado, field) => {
@@ -105,7 +105,7 @@ exports.getFarmacias = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            `SELECT fm.*, cnpj FROM tbl_farmacia AS fm
+            `SELECT fm.*, cnpj FROM tbl_Farmacia AS fm
             INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento`,
             (error, resultado, fields) => {
                 conn.release()
@@ -126,7 +126,7 @@ exports.getFarmacia = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            `SELECT fm.*, cnpj FROM tbl_farmacia AS fm
+            `SELECT fm.*, cnpj FROM tbl_Farmacia AS fm
             INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento
             WHERE cnpj = ?`,
             [req.body.cnpj],
@@ -147,7 +147,7 @@ exports.patchFarmacia = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
 
-        conn.query(`SELECT fm.*, cnpj FROM tbl_farmacia AS fm
+        conn.query(`SELECT fm.*, cnpj FROM tbl_Farmacia AS fm
         INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento
         WHERE id_Farmacia = ?`, [req.body.id_Farmacia], async (error, resultado, field) => {
             if (error) { return res.status(500).send({ error: error }) }
@@ -251,7 +251,7 @@ exports.logarFarmacia = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        const query = `SELECT * FROM tbl_farmacia WHERE email = ?`;
+        const query = `SELECT * FROM tbl_Farmacia WHERE email = ?`;
 
         conn.query(query, [req.body.email], (error, results, fields) => {
             conn.release();
@@ -285,7 +285,7 @@ exports.recuperarSenha = async (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        const query = `SELECT * FROM tbl_farmacia WHERE email = ?`;
+        const query = `SELECT * FROM tbl_Farmacia WHERE email = ?`;
 
         conn.query(query, [req.body.email], (error, results, fields) => {
             conn.release();
@@ -340,7 +340,7 @@ exports.resetsenha = (req, res, next) => {
                     if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
                     conn.query(
-                        `UPDATE tbl_farmacia
+                        `UPDATE tbl_Farmacia
                             SET
                             senha = ?
                             WHERE email = ?`,

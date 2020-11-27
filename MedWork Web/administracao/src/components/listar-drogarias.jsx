@@ -8,15 +8,11 @@ export default class ListarEstabelecimento extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            image: {},
-            nomeEmpresa: "",
-            tipoEstabelecimento: "",
-            cnpj: "",
-            endereco: "",
+            drogarias:[]
         }
 
         getFarmacias().then(response => {
-            console.log(response);
+            this.setState({drogarias: response});
         })
     }
 
@@ -29,7 +25,12 @@ export default class ListarEstabelecimento extends Component {
                     <div className='row justify-content-center py-3'>
                         <div className="col-12 py-3 form-row">
 
-                            <ListagemEstabelecimento/>
+                            {   
+                                this.state.drogarias[0] &&
+                                this.state.drogarias.map((item, key) => (
+                                    (item.ativo === 1 && <ListagemEstabelecimento key={key} tipo={'Farmacia'} estabelecimento={item}/>)
+                                ))
+                            }
 
                         </div>
                     </div>
