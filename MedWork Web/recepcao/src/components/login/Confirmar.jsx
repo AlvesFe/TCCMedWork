@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import recuperarSenha from '../../main/api/recuperarSenha';
 import confirmarToken from '../../main/api/confirmarToken';
 import Logotipo from '../template/logotipo'
 import './Login.css'
@@ -22,7 +21,6 @@ class Confirmar extends Component {
         }
 
         this.onSubmit = (e) => {
-            var mostrar = ''
             e.preventDefault()
             confirmarToken(this.state).then(res => {
                 if (res === true) {
@@ -32,15 +30,6 @@ class Confirmar extends Component {
                     Event("Codigo Invalido")
                 }
             })
-            // if (this.state.token == tokenzinho) {
-
-            //     console.log('certinho')
-            // } else {
-            //     this.setState({
-            //         TokenErro: e.mostrar
-            //     })
-            // }
-
         }
     }
 
@@ -55,7 +44,7 @@ class Confirmar extends Component {
                             <Logotipo />
                         </div>
                         <div className='bg-danger font-weight-bolder text-white px-5 py-1'>
-                            AREA MÉDICA
+                        RECEPÇÃO
                     </div>
                         <p className='text-center pt-3'>Insira o código que foi enviado em seu email.</p>
                         <div className='container'>

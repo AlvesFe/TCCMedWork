@@ -9,8 +9,11 @@ import Encaminhamento from '../components/encaminhamento'
 import CadastrarPaciente from '../components/cadastrar-paciente'
 import CadastrarRecepcionista from '../components/cadastrar-recepcionista'
 import CentroAjuda from '../components/centro-ajuda'
+import ValidacaoCodigo from '../components/login/Confirmar'
+import RedefinirSenha from '../components/login/Redefinir-senha'
 import Configuracoes from '../components/configuracoes'
 import { isAuth } from './auth';
+import Confirmar from '../components/login/Confirmar';
 
 export default function routes() {
     if (isAuth()) {
@@ -36,6 +39,8 @@ export default function routes() {
             <Router history={hashHistory}>
                 <Route path='/login' component={Login} />
                 <Route path='/esqueci-minha-senha' component={Recuperacao} />
+                <Route path='/confirmar' component={ValidacaoCodigo} />
+                <Route path='/redefinir-senha' component={RedefinirSenha} />
                 <Route path='/termo-uso-e-privacidade' component={Login} />
                 <Redirect from='*' to='/login' />
             </Router>

@@ -90,7 +90,7 @@ class ValidacaoCodigo extends Component {
                             <Logotipo />
                         </div>
                         <div className='bg-danger font-weight-bolder text-white px-5 py-1'>
-                            AREA MÉDICA
+                        RECEPÇÃO
                     </div>
                         <div className='container pt-3'>
                             <div className={this.state.senhaVazia}>

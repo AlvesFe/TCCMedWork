@@ -6,13 +6,13 @@ const env = variables()
 const { API_URL } = env
 
 
-export default function confirmeToken(dados) {
+export default function confirmarToken(dados) {
 
     dados = {
         token: dados.token
     }
 
-    Axios({
+    return Axios({
         method: 'post',
         url: API_URL + "/recepcionista/confirmetoken",
         data: dados,
@@ -22,8 +22,12 @@ export default function confirmeToken(dados) {
         }
     }).then(response => {
         const { data } = response;
+        window.location.assign('#/redefinir-senha');
+        localStorage.setItem('token_reset', dados.token)
+        return true;
         console.log(data);
     }).catch(err => {
+        return false;
         console.log(err);
     })
 }

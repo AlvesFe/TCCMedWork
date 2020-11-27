@@ -136,6 +136,30 @@ export default function Event(Action) {
                 title: 'Verifique Seu Email!'
             })
             break;
+        case "Altere Sua Senha":
+            Toast.fire({
+                icon: 'success',
+                title: 'Altere Sua Senha!'
+            })
+            break;
+        case "Senha Alterada com Sucesso":
+            Toast.fire({
+                icon: 'success',
+                title: 'Senha Alterada com Sucesso!'
+            })
+            break;
+        case "Codigo Invalido":
+            Toast.fire({
+                icon: 'error',
+                title: 'Codigo Invalido!'
+            })
+            break;
+        case "Erro a Alterar":
+            Toast.fire({
+                icon: 'error',
+                title: 'Erro a Alterar!'
+            })
+            break;
     }
 
 
