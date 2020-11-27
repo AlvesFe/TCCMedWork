@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import recuperarSenha from '../../main/api/recuperarSenha';
 import ValidacaoCodigo from '../login/Confirmar'
-import {withRouter} from 'react-router-dom'
 import Logotipo from '../template/logotipo'
 import './Login.css'
 
