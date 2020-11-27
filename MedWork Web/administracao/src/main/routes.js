@@ -7,6 +7,8 @@ import Recuperacao from '../components/login/Recuperacao'
 import ValidacaoCodigo from '../components/login/Confirmar'
 import RedefinirSenha from '../components/login/Redefinir-senha'
 import PesquisarEstabelecimento from '../components/pesquisar-estabelecimento'
+import AlterarDrogaria from '../components/alterar-estabelecimentos/alterar-drogaria'
+import AlterarHospital from '../components/alterar-estabelecimentos/alterar-hospital'
 import ListarTodosEstabelecimentos from '../components/listar-todos-estabelecimentos'
 import ListarHospitais from '../components/listar-hospitais'
 import ListarDrogarias from '../components/listar-drogarias'
@@ -21,6 +23,8 @@ export default function routes() {
             <Router history={hashHistory}>
                 <Route path='/inicio' component={PesquisarEstabelecimento} />
                 <Route path='/pesquisar-estabelecimento' component={PesquisarEstabelecimento} />
+                <Route path='/alterar-drogaria' component={AlterarDrogaria} />
+                <Route path='/alterar-hospital' component={AlterarHospital} />
                 <Route path='/ver-todos-estabelecimentos' component={ListarTodosEstabelecimentos} />
                 <Route path='/ver-hospitais' component={ListarHospitais} />
                 <Route path='/ver-drogarias' component={ListarDrogarias} />
