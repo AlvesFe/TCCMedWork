@@ -28,17 +28,18 @@ export default class Atendimento extends Component {
             console.log(this.state)
             getPaciente(this.state.cpf).then(response => {
                 getRemedio(this.state.codigoMedicamento).then(result => {
-                    const res = cadastrarReceita(this.state, response, result);
-                    if (res) {
-                        this.setState({
-                            cpf: "",
-                            codigoMedicamento: "",
-                            dosagem: "",
-                            quantidade: "",
-                            validade: "",
-                            orientacoes: ""
-                        })
-                    }
+                    cadastrarReceita(this.state, response, result).then(res => {
+                        if (res) {
+                            this.setState({
+                                cpf: "",
+                                codigoMedicamento: "",
+                                dosagem: "",
+                                quantidade: "",
+                                validade: "",
+                                orientacoes: ""
+                            })
+                        }
+                    });
                 })
             })
 

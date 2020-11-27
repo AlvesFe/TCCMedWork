@@ -1,13 +1,7 @@
 import React from 'react';
-
+import {deslogar} from '../../main/api/deslogar';
 import Logotipo from './logotipo-dash'
 import './menu.css'
-
-function deslogar() {
-    localStorage.removeItem('current_user')
-    localStorage.removeItem('user_data')
-    window.location.reload();
-}
 
 export default props => (
     <div className="Menu col-md-4 col-lg-3 d-none d-lg-block">

@@ -33,27 +33,29 @@ export default class CadastrarHospital extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            const req = cadastrarMedico(this.state);
-
-            if (req) {
-                this.setState({
-                    nomeMedico: "",
-                    image: {},
-                    dataNascimento: "",
-                    tipoSanguineo: "",
-                    status: "",
-                    endereco: "",
-                    crm: "",
-                    cpf: "",
-                    rg: "",
-                    especialidade: "",
-                    email: "",
-                    celular: "",
-                    telefone: "",
-                    senhaProvisoria: "",
-                    alergia: ""
-                })
-            }
+            cadastrarMedico(this.state).then(res => {
+                if (res == true) {
+                    if (req) {
+                        this.setState({
+                            nomeMedico: "",
+                            image: {},
+                            dataNascimento: "",
+                            tipoSanguineo: "",
+                            status: "",
+                            endereco: "",
+                            crm: "",
+                            cpf: "",
+                            rg: "",
+                            especialidade: "",
+                            email: "",
+                            celular: "",
+                            telefone: "",
+                            senhaProvisoria: "",
+                            alergia: ""
+                        })
+                    }
+                }
+            });
         }
     }
 
@@ -67,7 +69,7 @@ export default class CadastrarHospital extends Component {
                     <h2 className='text-center font-weight-light'>CADASTRAR MÉDICO</h2>
                     <div className='row justify-content-center py-3'>
                         <div className='col-12'>
-                            <UploadImagem onChange={(event) => {
+                            <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : "http://localhost:3001/uploads/medico/default.png"} onChange={(event) => {
                                 this.setState({ image: event.target.files[0] });
                             }} />
                         </div>

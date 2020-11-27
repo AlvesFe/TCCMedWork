@@ -1,6 +1,7 @@
 import React from 'react'
 import Axios from 'axios'
 import variables from "./variables";
+import Event from '../../event/Alerts';
 
 const env = variables()
 const {API_URL} = env
@@ -10,10 +11,6 @@ export default function cadastrarHospital(dados) {
     const token = localStorage.getItem('current_user')
     const stringData = localStorage.getItem('user_data')
     const userData = JSON.parse(stringData)
-
-    // if (dados.senhaProvisoria != dados.confirmarSenha) {
-    //     return {erro: "senhasnaoconferem"}
-    // }
 
     const data = {
         cnpj: dados.cnpj.replace(/[^\d]+/g,''),
@@ -46,14 +43,12 @@ export default function cadastrarHospital(dados) {
     }).then(response => {
         const {data} = response;
         console.log(data)
-        if(data){
-            return true
-        }
-        else{
-            return false
-        }
+        Event(data.mensagem)
+        return true
+        
     }).catch(err => {
-        console.log(err);
+        Event(err.response.data.error);
+        console.log(err.response.data.error);
         return false
     })
  }

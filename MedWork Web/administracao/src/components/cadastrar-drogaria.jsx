@@ -27,20 +27,21 @@ export default class CadastrarDrogaria extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
             //console.log(this.state)
-            const result = cadastrarFarmacia(this.state);
-            if (result) {
-                this.setState({
-                    nomeEmpresa: "",
-                    image: {},
-                    cnpj: "",
-                    endereco: "",
-                    telefone: "",
-                    detalhes: "",
-                    taxa: "",
-                    email: "",
-                    senhaProvisoria: ""
-                })
-            }
+            cadastrarFarmacia(this.state).then(res => {
+                if (res) {
+                    this.setState({
+                        nomeEmpresa: "",
+                        image: {},
+                        cnpj: "",
+                        endereco: "",
+                        telefone: "",
+                        detalhes: "",
+                        taxa: "",
+                        email: "",
+                        senhaProvisoria: ""
+                    })
+                }
+            });
         }
     }
 

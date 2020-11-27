@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import Event from '../../event/Alerts';
 import variables from "./variables";
 
 const env = variables()
@@ -24,7 +25,8 @@ export default function getRemedio(dados) {
         const { data } = response;
         return data.data[0];
     }).catch(err => {
-        console.log(err.response);
+        console.log(err.response.data.error);
+        Event(err.response.data.error);
         return false;
     })
 }

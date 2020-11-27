@@ -2,6 +2,7 @@ import React from 'react'
 import Axios from 'axios'
 import getPaciente from './getPaciente';
 import variables from "./variables";
+import Event from '../../event/Alerts';
 
 const env = variables()
 const { API_URL } = env
@@ -26,12 +27,6 @@ export default function cadastrarReceita(dados, paciente, remedio) {
         fk_id_Receita: "N/A",
         fk_id_Remedio: remedio.id_Remedio
     }
-    // const dataFinal = new FormData();
-
-    // for (const key in data) {
-    //     dataFinal.append(key, data[key])
-    // }
-    // console.log(data);
 
     return Axios({
         method: 'POST',
@@ -55,13 +50,17 @@ export default function cadastrarReceita(dados, paciente, remedio) {
                 'Authorization': 'bearer ' + token
             }
         }).then(res => {
+            Event(res.data.mensagem)
+            console.log(res.data);
             return true;
         }).catch(error => {
-            console.log(err.response);
+            Event(error.response.data.error)
+            console.log("ERROR1", error.response.data.error);
             return false;
         })
     }).catch(err => {
-        console.log(err.response);
+        Event(err.response.data.error)
+        console.log("ERROR2", err.response.data.error);
         return false;
     })
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import Axios from 'axios'
 import variables from "./variables";
+import Event from '../../event/Alerts';
 
 const env = variables()
 const { API_URL } = env
@@ -18,9 +19,9 @@ export default function patchUser(dados) {
     const data = {
         nome: dados.nome,
         especialidade: dados.especiealidade,
-        telefone: dados.telefone,
-        celular: dados.celular,
-        dt_Nascimento: dados.dataNascimento,
+        telefone: dados.telefone.replace(/[^\d]+/g,''),
+        celular: dados.celular.replace(/[^\d]+/g,''),
+        dt_Nascimento: dados.dataNascimento.replace(/[^\d]+/g,''),
         ativo: dados.ativo,
         image: dados.image,
         senha: dados.senha,
@@ -45,9 +46,9 @@ export default function patchUser(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data)
+        Event(data.mensagem)
     }).catch(err => {
-        console.log(err);
+        Event(err.response.data.error)
         return false
     })
 }

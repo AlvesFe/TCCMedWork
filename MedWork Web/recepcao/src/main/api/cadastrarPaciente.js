@@ -1,6 +1,7 @@
 import React from 'react'
 import Axios from 'axios'
 import variables from "./variables";
+import Event from '../../event/Alerts';
 
 const env = variables()
 const { API_URL } = env
@@ -43,10 +44,12 @@ export default function cadastrarPaciente(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data);
+        console.log(data.mensagem);
+        Event(data.mensagem);
         return true;
     }).catch(err => {
-        console.log(err.response);
+        Event(err.response.data.error)
+        console.log(err.response.data.error);
         return false;
     })
 }

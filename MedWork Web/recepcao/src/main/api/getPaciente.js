@@ -1,5 +1,6 @@
 import Axios from 'axios'
 import variables from "./variables";
+import Event from '../../event/Alerts'
 
 const env = variables()
 const { API_URL } = env
@@ -25,8 +26,10 @@ export default function getPaciente(dados) {
     }).then(response => {
         const { data } = response;
         console.log(data.data[0]);
+        data.data[0] ? Event("Dados Encontrados"): Event("Não Encontrado")
         return data.data[0]
     }).catch(err => {
+        Event("Não Encontrado")
         console.log(err.response);
         return false
     })
