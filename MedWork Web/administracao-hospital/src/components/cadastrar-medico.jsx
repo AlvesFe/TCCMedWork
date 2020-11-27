@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import cadastrarMedico from '../main/api/cadastrarMedico';
 import InputMask from 'react-input-mask';
 import UploadImagem from '../components/template/upload-imagem'
+import Image from '../images/default-Upload.png'
 import Menu from './template/menu'
 
 export default class CadastrarHospital extends Component {
@@ -69,7 +70,7 @@ export default class CadastrarHospital extends Component {
                     <h2 className='text-center font-weight-light'>CADASTRAR MÉDICO</h2>
                     <div className='row justify-content-center py-3'>
                         <div className='col-12'>
-                            <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : "http://localhost:3001/uploads/medico/default.png"} onChange={(event) => {
+                            <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : Image} onChange={(event) => {
                                 this.setState({ image: event.target.files[0] });
                             }} />
                         </div>

@@ -13,11 +13,11 @@ export default function getAllEstabelecimentos() {
 
     return getHospital().then(hosp => {
         return getFarmacias().then(farm => {
-            const farmacia = farm
-            const hospital = hosp
+            const Farmacia = farm
+            const Hospital = hosp
             const Estabelecimentos = {
-                farmacia,
-                hospital
+                Farmacia,
+                Hospital
             }
             return Estabelecimentos
         })

@@ -12,7 +12,7 @@ export default function recuperarSenha (dados) {
         email: dados.email
     }
 
-    Axios ({
+    return Axios ({
         method:'post',
         url:API_URL+"/admMedWork/recuperarsenha",
         data: dados,
@@ -22,7 +22,8 @@ export default function recuperarSenha (dados) {
         }
     }).then(response => {
         const {data} = response;
-        console.log(data);
+        window.location.assign('#/confirmar');
+        return data.success
     }).catch(err => {
         console.log(err);
     })

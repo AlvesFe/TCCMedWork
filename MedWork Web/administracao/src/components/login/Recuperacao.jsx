@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import recuperarSenha from '../../main/api/recuperarSenha';
-
+import ValidacaoCodigo from '../login/Confirmar'
+import {withRouter} from 'react-router-dom'
 import Logotipo from '../template/logotipo'
 import './Login.css'
 
@@ -23,20 +24,18 @@ class Recuperacao extends Component {
             var emailCadastrado = 'leonardo_lemos@outlook.com.br'
             var mostrar = ''
             e.preventDefault()
-            console.log(this.state)
-            recuperarSenha(this.state);
-
-            if (this.state.email == emailCadastrado) {
-                this.setState({
-                    EmailNaoCadastrado: "d-none"
-                })
-                console.log('certinho')
-            } else {
-                this.setState({
-                    EmailNaoCadastrado: e.mostrar
-                })
-            }
-
+            recuperarSenha(this.state).then(res => {
+                if(res === "Verifique a Caixa de Email"){
+                    this.setState({
+                        EmailNaoCadastrado: "d-none"
+                    })
+                }
+                else{
+                    this.setState({
+                        EmailNaoCadastrado: e.mostrar
+                    })
+                }
+            });
         }
     }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import recuperarSenha from '../../main/api/recuperarSenha';
-
+import confirmarToken from '../../main/api/confirmarToken';
 import Logotipo from '../template/logotipo'
 import './Login.css'
 
@@ -10,7 +10,7 @@ class Confirmar extends Component {
     constructor() {
         super()
         this.state = {
-            codigo: "",
+            token: "",
             TokenErro: "d-none"
         }
         this.onChange = (e) => {
@@ -21,19 +21,19 @@ class Confirmar extends Component {
         }
 
         this.onSubmit = (e) => {
-            var tokenzinho = '123456'
             var mostrar = ''
-
             e.preventDefault()
+            confirmarToken(this.state).then(res => {
+                
+            })
+            // if (this.state.token == tokenzinho) {
 
-            if (this.state.codigo == tokenzinho) {
-
-                console.log('certinho')
-            } else {
-                this.setState({
-                    TokenErro: e.mostrar
-                })
-            }
+            //     console.log('certinho')
+            // } else {
+            //     this.setState({
+            //         TokenErro: e.mostrar
+            //     })
+            // }
 
         }
     }
@@ -59,7 +59,7 @@ class Confirmar extends Component {
                                 </div>
                             </div>
                             <div className='py-2'>
-                                <input type="text" className='form-control' name="codigo" id="codigo" placeholder='Código' value={this.state.codigo} onChange={this.onChange} />
+                                <input type="text" className='form-control' name="token" id="token" placeholder='Código' value={this.state.token} onChange={this.onChange} />
                             </div>
 
                             <div className=' py-2'>
