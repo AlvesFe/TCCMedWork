@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import getAllEstabelecimentos from '../main/api/getAllEstabelecimentos';
 import ListagemEstabelecimento from './template/listagem-estabelecimento'
 import Menu from './template/menu'
 
@@ -6,12 +7,22 @@ export default class ListarEstabelecimento extends Component {
     constructor() {
         super()
         this.state = {
-            image: {},
-            nomeEmpresa: "teste",
-            tipoEstabelecimento: "",
-            cnpj: "",
-            endereco: "",
+            estabelecimentos: []
         }
+        getAllEstabelecimentos().then(response => {
+            const { Farmacia } = response
+            const { Hospital } = response
+            const estabelecimentos = []
+
+            Farmacia.forEach(element => {
+                estabelecimentos.push({...element, tipo: 'Farmacia'})
+            });
+            Hospital.forEach(element => {
+                estabelecimentos.push({...element, tipo: 'Hospital'})
+            });
+
+            this.setState({estabelecimentos: estabelecimentos})
+        });
     }
 
 
@@ -24,7 +35,12 @@ export default class ListarEstabelecimento extends Component {
                     <div className='row justify-content-center py-3'>
                         <div className="col-12 py-3 form-row">
 
-                            <ListagemEstabelecimento/>
+                            {   
+                                this.state.estabelecimentos[0] &&
+                                this.state.estabelecimentos.map((item, key) => (
+                                    (<ListagemEstabelecimento key={key} tipo={item.tipo} estabelecimento={item}/>)
+                                ))
+                            }
 
                         </div>
                     </div>
