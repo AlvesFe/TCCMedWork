@@ -28,10 +28,10 @@ class ValidacaoCodigo extends Component {
             e.preventDefault()
             var mostrar = ""
             alterarSenha(this.state).then(res => {
-                if(res){
+                if (res) {
                     Event("Senha Alterada com Sucesso")
                 }
-                else{
+                else {
                     Event("Erro a Alterar")
                 }
             })
@@ -90,7 +90,7 @@ class ValidacaoCodigo extends Component {
                             <Logotipo />
                         </div>
                         <div className='bg-danger font-weight-bolder text-white px-5 py-1'>
-                            ADMINISTRAÇÃO
+                            ADMINISTRAÇÃO - HOSPITAL
                     </div>
                         <div className='container pt-3'>
                             <div className={this.state.senhaVazia}>

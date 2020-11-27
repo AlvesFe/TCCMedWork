@@ -25,10 +25,10 @@ class Confirmar extends Component {
             var mostrar = ''
             e.preventDefault()
             confirmarToken(this.state).then(res => {
-                if(res === true){
+                if (res === true) {
                     Event("Altere Sua Senha")
                 }
-                else{
+                else {
                     Event("Codigo Invalido")
                 }
             })
@@ -55,7 +55,7 @@ class Confirmar extends Component {
                             <Logotipo />
                         </div>
                         <div className='bg-danger font-weight-bolder text-white px-5 py-1'>
-                            ADMINISTRAÇÃO
+                            ADMINISTRAÇÃO - HOSPITAL
                     </div>
                         <p className='text-center pt-3'>Insira o código que foi enviado em seu email.</p>
                         <div className='container'>
