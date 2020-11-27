@@ -3,6 +3,7 @@ import UploadImagem from './template/upload-imagem'
 import InputMask from 'react-input-mask';
 import cadastrarFarmacia from '../main/api/cadastrarFarmacia';
 import Menu from './template/menu'
+import Image from '../images/default-Upload.png';
 
 export default class CadastrarDrogaria extends Component {
     constructor() {
@@ -55,7 +56,7 @@ export default class CadastrarDrogaria extends Component {
                     <div className='row justify-content-center py-3'>
                         <div className="col-10 py-3 form-row">
                             <div className='col-12'>
-                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : "http://localhost:3001/uploads/farmacia/default.png"} onChange={(event) => {
+                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : Image} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
                                 }} />
                             </div>
