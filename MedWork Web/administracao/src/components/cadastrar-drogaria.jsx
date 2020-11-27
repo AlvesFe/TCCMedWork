@@ -52,49 +52,49 @@ export default class CadastrarDrogaria extends Component {
                 <Menu />
                 <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast'>
                     <h2 className='text-center font-weight-light'>CADASTRAR DROGARIA</h2>
-                    <div className='row justify-content-center py-3'>
-                        <div className="col-10 py-3 form-row">
+                    <div className='row justify-content-center py-2'>
+                        <div className="col-10 form-row">
                             <div className='col-12'>
                                 <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : "http://localhost:3001/uploads/farmacia/default.png"} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
                                 }} />
                             </div>
-                            <div className='form-group col-6 py-1'>
+                            <div className='form-group col-6 pt-1'>
                                 <label htmlFor="pesquisarEstabelecimento" className='font-weight-bold mb-0'>Nome da empresa</label>
-                                <input type="text" className="form-control form-control-lg" id="pesquisarEstabelecimento" placeholder='Nome' name="nomeEmpresa" value={this.state.nomeEmpresa} onChange={this.onChange} />
+                                <input type="text" className=" form-control form-control-sm " id="pesquisarEstabelecimento" placeholder='Nome' name="nomeEmpresa" value={this.state.nomeEmpresa} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-6 py-1'>
+                            <div className='form-group col-6 pt-1'>
                                 <label htmlFor="cnpj" className='font-weight-bold mb-0'>CNPJ</label>
-                                <InputMask mask="99.999.999/9999-99" className="form-control form-control-lg" id="cnpj" placeholder='xx.xxx.xxx/xxxx-xx' name="cnpj" value={this.state.cnpj} onChange={this.onChange} />
+                                <InputMask mask="99.999.999/9999-99" className=" form-control form-control-sm" id="cnpj" placeholder='xx.xxx.xxx/xxxx-xx' name="cnpj" value={this.state.cnpj} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-8 py-1'>
+                            <div className='form-group col-8 pt-1'>
                                 <label htmlFor="endereco" className='font-weight-bold mb-0'>Endereço</label>
-                                <input type="text" className="form-control form-control-lg" id="endereco" placeholder='Ex: Avenida paulista, 2222, São Paulo - SP' name='endereco' value={this.state.endereco} onChange={this.onChange} />
+                                <input type="text" className=" form-control form-control-sm" id="endereco" placeholder='Ex: Avenida paulista, 2222, São Paulo - SP' name='endereco' value={this.state.endereco} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-2 py-1'>
+                            <div className='form-group col-2 pt-1'>
                                 <label htmlFor="endereco" className='font-weight-bold mb-0'>Taxa</label>
-                                <InputMask mask="99.99" className="form-control form-control-lg" id="taxa" placeholder='R$2.50' name='taxa' value={this.state.taxa} onChange={this.onChange} />
+                                <InputMask mask="99.99" className=" form-control form-control-sm " id="taxa" placeholder='R$2.50' name='taxa' value={this.state.taxa} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-2 py-1'>
+                            <div className='form-group col-2 pt-1'>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
-                                <InputMask mask="(99) 9999-9999" className="form-control form-control-lg" id="telefone" placeholder='(xx) xxxx-xxxx' name='telefone' value={this.state.telefone} onChange={this.onChange} />
+                                <InputMask mask="(99) 9999-9999" className=" form-control form-control-sm" id="telefone" placeholder='(xx) xxxx-xxxx' name='telefone' value={this.state.telefone} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-12 py-1'>
+                            <div className='form-group col-12 pt-1'>
                                 <label htmlFor="detalhes" className='font-weight-bold mb-0'>Detalhes</label>
-                                <textarea type="text" className="form-control form-control-lg" id="detalhes" placeholder='Nenhum detalhe' name='detalhes' value={this.state.detalhes} onChange={this.onChange} />
+                                <textarea type="text" className=" form-control form-control-sm" id="detalhes" placeholder='Nenhum detalhe' name='detalhes' value={this.state.detalhes} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-6 py-1'>
+                            <div className='form-group col-6 pt-1'>
                                 <label htmlFor="email" className='font-weight-bold mb-0'>E-mail</label>
-                                <input type="text" className="form-control form-control-lg" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
+                                <input type="text" className=" form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-6 py-1'>
+                            <div className='form-group col-6 pt-1'>
                                 <label htmlFor="senhaProvisoria" className='font-weight-bold mb-0'>Senha provisória</label>
-                                <input type="password" className="form-control form-control-lg" id="senhaProvisoria" placeholder='••••••••••' name='senhaProvisoria' value={this.state.senhaProvisoria} onChange={this.onChange} />
+                                <input type="password" className="form-control form-control-sm" id="senhaProvisoria" placeholder='••••••••••' name='senhaProvisoria' value={this.state.senhaProvisoria} onChange={this.onChange} />
                             </div>
 
                         </div>
                     </div>
-                    <div className='text-center py-1'>
+                    <div className='text-center'>
                         <button className='btn-roxo' onClick={this.onSubmit}>CADASTRAR</button>
                     </div>
                 </div>

@@ -38,8 +38,8 @@ class PesquisarEstabelecimento extends Component {
                 <Menu />
                 <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast'>
                     <h2 className='text-center font-weight-light'>PESQUISAR ESTABELECIMENTO</h2>
-                    <div className='row justify-content-center py-5'>
-                        <div className="col-8 py-5">
+                    <div className='row justify-content-center'>
+                        <div className="col-8 py-2">
                             <label htmlFor="pesquisarEstabelecimento" className='font-weight-bold mb-0'>CNPJ</label>
                             <InputMask mask="99.999.999/9999-99" className="form-control form-control-lg" id="pesquisarEstabelecimento" name="cnpj" placeholder='61.585.865/0240-93' value={this.state.cnpj} onChange={this.onChange} />
                             <div className='text-center py-3'>
