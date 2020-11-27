@@ -12,7 +12,7 @@ export default function confirmeToken(dados) {
         token: dados.token
     }
 
-    Axios({
+    return Axios({
         method: 'post',
         url: API_URL + "/hospital/confirmetoken",
         data: dados,
@@ -22,8 +22,12 @@ export default function confirmeToken(dados) {
         }
     }).then(response => {
         const { data } = response;
+        localStorage.setItem('token_reset', dados.token)
+        window.location.assign('#/redefinir-senha');
+        return true
         console.log(data);
     }).catch(err => {
+        return false
         console.log(err);
     })
 }
