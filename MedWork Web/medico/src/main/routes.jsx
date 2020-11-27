@@ -11,6 +11,8 @@ import PrescricaoGerada from '../components/prescricao-gerada'
 import Encaminhamento from '../components/encaminhamento'
 import CentroAjuda from '../components/centro-ajuda'
 import Configuracoes from '../components/configuracoes'
+import ValidacaoCodigo from '../components/login/Confirmar'
+import RedefinirSenha from '../components/login/Redefinir-senha'
 
 export default function routes() {
     if (isAuth()) {
@@ -36,6 +38,8 @@ export default function routes() {
             <Router history={hashHistory}>
                 <Route path='/login' component={Login} />
                 <Route path='/esqueci-minha-senha' component={Recuperacao} />
+                <Route path='/redefinir-senha' component={RedefinirSenha} />
+                <Route path='/confirmar' component={ValidacaoCodigo} />
                 <Route path='/termo-uso-e-privacidade' component={Login} />
                 <Redirect from='*' to='/login' />
             </Router>

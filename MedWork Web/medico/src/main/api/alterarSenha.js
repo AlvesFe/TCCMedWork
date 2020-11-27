@@ -6,15 +6,17 @@ const env = variables()
 const { API_URL } = env
 
 
-export default function resetarSenha(dados) {
+export default function alterarSenha(dados) {
+    const token = localStorage.getItem('token_reset')
 
     dados = {
+        token,
         senha: dados.senha,
-        confsenha: dados.confsenha
+        confsenha: dados.confSenha
     }
-
-    Axios({
-        method: 'PACTH',
+    console.log(dados)
+    return Axios({
+        method: 'PATCH',
         url: API_URL + "/medico/resetarsenha",
         data: dados,
         headers: {
@@ -23,8 +25,13 @@ export default function resetarSenha(dados) {
         }
     }).then(response => {
         const { data } = response;
+        window.location.assign('#/login')
+        localStorage.removeItem('token_reset')
+        return true
         console.log(data);
     }).catch(err => {
-        console.log(err);
+        console.log(err.response);
+        return false
+
     })
 }
