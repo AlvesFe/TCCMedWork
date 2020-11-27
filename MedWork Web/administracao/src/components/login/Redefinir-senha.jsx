@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Event from '../../event/Alerts';
 import alterarSenha from '../../main/api/alterarSenha';
 import recuperarSenha from '../../main/api/recuperarSenha';
 
@@ -26,7 +27,14 @@ class ValidacaoCodigo extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
             var mostrar = ""
-            alterarSenha(this.state)
+            alterarSenha(this.state).then(res => {
+                if(res){
+                    Event("Senha Alterada com Sucesso")
+                }
+                else{
+                    Event("Erro a Alterar")
+                }
+            })
             var resultado
 
             if (this.state.senha === this.state.confSenha) {

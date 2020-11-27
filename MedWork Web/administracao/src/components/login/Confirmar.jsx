@@ -3,6 +3,7 @@ import recuperarSenha from '../../main/api/recuperarSenha';
 import confirmarToken from '../../main/api/confirmarToken';
 import Logotipo from '../template/logotipo'
 import './Login.css'
+import Event from '../../event/Alerts';
 
 class Confirmar extends Component {
 
@@ -24,7 +25,12 @@ class Confirmar extends Component {
             var mostrar = ''
             e.preventDefault()
             confirmarToken(this.state).then(res => {
-                
+                if(res === true){
+                    Event("Altere Sua Senha")
+                }
+                else{
+                    Event("Codigo Invalido")
+                }
             })
             // if (this.state.token == tokenzinho) {
 

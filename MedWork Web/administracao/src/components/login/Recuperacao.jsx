@@ -4,6 +4,7 @@ import ValidacaoCodigo from '../login/Confirmar'
 import {withRouter} from 'react-router-dom'
 import Logotipo from '../template/logotipo'
 import './Login.css'
+import Event from '../../event/Alerts';
 
 class Recuperacao extends Component {
 
@@ -29,8 +30,10 @@ class Recuperacao extends Component {
                     this.setState({
                         EmailNaoCadastrado: "d-none"
                     })
+                    Event("Verifique Email");
                 }
                 else{
+                    Event("Email Não Encontrado");
                     this.setState({
                         EmailNaoCadastrado: e.mostrar
                     })
