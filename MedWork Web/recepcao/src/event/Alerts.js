@@ -124,6 +124,18 @@ export default function Event(Action) {
                 title: 'Email Invalido!'
             })
             break;
+        case "Email não Encontrado":
+            Toast.fire({
+                icon: 'error',
+                title: 'Email não Encontrado!'
+            })
+            break;
+        case "Verifique Seu Email":
+            Toast.fire({
+                icon: 'success',
+                title: 'Verifique Seu Email!'
+            })
+            break;
     }
 
 

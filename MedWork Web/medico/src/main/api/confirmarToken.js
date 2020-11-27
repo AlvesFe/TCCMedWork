@@ -6,15 +6,15 @@ const env = variables()
 const { API_URL } = env
 
 
-export default function recuperarSenha(dados) {
+export default function confirmarToken(dados) {
 
     dados = {
-        email: dados.email
+        token: dados.token
     }
 
-    return Axios({
+    Axios({
         method: 'post',
-        url: API_URL + "/hospital/recuperarsenha",
+        url: API_URL + "/medico/confirmetoken",
         data: dados,
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -23,9 +23,7 @@ export default function recuperarSenha(dados) {
     }).then(response => {
         const { data } = response;
         console.log(data);
-        return true;
     }).catch(err => {
-        return false;
         console.log(err);
     })
 }

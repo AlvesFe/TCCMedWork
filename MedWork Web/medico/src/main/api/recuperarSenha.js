@@ -14,7 +14,7 @@ export default function recuperarSenha(dados) {
 
     return Axios({
         method: 'post',
-        url: API_URL + "/hospital/recuperarsenha",
+        url: API_URL + "/medico/recuperarsenha",
         data: dados,
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -22,10 +22,8 @@ export default function recuperarSenha(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data);
-        return true;
+        return true
     }).catch(err => {
-        return false;
-        console.log(err);
+        return false
     })
 }

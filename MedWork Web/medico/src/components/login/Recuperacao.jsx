@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import recuperarSenha from '../../main/api/recuperarSenha';
+import Event from '../../event/Alerts'
 import Logotipo from '../template/logotipo'
 import './Login.css'
 
@@ -19,6 +20,14 @@ class Recuperacao extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
+            recuperarSenha(this.state).then(res => {
+                if(res == true){
+                    Event("Verifique Seu Email")
+                }
+                else{
+                    Event("Email Não Encontrado")
+                }
+            });
             console.log(this.state)
         }
     }

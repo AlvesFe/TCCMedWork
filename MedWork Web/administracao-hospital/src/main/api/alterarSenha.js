@@ -6,15 +6,16 @@ const env = variables()
 const { API_URL } = env
 
 
-export default function recuperarSenha(dados) {
+export default function alterarSenha(dados) {
 
     dados = {
-        email: dados.email
+        senha: dados.senha,
+        confsenha: dados.confsenha
     }
 
-    return Axios({
-        method: 'post',
-        url: API_URL + "/hospital/recuperarsenha",
+    Axios({
+        method: 'PACTH',
+        url: API_URL + "/hospital/resetarsenha",
         data: dados,
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -23,9 +24,7 @@ export default function recuperarSenha(dados) {
     }).then(response => {
         const { data } = response;
         console.log(data);
-        return true;
     }).catch(err => {
-        return false;
         console.log(err);
     })
 }

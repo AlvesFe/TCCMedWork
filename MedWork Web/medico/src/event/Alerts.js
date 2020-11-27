@@ -125,7 +125,19 @@ export default function Event(Action) {
                 title: 'Medico Atualizado!'
             })
             break;
-       
+        case "Verifique Seu Email":
+            Toast.fire({
+                icon: 'success',
+                title: 'Verifique Seu Email!'
+            })
+            break;
+        case "Email Não Encontrado":
+            Toast.fire({
+                icon: 'error',
+                title: 'Email Não Encontrado!'
+            })
+            break;
+
     }
 
 

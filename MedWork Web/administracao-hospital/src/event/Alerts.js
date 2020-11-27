@@ -155,6 +155,18 @@ export default function Event(Action) {
                 title: 'Dados Não Encontrados!'
             })
             break;
+        case "Email Não Encontrado":
+            Toast.fire({
+                icon: 'error',
+                title: 'Email Não Encontrado!'
+            })
+            break;
+        case "Verifique Seu Email":
+            Toast.fire({
+                icon: 'success',
+                title: 'Verifique Seu Email!'
+            })
+            break;
     }
 
 
