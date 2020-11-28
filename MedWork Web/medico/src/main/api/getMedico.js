@@ -1,9 +1,5 @@
 import Axios from 'axios'
-import variables from "./variables";
 import jwt_decode from "jwt-decode";
-
-const env = variables()
-const { API_URL } = env
 
 export default function getHospital() {
 
@@ -21,7 +17,7 @@ export default function getHospital() {
 
     Axios({
         method: 'post',
-        url: API_URL + "/medico/get",
+        url: "/api/medico/get",
         data,
         headers: {
             'Access-Control-Allow-Origin': '*',

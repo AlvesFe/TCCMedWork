@@ -1,20 +1,15 @@
 import Axios from 'axios'
-import Event from '../../event/Alerts';
-import variables from "./variables";
-
-const env = variables()
-const { API_URL } = env
 
 export default function getPaciente(dados) {
 
     const token = localStorage.getItem('current_user')
 
     const data = {
-        cpf: dados.replace(/[^\d]+/g,'')
+        cpf: dados.replace(/[^\d]+/g, '')
     }
     return Axios({
         method: 'post',
-        url: API_URL + "/paciente/get",
+        url: "/api/paciente/get",
         data,
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -23,7 +18,7 @@ export default function getPaciente(dados) {
         }
     }).then(response => {
         const { data } = response;
-        !data.data[0] ? Event("Informe o CPF"): null
+        !data.data[0] ? Event("Informe o CPF") : null
         return data.data[0];
     }).catch(err => {
         console.log(err.response);

@@ -1,9 +1,5 @@
 import Axios from 'axios'
 import Event from '../../event/Alerts';
-import variables from "./variables";
-
-const env = variables()
-const { API_URL } = env
 
 export default function getRemedio(dados) {
 
@@ -14,7 +10,7 @@ export default function getRemedio(dados) {
     }
     return Axios({
         method: 'post',
-        url: API_URL + "/remedio/get",
+        url: "/api/remedio/get",
         data,
         headers: {
             'Access-Control-Allow-Origin': '*',

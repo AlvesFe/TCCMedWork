@@ -1,11 +1,7 @@
 import React from 'react'
 import Axios from 'axios'
 import getPaciente from './getPaciente';
-import variables from "./variables";
 import Event from '../../event/Alerts';
-
-const env = variables()
-const { API_URL } = env
 
 export default function cadastrarReceita(dados, paciente, remedio) {
 
@@ -20,7 +16,7 @@ export default function cadastrarReceita(dados, paciente, remedio) {
         dosagem: dados.dosagem,
         dt_Emissao: new Date(),
         orientacoes: dados.orientacoes,
-        dt_Validade: dados.validade.replace(/[^\d]+/g,''),
+        dt_Validade: dados.validade.replace(/[^\d]+/g, ''),
         fk_id_Medico: userData.id_Medico,
         Quantidade: dados.quantidade,
         fk_id_Paciente: paciente.id_Paciente,
@@ -30,7 +26,7 @@ export default function cadastrarReceita(dados, paciente, remedio) {
 
     return Axios({
         method: 'POST',
-        url: API_URL + "/receita",
+        url: "/api/receita",
         data: dataFinal,
         headers: {
             'Access-Control-Allow-Origin': '*',
