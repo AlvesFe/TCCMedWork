@@ -16,7 +16,7 @@ export default function confirmarToken(dados) {
 
     return Axios ({
         method:'POST',
-        url:API_URL+"/admMedWork/confirmetoken",
+        url:"/api/admMedWork/confirmetoken",
         data,
         headers:{
             'Access-Control-Allow-Origin' : '*',

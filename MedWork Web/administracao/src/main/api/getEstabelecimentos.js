@@ -17,7 +17,7 @@ export default function getEstabelecimentos(dados) {
     const PegarInformacoes = (Estabelecimento) => {
          return Axios({
             method: 'POST',
-            url: API_URL + `/${Estabelecimento}/get`,
+            url: `/api/${Estabelecimento}/get`,
             data,
             headers: {
                 'Access-Control-Allow-Origin': '*',

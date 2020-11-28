@@ -3,9 +3,6 @@ import Axios from 'axios'
 import variables from "./variables";
 import Event from '../../event/Alerts';
 
-const env = variables()
-const {API_URL} = env
-
 export default function alterarSenha(dados) {
 
     const token = localStorage.getItem('current_user')
@@ -19,7 +16,7 @@ export default function alterarSenha(dados) {
 
     return Axios ({
         method:'PATCH',
-        url:API_URL+"/admMedWork/resetarsenha",
+        url:"/api/admMedWork/resetarsenha",
         data,
         headers:{
             'Access-Control-Allow-Origin' : '*',

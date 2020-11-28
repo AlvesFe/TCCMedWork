@@ -1,10 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
-import variables from "./variables";
 import Swal from 'sweetalert2';
-
-const env = variables()
-const {API_URL} = env
 
 const Toast = Swal.mixin({
     toast: true,
@@ -17,7 +13,7 @@ const Toast = Swal.mixin({
 export default function doLogin (dados) {
     Axios ({
         method:'post',
-        url:API_URL+"/admMedWork/login",
+        url:"/api/admMedWork/login",
         data: dados,
         headers:{
             'Access-Control-Allow-Origin' : '*',

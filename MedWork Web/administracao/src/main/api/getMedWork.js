@@ -21,7 +21,7 @@ export default function getMedWork() {
     
     Axios ({
         method:'post',
-        url:API_URL+"/admMedWork/get",
+        url:"/api/admMedWork/get",
         data,
         headers:{
             'Access-Control-Allow-Origin' : '*',

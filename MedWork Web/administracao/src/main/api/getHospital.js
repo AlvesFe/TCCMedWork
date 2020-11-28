@@ -10,7 +10,7 @@ export default function getHospital() {
 
     return Axios({
         method: 'GET',
-        url: API_URL + "/hospital",
+        url: "/api/hospital",
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',

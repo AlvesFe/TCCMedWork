@@ -35,7 +35,7 @@ export default function cadastrarFarmacia(dados) {
 
     return Axios ({
         method:'POST',
-        url:API_URL+"/farmacia",
+        url:"/api/farmacia",
         data: dataFinal,
         headers:{
             'Access-Control-Allow-Origin' : '*',

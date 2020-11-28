@@ -10,7 +10,7 @@ export default function getFarmacias() {
 
     return Axios({
         method: 'GET',
-        url: API_URL + "/farmacia",
+        url: "/api/farmacia",
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',

@@ -33,7 +33,7 @@ export default function cadastrarHospital(dados) {
     }
     return Axios ({
         method:'POST',
-        url:API_URL+"/hospital",
+        url:"/api/hospital",
         data: dataFinal,
         headers:{
             'Access-Control-Allow-Origin' : '*',

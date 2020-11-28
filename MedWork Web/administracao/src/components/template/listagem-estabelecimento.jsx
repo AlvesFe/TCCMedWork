@@ -1,10 +1,6 @@
 import React from 'react';
-import variables from '../../main/api/variables';
 
 import ImageDefault from '../../images/default.png'
-
-const env = variables()
-const {API_URL} = env
 
 function UploadImagem(props){
     const { estabelecimento } = props;
@@ -15,7 +11,7 @@ function UploadImagem(props){
         <div className="ui divided items col-12">
             <div className="item">
                 <div className="ui tiny image">
-                    <img src={`${API_URL}/uploads/${lowerTipo}/${estabelecimento.foto}`} />
+                    <img src={`/api/uploads/${lowerTipo}/${estabelecimento.foto}`} />
                 </div>
                 <div className="content">
                     <a className="header">{estabelecimento.nome}</a>

@@ -14,7 +14,7 @@ export default function recuperarSenha (dados) {
 
     return Axios ({
         method:'post',
-        url:API_URL+"/admMedWork/recuperarsenha",
+        url:"/api/admMedWork/recuperarsenha",
         data: dados,
         headers:{
             'Access-Control-Allow-Origin' : '*',
