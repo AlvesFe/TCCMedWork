@@ -14,12 +14,11 @@ const handlebars = require('handlebars');
 const fs = require('fs');
 
 const readHTMLFile = (path, callback) => {
-    fs.readFile(path, { encoding: 'utf-8' }, function (err, html) {
+    fs.readFile(path, { encoding: 'utf-8' }, function(err, html) {
         if (err) {
             throw err;
             callback(err);
-        }
-        else {
+        } else {
             callback(null, html);
         }
     })
@@ -27,7 +26,7 @@ const readHTMLFile = (path, callback) => {
 
 function SendMail(transport, data) {
 
-    readHTMLFile(__dirname + '/../src/template/AlterarSenha.html', function (err, html) {
+    readHTMLFile(__dirname + '/../src/template/AlterarSenha.html', function(err, html) {
         const template = handlebars.compile(html);
         const parametros = {
             token: data.token
@@ -59,40 +58,36 @@ exports.postFarmacia = (req, res, next) => {
                         const foto = () => {
                             if (req.file) {
                                 return req.file.filename
-                            }
-                            else {
+                            } else {
                                 return "default.png"
                             }
                         }
                         if (error) { return res.status(500).send({ error: error }) }
                         const id_Estabelecimento = bcrypt.hashSync(Date.now().toString(), 10);
-                        conn.query(`INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) VALUES (?,?,?)`,
-                            [id_Estabelecimento, req.body.cnpj, 'farmacia'], (error, resultado, field) => {
-                                if (error) { return res.status(500).send({ error: error }) }
-                                bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
-                                    if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
+                        conn.query(`INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) VALUES (?,?,?)`, [id_Estabelecimento, req.body.cnpj, 'farmacia'], (error, resultado, field) => {
+                            if (error) { return res.status(500).send({ error: error }) }
+                            bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+                                if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
 
-                                    const id_Farmacia = bcrypt.hashSync(Date.now().toString(), 10);
+                                const id_Farmacia = bcrypt.hashSync(Date.now().toString(), 10);
 
-                                    conn.query(
-                                        'INSERT INTO tbl_Farmacia(id_Farmacia, foto, nome, telefone, endereco, detalhes, senha, taxa, email, fk_id_MedWork, fk_id_Estabelecimento)VALUES(?,?,?,?,?,?,?,?,?,?,?)',
-                                        [id_Farmacia, foto(), req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, hash, req.body.taxa, req.body.email, req.body.fk_id_MedWork, id_Estabelecimento],
-                                        (error, resultado, field) => {
-                                            conn.release()
+                                conn.query(
+                                    'INSERT INTO tbl_Farmacia(id_Farmacia, foto, nome, telefone, endereco, detalhes, senha, taxa, email, fk_id_MedWork, fk_id_Estabelecimento)VALUES(?,?,?,?,?,?,?,?,?,?,?)', [id_Farmacia, foto(), req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, hash, req.body.taxa, req.body.email, req.body.fk_id_MedWork, id_Estabelecimento],
+                                    (error, resultado, field) => {
+                                        conn.release()
 
-                                            if (error) { return res.status(500).send({ error: error }) }
+                                        if (error) { return res.status(500).send({ error: error }) }
 
-                                            res.status(201).send({
-                                                mensagem: 'Farmacia Cadastrado',
-                                                id_Farmacia: id_Farmacia
-                                            })
-                                        }
-                                    )
-                                })
+                                        res.status(201).send({
+                                            mensagem: 'Farmacia Cadastrado',
+                                            id_Farmacia: id_Farmacia
+                                        })
+                                    }
+                                )
                             })
+                        })
                     })
-                }
-                else {
+                } else {
                     return res.status(500).send({ error: "errodadosjainseridos" })
                 }
             })
@@ -128,8 +123,7 @@ exports.getFarmacia = (req, res, next) => {
         conn.query(
             `SELECT fm.*, cnpj FROM tbl_Farmacia AS fm
             INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento
-            WHERE cnpj = ?`,
-            [req.body.cnpj],
+            WHERE cnpj = ?`, [req.body.cnpj],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -149,13 +143,12 @@ exports.patchFarmacia = (req, res, next) => {
 
         conn.query(`SELECT fm.*, cnpj FROM tbl_Farmacia AS fm
         INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento
-        WHERE id_Farmacia = ?`, [req.body.id_Farmacia], async (error, resultado, field) => {
+        WHERE id_Farmacia = ?`, [req.body.id_Farmacia], async(error, resultado, field) => {
             if (error) { return res.status(500).send({ error: error }) }
             const foto = () => {
                 if (req.file) {
                     return req.file.filename
-                }
-                else {
+                } else {
                     return "default.png"
                 }
             }
@@ -165,15 +158,15 @@ exports.patchFarmacia = (req, res, next) => {
                     conn.query(
                         `UPDATE tbl_Farmacia
                             SET
-                            nome = ?, 
+                            nome = ?,
+                            taxa = ?, 
                             telefone = ?, 
                             endereco = ?, 
                             detalhes = ?, 
                             ativo = ?, 
                             senha = ?, 
                             foto = ?
-                            WHERE id_Farmacia = ?`,
-                        [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, resultado[0].senha, foto(), req.body.id_Farmacia],
+                            WHERE id_Farmacia = ?`, [req.body.nome, req.body.taxa, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, resultado[0].senha, foto(), req.body.id_Farmacia],
                         (error, resultado, field) => {
                             conn.release()
 
@@ -186,21 +179,20 @@ exports.patchFarmacia = (req, res, next) => {
                         }
                     )
 
-                }
-                else {
+                } else {
                     const senha = await (bcrypt.hash(req.body.senha, 10));
                     conn.query(
                         `UPDATE tbl_Farmacia
                             SET
                             nome = ?, 
                             telefone = ?, 
+                            taxa = ?, 
                             endereco = ?, 
                             detalhes = ?, 
                             ativo = ?, 
                             senha = ?, 
                             foto = ?
-                            WHERE id_Farmacia = ?`,
-                        [req.body.nome, req.body.telefone, req.body.endereco, req.body.detalhes, req.body.ativo, senha, foto(), req.body.id_Farmacia],
+                            WHERE id_Farmacia = ?`, [req.body.nome, req.body.telefone, req.body.ativo, req.body.endereco, req.body.detalhes, req.body.ativo, senha, foto(), req.body.id_Farmacia],
                         (error, resultado, field) => {
                             conn.release()
 
@@ -226,24 +218,23 @@ exports.deleteFarmacia = (req, res, next) => {
         conn.query(`SELECT fm.*, cnpj FROM tbl_Farmacia AS fm
         INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento
         WHERE id_Farmacia = ?`, [req.body.id_Farmacia],
-        (error, result, field) => {
-            conn.query(
-                `DELETE FROM tbl_Farmacia WHERE id_Farmacia = ?`,
-                [result[0].id_Farmacia],
-                (error, resultado, field) => {
-                    conn.query('DELETE FROM tbl_Estabelecimentos WHERE id_Estabelecimento = ?', [result[0].fk_id_Estabelecimento],
-                    (error, result, field) => {
-                        conn.release()
-    
-                        if (error) { return res.status(500).send({ error: error }) }
-        
-                        res.status(202).send({
-                            mensagem: 'Farmacia excluída com sucesso'
-                        })
-                    }) 
-                }
-            )
-        }) 
+            (error, result, field) => {
+                conn.query(
+                    `DELETE FROM tbl_Farmacia WHERE id_Farmacia = ?`, [result[0].id_Farmacia],
+                    (error, resultado, field) => {
+                        conn.query('DELETE FROM tbl_Estabelecimentos WHERE id_Estabelecimento = ?', [result[0].fk_id_Estabelecimento],
+                            (error, result, field) => {
+                                conn.release()
+
+                                if (error) { return res.status(500).send({ error: error }) }
+
+                                res.status(202).send({
+                                    mensagem: 'Farmacia excluída com sucesso'
+                                })
+                            })
+                    }
+                )
+            })
     })
 }
 
@@ -264,13 +255,12 @@ exports.logarFarmacia = (req, res, next) => {
                 if (err) { return res.status(401).send({ mensagem: 'Falha na autenticação' }) }
                 if (result) {
                     const token = jwt.sign({
-                        id_Farmacia: results[0].id_Farmacia,
-                        email: results[0].email,
-                        nome: results[0].nome,
-                        tipo: "farmacia",
-                    },
-                        process.env.JWT_KEY,
-                        {
+                            id_Farmacia: results[0].id_Farmacia,
+                            email: results[0].email,
+                            nome: results[0].nome,
+                            tipo: "farmacia",
+                        },
+                        process.env.JWT_KEY, {
                             expiresIn: "5h"
                         })
                     return res.status(200).send({ mensagem: 'Farmacia Autenticada com sucesso', token: token })
@@ -281,7 +271,7 @@ exports.logarFarmacia = (req, res, next) => {
     })
 }
 
-exports.recuperarSenha = async (req, res, next) => {
+exports.recuperarSenha = async(req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
@@ -294,10 +284,9 @@ exports.recuperarSenha = async (req, res, next) => {
                 return res.status(401).send({ mensagem: 'Usuario não Encontrado' })
             }
             const token = jwt.sign({
-                email: req.body.email
-            },
-                process.env.JWT_KEY,
-                {
+                    email: req.body.email
+                },
+                process.env.JWT_KEY, {
                     expiresIn: "20m"
                 })
 
@@ -343,8 +332,7 @@ exports.resetsenha = (req, res, next) => {
                         `UPDATE tbl_Farmacia
                             SET
                             senha = ?
-                            WHERE email = ?`,
-                        [hash, decode.email],
+                            WHERE email = ?`, [hash, decode.email],
                         (error, resultado, fields) => {
                             conn.release()
 
@@ -359,8 +347,7 @@ exports.resetsenha = (req, res, next) => {
                 })
             })
         }
-    }
-    catch (error) {
+    } catch (error) {
         return res.status(500).send({
             error: "errotokeninvalido"
         })

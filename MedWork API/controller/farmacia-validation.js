@@ -14,7 +14,7 @@ const axios = require('axios');
 // Verifica se é um Número
 function ValidationNumber(value) {
 
-    if(isNaN(value)){
+    if (isNaN(value)) {
         return true;
     }
     return false;
@@ -34,17 +34,17 @@ function validateEmail(email) {
 
 async function validateCNPJ(value) {
     const resposta = await axios({
-        method: 'get',
-        url: `http://geradorapp.com/api/v1/cnpj/validate/${value}?token=1a77a5b656040aace894962324363778`
-    })
-    .then((response) => {
-        return response.data.status;
-    });
+            method: 'get',
+            url: `http://geradorapp.com/api/v1/cnpj/validate/${value}?token=1a77a5b656040aace894962324363778`
+        })
+        .then((response) => {
+            return response.data.status;
+        });
 
-    return resposta == 1 ?  true : false
+    return resposta == 1 ? true : false
 }
 
-exports.postFarmacia = async (req, res, next) => {
+exports.postFarmacia = async(req, res, next) => {
 
     //Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
@@ -83,29 +83,29 @@ exports.postFarmacia = async (req, res, next) => {
         })
     }
 
-    if(ValidationNumber(req.body.telefone)){
+    if (ValidationNumber(req.body.telefone)) {
         return res.status(500).send({
             error: "errotelefoneinvalido"
         })
     }
-    if(ValidationNumber(req.body.cnpj)){
+    if (ValidationNumber(req.body.cnpj)) {
         return res.status(500).send({
             error: "errocnpjinvalido"
         })
     }
 
-    if(!await validateCNPJ(req.body.cnpj)){
+    if (!await validateCNPJ(req.body.cnpj)) {
         return res.status(500).send({
             error: "errocnpjinvalido"
         })
     }
 
-    if(ValidationNumber(req.body.taxa)){
+    if (ValidationNumber(req.body.taxa)) {
         return res.status(500).send({
             error: "errotaxainvalida"
         })
     }
-    next();    
+    next();
 }
 
 exports.getFarmacia = (req, res, next) => {
@@ -115,7 +115,7 @@ exports.getFarmacia = (req, res, next) => {
             error: "errocnpjvazio"
         })
     }
-    
+
     if (req.body.cnpj.length != 14) {
         return res.status(500).send({
             error: "errotamanhocnpj"
@@ -136,8 +136,7 @@ exports.patchFarmacia = (req, res, next) => {
                         errormes: req.body[key]
                     })
                 }
-            }
-            else {
+            } else {
                 return res.status(500).send({
                     error: "erro" + key + "vazio",
                     errormes: key
@@ -158,13 +157,7 @@ exports.patchFarmacia = (req, res, next) => {
         })
     }
 
-    if (req.body.id_Farmacia.length !== 60) {
-        return res.status(500).send({
-            error: "errotamanhoidFarmacia"
-        })
-    }
-
-    if(ValidationNumber(req.body.telefone)){
+    if (ValidationNumber(req.body.telefone)) {
         return res.status(500).send({
             error: "errotelefoneinvalido"
         })
@@ -221,22 +214,21 @@ exports.logarFarmacia = (req, res, next) => {
     next();
 }
 
-exports.confirmetoken = (req, res ,next) => {
+exports.confirmetoken = (req, res, next) => {
 
-    if(isNullOrWhitespace(req.body.token)){
+    if (isNullOrWhitespace(req.body.token)) {
         res.status(500).send({
             error: "errortokenvazio"
         })
     }
 
-    try{
+    try {
         const decode = jwt.verify(req.body.token, process.env.JWT_KEY);
         res.status(200).send({
             success: "sucessotoken"
         })
-    }
-    catch(error){
-        res.status(500).send({error: "errotokeninvalido"})
+    } catch (error) {
+        res.status(500).send({ error: "errotokeninvalido" })
     }
 
 }
@@ -270,7 +262,7 @@ exports.restSenha = (req, res, next) => {
         }
     }
 
-    if(req.body.senha !== req.body.confsenha){
+    if (req.body.senha !== req.body.confsenha) {
         return res.status(500).send({
             error: "errosenhasnaoconferem"
         })
