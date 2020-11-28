@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import UploadImagem from '../template/upload-imagem'
 import InputMask from 'react-input-mask';
 import cadastrarFarmacia from '../../main/api/cadastrarFarmacia';
+import patchHospital from '../../main/api/alterarHospital'
+import getInformacoes from '../../main/api/getInformacoes';
 import Menu from '../template/menu'
 import Image from '../../images/default-Upload.png';
 import AlterarSucesso from '../template/AlterarSucesso'
@@ -9,6 +11,22 @@ import AlterarErro from '../template/AlterarErro'
 
 export default class AlterarHospital extends Component {
     constructor() {
+        let cnpj = localStorage.getItem('estabelecimento')
+        getInformacoes(cnpj, 'hospital').then(res => {
+            this.setState({
+                id_Hospital: res.id_Hospital,
+                nomeEmpresa: res.nome,
+                image: {},
+                foto: res.foto,
+                cnpj: res.cnpj,
+                endereco: res.endereco,
+                telefone: res.telefone,
+                email: res.email,
+                ativo: res.ativo,
+                senha: res.senha
+            })
+            console.log(res);
+        })
         super()
         this.state = {
             nomeEmpresa: "",
@@ -31,31 +49,18 @@ export default class AlterarHospital extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            //CUIDADO AQUI EMBAIXO Ó
-            // cadastrarFarmacia(this.state).then(res => {
-            //     if (res) {
-            //         this.setState({
-            //             nomeEmpresa: "",
-            //             image: {},
-            //             cnpj: "",
-            //             endereco: "",
-            //             telefone: "",
-            //             detalhes: "",
-            //             taxa: "",
-            //             email: ""
-            //         })
-            //     }
-            // });
-            if(false){
-                this.setState({
-                    alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
-                })
-            }else{
-                this.setState({
-                    alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
-                })
-
-            }
+            console.log('click')
+            patchHospital(this.state).then(res => {
+                if (res) {
+                    this.setState({
+                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
+                    })
+                } else {
+                    this.setState({
+                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
+                    })
+                }  
+            })
         }
     }
 
@@ -68,14 +73,14 @@ export default class AlterarHospital extends Component {
                     <h2 className='text-center font-weight-light'>ALTERAR HOSPITAL</h2>
                     <div className='row justify-content-center py-3'>
                         <div className="col-10 py-2 form-row">
-                        <div className={this.state.alteracaoSucesso}>
+                            <div className={this.state.alteracaoSucesso}>
                                 <AlterarSucesso />
                             </div>
                             <div className={this.state.alteracaoErro}>
                                 <AlterarErro />
                             </div>
                             <div className='col-12 mb-1'>
-                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : Image} onChange={(event) => {
+                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `http://localhost:3001/uploads/hospital/${this.state.foto}`} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
                                 }} />
                             </div>

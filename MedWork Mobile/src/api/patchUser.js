@@ -40,24 +40,29 @@ export default function patchUser(user, setViewing, setUser) {
     if (dtn.length === 24) {
         realDtn = user.dt_Nascimento.slice(0, -14);
         user = {...user, dt_Nascimento: realDtn}
-    }    
+    } 
 
-    let localUri = user.image.uri;
-    let filename = localUri.split('/').pop();
-    let match = /\.(\w+)$/.exec(filename);
-    let type = match ? `image/${match[1]}` : `image`;
+    if (user.image) {
+        let localUri = user.image.uri;
+        let filename = localUri.split('/').pop();
+        let match = /\.(\w+)$/.exec(filename);
+        let type = match ? `image/${match[1]}` : `image`;
+    
+        userfinal.append("image", {uri: localUri, name: filename, type});
+    }
+    else{
+        userfinal.append("image", null)
+    }
 
-    userfinal.append("image", {uri: localUri, name: filename, type});
     for (const key in user) {
         if (key === "foto" && user[key] === "default.png") {
-            userfinal.append("foto", null)
+            userfinal.append("image", null)
         }
         else if(key !== 'image'){
             userfinal.append(key, user[key])
         }
     }
 
-    console.log(userfinal);
     async function getToken() {
         const token = await AsyncStorage.getItem("userToken").then(res => {
             return res
@@ -89,7 +94,7 @@ export default function patchUser(user, setViewing, setUser) {
             toastFail(phrase)
             setViewing(true)
             setUser(item)
-            console.log(err);
+            console.log(err.response.data);
         })
     }
 

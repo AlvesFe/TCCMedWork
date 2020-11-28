@@ -33,6 +33,6 @@ export default function doLogin (dados) {
             icon: 'error',
             title: 'Falha no login'
         })
-        console.log(err);
+        // console.log(err);
     })
 }

@@ -164,11 +164,11 @@ exports.patchPaciente = (req, res, next) => {
     }
 
     //Verifica o tamanho do campo CPF
-    if (req.body.cpf.length < 11) {
-        return res.status(500).send({
-            error: "errotamanhocpf"
-        })
-    }
+    // if (req.body.cpf.length < 11) {
+    //     return res.status(500).send({
+    //         error: "errotamanhocpf"
+    //     })
+    // }
 
     //Verifica o tamanho do campo celular
     if (req.body.celular.length < 10) {
@@ -178,11 +178,11 @@ exports.patchPaciente = (req, res, next) => {
     }
 
     //Verifica o tamanho do campo senha
-    if (req.body.senha.length < 8) {
-        return res.status(500).send({
-            error: "errotamanhosenha"
-        })
-    }
+    // if (req.body.senha.length < 8) {
+    //     return res.status(500).send({
+    //         error: "errotamanhosenha"
+    //     })
+    // }
 
     if (ValidationNumber(req.body.celular)) {
         return res.status(500).send({

@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import UploadImagem from '../template/upload-imagem'
 import InputMask from 'react-input-mask';
+import getInformacoes from '../../main/api/getInformacoes'
 import cadastrarFarmacia from '../../main/api/cadastrarFarmacia';
 import Menu from '../template/menu'
 import Image from '../../images/default-Upload.png';
 import AlterarSucesso from '../template/AlterarSucesso'
 import AlterarErro from '../template/AlterarErro'
+import alterarFarmacia from '../../main/api/alterarFarmacia';
 
 export default class AlterarDrogaria extends Component {
     constructor() {
         super()
         this.state = {
+            id_Farmacia: "",
             nomeEmpresa: "",
             image: {},
             cnpj: "",
+            foto: '',
+            ativo: "",
+            senha: "",
             endereco: "",
             telefone: "",
             taxa: "",
@@ -23,6 +29,25 @@ export default class AlterarDrogaria extends Component {
             alteracaoSucesso: "d-none",
             alteracaoErro: "d-none"
         }
+        const cnpj = localStorage.getItem('estabelecimento');
+        getInformacoes(cnpj, 'farmacia').then(res => {
+            console.log(res);
+            this.setState({
+                id_Farmacia: res.id_Farmacia,
+                nomeEmpresa: res.nome,
+                foto: res.foto,
+                ativo: res.ativo,
+                senha: res.senha,
+                image: {},
+                cnpj: res.cnpj,
+                endereco: res.endereco,
+                telefone: res.telefone,
+                taxa: res.taxa,
+                detalhes: res.detalhes,
+                email: res.email
+            })
+            console.log(this.state)
+        })
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
             const campo = e.target.name
@@ -31,31 +56,19 @@ export default class AlterarDrogaria extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            //CUIDADO AQUI EMBAIXO Ó 
-            // cadastrarFarmacia(this.state).then(res => {
-            //     if (res) {
-            //         this.setState({
-            //             nomeEmpresa: "",
-            //             image: {},
-            //             cnpj: "",
-            //             endereco: "",
-            //             telefone: "",
-            //             detalhes: "",
-            //             taxa: "",
-            //             email: ""                    
-            //         })
-            //     }
-            // });
-            if(true){
-                this.setState({
-                    alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
-                })
-            }else{
-                this.setState({
-                    alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
-                })
-
-            }
+            alterarFarmacia(this.state).then(res => {
+                if(res == true){
+                    this.setState({
+                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
+                    })
+                }else{
+                    this.setState({
+                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
+                    })
+    
+                }
+            })
+            
         }
     }
 
@@ -75,7 +88,7 @@ export default class AlterarDrogaria extends Component {
                                 <AlterarErro />
                             </div>
                             <div className='col-12'>
-                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : Image} onChange={(event) => {
+                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `http://localhost:3001/uploads/farmacia/${this.state.foto}`} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
                                 }} />
                             </div>
@@ -85,7 +98,7 @@ export default class AlterarDrogaria extends Component {
                             </div>
                             <div className='form-group col-5 pt-1'>
                                 <label htmlFor="cnpj" className='font-weight-bold mb-0'>CNPJ</label>
-                                <InputMask mask="99.999.999/9999-99" className=" form-control form-control-sm" id="cnpj" placeholder='__.___.___/____-__' name="cnpj" value={this.state.cnpj} onChange={this.onChange} />
+                                <InputMask mask="99.999.999/9999-99" disabled={true} className=" form-control form-control-sm" id="cnpj" placeholder='__.___.___/____-__' name="cnpj" value={this.state.cnpj} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-2 pt-1'>
                                 <label htmlFor="endereco" className='font-weight-bold mb-0'>Taxa</label>
@@ -97,7 +110,7 @@ export default class AlterarDrogaria extends Component {
                             </div>
                             <div className='form-group col-4 pt-1'>
                                 <label htmlFor="email" className='font-weight-bold mb-0'>E-mail</label>
-                                <input type="text" className=" form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
+                                <input type="text" disabled={true} className=" form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-2 pt-1'>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
