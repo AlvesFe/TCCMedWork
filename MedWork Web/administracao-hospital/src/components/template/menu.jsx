@@ -7,12 +7,12 @@ import './menu.css'
 export default props => (
     <div className="Menu col-md-4 col-lg-3 d-none d-lg-block">
         <a href="#/inicio"><h4 className='text-center'><Logotipo /></h4></a>
-        <a href="#/pesquisar-medico">
+        <a href="#/pesquisar-funcionario">
             <i className="search icon mr-3"></i>
-             Pesquisar médico
+             Pesquisar funcionário
         </a>
         <a href="#cadastrar-medico">
-            <i className="user icon mr-3"></i>
+            <i className="user md icon mr-3"></i>
             Cadastrar médico
         </a>
         <a href="#/cadastrar-recepcionista">

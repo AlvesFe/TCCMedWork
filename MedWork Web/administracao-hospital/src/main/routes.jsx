@@ -4,7 +4,7 @@ import { Router, Route, Redirect, hashHistory } from 'react-router'
 import Login from '../components/login/Login'
 import Recuperacao from '../components/login/Recuperacao'
 import ValidacaoCodigo from '../components/login/Confirmar'
-import PesquisarMedico from '../components/pesquisar-medico'
+import PesquisarFuncionario from '../components/pesquisar-funcionario'
 import CadastrarMedico from '../components/cadastrar-medico'
 import CadastrarRecepcionista from '../components/cadastrar-recepcionista'
 import CentroAjuda from '../components/centro-ajuda'
@@ -16,8 +16,8 @@ export default function routes() {
     if (isAuth()) {
         return(
             <Router history={hashHistory}>
-                <Route path='/inicio' component={PesquisarMedico} />
-                <Route path='/pesquisar-medico' component={PesquisarMedico} />
+                <Route path='/inicio' component={PesquisarFuncionario} />
+                <Route path='/pesquisar-funcionario' component={PesquisarFuncionario} />
                 <Route path='/cadastrar-medico' component={CadastrarMedico} />
                 <Route path='/cadastrar-recepcionista' component={CadastrarRecepcionista } />
                 <Route path='/centro-de-ajuda' component={CentroAjuda} />
