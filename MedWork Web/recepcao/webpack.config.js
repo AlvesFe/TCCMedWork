@@ -10,6 +10,18 @@ module.exports = {
     devServer: {
         port: 8082,
         contentBase: './public',
+        proxy: {
+            '/api': {
+                target: {
+                    host: "localhost",
+                    protocol: 'http:',
+                    port: 3001
+                },
+                pathRewrite: {
+                    '^/api': ''
+                }
+            }
+        }
     },
     resolve: {
         extensions: ['', '.js', '.jsx'],

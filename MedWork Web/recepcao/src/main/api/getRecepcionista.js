@@ -1,9 +1,5 @@
 import Axios from 'axios'
-import variables from "./variables";
 import jwt_decode from "jwt-decode";
-
-const env = variables()
-const { API_URL } = env
 
 export default function getRecepcionista() {
 
@@ -21,7 +17,7 @@ export default function getRecepcionista() {
 
     Axios({
         method: 'post',
-        url: API_URL + "/recepcionista/get",
+        url: "/api/recepcionista/get",
         data,
         headers: {
             'Access-Control-Allow-Origin': '*',

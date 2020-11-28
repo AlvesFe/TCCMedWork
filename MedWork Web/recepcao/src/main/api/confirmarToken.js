@@ -1,10 +1,5 @@
 import React from 'react'
 import Axios from 'axios'
-import variables from "./variables";
-
-const env = variables()
-const { API_URL } = env
-
 
 export default function confirmarToken(dados) {
 
@@ -14,7 +9,7 @@ export default function confirmarToken(dados) {
 
     return Axios({
         method: 'post',
-        url: API_URL + "/recepcionista/confirmetoken",
+        url: "/api/recepcionista/confirmetoken",
         data: dados,
         headers: {
             'Access-Control-Allow-Origin': '*',
