@@ -5,6 +5,9 @@ import Login from '../components/login/Login'
 import Recuperacao from '../components/login/Recuperacao'
 import ValidacaoCodigo from '../components/login/Confirmar'
 import PesquisarFuncionario from '../components/pesquisar-funcionario'
+import TodosOsFuncionarios from '../components/todos-os-funcionarios'
+import AlterarMedico from '../components/alterar-funcionarios/alterar-medico'
+import AlterarRecepcionista from '../components/alterar-funcionarios/alterar-recepcionista'
 import CadastrarMedico from '../components/cadastrar-medico'
 import CadastrarRecepcionista from '../components/cadastrar-recepcionista'
 import CentroAjuda from '../components/centro-ajuda'
@@ -18,6 +21,9 @@ export default function routes() {
             <Router history={hashHistory}>
                 <Route path='/inicio' component={PesquisarFuncionario} />
                 <Route path='/pesquisar-funcionario' component={PesquisarFuncionario} />
+                <Route path='/todos-os-funcionarios' component={TodosOsFuncionarios} />
+                <Route path='/alterar-medico' component={AlterarMedico} />
+                <Route path='/alterar-recepcionista' component={AlterarRecepcionista} />
                 <Route path='/cadastrar-medico' component={CadastrarMedico} />
                 <Route path='/cadastrar-recepcionista' component={CadastrarRecepcionista } />
                 <Route path='/centro-de-ajuda' component={CentroAjuda} />

@@ -79,7 +79,7 @@ class PesquisarFuncionario extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="border border-muted">
+                                <div className="border border-muted" >
                                     <a className=" collapsed text-dark" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" name='recepcionista' onClick={this.onClickRecepcionista}>
                                         <div className="card-header" id="cabecalho-2">
                                             <h3>
@@ -97,6 +97,16 @@ class PesquisarFuncionario extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div className="border border-muted">
+                                    <a className=" collapsed text-dark" href='#/todos-os-funcionarios'>
+                                        <div className="card-header" >
+                                            <h3>
+                                                <i className="users icon"></i>
+                                                 Ver todos os funcionário
+                                            </h3>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
