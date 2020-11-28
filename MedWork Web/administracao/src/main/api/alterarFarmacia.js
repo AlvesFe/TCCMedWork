@@ -13,16 +13,16 @@ export default function alterarFarmacia(dados) {
         telefone: dados.telefone.replace(/[^\d]+/g, ''),
         endereco: dados.endereco,
         detalhes: dados.detalhes,
+        taxa: dados.taxa,
         ativo: dados.ativo,
         senha: dados.senha,
         image: dados.image,
     }
-    const dataFinal = new FormData();
-    for (const key in data) {
-        dataFinal.append(key, data[key])
-    }
+    let dataFinal = new FormData();
 
-    console.log(data);
+    for (const key in data) {
+        dataFinal.append(key, data[key]);
+    }
     return Axios({
         method: 'PATCH',
         url: "/api/farmacia",
