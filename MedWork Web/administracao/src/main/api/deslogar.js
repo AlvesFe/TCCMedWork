@@ -11,6 +11,8 @@ export function deslogar() {
         cancelButtonText: 'Cancelar',
         confirmButtonText: 'Sair',
     }).then(result => {
+        console.log(result.isConfirmed)
+
         if (result.isConfirmed) {
             localStorage.removeItem('current_user');
             localStorage.removeItem('user_data');

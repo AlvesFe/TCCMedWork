@@ -33,7 +33,7 @@ export default function getEstabelecimentos(dados) {
 
     return Axios({
         method: 'post',
-        url: API_URL + "/estabelecimentos/get",
+        url: "/api/estabelecimentos/get",
         data,
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -42,13 +42,9 @@ export default function getEstabelecimentos(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data);
-        return PegarInformacoes(data.data[0].Estabelecimento).then(dados => {
-            Event("Dados Encontrados");
-            return dados
-        });
-        
+        localStorage.setItem('estabelecimento', data.data[0].cnpj)  
+        return data.data[0]
     }).catch(err => {
-        console.log(err.response);
+        return err
     })
 }

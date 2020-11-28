@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import getAllEstabelecimentos from '../main/api/getAllEstabelecimentos';
 import getEstabelecimentos from '../main/api/getEstabelecimentos';
 import InputMask from 'react-input-mask';
 import Menu from './template/menu'
@@ -10,6 +9,7 @@ class PesquisarEstabelecimento extends Component {
         super()
         this.state = {
             cnpj: "",
+            pesquisa: "alert alert-danger text-center d-none"
         }
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -19,10 +19,30 @@ class PesquisarEstabelecimento extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
-            getEstabelecimentos(this.state.cnpj).then(response =>  {
-                console.log(response);
-            });
+            getEstabelecimentos(this.state.cnpj)
+            .then(res => {
+                if (res.Estabelecimento) {
+                    switch (res.Estabelecimento) {
+                        case "hospital":
+                            window.location.assign('#/alterar-hospital')
+                            break;
+
+                        case "farmacia":
+                            window.location.assign('#/alterar-drogaria')
+                            break;
+
+                        default:
+                            this.setState({
+                                pesquisa: "alert alert-danger text-center"
+                            })
+                            break;
+                    }    
+                }else{
+                    this.setState({
+                        pesquisa: "alert alert-danger text-center animate__animated animate__fadeIn animate__fast"
+                    })
+                }
+            })
         }
     }
 
@@ -34,10 +54,15 @@ class PesquisarEstabelecimento extends Component {
                     <h2 className='text-center font-weight-light'>PESQUISAR ESTABELECIMENTO</h2>
                     <div className='row justify-content-center'>
                         <div className="col-8 py-2">
+                            <div>
+                                <div className={this.state.pesquisa} role="alert">
+                                    CNPJ NÃO CADASTRADO!
+                                </div>
+                            </div>
                             <label htmlFor="pesquisarEstabelecimento" className='font-weight-bold mb-0'>CNPJ</label>
-                            <InputMask mask="99.999.999/9999-99" className="form-control form-control-lg" id="pesquisarEstabelecimento" name="cnpj" placeholder='61.585.865/0240-93' value={this.state.cnpj} onChange={this.onChange} />
+                            <InputMask mask="99.999.999/9999-99" className="form-control form-control-lg" id="pesquisarEstabelecimento" name="cnpj" placeholder='__.___.___/____-__' value={this.state.cnpj} onChange={this.onChange} />
                             <div className='text-center py-3'>
-                                <button className='btn-roxo'  onClick={this.onSubmit}>PESQUISAR</button>
+                                <button className='btn-roxo' onClick={this.onSubmit}>PESQUISAR</button>
                             </div>
                         </div>
                     </div>

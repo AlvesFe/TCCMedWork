@@ -69,7 +69,7 @@ export default class CadastrarHospital extends Component {
                             </div>
                             <div className='form-group col-6 py-1'>
                                 <label htmlFor="cnpj" className='font-weight-bold mb-0'>CNPJ</label>
-                                <InputMask mask="99.999.999/9999-99" className="form-control form-control-sm " id="cnpj" placeholder='xx.xxx.xxx/xxxx-xx' name='cnpj' value={this.state.cnpj} onChange={this.onChange} />
+                                <InputMask mask="99.999.999/9999-99" className="form-control form-control-sm " id="cnpj" placeholder='__.___.___/____-__' name='cnpj' value={this.state.cnpj} onChange={this.onChange} />
                             </div>
 
                             <div className='form-group col-8 py-1'>
@@ -78,7 +78,7 @@ export default class CadastrarHospital extends Component {
                             </div>
                             <div className='form-group col-4 py-1'>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
-                                <InputMask mask="(99) 9999-9999" className="form-control form-control form-control-sm " id="telefone" placeholder='(xx) xxxx-xxxx' name='telefone' value={this.state.telefone} onChange={this.onChange} />
+                                <InputMask mask="(99) 9999-9999" className="form-control form-control form-control-sm " id="telefone" placeholder='(__) ____-____' name='telefone' value={this.state.telefone} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-4 py-1'>
                                 <label htmlFor="email" className='font-weight-bold mb-0'>E-mail</label>
