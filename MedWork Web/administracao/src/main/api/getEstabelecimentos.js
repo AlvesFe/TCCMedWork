@@ -27,7 +27,7 @@ export default function getEstabelecimentos(dados) {
         }).then(res => {
             return res.data.data[0];
         }).catch(error => {
-            console.log(error.response);
+            // console.log(error.response);
         })
     }
 

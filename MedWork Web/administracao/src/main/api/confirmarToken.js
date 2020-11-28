@@ -25,13 +25,13 @@ export default function confirmarToken(dados) {
         }
     }).then(response => {
         const {data} = response;
-        console.log(data);
+        // console.log(data);
         localStorage.setItem('token_reset', dados.token)
         window.location.assign('#/redefinir-senha');
         return true;
     }).catch(err => {
         Event(err.response.data.error);
-        console.log(err.response.data.error);
+        // console.log(err.response.data.error);
         return false;
     })
  }
