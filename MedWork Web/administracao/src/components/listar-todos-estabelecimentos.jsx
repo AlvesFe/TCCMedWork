@@ -23,6 +23,10 @@ export default class ListarEstabelecimento extends Component {
 
             this.setState({estabelecimentos: estabelecimentos})
         });
+
+        this.onClick = (value) => {
+
+        }
     }
 
 
@@ -38,7 +42,7 @@ export default class ListarEstabelecimento extends Component {
                             {   
                                 this.state.estabelecimentos[0] &&
                                 this.state.estabelecimentos.map((item, key) => (
-                                    (<ListagemEstabelecimento key={key} tipo={item.tipo} estabelecimento={item}/>)
+                                    (<ListagemEstabelecimento key={key}  tipo={item.tipo} estabelecimento={item}/>)
                                 ))
                             }
 

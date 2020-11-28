@@ -14,7 +14,7 @@ function UploadImagem(props){
                     <img src={`/api/uploads/${lowerTipo}/${estabelecimento.foto}`} />
                 </div>
                 <div className="content">
-                    <a className="header">{estabelecimento.nome}</a>
+                    <a onClick={ alterarEstabelecimento(estabelecimento, tipo)} className="header">{estabelecimento.nome}</a>
                     <div className="meta">
                         <div className="ui label"><i className="building icon"></i> {tipo}</div> <span className="cinema">CNPJ: {estabelecimento.cnpj}</span>
                     </div>
@@ -31,4 +31,21 @@ export default UploadImagem
 
 
 
+
+function alterarEstabelecimento(estabelecimento, tipo) {
+    return () => {
+        localStorage.setItem('estabelecimento', estabelecimento.cnpj);
+        if (tipo) {
+            switch (tipo) {
+                case "Hospital":
+                    window.location.assign('#/alterar-hospital');
+                    break;
+
+                case "Farmacia":
+                    window.location.assign('#/alterar-drogaria');
+                    break;
+            }
+        }
+    };
+}
 
