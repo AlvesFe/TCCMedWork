@@ -9,7 +9,6 @@ class PesquisarFuncionario extends Component {
         this.state = {
             crm: "",
             cpf: "",
-            tipo: "",
             PesquisaFuncionario: "d-none"
         }
         this.onChange = (e) => {
@@ -18,27 +17,19 @@ class PesquisarFuncionario extends Component {
             state[campo] = e.target.value
             this.setState(state)
         }
-        this.onSubmit = (e) => {
+        this.onSubmitMedico = (e) => {
             e.preventDefault()
             this.setState({
                 PesquisaFuncionario: ""
             })
             // getMedico(this.state);
         }
-        this.onClickMedico = (e) => {
+        this.onSubmitRecepcionista = (e) => {
             e.preventDefault()
             this.setState({
-                tipo: "medico"
+                PesquisaFuncionario: ""
             })
-            console.log(this.state.tipo)
-        }
-
-        this.onClickRecepcionista = (e) => {
-            e.preventDefault()
-            this.setState({
-                tipo: "recepcionista"
-            })
-            console.log(this.state.tipo)
+            // getMedico(this.state);
         }
     }
 
@@ -61,7 +52,7 @@ class PesquisarFuncionario extends Component {
 
                             <div className="accordion" id="Accordion">
                                 <div className="border border-muted">
-                                    <a className="collapsed text-dark" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" name='medico' onClick={this.onClickMedico}>
+                                    <a className="collapsed text-dark" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" name='medico'>
                                         <div className="card-header" id="cabecalho-1">
                                             <h3>
                                                 <i className="user md icon"></i>
@@ -74,13 +65,13 @@ class PesquisarFuncionario extends Component {
                                             <label htmlFor="pesquisarMedico" className='font-weight-bold'>CRM</label>
                                             <input type="text" className="form-control form-control-lg" id="pesquisarMedico" name="crm" value={this.state.crm} onChange={this.onChange} placeholder='__.___-__' />
                                             <div className='text-center pt-2'>
-                                                <button className='btn-roxo' onClick={this.onSubmit} >PESQUISAR</button>
+                                                <button className='btn-roxo' onClick={this.onSubmitMedico} >PESQUISAR</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="border border-muted" >
-                                    <a className=" collapsed text-dark" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" name='recepcionista' onClick={this.onClickRecepcionista}>
+                                <div className="border border-muted">
+                                    <a className=" collapsed text-dark" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" name='recepcionista'>
                                         <div className="card-header" id="cabecalho-2">
                                             <h3>
                                                 <i className="user icon"></i>
@@ -93,7 +84,7 @@ class PesquisarFuncionario extends Component {
                                             <label htmlFor="pesquisarRecepcionista" className='font-weight-bold'>CPF</label>
                                             <input type="text" className="form-control form-control-lg" id="pesquisarRecepcionista" name="cpf" value={this.state.cpf} onChange={this.onChange} placeholder='___.___.___-__' />
                                             <div className='text-center py-3'>
-                                                <button className='btn-roxo' onClick={this.onSubmit} >PESQUISAR</button>
+                                                <button className='btn-roxo' onClick={this.onSubmitRecepcionista} >PESQUISAR</button>
                                             </div>
                                         </div>
                                     </div>
