@@ -5,6 +5,8 @@ import getInformacoes from '../../main/api/getInformacoes'
 import cadastrarFarmacia from '../../main/api/cadastrarFarmacia';
 import Menu from '../template/menu'
 import Image from '../../images/default-Upload.png';
+import AlterarSucesso from '../template/AlterarSucesso'
+import AlterarErro from '../template/AlterarErro'
 import alterarFarmacia from '../../main/api/alterarFarmacia';
 
 export default class AlterarDrogaria extends Component {
@@ -22,7 +24,10 @@ export default class AlterarDrogaria extends Component {
             telefone: "",
             taxa: "",
             detalhes: "",
-            email: ""
+            email: "",
+            senhaProvisoria: "",
+            alteracaoSucesso: "d-none",
+            alteracaoErro: "d-none"
         }
         const cnpj = localStorage.getItem('estabelecimento');
         getInformacoes(cnpj, 'farmacia').then(res => {
@@ -51,8 +56,19 @@ export default class AlterarDrogaria extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            //console.log(this.state)
-            alterarFarmacia(this.state);
+            alterarFarmacia(this.state).then(res => {
+                if(res == true){
+                    this.setState({
+                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
+                    })
+                }else{
+                    this.setState({
+                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
+                    })
+    
+                }
+            })
+            
         }
     }
 
@@ -65,6 +81,12 @@ export default class AlterarDrogaria extends Component {
                     <h2 className='text-center font-weight-light'>ALTERAR DROGARIA</h2>
                     <div className='row justify-content-center py-2'>
                         <div className="col-10 form-row">
+                            <div className={this.state.alteracaoSucesso}>
+                                <AlterarSucesso />
+                            </div>
+                            <div className={this.state.alteracaoErro}>
+                                <AlterarErro />
+                            </div>
                             <div className='col-12'>
                                 <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `http://localhost:3001/uploads/farmacia/${this.state.foto}`} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
