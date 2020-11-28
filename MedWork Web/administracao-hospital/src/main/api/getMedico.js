@@ -1,10 +1,7 @@
 import Axios from 'axios'
-import variables from "./variables";
 import Event from '../../event/Alerts'
 import jwt_decode from "jwt-decode";
 
-const env = variables()
-const { API_URL } = env
 
 export default function getMedico(dados) {
 
@@ -16,7 +13,7 @@ export default function getMedico(dados) {
 
     Axios({
         method: 'POST',
-        url: API_URL + "/medico/get",
+        url: "/api/medico/get",
         data,
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -25,7 +22,7 @@ export default function getMedico(dados) {
         }
     }).then(response => {
         const { data } = response;
-        data.data[0] ? Event("Encontrado") : Event("Não Encontrado") 
+        data.data[0] ? Event("Encontrado") : Event("Não Encontrado")
         console.log(data.data[0]);
         return data.data[0];
     }).catch(err => {

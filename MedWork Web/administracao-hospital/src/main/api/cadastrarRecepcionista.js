@@ -1,10 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
-import variables from "./variables";
 import Event from '../../event/Alerts';
-
-const env = variables()
-const { API_URL } = env
 
 export default function cadastrarRecepcionista(dados) {
 
@@ -13,17 +9,17 @@ export default function cadastrarRecepcionista(dados) {
     const userData = JSON.parse(stringData)
 
     const data = {
-        image: dados.image, 
-        nome: dados.nomeMedico, 
-        dt_Nascimento: dados.dataNascimento.replace(/[^\d]+/g,''), 
-        tp_sanguineo: dados.tipoSanguineo, 
-        endereco: dados.endereco, 
-        cpf: dados.cpf.replace(/[^\d]+/g,''), 
-        senha: dados.senhaProvisoria, 
-        rg: dados.rg.replace(/[^\d]+/g,''), 
-        email: dados.email, 
-        celular: dados.celular.replace(/[^\d]+/g,''), 
-        telefone: dados.telefone.replace(/[^\d]+/g,''), 
+        image: dados.image,
+        nome: dados.nomeMedico,
+        dt_Nascimento: dados.dataNascimento.replace(/[^\d]+/g, ''),
+        tp_sanguineo: dados.tipoSanguineo,
+        endereco: dados.endereco,
+        cpf: dados.cpf.replace(/[^\d]+/g, ''),
+        senha: dados.senhaProvisoria,
+        rg: dados.rg.replace(/[^\d]+/g, ''),
+        email: dados.email,
+        celular: dados.celular.replace(/[^\d]+/g, ''),
+        telefone: dados.telefone.replace(/[^\d]+/g, ''),
         fk_id_Hospital: userData.id_Hospital
     }
     const dataFinal = new FormData();
@@ -34,7 +30,7 @@ export default function cadastrarRecepcionista(dados) {
 
     return Axios({
         method: 'POST',
-        url: API_URL + "/recepcionista",
+        url: "/api/recepcionista",
         data: dataFinal,
         headers: {
             'Access-Control-Allow-Origin': '*',

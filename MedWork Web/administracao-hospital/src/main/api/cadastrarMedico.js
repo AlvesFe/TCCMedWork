@@ -1,10 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
-import variables from "./variables";
 import Event from '../../event/Alerts';
-
-const env = variables()
-const { API_URL } = env
 
 export default function cadastrarMedico(dados) {
 
@@ -18,13 +14,13 @@ export default function cadastrarMedico(dados) {
         email: dados.email,
         nome: dados.nomeMedico,
         especialidade: dados.especialidade,
-        telefone: dados.telefone.replace(/[^\d]+/g,''),
-        celular: dados.celular.replace(/[^\d]+/g,''),
-        dt_Nascimento: dados.dataNascimento.replace(/[^\d]+/g,''),
+        telefone: dados.telefone.replace(/[^\d]+/g, ''),
+        celular: dados.celular.replace(/[^\d]+/g, ''),
+        dt_Nascimento: dados.dataNascimento.replace(/[^\d]+/g, ''),
         senha: dados.senhaProvisoria,
         tp_sanguineo: dados.tipoSanguineo,
-        cpf: dados.cpf.replace(/[^\d]+/g,''),
-        rg: dados.rg.replace(/[^\d]+/g,''),
+        cpf: dados.cpf.replace(/[^\d]+/g, ''),
+        rg: dados.rg.replace(/[^\d]+/g, ''),
         fk_id_Hospital: userData.id_Hospital
     }
 
@@ -36,7 +32,7 @@ export default function cadastrarMedico(dados) {
 
     return Axios({
         method: 'POST',
-        url: API_URL + "/medico",
+        url: "/api/medico",
         data: dataFinal,
         headers: {
             'Access-Control-Allow-Origin': '*',

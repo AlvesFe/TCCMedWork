@@ -1,9 +1,5 @@
 import React from 'react'
 import Axios from 'axios'
-import variables from "./variables";
-
-const env = variables()
-const { API_URL } = env
 
 
 export default function alterarSenha(dados) {
@@ -17,7 +13,7 @@ export default function alterarSenha(dados) {
     console.log(dados);
     return Axios({
         method: 'PATCH',
-        url: API_URL + "/hospital/resetarsenha",
+        url: "/api/hospital/resetarsenha",
         data: dados,
         headers: {
             'Access-Control-Allow-Origin': '*',
