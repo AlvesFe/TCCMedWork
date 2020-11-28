@@ -67,10 +67,6 @@ export default function PerfilPage() {
     getUserData();
   }, [])
 
-  useEffect(() => {
-    if(user) console.log(user)
-  },[user])
-
   return (
     <>
       <Appbar.Header

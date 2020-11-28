@@ -25,13 +25,13 @@ export default function alterarSenha(dados) {
         }
     }).then(response => {
         const {data} = response;
-        console.log(data);
+        // console.log(data);
         localStorage.removeItem('token_reset')
         window.location.assign('#/login');
         return true;
     }).catch(err => {
         Event(err.response.data.error);
-        console.log(err.response.data.error);
+        // console.log(err.response.data.error);
         return false;
     })
  }

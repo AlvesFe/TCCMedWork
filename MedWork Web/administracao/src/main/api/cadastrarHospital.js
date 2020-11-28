@@ -42,13 +42,13 @@ export default function cadastrarHospital(dados) {
         }
     }).then(response => {
         const {data} = response;
-        console.log(data)
+        // console.log(data)
         Event(data.mensagem)
         return true
         
     }).catch(err => {
         Event(err.response.data.error);
-        console.log(err.response.data.error);
+        // console.log(err.response.data.error);
         return false
     })
  }
