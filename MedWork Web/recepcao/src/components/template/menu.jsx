@@ -22,7 +22,7 @@ export default props => (
             <i className="cog icon mr-3"></i>
             Configurações
         </a>
-        <a href="#/sair" onClick={deslogar}>
+        <a className="fixed-bottom" style={{width: (window.innerWidth/12)*3}} href="#" onClick={deslogar}>
             <i className="sign-out icon mr-3"></i>
             Sair
         </a>
