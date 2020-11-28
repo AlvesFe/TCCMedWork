@@ -32,20 +32,20 @@ export default class AlterarDrogaria extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
             //CUIDADO AQUI EMBAIXO Ó 
-            cadastrarFarmacia(this.state).then(res => {
-                if (res) {
-                    this.setState({
-                        nomeEmpresa: "",
-                        image: {},
-                        cnpj: "",
-                        endereco: "",
-                        telefone: "",
-                        detalhes: "",
-                        taxa: "",
-                        email: ""                    
-                    })
-                }
-            });
+            // cadastrarFarmacia(this.state).then(res => {
+            //     if (res) {
+            //         this.setState({
+            //             nomeEmpresa: "",
+            //             image: {},
+            //             cnpj: "",
+            //             endereco: "",
+            //             telefone: "",
+            //             detalhes: "",
+            //             taxa: "",
+            //             email: ""                    
+            //         })
+            //     }
+            // });
             if(true){
                 this.setState({
                     alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"

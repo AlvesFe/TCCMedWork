@@ -4,6 +4,8 @@ import InputMask from 'react-input-mask';
 import cadastrarFarmacia from '../../main/api/cadastrarFarmacia';
 import Menu from '../template/menu'
 import Image from '../../images/default-Upload.png';
+import AlterarSucesso from '../template/AlterarSucesso'
+import AlterarErro from '../template/AlterarErro'
 
 export default class AlterarHospital extends Component {
     constructor() {
@@ -17,7 +19,9 @@ export default class AlterarHospital extends Component {
             taxa: "",
             detalhes: "",
             email: "",
-            senhaProvisoria: ""
+            senhaProvisoria: "",
+            alteracaoSucesso: "d-none",
+            alteracaoErro: "d-none"
         }
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -27,21 +31,31 @@ export default class AlterarHospital extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            //console.log(this.state)
-            cadastrarFarmacia(this.state).then(res => {
-                if (res) {
-                    this.setState({
-                        nomeEmpresa: "",
-                        image: {},
-                        cnpj: "",
-                        endereco: "",
-                        telefone: "",
-                        detalhes: "",
-                        taxa: "",
-                        email: ""
-                    })
-                }
-            });
+            //CUIDADO AQUI EMBAIXO Ó
+            // cadastrarFarmacia(this.state).then(res => {
+            //     if (res) {
+            //         this.setState({
+            //             nomeEmpresa: "",
+            //             image: {},
+            //             cnpj: "",
+            //             endereco: "",
+            //             telefone: "",
+            //             detalhes: "",
+            //             taxa: "",
+            //             email: ""
+            //         })
+            //     }
+            // });
+            if(false){
+                this.setState({
+                    alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
+                })
+            }else{
+                this.setState({
+                    alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
+                })
+
+            }
         }
     }
 
@@ -54,6 +68,12 @@ export default class AlterarHospital extends Component {
                     <h2 className='text-center font-weight-light'>ALTERAR HOSPITAL</h2>
                     <div className='row justify-content-center py-3'>
                         <div className="col-10 py-2 form-row">
+                        <div className={this.state.alteracaoSucesso}>
+                                <AlterarSucesso />
+                            </div>
+                            <div className={this.state.alteracaoErro}>
+                                <AlterarErro />
+                            </div>
                             <div className='col-12 mb-1'>
                                 <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : Image} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
