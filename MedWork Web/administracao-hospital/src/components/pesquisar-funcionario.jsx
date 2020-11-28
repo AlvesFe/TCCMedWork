@@ -90,14 +90,31 @@ class PesquisarFuncionario extends Component {
                                     </div>
                                 </div>
                                 <div className="border border-muted">
-                                    <a className=" collapsed text-dark" href='#/todos-os-funcionarios'>
-                                        <div className="card-header" >
+                                    <a className=" collapsed text-dark" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" name='recepcionista'>
+                                        <div className="card-header" id="cabecalho-3">
                                             <h3>
-                                                <i className="users icon"></i>
-                                                 Ver todos os funcionário
+                                                <i className="search icon"></i>
+                                                Busca generalizada (todos)
                                             </h3>
                                         </div>
                                     </a>
+                                    <div id="collapseThree" className="collapse" aria-labelledby="cabecalho-3" data-parent="#Accordion">
+                                        <div className="card-body text-center">
+                                            <div className='clearfix'>
+                                                <a href="#/todos-os-medicos" className='btn-roxo float-left'>
+                                                        <i className="user md icon"></i> MÉDICOS
+                                                </a>
+                                                <a href="#/todos-os-recepcionistas" className='btn-roxo'>
+                                                        <i className="user icon"></i> RECEPCIONISTAS
+                                                </a>
+                                                <a href="#/todos-os-funcionarios" className='btn-roxo float-right'>
+                                                        <i className="users icon"></i> FUNCIONÁRIOS
+                                                </a>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -6,6 +6,8 @@ import Recuperacao from '../components/login/Recuperacao'
 import ValidacaoCodigo from '../components/login/Confirmar'
 import PesquisarFuncionario from '../components/pesquisar-funcionario'
 import TodosOsFuncionarios from '../components/todos-os-funcionarios'
+import TodosOsMedicos from '../components/todos-os-medicos'
+import TodosOsRecepcionistas from '../components/todos-os-recepcionistas'
 import AlterarMedico from '../components/alterar-funcionarios/alterar-medico'
 import AlterarRecepcionista from '../components/alterar-funcionarios/alterar-recepcionista'
 import CadastrarMedico from '../components/cadastrar-medico'
@@ -22,6 +24,8 @@ export default function routes() {
                 <Route path='/inicio' component={PesquisarFuncionario} />
                 <Route path='/pesquisar-funcionario' component={PesquisarFuncionario} />
                 <Route path='/todos-os-funcionarios' component={TodosOsFuncionarios} />
+                <Route path='/todos-os-medicos' component={TodosOsMedicos} />
+                <Route path='/todos-os-recepcionistas' component={TodosOsRecepcionistas} />
                 <Route path='/alterar-medico' component={AlterarMedico} />
                 <Route path='/alterar-recepcionista' component={AlterarRecepcionista} />
                 <Route path='/cadastrar-medico' component={CadastrarMedico} />
