@@ -24,9 +24,9 @@ export default function alterarSenha(dados) {
         window.location.assign('#/login')
         localStorage.removeItem('token_reset')
         return true
-        console.log(data);
+        // console.log(data);
     }).catch(err => {
         return false
-        console.log(err);
+        // console.log(err);
     })
 }

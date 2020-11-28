@@ -22,6 +22,6 @@ export default function recuperarSenha(dados) {
         return true;
     }).catch(err => {
         return false;
-        console.log(err);
+        // console.log(err);
     })
 }
