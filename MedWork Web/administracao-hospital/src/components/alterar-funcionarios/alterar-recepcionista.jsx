@@ -8,7 +8,7 @@ import Image from '../../images/default-Upload.png';
 import AlterarSucesso from '../template/AlterarSucesso'
 // import AlterarErro from '../template/AlterarErro'
 
-export default class AlterarHospital extends Component {
+export default class AlterarRecepcionista extends Component {
     constructor() {
         // let cnpj = localStorage.getItem('estabelecimento')
         // getInformacoes(cnpj, 'hospital').then(res => {
@@ -69,7 +69,7 @@ export default class AlterarHospital extends Component {
             <div className='row bg-white'>
                 <Menu />
                 <div className='container col-md-8 pt-4 col-lg-9 animate__animated animate__fadeIn animate__fast '>
-                    <h2 className='text-center font-weight-light'>ALTERAR HOSPITAL</h2>
+                    <h2 className='text-center font-weight-light'>ALTERAR RECEPCIONISTA</h2>
                     <div className='row justify-content-center py-3'>
                         <div className="col-10 py-2 form-row">
                             <div className={this.state.alteracaoSucesso}>
@@ -79,7 +79,7 @@ export default class AlterarHospital extends Component {
                                 <AlterarErro />
                             </div>
                             <div className='col-12 mb-1'>
-                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `http://localhost:3001/uploads/hospital/${this.state.foto}`} onChange={(event) => {
+                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `http://localhost:3001/uploads/recepcionista/${this.state.foto}`} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
                                 }} />
                             </div>
@@ -105,7 +105,6 @@ export default class AlterarHospital extends Component {
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
                                 <InputMask mask="(99) 9999-9999" className="form-control form-control form-control-sm " id="telefone" placeholder='(__) ____-____' name='telefone' value={this.state.telefone} onChange={this.onChange} />
                             </div>
-
                         </div>
                         <div className='col-12 text-center py-2'>
                             <button className='btn-roxo' onClick={this.onSubmit} >SALVAR ALTERAÇÕES</button>
