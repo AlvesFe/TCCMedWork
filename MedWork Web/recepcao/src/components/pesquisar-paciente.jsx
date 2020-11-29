@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import getPaciente from '../main/api/getPaciente';
-import CadastrarPaciente from './cadastrar-paciente';
 import InputMask from 'react-input-mask';
 import Menu from './template/menu'
 

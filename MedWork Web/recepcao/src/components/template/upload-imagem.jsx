@@ -4,7 +4,7 @@ const UploadImagem = ({ onChange, src }) => (
     <div className='container text-center bg-light border borde-muted rounded py-2' >
         <div className="py-2">
             <label htmlFor="image">
-                <img width="300px" height="250px" className="rounded pointer" src={src} alt="" />
+                <img width="240px" height="130px" className="rounded pointer" src={src} alt="" />
             </label>
         </div>
         <div className="input-group">

@@ -103,7 +103,7 @@ export default function Event(Action) {
             break;
         case "Paciente Cadastrado":
             Toast.fire({
-                icon: 'sucess',
+                icon: 'success',
                 title: 'Paciente Cadastrado!'
             })
             break;
