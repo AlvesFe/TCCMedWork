@@ -24,7 +24,13 @@ export default class CadastrarHospital extends Component {
             celular: "",
             telefone: "",
             senhaProvisoria: "",
-            alergia: ""
+            alergia: "",
+            height: window.innerHeight
+        }
+        window.onresize = () =>{
+            this.setState({
+                ...this.state, height: window.innerHeight
+            })
         }
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -38,6 +44,7 @@ export default class CadastrarHospital extends Component {
                 if (res == true) {
                     if (req) {
                         this.setState({
+                            ...this.state,
                             nomeMedico: "",
                             image: {},
                             dataNascimento: "",
@@ -66,7 +73,7 @@ export default class CadastrarHospital extends Component {
         return (
             <div className='row bg-white'>
                 <Menu />
-                <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast'>
+                <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast overflow-auto' style={{height: this.state.height}}>
                     <h2 className='text-center font-weight-light'>CADASTRAR MÉDICO</h2>
                     <div className='row justify-content-center'>
                         <div className='col-12'>
