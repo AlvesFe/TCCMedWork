@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import getEstabelecimentos from '../main/api/getEstabelecimentos';
 import InputMask from 'react-input-mask';
 import Menu from './template/menu'
+import Event from '../event/Alerts';
 
 class PesquisarEstabelecimento extends Component {
 
@@ -35,12 +36,14 @@ class PesquisarEstabelecimento extends Component {
                             this.setState({
                                 pesquisa: "alert alert-danger text-center"
                             })
+                            Event("Não Encontrado")
                             break;
                     }    
                 }else{
                     this.setState({
                         pesquisa: "alert alert-danger text-center animate__animated animate__fadeIn animate__fast"
                     })
+                    Event("Não Encontrado")
                 }
             })
         }
