@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import getMedico from '../main/api/getMedico';
+import getRecepcionista from '../main/api/getRecepcionista';
+import getAllRecepcionista from '../main/api/getAllRecepcionista'
 import Menu from './template/menu'
+import getAllMedicos from '../main/api/getAllMedicos';
 
 class PesquisarFuncionario extends Component {
 
@@ -22,12 +25,31 @@ class PesquisarFuncionario extends Component {
             this.setState({
                 PesquisaFuncionario: ""
             })
-            // getMedico(this.state);
+            getMedico(this.state).then(res => {
+                console.log(res);
+            });
         }
         this.onSubmitRecepcionista = (e) => {
             e.preventDefault()
             this.setState({
                 PesquisaFuncionario: ""
+            })
+            getRecepcionista(this.state).then(res => {
+                console.log(res);
+            })
+            // getMedico(this.state);
+        }
+        this.onSubmitAllRecepcionista = (e) => {
+            e.preventDefault()
+            getAllRecepcionista().then(res => {
+                console.log(res);
+            })
+            // getMedico(this.state);
+        }
+        this.onSubmitAllMedicos = (e) => {
+            e.preventDefault()
+            getAllMedicos().then(res => {
+                console.log(res);
             })
             // getMedico(this.state);
         }
