@@ -8,9 +8,8 @@ export default function getMedico(dados) {
     const token = localStorage.getItem('current_user')
 
     const data = {
-        crm: dados.crm
+        crm: dados.crm.replace(/[.-]+/g, '')
     }
-
     return Axios({
         method: 'POST',
         url: "/api/medico/get",
