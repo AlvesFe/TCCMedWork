@@ -21,7 +21,6 @@ export default function getPaciente(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data.data[0]);
         data.data[0] ? Event("Dados Encontrados") : Event("Não Encontrado")
         return data.data[0]
     }).catch(err => {
