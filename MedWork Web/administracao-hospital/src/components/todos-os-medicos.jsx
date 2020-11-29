@@ -1,4 +1,4 @@
-import React, { Component} from 'react'
+import React, { Component } from 'react'
 import getAllMedicos from '../main/api/getAllMedicos';
 import Menu from './template/menu'
 
@@ -10,8 +10,7 @@ class TodosOsMedicos extends Component {
             medicos: []
         }
         getAllMedicos().then(res => {
-            console.log(res);
-            this.setState({medicos: res.data})
+            this.setState({ medicos: res.data })
         });
     }
     render() {
@@ -21,9 +20,11 @@ class TodosOsMedicos extends Component {
                 <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast'>
                     <h2 className='text-center font-weight-light'>TODOS OS MÉDICOS</h2>
                     <div>
-                        {/* {console.log(medicos)} */}
+                        {
+                            this.state.medicos[0] &&
+                            console.log(this.state.medicos)
+                        }
                     </div>
-    
                 </div>
             </div>
         );
