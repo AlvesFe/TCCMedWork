@@ -17,7 +17,7 @@ export default class AlterarDrogaria extends Component {
             nomeEmpresa: "",
             image: {},
             cnpj: "",
-            foto: '',
+            foto: "default.png",
             ativo: "",
             senha: "",
             endereco: "",
@@ -27,7 +27,8 @@ export default class AlterarDrogaria extends Component {
             email: "",
             senhaProvisoria: "",
             alteracaoSucesso: "d-none",
-            alteracaoErro: "d-none"
+            alteracaoErro: "d-none",
+
         }
         const cnpj = localStorage.getItem('estabelecimento');
         getInformacoes(cnpj, 'farmacia').then(res => {
@@ -88,7 +89,7 @@ export default class AlterarDrogaria extends Component {
                                 <AlterarErro />
                             </div>
                             <div className='col-12'>
-                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `http://localhost:3001/uploads/farmacia/${this.state.foto}`} onChange={(event) => {
+                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `/api/uploads/farmacia/${this.state.foto}`} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
                                 }} />
                             </div>

@@ -39,7 +39,8 @@ export default class AlterarHospital extends Component {
             email: "",
             senhaProvisoria: "",
             alteracaoSucesso: "d-none",
-            alteracaoErro: "d-none"
+            alteracaoErro: "d-none",
+            foto: "default.png"
         }
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -80,7 +81,7 @@ export default class AlterarHospital extends Component {
                                 <AlterarErro />
                             </div>
                             <div className='col-12 mb-1'>
-                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `http://localhost:3001/uploads/hospital/${this.state.foto}`} onChange={(event) => {
+                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `/api/uploads/hospital/${this.state.foto}`} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
                                 }} />
                             </div>
