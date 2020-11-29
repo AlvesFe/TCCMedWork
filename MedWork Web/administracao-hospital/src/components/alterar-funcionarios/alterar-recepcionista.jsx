@@ -7,6 +7,7 @@ import AlteracaoSucesso from '../template/AlterarSucesso'
 import AlteracaoErro from '../template/AlterarErro'
 import getRecepcionista from '../../main/api/getRecepcionista'
 import alterarRecepcionista from '../../main/api/alterarRecepcionista';
+import Event from '../../event/Alerts';
 export default class AlterarRecepcionista extends Component {
     constructor() {
         super()
@@ -60,12 +61,16 @@ export default class AlterarRecepcionista extends Component {
             alterarRecepcionista(this.state).then(res => {
                 if (res) {
                     this.setState({
-                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
+                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast",
+                        alteracaoErro: "d-none"
                     })
+                    Event("Sucesso Alteracao");
                 } else {
                     this.setState({
-                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
+                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast",
+                        alteracaoSucesso: "d-none",
                     })
+                    Event("Erro a Alterar")
                 }
             })
             console.log(this.state)

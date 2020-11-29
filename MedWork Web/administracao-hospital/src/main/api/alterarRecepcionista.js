@@ -13,9 +13,9 @@ export default function alterarRecepcionista(dados) {
         ativo: dados.statusPerfil,
         endereco: dados.endereco,
         senha: dados.senha,
-        celular: dados.celular,
+        celular: dados.celular.replace(/[^\d]+/g, ''),
         image: dados.image,
-        telefone: dados.telefone,
+        telefone: dados.telefone.replace(/[^\d]+/g, ''),
         id_Recepcionista: dados.id_Recepcionista,
     }
     const dataFinal = new FormData();
@@ -39,7 +39,7 @@ export default function alterarRecepcionista(dados) {
         // data.data[0] ? Event("Encontrado") : Event("Não Encontrado")
     }).catch(err => {
         Event(err.response.data.error)
-        console.log(err.response.data)
+        console.log(err.response.data.error)
         return false;
     })
 }
