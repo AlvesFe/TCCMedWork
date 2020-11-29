@@ -74,7 +74,7 @@ export default class CadastrarDrogaria extends Component {
                             </div>
                             <div className='form-group col-3 py-1'>
                                 <label htmlFor="dataNascimento" className='font-weight-bold mb-0'>Data de nascimento</label>
-                                <InputMask mask="9999/99/99" className="form-control form-control-sm" id="dataNascimento" placeholder='____/__/__' name='dataNascimento' value={this.state.dataNascimento} onChange={this.onChange} />
+                                <input type='date' className="form-control form-control-sm" id="dataNascimento" placeholder='DD/MM/AAAA' name='dataNascimento' value={this.state.dataNascimento} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-4 py-1'>
                                 <label htmlFor="tipoSanguineo" className='font-weight-bold mb-0'>Tipo sanguíneo</label>

@@ -3,18 +3,13 @@ import Event from '../../event/Alerts'
 import jwt_decode from "jwt-decode";
 
 
-export default function getMedico(dados) {
+export default function getRecepcionista() {
 
     const token = localStorage.getItem('current_user')
 
-    const data = {
-        crm: dados.crm
-    }
-
     return Axios({
-        method: 'POST',
-        url: "/api/medico/get",
-        data,
+        method: 'GET',
+        url: "/api/recepcionista",
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json',
@@ -23,7 +18,7 @@ export default function getMedico(dados) {
     }).then(response => {
         const { data } = response;
         data.data[0] ? Event("Encontrado") : Event("Não Encontrado")
-        return data.data[0];
+        return data
     }).catch(err => {
         Event(err.response.data.error)
     })
