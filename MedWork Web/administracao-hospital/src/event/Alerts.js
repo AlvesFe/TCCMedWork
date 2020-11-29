@@ -185,10 +185,29 @@ export default function Event(Action) {
                 title: 'Senha Alterada com Sucesso!'
             })
             break;
+        case "Sucesso Alteracao":
+            Toast.fire({
+                icon: 'success',
+                title: 'Alterado Com Sucesso!'
+            })
+            break;
         case "Erro a Alterar":
             Toast.fire({
                 icon: 'error',
                 title: 'Erro a Alterar!'
+            })
+            break;
+        case "errodt_nascimentovazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe a Data de Nascimento!'
+            })
+            break;
+        case "errocelularinvalido":
+        case "errotamanhocelular":
+            Toast.fire({
+                icon: 'error',
+                title: 'Celular Invalido!'
             })
             break;
     }

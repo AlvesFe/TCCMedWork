@@ -8,6 +8,7 @@ import Image from '../../images/default-Upload.png';
 import AlterarSucesso from '../template/AlterarSucesso'
 import AlterarErro from '../template/AlterarErro'
 import alterarFarmacia from '../../main/api/alterarFarmacia';
+import Event from '../../event/Alerts';
 
 export default class AlterarDrogaria extends Component {
     constructor() {
@@ -60,11 +61,14 @@ export default class AlterarDrogaria extends Component {
             alterarFarmacia(this.state).then(res => {
                 if(res == true){
                     this.setState({
-                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
+                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast",
+                        alteracaoErro: "d-none"
                     })
+                    Event("Sucesso Alteracao");
                 }else{
                     this.setState({
-                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
+                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast",
+                        alteracaoSucesso: "d-none"
                     })
     
                 }

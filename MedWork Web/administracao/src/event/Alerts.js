@@ -143,6 +143,25 @@ export default function Event(Action) {
                 title: 'Altere Sua Senha!'
             })
             break;
+        case "Não Encontrado":
+            Toast.fire({
+                icon: 'error',
+                title: 'Não Encontrado!'
+            })
+            break;
+        case "errotelefoneinvalido":
+        case "errortamanhotelefone":
+            Toast.fire({
+                icon: 'error',
+                title: 'Telefone Invalido!'
+            })
+            break;
+        case "Sucesso Alteracao":
+            Toast.fire({
+                icon: 'success',
+                title: 'Sucesso Alterção!'
+            })
+            break;
     }
 
 
