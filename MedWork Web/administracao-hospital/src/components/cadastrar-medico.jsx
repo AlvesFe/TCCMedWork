@@ -46,41 +46,38 @@ export default class CadastrarMedico extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
 
-
-                if (false) {
+            cadastrarMedico(this.state).then(res => {
+                if (res == true) {
                     this.setState({
-                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
+                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast",
+                        alteracaoErro: "d-none"
                     })
-                } else {
                     this.setState({
-                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
+                        ...this.state,
+                        nomeMedico: "",
+                        image: {},
+                        dataNascimento: "",
+                        tipoSanguineo: "",
+                        status: "",
+                        endereco: "",
+                        crm: "",
+                        cpf: "",
+                        rg: "",
+                        especialidade: "",
+                        email: "",
+                        celular: "",
+                        telefone: "",
+                        senhaProvisoria: "",
+                        alergia: ""
                     })
                 }
-
-            // cadastrarMedico(this.state).then(res => {
-            //     if (res == true) {
-            //         if (req) {
-            //             this.setState({
-            //                 ...this.state,
-            //                 nomeMedico: "",
-            //                 image: {},
-            //                 dataNascimento: "",
-            //                 tipoSanguineo: "",
-            //                 status: "",
-            //                 endereco: "",
-            //                 crm: "",
-            //                 cpf: "",
-            //                 rg: "",
-            //                 especialidade: "",
-            //                 email: "",
-            //                 celular: "",
-            //                 telefone: "",
-            //                 senhaProvisoria: "",
-            //                 alergia: ""
-            //             })
-            //         }
-            //     }
-            // });
+                else {
+                    this.setState({
+                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast",
+                        alteracaoSucesso: "d-none"
+                    })
+                }
+            });
         }
     }
 
@@ -98,7 +95,7 @@ export default class CadastrarMedico extends Component {
                                 <CadastrarSucesso />
                             </div>
                             <div className={this.state.alteracaoErro}>
-                            <CadastrarErro />
+                                <CadastrarErro />
                             </div>
                             <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : Image} onChange={(event) => {
                                 this.setState({ image: event.target.files[0] });

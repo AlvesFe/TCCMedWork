@@ -42,36 +42,34 @@ export default class CadastrarDrogaria extends Component {
             e.preventDefault()
             console.log(this.state)
 
-            if (true) {
-                this.setState({
-                    alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast",
-                    alteracaoErro: "d-none"
-                })
-            } else {
-                this.setState({
-                    alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast",
-                    alteracaoSucesso: "d-none"
-                })
-            }
-
-            // cadastrarRecepcionista(this.state).then(res => {
-            //     if (res) {
-            //         this.setState({
-            //             ...this.state,
-            //             nomeRecepcionista: "",
-            //             image: {},
-            //             dataNascimento: "",
-            //             tipoSanguineo: "",
-            //             endereco: "",
-            //             cpf: "",
-            //             rg: "",
-            //             email: "",
-            //             celular: "",
-            //             telefone: "",
-            //             senhaProvisoria: ""
-            //         })
-            //     }
-            // });     
+            cadastrarRecepcionista(this.state).then(res => {
+                if (res == true) {
+                    this.setState({
+                        ...this.state,
+                        nomeRecepcionista: "",
+                        image: {},
+                        dataNascimento: "",
+                        tipoSanguineo: "",
+                        endereco: "",
+                        cpf: "",
+                        rg: "",
+                        email: "",
+                        celular: "",
+                        telefone: "",
+                        senhaProvisoria: ""
+                    })
+                    this.setState({
+                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast",
+                        alteracaoErro: "d-none"
+                    })
+                }
+                else{
+                    this.setState({
+                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast",
+                        alteracaoSucesso: "d-none"
+                    })
+                }
+            });     
         }
     }
 
