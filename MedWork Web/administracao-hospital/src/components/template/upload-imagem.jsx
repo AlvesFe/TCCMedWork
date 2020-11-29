@@ -7,7 +7,7 @@ const UploadImagem = ({ onChange, src }) => (
             </label>
         <div className="input-group">
             <div className="custom-file">
-                <input type="file" className="custom-file-input pointer" id="image" onChange={onChange} aria-describedby="uploadImage" />
+                <input type="file" className="custom-file-input pointer" id="image" onChange={onChange} accept="image/png,image/jpeg" aria-describedby="uploadImage" />
                 <label className="custom-file-label" htmlFor="image">Selecione uma Imagem!</label>
             </div>
         </div>

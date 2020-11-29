@@ -5,7 +5,7 @@ function ListarFuncionarios(props) {
     const { tipo } = props;
 
     const fotoMed = `/api/uploads/medico/${funcionario.foto}`
-    const fotoRecep = `/api/uploads/medico/${funcionario.foto}`
+    const fotoRecep = `/api/uploads/recepcionista/${funcionario.foto}`
     return (
         <div className="col-12 py-5">
             <div className="ui items">
