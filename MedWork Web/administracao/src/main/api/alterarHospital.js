@@ -1,5 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
+import Event from '../../event/Alerts';
 
 export default function alterarHospital(dados) {
 
@@ -10,7 +11,7 @@ export default function alterarHospital(dados) {
         nome: dados.nomeEmpresa,
         image: dados.image,
         endereco: dados.endereco,
-        telefone: dados.telefone,
+        telefone: dados.telefone.replace(/[^\d]+/g, ''),
         ativo: dados.ativo,
         senha: dados.senha
     }
@@ -34,6 +35,7 @@ export default function alterarHospital(dados) {
         return true;
     }).catch(err => {
         console.log(err.response.data.error);
+        Event(err.response.data.error);
         return false;
     })
 }

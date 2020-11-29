@@ -8,6 +8,7 @@ import Menu from '../template/menu'
 import Image from '../../images/default-Upload.png';
 import AlterarSucesso from '../template/AlterarSucesso'
 import AlterarErro from '../template/AlterarErro'
+import Event from '../../event/Alerts';
 
 export default class AlterarHospital extends Component {
     constructor() {
@@ -53,11 +54,14 @@ export default class AlterarHospital extends Component {
             patchHospital(this.state).then(res => {
                 if (res) {
                     this.setState({
-                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
+                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast",
+                        alteracaoErro: "d-none"
                     })
+                    Event("Sucesso Alteracao");
                 } else {
                     this.setState({
-                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
+                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast",
+                        alteracaoSucesso: "d-none"
                     })
                 }  
             })
@@ -91,7 +95,7 @@ export default class AlterarHospital extends Component {
                             </div>
                             <div className='form-group col-6 py-1'>
                                 <label htmlFor="cnpj" className='font-weight-bold mb-0'>CNPJ</label>
-                                <InputMask mask="99.999.999/9999-99" className="form-control form-control-sm " id="cnpj" placeholder='__.___.___/____-__' name='cnpj' value={this.state.cnpj} onChange={this.onChange} />
+                                <InputMask mask="99.999.999/9999-99" disabled={true} className="form-control form-control-sm " id="cnpj" placeholder='__.___.___/____-__' name='cnpj' value={this.state.cnpj} onChange={this.onChange} />
                             </div>
 
                             <div className='form-group col-5 py-1'>
@@ -100,7 +104,7 @@ export default class AlterarHospital extends Component {
                             </div>
                             <div className='form-group col-4 py-1'>
                                 <label htmlFor="email" className='font-weight-bold mb-0'>E-mail</label>
-                                <input type="text" className="form-control form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
+                                <input type="text" disabled={true} className="form-control form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-3 py-1'>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
