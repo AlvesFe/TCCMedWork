@@ -3,7 +3,7 @@ import getMedico from '../main/api/getMedico';
 import getRecepcionista from '../main/api/getRecepcionista';
 import getAllRecepcionista from '../main/api/getAllRecepcionista'
 import Menu from './template/menu'
-import getAllMedicos from '../main/api/getAllMedicos';
+import InputMask from 'react-input-mask'
 
 class PesquisarFuncionario extends Component {
 
@@ -85,7 +85,7 @@ class PesquisarFuncionario extends Component {
                                     <div id="collapseOne" className="collapse" aria-labelledby="cabecalho-1" data-parent="#Accordion">
                                         <div className="card-body">
                                             <label htmlFor="pesquisarMedico" className='font-weight-bold'>CRM</label>
-                                            <input type="text" className="form-control form-control-lg" id="pesquisarMedico" name="crm" value={this.state.crm} onChange={this.onChange} placeholder='__.___-__' />
+                                            <InputMask mask="99.999-**" className="form-control form-control-lg" id="pesquisarMedico" name="crm" value={this.state.crm} onChange={this.onChange} placeholder='__.___-__' />
                                             <div className='text-center pt-2'>
                                                 <button className='btn-roxo' onClick={this.onSubmitMedico} >PESQUISAR</button>
                                             </div>
@@ -104,7 +104,7 @@ class PesquisarFuncionario extends Component {
                                     <div id="collapseTwo" className="collapse" aria-labelledby="cabecalho-2" data-parent="#Accordion">
                                         <div className="card-body">
                                             <label htmlFor="pesquisarRecepcionista" className='font-weight-bold'>CPF</label>
-                                            <input type="text" className="form-control form-control-lg" id="pesquisarRecepcionista" name="cpf" value={this.state.cpf} onChange={this.onChange} placeholder='___.___.___-__' />
+                                            <InputMask mask="999.999.999-99" className="form-control form-control-lg" id="pesquisarRecepcionista" name="cpf" value={this.state.cpf} onChange={this.onChange} placeholder='___.___.___-__' />
                                             <div className='text-center py-3'>
                                                 <button className='btn-roxo' onClick={this.onSubmitRecepcionista} >PESQUISAR</button>
                                             </div>
