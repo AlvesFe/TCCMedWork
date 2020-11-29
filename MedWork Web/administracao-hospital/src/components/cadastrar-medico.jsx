@@ -4,8 +4,11 @@ import InputMask from 'react-input-mask';
 import UploadImagem from '../components/template/upload-imagem'
 import Image from '../images/default-Upload.png'
 import Menu from './template/menu'
+import CadastrarSucesso from './template/CadastrarSucesso'
+import CadastrarErro from './template/CadastrarErro'
 
-export default class CadastrarHospital extends Component {
+
+export default class CadastrarMedico extends Component {
 
     constructor() {
         super()
@@ -25,9 +28,11 @@ export default class CadastrarHospital extends Component {
             telefone: "",
             senhaProvisoria: "",
             alergia: "",
+            alteracaoSucesso: "d-none",
+            alteracaoErro: "d-none",
             height: window.innerHeight
         }
-        window.onresize = () =>{
+        window.onresize = () => {
             this.setState({
                 ...this.state, height: window.innerHeight
             })
@@ -40,30 +45,42 @@ export default class CadastrarHospital extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            cadastrarMedico(this.state).then(res => {
-                if (res == true) {
-                    if (req) {
-                        this.setState({
-                            ...this.state,
-                            nomeMedico: "",
-                            image: {},
-                            dataNascimento: "",
-                            tipoSanguineo: "",
-                            status: "",
-                            endereco: "",
-                            crm: "",
-                            cpf: "",
-                            rg: "",
-                            especialidade: "",
-                            email: "",
-                            celular: "",
-                            telefone: "",
-                            senhaProvisoria: "",
-                            alergia: ""
-                        })
-                    }
+
+
+                if (false) {
+                    this.setState({
+                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
+                    })
+                } else {
+                    this.setState({
+                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
+                    })
                 }
-            });
+
+            // cadastrarMedico(this.state).then(res => {
+            //     if (res == true) {
+            //         if (req) {
+            //             this.setState({
+            //                 ...this.state,
+            //                 nomeMedico: "",
+            //                 image: {},
+            //                 dataNascimento: "",
+            //                 tipoSanguineo: "",
+            //                 status: "",
+            //                 endereco: "",
+            //                 crm: "",
+            //                 cpf: "",
+            //                 rg: "",
+            //                 especialidade: "",
+            //                 email: "",
+            //                 celular: "",
+            //                 telefone: "",
+            //                 senhaProvisoria: "",
+            //                 alergia: ""
+            //             })
+            //         }
+            //     }
+            // });
         }
     }
 
@@ -73,10 +90,16 @@ export default class CadastrarHospital extends Component {
         return (
             <div className='row bg-white'>
                 <Menu />
-                <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast overflow-auto' style={{height: this.state.height}}>
+                <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast overflow-auto' style={{ height: this.state.height }}>
                     <h2 className='text-center font-weight-light'>CADASTRAR MÉDICO</h2>
                     <div className='row justify-content-center'>
                         <div className='col-12'>
+                            <div className={this.state.alteracaoSucesso}>
+                                <CadastrarSucesso />
+                            </div>
+                            <div className={this.state.alteracaoErro}>
+                            <CadastrarErro />
+                            </div>
                             <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : Image} onChange={(event) => {
                                 this.setState({ image: event.target.files[0] });
                             }} />
