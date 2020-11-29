@@ -10,7 +10,7 @@ export default function cadastrarRecepcionista(dados) {
 
     const data = {
         image: dados.image,
-        nome: dados.nomeMedico,
+        nome: dados.nomeRecepcionista,
         dt_Nascimento: dados.dataNascimento.replace(/[^\d]+/g, ''),
         tp_sanguineo: dados.tipoSanguineo,
         endereco: dados.endereco,
