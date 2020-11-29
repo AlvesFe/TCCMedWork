@@ -8,7 +8,7 @@ export default function getAllRecepcionista(dados) {
     const token = localStorage.getItem('current_user')
 
     const data = {
-        cpf: dados.cpf
+        cpf: dados.cpf.replace(/[^\d]+/g, '')
     }
 
     return Axios({
