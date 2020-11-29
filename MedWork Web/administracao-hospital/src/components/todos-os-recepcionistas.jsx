@@ -8,23 +8,30 @@ class TodosOsRecepcionista extends Component {
     constructor() {
         super()
         this.state = {
-            recepcionista: []
+            recepcionista: [],
+            height: window.innerHeight
+        }
+        window.onresize = () =>{
+            this.setState({
+                ...this.state, height: window.innerHeight
+            })
         }
         getAllRecepcionista().then(res => {
-            this.setState({ recepcionista: res.data })
+            this.setState({ ...this.state, recepcionista: res.data })
         });
     }
     render() {
         return (
             <div className='row bg-white'>
                 <Menu />
-                <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast'>
+                <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast overflow-auto' style={{height: this.state.height}}>
                     <h2 className='text-center font-weight-light'>TODOS OS RECEPCIONISTAS</h2>
                     <div>
-                        <ListarFuncionarios />
                         {
                             this.state.recepcionista[0] &&
-                            console.log(this.state.recepcionista)
+                            this.state.recepcionista.map((item, key) =>(
+                                <ListarFuncionarios tipo="Recepcionista" funcionario={item} key={key}/>
+                            ))
                         }
                     </div>
                 </div>

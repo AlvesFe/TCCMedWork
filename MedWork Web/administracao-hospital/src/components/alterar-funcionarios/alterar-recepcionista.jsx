@@ -24,7 +24,8 @@ export default class AlterarRecepcionista extends Component {
             telefone: "",
             statusPerfil: "",
             alteracaoSucesso: "d-none",
-            alteracaoErro: "d-none"
+            alteracaoErro: "d-none",
+            foto:"default.png"
         }
         const cpf = localStorage.getItem('cpf');
         const data = {
@@ -88,7 +89,7 @@ export default class AlterarRecepcionista extends Component {
                                 <AlteracaoErro />
                             </div>
                             <div className='col-12'>
-                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `http://localhost:3001/uploads/recepcionista/${this.state.foto}`} onChange={(event) => {
+                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `/api/uploads/recepcionista/${this.state.foto}`} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
                                 }} />
                             </div>

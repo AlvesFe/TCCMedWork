@@ -27,7 +27,8 @@ export default class AlterarMedico extends Component {
             telefone: "",
             alergia: "",
             alteracaoSucesso: "d-none",
-            alteracaoErro: "d-none"
+            alteracaoErro: "d-none",
+            foto:"default.png"
         }
         const crm = localStorage.getItem('crm');
         const data = {
@@ -50,7 +51,7 @@ export default class AlterarMedico extends Component {
                 celular: res.celular,
                 telefone: res.telefone,
             })
-            console.log(res);
+            console.log(this.state);
         })
 
         this.onChange = (e) => {
@@ -90,7 +91,7 @@ export default class AlterarMedico extends Component {
                                 <AlteracaoErro />
                             </div>
                             <div className='col-12'>
-                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `http://localhost:3001/uploads/medico/${this.state.foto}`} onChange={(event) => {
+                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `/api/uploads/medico/${this.state.foto}`} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
                                 }} />
                             </div>
