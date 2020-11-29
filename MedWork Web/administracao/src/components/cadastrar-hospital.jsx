@@ -17,7 +17,13 @@ export default class CadastrarHospital extends Component {
             telefone: "",
             email: "",
             senhaProvisoria: "",
-            confirmarSenha: ""
+            confirmarSenha: "",
+            height: window.innerHeight
+        }
+        window.onresize = () =>{
+            this.setState({
+                ...this.state, height: window.innerHeight
+            })
         }
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -31,6 +37,7 @@ export default class CadastrarHospital extends Component {
                 console.log(res)
                 if (res === true) {
                     this.setState({
+                        ...this.state,
                         nomeEmpresa: "",
                         cnpj: "",
                         image: {},
@@ -53,7 +60,7 @@ export default class CadastrarHospital extends Component {
         return (
             <div className='row bg-white'>
                 <Menu />
-                <div className='container col-md-8 pt-4 col-lg-9 animate__animated animate__fadeIn animate__fast '>
+                <div className='container col-md-8 pt-4 col-lg-9 animate__animated animate__fadeIn animate__fast overflow-auto' style={{height: this.state.height}}>
                     <h2 className='text-center font-weight-light'>CADASTRAR HOSPITAL</h2>
                     <div className='row justify-content-center py-3'>
                         <div className="col-10 py-2 form-row">

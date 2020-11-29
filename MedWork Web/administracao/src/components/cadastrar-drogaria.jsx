@@ -17,7 +17,13 @@ export default class CadastrarDrogaria extends Component {
             taxa: "",
             detalhes: "",
             email: "",
-            senhaProvisoria: ""
+            senhaProvisoria: "",
+            height: window.innerHeight
+        }
+        window.onresize = () =>{
+            this.setState({
+                ...this.state, height: window.innerHeight
+            })
         }
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -31,6 +37,7 @@ export default class CadastrarDrogaria extends Component {
             cadastrarFarmacia(this.state).then(res => {
                 if (res) {
                     this.setState({
+                        ...this.state,
                         nomeEmpresa: "",
                         image: {},
                         cnpj: "",
@@ -51,7 +58,7 @@ export default class CadastrarDrogaria extends Component {
         return (
             <div className='row bg-white'>
                 <Menu />
-                <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast'>
+                <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast overflow-auto' style={{height: this.state.height}}>
                     <h2 className='text-center font-weight-light'>CADASTRAR DROGARIA</h2>
                     <div className='row justify-content-center py-2'>
                         <div className="col-10 form-row">

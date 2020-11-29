@@ -9,7 +9,13 @@ class PesquisarEstabelecimento extends Component {
         super()
         this.state = {
             cnpj: "",
-            pesquisa: "alert alert-danger text-center d-none"
+            pesquisa: "alert alert-danger text-center d-none",
+            height: window.innerHeight
+        }
+        window.onresize = () =>{
+            this.setState({
+                ...this.state, height: window.innerHeight
+            })
         }
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -50,7 +56,7 @@ class PesquisarEstabelecimento extends Component {
         return (
             < div className='row bg-white' >
                 <Menu />
-                <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast'>
+                <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast overflow-auto' style={{height: this.state.height}}>
                     <h2 className='text-center font-weight-light'>PESQUISAR ESTABELECIMENTO</h2>
                     <div className='row justify-content-center'>
                         <div className="col-8 py-2">
