@@ -10,7 +10,7 @@ export default class CadastrarDrogaria extends Component {
     constructor() {
         super()
         this.state = {
-            nomeMedico: "",
+            nomeRecepcionista: "",
             image: {},
             dataNascimento: "",
             tipoSanguineo: "",
@@ -34,7 +34,7 @@ export default class CadastrarDrogaria extends Component {
             cadastrarRecepcionista(this.state).then(res => {
                 if (res) {
                     this.setState({
-                        nomeMedico: "",
+                        nomeRecepcionista: "",
                         image: {},
                         dataNascimento: "",
                         tipoSanguineo: "",
@@ -69,8 +69,8 @@ export default class CadastrarDrogaria extends Component {
                         </div>
                         <div className="col-12 form-row">
                             <div className='form-group col-5 py-1'>
-                                <label htmlFor="nomeMedico" className='font-weight-bold mb-0'>Nome</label>
-                                <input type="text" className="form-control form-control-sm" id="nomeMedico" placeholder='Nome' name="nomeMedico" value={this.state.nomeMedico} onChange={this.onChange} />
+                                <label htmlFor="nomeRecepcionista" className='font-weight-bold mb-0'>Nome</label>
+                                <input type="text" className="form-control form-control-sm" id="nomeRecepcionista" placeholder='Nome' name="nomeRecepcionista" value={this.state.nomeRecepcionista} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-3 py-1'>
                                 <label htmlFor="dataNascimento" className='font-weight-bold mb-0'>Data de nascimento</label>
