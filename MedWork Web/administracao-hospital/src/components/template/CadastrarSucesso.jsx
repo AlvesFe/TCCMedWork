@@ -4,7 +4,7 @@ export default () => {
     return (
         <div>
             <div className= "alert alert-success text-center " role="alert">
-                USUÁRIO ALTERADO COM SUCESSO!
+                USUÁRIO CADASTRADO COM SUCESSO!
             </div>
         </div>
     )

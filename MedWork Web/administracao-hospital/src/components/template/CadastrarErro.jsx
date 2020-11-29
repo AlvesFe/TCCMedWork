@@ -4,7 +4,7 @@ export default () => {
     return (
         <div>
             <div className= "alert alert-danger text-center " role="alert">
-                NÃO FOI POSSÍVEL ALTERAR O USUÁRIO!
+                NÃO FOI POSSÍVEL CADASTRAR O USUÁRIO!
             </div>
         </div>
     )
