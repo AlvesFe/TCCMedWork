@@ -22,14 +22,7 @@ class PesquisarFuncionario extends Component {
         }
         this.onSubmitMedico = (e) => {
             e.preventDefault()
-            getMedico(this.state).then(res => {
-                if(res == null) {
-                    this.setState({
-                    PesquisaFuncionario: ""
-                })
-            }
-                console.log(res);
-            });
+            getMedico(this.state);
         }
         this.onSubmitRecepcionista = (e) => {
             e.preventDefault()

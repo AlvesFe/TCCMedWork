@@ -3,7 +3,7 @@ import Event from '../../event/Alerts'
 import jwt_decode from "jwt-decode";
 
 
-export default function getAllRecepcionista(dados) {
+export default function getRecepcionista(dados) {
 
     const token = localStorage.getItem('current_user')
 
@@ -22,9 +22,17 @@ export default function getAllRecepcionista(dados) {
         }
     }).then(response => {
         const { data } = response;
-        data.data[0] ? Event("Encontrado") : Event("Não Encontrado")
-        return data.data[0];
+        localStorage.setItem('cpf', dados.cpf.replace(/[^\d]+/g, ''))
+        if (data.data[0]) {
+            window.location.assign('#/alterar-recepcionista')
+            Event("Encontrado");
+            return data.data[0];
+        } else {
+            Event("Não Encontrado");
+        }
+
     }).catch(err => {
         Event(err.response.data.error)
+        return err.response.data.error
     })
 }

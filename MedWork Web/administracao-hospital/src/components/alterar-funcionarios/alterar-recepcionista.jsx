@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import UploadImagem from '../template/upload-imagem'
 import InputMask from 'react-input-mask';
-// import getInformacoes from '../../main/api/getInformacoes'
-// import cadastrarFarmacia from '../../main/api/cadastrarFarmacia';
 import Menu from '../template/menu'
 import Image from '../../images/default-Upload.png';
 import AlteracaoSucesso from '../template/AlterarSucesso'
 import AlteracaoErro from '../template/AlterarErro'
-// import alterarFarmacia from '../../main/api/alterarFarmacia';
-
+import getRecepcionista from '../../main/api/getRecepcionista'
+import alterarRecepcionista from '../../main/api/alterarRecepcionista';
 export default class AlterarRecepcionista extends Component {
     constructor() {
         super()
         this.state = {
             nomeRecepcionista: "",
             image: {},
+            foto: "",
             dataNascimento: "",
             tipoSanguineo: "",
             endereco: "",
@@ -27,7 +26,29 @@ export default class AlterarRecepcionista extends Component {
             alteracaoSucesso: "d-none",
             alteracaoErro: "d-none"
         }
-
+        const cpf = localStorage.getItem('cpf');
+        const data = {
+            cpf
+        }
+        console.log(cpf);
+        getRecepcionista(data).then(res => {
+            console.log(res)
+            this.setState({
+                id_Recepcionista: res.id_Recepcionista,
+                nomeRecepcionista: res.nome,
+                foto: res.foto,
+                dataNascimento: res.dt_Nascimento.slice(0, -14),
+                tipoSanguineo: res.tp_sanguineo,
+                endereco: res.endereco,
+                cpf: res.cpf,
+                senha: res.senha,
+                rg: res.rg,
+                email: res.email,
+                celular: res.celular,
+                telefone: res.telefone,
+                statusPerfil: res.ativo,
+            })
+        })
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
             const campo = e.target.name
@@ -36,16 +57,19 @@ export default class AlterarRecepcionista extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
+            alterarRecepcionista(this.state).then(res => {
+                if (res) {
+                    this.setState({
+                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
+                    })
+                } else {
+                    this.setState({
+                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
+                    })
+                }
+            })
             console.log(this.state)
-            if (false) {
-                this.setState({
-                    alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
-                })
-            } else {
-                this.setState({
-                    alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
-                })
-            }
+            
         }
     }
 
@@ -64,7 +88,7 @@ export default class AlterarRecepcionista extends Component {
                                 <AlteracaoErro />
                             </div>
                             <div className='col-12'>
-                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `http://localhost:3001/uploads/medico/${this.state.foto}`} onChange={(event) => {
+                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `http://localhost:3001/uploads/recepcionista/${this.state.foto}`} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
                                 }} />
                             </div>
@@ -97,16 +121,16 @@ export default class AlterarRecepcionista extends Component {
 
                                 <div className='form-group col-3 py-1'>
                                     <label htmlFor="cpf" className='font-weight-bold mb-0'>CPF</label>
-                                    <InputMask mask="999.999.999-99" className="form-control form-control-sm" id="cpf" placeholder='___.___.___-__' name='cpf' value={this.state.cpf} onChange={this.onChange} />
+                                    <InputMask mask="999.999.999-99" disabled={true} className="form-control form-control-sm" id="cpf" placeholder='___.___.___-__' name='cpf' value={this.state.cpf} onChange={this.onChange} />
                                 </div>
                                 <div className='form-group col-3 py-1'>
                                     <label htmlFor="rg" className='font-weight-bold mb-0'>RG</label>
-                                    <InputMask mask="99.999.999-9" className="form-control form-control-sm" id="rg" placeholder='__.___.___-_' name='rg' value={this.state.rg} onChange={this.onChange} />
+                                    <InputMask mask="99.999.999-9" disabled={true} className="form-control form-control-sm" id="rg" placeholder='__.___.___-_' name='rg' value={this.state.rg} onChange={this.onChange} />
                                 </div>
 
                                 <div className='form-group col-6 py-1'>
                                     <label htmlFor="email" className='font-weight-bold mb-0'>E-mail</label>
-                                    <input type="text" className="form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
+                                    <input type="text" disabled={true} className="form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
                                 </div>
                                 <div className='form-group col-3 py-1'>
                                     <label htmlFor="celular" className='font-weight-bold mb-0'>Celular</label>

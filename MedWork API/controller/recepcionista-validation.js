@@ -35,9 +35,9 @@ function validateEmail(email) {
 async function validateCPF(value) {
 
     const resposta = await axios({
-        method: 'get',
-        url: `http://geradorapp.com/api/v1/cpf/validate/${value}?token=${process.env.CPF_TOKEN}`
-    })
+            method: 'get',
+            url: `http://geradorapp.com/api/v1/cpf/validate/${value}?token=${process.env.CPF_TOKEN}`
+        })
         .then((response) => {
             return response.data.status;
         });
@@ -45,7 +45,7 @@ async function validateCPF(value) {
     return resposta == 1 ? true : false
 }
 
-exports.postRecepcionista = async (req, res, next) => {
+exports.postRecepcionista = async(req, res, next) => {
 
     for (let key in req.body) {
         if (isNullOrWhitespace(req.body[key])) {
@@ -115,7 +115,7 @@ exports.postRecepcionista = async (req, res, next) => {
         })
     }
 
-    if(!await validateCPF(req.body.cpf)){
+    if (!await validateCPF(req.body.cpf)) {
         return res.status(500).send({
             error: "errocpfinvalido"
         })
@@ -146,8 +146,7 @@ exports.patchRecepcionista = (req, res, next) => {
                         errormes: req.body[key]
                     })
                 }
-            }
-            else {
+            } else {
                 return res.status(500).send({
                     error: "erro" + key + "vazio",
                     errormes: key
@@ -168,7 +167,7 @@ exports.patchRecepcionista = (req, res, next) => {
         })
     }
 
-    if (req.body.telefone.length < 11) {
+    if (req.body.telefone.length < 10) {
         return res.status(500).send({
             error: "errotamanhotelefone"
         })
@@ -183,12 +182,6 @@ exports.patchRecepcionista = (req, res, next) => {
     if (req.body.senha.length < 8) {
         return res.status(500).send({
             error: "errotamanhosenha"
-        })
-    }
-
-    if (req.body.id_Recepcionista.length !== 60) {
-        return res.status(500).send({
-            error: "errotamanhoidrecepcionista"
         })
     }
     next();
@@ -252,20 +245,19 @@ exports.recuperarSenha = (req, res, next) => {
 
 exports.confirmetoken = (req, res, next) => {
 
-    if(isNullOrWhitespace(req.body.token)){
+    if (isNullOrWhitespace(req.body.token)) {
         res.status(500).send({
             error: "errortokenvazio"
         })
     }
 
-    try{
+    try {
         const decode = jwt.verify(req.body.token, process.env.JWT_KEY);
         res.status(200).send({
             success: "sucessotoken"
         })
-    }
-    catch(error){
-        res.status(500).send({error: "errotokeninvalido"})
+    } catch (error) {
+        res.status(500).send({ error: "errotokeninvalido" })
     }
 }
 
@@ -279,7 +271,7 @@ exports.resetsenha = (req, res, next) => {
         }
     }
 
-    if(req.body.senha !== req.body.confsenha){
+    if (req.body.senha !== req.body.confsenha) {
         return res.status(500).send({
             error: "errosenhasnaoconferem"
         })

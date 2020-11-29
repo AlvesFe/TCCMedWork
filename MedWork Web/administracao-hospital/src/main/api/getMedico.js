@@ -21,9 +21,18 @@ export default function getMedico(dados) {
         }
     }).then(response => {
         const { data } = response;
-        data.data[0] ? Event("Encontrado") : Event("Não Encontrado")
-        return data.data[0];
+        if (data.data[0]) {
+            localStorage.setItem('crm', dados.crm);
+            window.location.assign('#/alterar-medico');
+            Event("Encontrado");
+            return data.data[0]
+        } else {
+            Event("Não Encontrado");
+            return false
+        }
+
     }).catch(err => {
         Event(err.response.data.error)
+        return false
     })
 }

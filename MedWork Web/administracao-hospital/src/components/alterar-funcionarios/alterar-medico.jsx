@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
 import UploadImagem from '../template/upload-imagem'
 import InputMask from 'react-input-mask';
-// import getInformacoes from '../../main/api/getInformacoes'
-// import cadastrarFarmacia from '../../main/api/cadastrarFarmacia';
 import Menu from '../template/menu'
 import Image from '../../images/default-Upload.png';
 import AlteracaoSucesso from '../template/AlterarSucesso'
 import AlteracaoErro from '../template/AlterarErro'
-// import alterarFarmacia from '../../main/api/alterarFarmacia';
+import getMedico from '../../main/api/getMedico';
+import alterarMedico from '../../main/api/alterarMedico';
 
 export default class AlterarMedico extends Component {
     constructor() {
         super()
         this.state = {
+            id_Medico: "",
             nomeMedico: "",
             image: {},
             dataNascimento: "",
             tipoSanguineo: "",
             status: "",
-            endereco: "",
             crm: "",
             cpf: "",
             rg: "",
@@ -30,6 +29,29 @@ export default class AlterarMedico extends Component {
             alteracaoSucesso: "d-none",
             alteracaoErro: "d-none"
         }
+        const crm = localStorage.getItem('crm');
+        const data = {
+            crm
+        }
+        getMedico(data).then(res => {
+            this.setState({
+                id_Medico: res.id_Medico,
+                nomeMedico: res.nome,
+                foto: res.foto,
+                dataNascimento: res.dt_Nascimento,
+                tipoSanguineo: res.tp_sanguineo,
+                status: res.ativo,
+                senha: res.senha,
+                crm: res.crm,
+                cpf: res.cpf,
+                rg: res.rg,
+                especialidade: res.especialidade,
+                email: res.email,
+                celular: res.celular,
+                telefone: res.telefone,
+            })
+            console.log(res);
+        })
 
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -39,16 +61,17 @@ export default class AlterarMedico extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
-            if(false){
-                this.setState({
-                    alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
-                })
-            }else{
-                this.setState({
-                    alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
-                })
-            }
+            alterarMedico(this.state).then(res => {
+                if (res) {
+                    this.setState({
+                        alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast"
+                    })
+                } else {
+                    this.setState({
+                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast"
+                    })
+                }
+            });
         }
     }
 
@@ -87,29 +110,24 @@ export default class AlterarMedico extends Component {
                                 </div>
                                 <div className='form-group col-2 pt-1'>
                                     <label htmlFor="crm" className='font-weight-bold mb-0'>CRM</label>
-                                    <input type="text" className="form-control form-control-sm" id="crm" placeholder='__.___-__' name='crm' value={this.state.crm} onChange={this.onChange} />
+                                    <input type="text" disabled={true} className="form-control form-control-sm" id="crm" placeholder='__.___-__' name='crm' value={this.state.crm} onChange={this.onChange} />
                                 </div>
-                                <div className='form-group col-6'>
-                                    <label htmlFor="endereco" className='font-weight-bold mb-0'>Endereço</label>
-                                    <input type="text" className="form-control form-control-sm" id="endereco" placeholder='Ex: Avenida paulista, 2222, São Paulo - SP' name='endereco' value={this.state.endereco} onChange={this.onChange} />
-                                </div>
-
-                                <div className='form-group col-3 '>
+                                <div className='form-group col-6 '>
                                     <label htmlFor="cpf" className='font-weight-bold mb-0'>CPF</label>
-                                    <InputMask mask="999.999.999-99" className="form-control form-control-sm" id="cpf" placeholder='___.___.___-__' name='cpf' value={this.state.cpf} onChange={this.onChange} />
+                                    <InputMask mask="999.999.999-99" disabled={true} className="form-control form-control-sm" id="cpf" placeholder='___.___.___-__' name='cpf' value={this.state.cpf} onChange={this.onChange} />
                                 </div>
-                                <div className='form-group col-3 '>
+                                <div className='form-group col-6 '>
                                     <label htmlFor="rg" className='font-weight-bold mb-0'>RG</label>
-                                    <InputMask mask="99.999.999-9" className="form-control form-control-sm" id="rg" placeholder='__.___.___-_' name='rg' value={this.state.rg} onChange={this.onChange} />
+                                    <InputMask mask="99.999.999-9" disabled={true} className="form-control form-control-sm" id="rg" placeholder='__.___.___-_' name='rg' value={this.state.rg} onChange={this.onChange} />
                                 </div>
 
                                 <div className='form-group col-3'>
                                     <label htmlFor="especialidade" className='font-weight-bold mb-0'>Especialidade</label>
-                                    <input type="text" className="form-control form-control-sm" id="especialidade" placeholder='Ex: Clínico geral' name='especialidade' value={this.state.especialidade} onChange={this.onChange} />
+                                    <input type="text"  className="form-control form-control-sm" id="especialidade" placeholder='Ex: Clínico geral' name='especialidade' value={this.state.especialidade} onChange={this.onChange} />
                                 </div>
                                 <div className='form-group col-3 pt-1'>
                                     <label htmlFor="email" className='font-weight-bold mb-0'>E-mail</label>
-                                    <input type="text" className="form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
+                                    <input type="text" disabled={true} className="form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
                                 </div>
                                 <div className='form-group col-3 pt-1'>
                                     <label htmlFor="celular" className='font-weight-bold mb-0'>Celular</label>
@@ -118,10 +136,6 @@ export default class AlterarMedico extends Component {
                                 <div className='form-group col-3 pt-1'>
                                     <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
                                     <InputMask mask="(99) 9999-9999" className="form-control form-control-sm" id="telefone" placeholder='(__) ____-____' name='telefone' value={this.state.telefone} onChange={this.onChange} />
-                                </div>
-                                <div className='form-group col-12'>
-                                    <label htmlFor="alergia" className='font-weight-bold mb-0'>Alergia a medicamentos ou remédios</label>
-                                    <textarea className="form-control form-control-sm" id="alergia" placeholder='Ex: Nenhuma alergia' name='alergia' value={this.state.alergia} onChange={this.onChange} />
                                 </div>
                             </div>
 
