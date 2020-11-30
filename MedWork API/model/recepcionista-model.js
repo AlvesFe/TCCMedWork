@@ -14,12 +14,11 @@ const handlebars = require('handlebars');
 const fs = require('fs');
 
 const readHTMLFile = (path, callback) => {
-    fs.readFile(path, { encoding: 'utf-8' }, function (err, html) {
+    fs.readFile(path, { encoding: 'utf-8' }, function(err, html) {
         if (err) {
             throw err;
             callback(err);
-        }
-        else {
+        } else {
             callback(null, html);
         }
     })
@@ -27,7 +26,7 @@ const readHTMLFile = (path, callback) => {
 
 function SendMail(transport, data) {
 
-    readHTMLFile(__dirname + '/../src/template/AlterarSenha.html', function (err, html) {
+    readHTMLFile(__dirname + '/../src/template/AlterarSenha.html', function(err, html) {
         const template = handlebars.compile(html);
         const parametros = {
             token: data.token
@@ -57,14 +56,13 @@ exports.postRecepcionista = (req, res, next) => {
                 if (!resultado[0]) {
                     mysql.getConnection((error, conn) => {
 
-                        const foto = () =>{
-                            if(req.file){
-                               return req.file.filename
-                            }
-                            else{
+                        const foto = () => {
+                            if (req.file) {
+                                return req.file.filename
+                            } else {
                                 return "default.png"
                             }
-                       }
+                        }
 
                         //Criptografa a senha inserida pelo usuario no momento de cadastro
                         if (error) { return res.status(500).send({ error: error }) }
@@ -73,8 +71,7 @@ exports.postRecepcionista = (req, res, next) => {
                             if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
                             const id_Recepcionista = bcrypt.hashSync(Date.now().toString(), 10);
                             conn.query(
-                                'INSERT INTO tbl_Recepcionista (id_Recepcionista, foto, nome, dt_Nascimento, tp_sanguineo, endereco, cpf, senha, rg, email, celular, telefone, fk_id_Hospital)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',
-                                [id_Recepcionista, foto(), req.body.nome, req.body.dt_Nascimento, req.body.tp_sanguineo, req.body.endereco, req.body.cpf, hash, req.body.rg, req.body.email, req.body.celular, req.body.telefone, req.body.fk_id_Hospital],
+                                'INSERT INTO tbl_Recepcionista (id_Recepcionista, foto, nome, dt_Nascimento, tp_sanguineo, endereco, cpf, senha, rg, email, celular, telefone, fk_id_Hospital)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', [id_Recepcionista, foto(), req.body.nome, req.body.dt_Nascimento, req.body.tp_sanguineo, req.body.endereco, req.body.cpf, hash, req.body.rg, req.body.email, req.body.celular, req.body.telefone, req.body.fk_id_Hospital],
                                 (error, resultado, field) => {
                                     conn.release()
 
@@ -88,8 +85,7 @@ exports.postRecepcionista = (req, res, next) => {
                             )
                         })
                     })
-                }
-                else {
+                } else {
                     return res.status(500).send({ error: "errodadosjainseridos" })
                 }
             })
@@ -122,8 +118,7 @@ exports.getRecepcionista = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Recepcionista WHERE cpf = ?',
-            [req.body.cpf],
+            'SELECT * FROM tbl_Recepcionista WHERE cpf = ?', [req.body.cpf],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -143,17 +138,16 @@ exports.patchRecepcionista = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
 
-        conn.query(`SELECT * FROM tbl_Recepcionista WHERE id_Recepcionista = ?`, [req.body.id_Recepcionista], async (error, resultado, field) => {
-            if(resultado[0]){
-                const foto = () =>{
-                    if(req.file){
-                       return req.file.filename
+        conn.query(`SELECT * FROM tbl_Recepcionista WHERE id_Recepcionista = ?`, [req.body.id_Recepcionista], async(error, resultado, field) => {
+            if (resultado[0]) {
+                const foto = () => {
+                    if (req.file) {
+                        return req.file.filename
+                    } else {
+                        return resultado[0].foto
                     }
-                    else{
-                        return "default.png"
-                    }
-               }
-                if(resultado[0].senha === req.body.senha){
+                }
+                if (resultado[0].senha === req.body.senha) {
                     conn.query(
                         `UPDATE tbl_Recepcionista
                             SET
@@ -166,21 +160,19 @@ exports.patchRecepcionista = (req, res, next) => {
                                celular = ?,
                                foto = ?,
                                telefone = ?
-                            WHERE id_Recepcionista = ?`,
-                        [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.ativo, req.body.endereco, resultado[0].senha, req.body.celular, foto(), req.body.telefone, req.body.id_Recepcionista],
+                            WHERE id_Recepcionista = ?`, [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.ativo, req.body.endereco, resultado[0].senha, req.body.celular, foto(), req.body.telefone, req.body.id_Recepcionista],
                         (error, resultado, field) => {
                             conn.release()
-        
+
                             if (error) { return res.status(500).send({ error: error }) }
-        
+
                             res.status(202).send({
                                 mensagem: 'Recepcionista Atualizado',
                                 response: resultado.insertId
                             })
                         }
                     )
-                }
-                else{
+                } else {
                     const senha = await bcrypt.hash(req.body.senha, 10);
 
                     conn.query(
@@ -195,13 +187,12 @@ exports.patchRecepcionista = (req, res, next) => {
                                celular = ?,
                                foto = ?,
                                telefone = ?
-                            WHERE id_Recepcionista = ?`,
-                        [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.ativo, req.body.endereco, senha, req.body.celular, foto(), req.body.telefone, req.body.id_Recepcionista],
+                            WHERE id_Recepcionista = ?`, [req.body.nome, req.body.dt_nascimento, req.body.tp_sanguineo, req.body.ativo, req.body.endereco, senha, req.body.celular, foto(), req.body.telefone, req.body.id_Recepcionista],
                         (error, resultado, field) => {
                             conn.release()
-        
+
                             if (error) { return res.status(500).send({ error: error }) }
-        
+
                             res.status(202).send({
                                 mensagem: 'Recepcionista Atualizado',
                                 response: resultado.insertId
@@ -209,9 +200,8 @@ exports.patchRecepcionista = (req, res, next) => {
                         }
                     )
                 }
-            }
-            else{
-                return res.status(500).send({ error: "Usuario Não encontrado" }) 
+            } else {
+                return res.status(500).send({ error: "Usuario Não encontrado" })
             }
         })
     })
@@ -223,8 +213,7 @@ exports.deleteRecepcionista = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            `DELETE FROM tbl_Recepcionista WHERE id_Recepcionista = ?`,
-            [req.body.id_Recepcionista],
+            `DELETE FROM tbl_Recepcionista WHERE id_Recepcionista = ?`, [req.body.id_Recepcionista],
             (error, resultado, field) => {
                 conn.release()
 
@@ -255,14 +244,13 @@ exports.logarRecepcionista = (req, res, next) => {
                 if (err) { return res.status(401).send({ mensagem: 'Falha na autenticação' }) }
                 if (result) {
                     const token = jwt.sign({
-                        id_Recepcionista: results[0].id_Recepcionista,
-                        email: results[0].email,
-                        nome: results[0].nome,
-                        cpf: results[0].cpf,
-                        tipo: "recepcionista",
-                    },
-                        process.env.JWT_KEY,
-                        {
+                            id_Recepcionista: results[0].id_Recepcionista,
+                            email: results[0].email,
+                            nome: results[0].nome,
+                            cpf: results[0].cpf,
+                            tipo: "recepcionista",
+                        },
+                        process.env.JWT_KEY, {
                             expiresIn: "5h"
                         })
                     return res.status(200).send({ mensagem: 'Recepcionista Autenticada com sucesso', token: token })
@@ -273,7 +261,7 @@ exports.logarRecepcionista = (req, res, next) => {
     })
 }
 
-exports.recuperarSenha = async (req, res, next) => {
+exports.recuperarSenha = async(req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
@@ -286,10 +274,9 @@ exports.recuperarSenha = async (req, res, next) => {
                 return res.status(401).send({ mensagem: 'Usuario não Encontrado' })
             }
             const token = jwt.sign({
-                email: req.body.email
-            },
-                process.env.JWT_KEY,
-                {
+                    email: req.body.email
+                },
+                process.env.JWT_KEY, {
                     expiresIn: "20m"
                 })
 
@@ -335,8 +322,7 @@ exports.resetsenha = (req, res, next) => {
                         `UPDATE tbl_Recepcionista
                             SET
                             senha = ?
-                            WHERE email = ?`,
-                        [hash, decode.email],
+                            WHERE email = ?`, [hash, decode.email],
                         (error, resultado, fields) => {
                             conn.release()
 
@@ -351,8 +337,7 @@ exports.resetsenha = (req, res, next) => {
                 })
             })
         }
-    }
-    catch (error) {
+    } catch (error) {
         return res.status(500).send({
             error: "errotokeninvalido"
         })

@@ -166,6 +166,18 @@ export default function Event(Action) {
                 title: 'Erro a Alterar!'
             })
             break;
+        case "errodt_nascimentovazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe a Data de Nascimento!'
+            })
+            break;
+        case "errotamanhocelular":
+            Toast.fire({
+                icon: 'error',
+                title: 'Celular Invalido!'
+            })
+            break;
     }
 
 
