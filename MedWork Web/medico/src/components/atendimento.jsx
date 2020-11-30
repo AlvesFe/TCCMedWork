@@ -7,6 +7,7 @@ import { jsPDF } from 'jspdf/dist/jspdf.umd';
 import Logo from '../images/logotipo.png'
 import Menu from './template/menu'
 import ProcurarPacienteErro from './template/ProcurarPacienteErro'
+import cadastrarConsulta from '../main/api/cadastrarConsulta';
 
 export default class Atendimento extends Component {
 
@@ -44,9 +45,20 @@ export default class Atendimento extends Component {
             getPaciente(this.state.cpf).then(response => {
                 // 32052850007
                 getRemedio(this.state.codigoMedicamento).then(result => {
-
+                    console.log(result)
                     cadastrarReceita(this.state, response, result).then(res => {
-                        if (res) {
+                        if (res.mensagem) {
+                            const stringData = localStorage.getItem('user_data')
+                            const userData = JSON.parse(stringData)
+                            const consulta = {
+                                descricao: this.state.orientacoes,
+                                dt_Consulta: new Date(),
+                                fk_id_Paciente: response.id_Paciente,
+                                fk_id_Medico: userData.id_Medico,
+                                fk_id_Receita: res.id_Receita
+                            }
+                            console.log(consulta);
+                            cadastrarConsulta(consulta)
                             GerarPdf(this.state, response, result)
                             this.setState({
                                 ...this.state,
@@ -66,12 +78,13 @@ export default class Atendimento extends Component {
             })
 
         }
-        function ConverterData(data){
+        function ConverterData(data) {
             data = Date.parse(data);
             data = new Date(data);
             return ((data.getDate())) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear();
         }
-        const GerarPdf = (state, Paciente, Medicamento) => {
+        const GerarPdf = (Paciente, Medicamento) => {
+
             const stringData = localStorage.getItem('user_data')
             const userData = JSON.parse(stringData)
             let fotoPaciente = new Image();

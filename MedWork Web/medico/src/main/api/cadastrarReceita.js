@@ -36,7 +36,6 @@ export default function cadastrarReceita(dados, paciente, remedio) {
     }).then(response => {
         const { data } = response;
         dataFinal.fk_id_Receita = data.id_Receita;
-        console.log(data);
         return Axios({
             method: 'POST',
             url: "/api/receita_Remedio",
@@ -47,10 +46,8 @@ export default function cadastrarReceita(dados, paciente, remedio) {
                 'Authorization': 'bearer ' + token
             }
         }).then(res => {
-            console.log(res.data.mensagem);
             Event(res.data.mensagem)
-
-            return true;
+            return response.data;
         }).catch(error => {
             Event(error.response.data.error)
             console.log("ERROR1", error.response.data.error);

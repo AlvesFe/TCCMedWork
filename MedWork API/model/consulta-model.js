@@ -10,8 +10,7 @@ exports.postConsulta = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         const id_Consulta = bcrypt.hashSync(Date.now().toString(), 10);
         conn.query(
-            'INSERT INTO tbl_Consulta (id_Consulta, dt_Consulta, descricao, fk_id_Paciente, fk_id_Medico, fk_id_Receita) VALUES (?, ?,?,?,?,?)',
-            [id_Consulta, req.body.dt_Consulta, req.body.descricao, req.body.fk_id_Paciente, req.body.fk_id_Medico, req.body.fk_id_Receita],
+            'INSERT INTO tbl_Consulta (id_Consulta, dt_Consulta, descricao, fk_id_Paciente, fk_id_Medico, fk_id_Receita) VALUES (?, ?,?,?,?,?)', [id_Consulta, req.body.dt_Consulta, req.body.descricao, req.body.fk_id_Paciente, req.body.fk_id_Medico, req.body.fk_id_Receita],
             (error, resultado, field) => {
                 conn.release()
 
@@ -19,7 +18,7 @@ exports.postConsulta = (req, res, next) => {
 
                 res.status(201).send({
                     mensagem: 'Consulta Cadastrada',
-                    id_Farmacia: id_Consulta
+                    id_Consulta: id_Consulta
                 })
             }
         )
@@ -52,8 +51,7 @@ exports.getConsulta = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Consulta WHERE id_Consulta = ?',
-            [req.body.id_Consulta],
+            'SELECT * FROM tbl_Consulta WHERE id_Consulta = ?', [req.body.id_Consulta],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -76,8 +74,7 @@ exports.patchConsulta = (req, res, next) => {
             SET
             dt_Consulta = ?,
             descricao = ?
-            WHERE id_Consulta = ?`,
-            [req.body.dt_Consulta, req.body.descricao, req.body.id_Consulta],
+            WHERE id_Consulta = ?`, [req.body.dt_Consulta, req.body.descricao, req.body.id_Consulta],
             (error, resultado, field) => {
                 conn.release()
 
@@ -98,8 +95,7 @@ exports.deleteConsulta = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            `DELETE FROM tbl_Consulta WHERE id_Consulta = ?`,
-            [req.body.id_Consulta],
+            `DELETE FROM tbl_Consulta WHERE id_Consulta = ?`, [req.body.id_Consulta],
             (error, resultado, field) => {
                 conn.release()
 
