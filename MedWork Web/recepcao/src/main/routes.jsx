@@ -6,6 +6,7 @@ import Recuperacao from '../components/login/Recuperacao'
 import PesquisarPaciente from '../components/pesquisar-paciente'
 import VerPaciente from '../components/ver-paciente'
 import Pesquisa from '../components/pesquisa-efetivada'
+import StatusFicha from '../components/status-ficha'
 import Encaminhamento from '../components/encaminhamento'
 import CadastrarPaciente from '../components/cadastrar-paciente'
 import CentroAjuda from '../components/centro-ajuda'
@@ -23,6 +24,7 @@ export default function routes() {
                 <Route path='/esqueci-minha-senha' component={Recuperacao} />
                 <Route path='/pesquisar-paciente' component={PesquisarPaciente} />
                 <Route path='/ver-paciente' component={VerPaciente} />
+                <Route path='/status-ficha' component={StatusFicha} />
                 <Route path='/pesquisa' component={Pesquisa} />
                 <Route path='/encaminhamento' component={Encaminhamento} />
                 <Route path='/cadastrar-paciente' component={CadastrarPaciente} />
