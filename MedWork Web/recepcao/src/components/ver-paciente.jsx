@@ -3,7 +3,6 @@ import cadastrarPaciente from '../main/api/cadastrarPaciente';
 import UploadImagem from './template/upload-imagem'
 import Menu from './template/menu'
 import InputMask from 'react-input-mask';
-import Image from '../images/default-Upload.png'
 import AlterarSucesso from './template/AlterarSucesso'
 import AlterarErro from './template/AlterarErro'
 import getPaciente from '../main/api/getPaciente';
@@ -46,7 +45,6 @@ export default class VerPaciente extends Component {
                 alteracaoErro: "d-none",
                 alergia: res.alergia
             })
-            console.log(this.state);
         })
         const cpfMask = value => {
             return value
@@ -65,24 +63,23 @@ export default class VerPaciente extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault();
-            const estado = this.state;
             let data = this.state.dataNascimento;
             data = Date.parse(data);
             data = new Date(data);
             data = ((data.getDate())) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear();
 
-            const img = new Image();
-            img.src = '/api/uploads/paciente/' + estado.foto;
+            let fotoPaciente = new Image();
+            fotoPaciente.src = `/api/uploads/paciente/${this.state.foto}`;
             
             const doc = new jsPDF('p');
             doc.addImage(Logo, 'png', 80, 0, 50, 50);
-            doc.addImage(img, 'png', 150, 60, 50, 50);
+            doc.addImage(fotoPaciente, 'png', 150, 60, 50, 50);
             doc.text(70, 50, 'ATENDIMENTO MEDWORK');
-            // doc.text(20, 70, 'Paciente: ' + this.state.nome);
-            // doc.text(20, 80, 'CPF: ' + this.state.cpf);
+            doc.text(20, 70, 'Paciente: ' + this.state.nomePaciente);
+            doc.text(20, 80, 'CPF: ' + this.state.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"));
             doc.text(20, 90, 'Nascimento: ' + data);
-            // doc.text(20, 100, 'Alergias: ' + this.state.alergia);
-            doc.save(`${this.state.nome}-atendimento-${Date.now()}`);
+            doc.text(20, 100, 'Alergias: ' + this.state.alergia);
+            doc.save(`${this.state.nomePaciente}-atendimento-${Date.now()}`);
         }
     }
 
