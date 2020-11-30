@@ -12,39 +12,36 @@ exports.postCompra = (req, res, next) => {
 
         const id_Compra = bcrypt.hashSync(Date.now().toString(), 10);
         const cod_fiscal = bcrypt.hashSync(Date.now().toString(), 10);
-        conn.query('SELECT estoque FROM tbl_Remedio_Farmacia WHERE fk_id_Farmacia = ? AND fk_id_Remedio = ?', 
-        [req.body.fk_id_Farmacia, req.body.fk_id_Remedio],
-        ((error, result, field) => {
-            if (error) { return res.status(500).send({ error: error }) }
-            
-            if(result[0].estoque >= req.body.quantidade){
-                const Estoque = (result[0].estoque - req.body.quantidade);
-                conn.query(
-                    'INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, valorRecebido, valorDevolvido, tipo, endereco, fk_id_Farmacia, fk_id_Paciente, fk_id_Remedio)VALUES(?,?,?,?,?,?,?,?,?,?)',
-                    [id_Compra, cod_fiscal, req.body.quantidade, req.body.valorRecebido, req.body.valorDevolvido, req.body.tipo, req.body.endereco, req.body.fk_id_Farmacia, req.body.fk_id_Paciente, req.body.fk_id_Remedio],
-                    (error, resultado, field) => {
-                        if (error) { return res.status(500).send({ error: error }) }
-                        
-                        conn.query('UPDATE tbl_remedio_farmacia SET estoque = ? WHERE fk_id_Farmacia = ? AND fk_id_Remedio = ?', [Estoque, req.body.fk_id_Farmacia, req.body.fk_id_Remedio], 
-                        (error, resultado, field) =>{
-                            conn.release()
-                            console.log(resultado)
-                            res.status(201).send({
-                                mensagem: 'Compra Cadastrada',
-                                id_Compra: id_Compra
-                            })
+        conn.query('SELECT estoque FROM tbl_Remedio_Farmacia WHERE fk_id_Farmacia = ? AND fk_id_Remedio = ?', [req.body.fk_id_Farmacia, req.body.fk_id_Remedio],
+            ((error, result, field) => {
+                if (error) { return res.status(500).send({ error: error }) }
+
+                if (result[0].estoque >= req.body.quantidade) {
+                    const Estoque = (result[0].estoque - req.body.quantidade);
+                    conn.query(
+                        'INSERT INTO tbl_Compra (id_Compra, cod_fiscal, quantidade, valorRecebido, valorDevolvido, tipo, endereco, fk_id_Farmacia, fk_id_Paciente, fk_id_Remedio)VALUES(?,?,?,?,?,?,?,?,?,?)', [id_Compra, cod_fiscal, req.body.quantidade, req.body.valorRecebido, req.body.valorDevolvido, req.body.tipo, req.body.endereco, req.body.fk_id_Farmacia, req.body.fk_id_Paciente, req.body.fk_id_Remedio],
+                        (error, resultado, field) => {
                             if (error) { return res.status(500).send({ error: error }) }
-                        })
-                    }
-                )
-            }
-            else{
-                res.status(500).send({
-                    error: 'Estoque Insuficiente',
-                })
-            }
-        })
-        )  
+
+                            conn.query('UPDATE tbl_remedio_farmacia SET estoque = ? WHERE fk_id_Farmacia = ? AND fk_id_Remedio = ?', [Estoque, req.body.fk_id_Farmacia, req.body.fk_id_Remedio],
+                                (error, resultado, field) => {
+                                    conn.release()
+                                    console.log(resultado)
+                                    res.status(201).send({
+                                        mensagem: 'Compra Cadastrada',
+                                        id_Compra: id_Compra
+                                    })
+                                    if (error) { return res.status(500).send({ error: error }) }
+                                })
+                        }
+                    )
+                } else {
+                    res.status(500).send({
+                        error: 'Estoque Insuficiente',
+                    })
+                }
+            })
+        )
     })
 }
 
@@ -74,8 +71,7 @@ exports.getCompra = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Compra WHERE id_Compra = ?',
-            [req.body.id_Compra],
+            'SELECT * FROM tbl_Compra WHERE id_Compra = ?', [req.body.id_Compra],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -98,9 +94,9 @@ exports.patchCompra = (req, res, next) => {
             SET
             quantidade = ?
             valorRecebido = ?, 
-            valorDevolvido = ?
-            WHERE id_Compra = ?`,
-            [req.body.quantidade, req.body.valorRecebido, req.body.valorDevolvido, req.body.id_Compra],
+            valorDevolvido = ?,
+            status_pedido = ?
+            WHERE id_Compra = ?`, [req.body.quantidade, req.body.valorRecebido, req.body.valorDevolvido, req.body.status, req.body.id_Compra],
             (error, resultado, field) => {
                 conn.release()
 
@@ -121,8 +117,7 @@ exports.deleteCompra = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            `DELETE FROM tbl_Compra WHERE id_Compra = ?`,
-            [req.body.id_Compra],
+            `DELETE FROM tbl_Compra WHERE id_Compra = ?`, [req.body.id_Compra],
             (error, resultado, field) => {
                 conn.release()
 
@@ -133,6 +128,24 @@ exports.deleteCompra = (req, res, next) => {
                 })
             }
         )
+    })
+
+}
+
+exports.getCompraFarmacia = (req, res, next) => {
+
+    mysql.getConnection((error, conn) => {
+        console.log("ENTROU");
+        if (error) { return res.status(500).send({ error: error }) }
+        conn.query(`SELECT * FROM tbl_compra WHERE status_pedido = ? AND fk_id_Farmacia  = ?`, [req.body.status, req.body.id_Farmacia],
+            (err, response, filed) => {
+                conn.release()
+                if (err) { return res.status(500).send({ error: err }) }
+                res.status(200).send({
+                    success: 1,
+                    Compras: response
+                })
+            })
     })
 
 }

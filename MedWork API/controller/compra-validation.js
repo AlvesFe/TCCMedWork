@@ -22,11 +22,10 @@ function ValidationNumber(value) {
 exports.postCompra = (req, res, next) => {
 
     for (let key in req.body) {
-        
+
         if (key === "valorRecebido" || key === "valorDevolvido") {
-            
-        }
-        else{
+
+        } else {
             if (!req.body[key]) {
                 return res.status(500).send({
                     error: "erro" + key + "vazio"
@@ -110,5 +109,17 @@ exports.deleteCompra = (req, res, next) => {
         })
     }
 
+    next();
+}
+
+exports.GetCompraFarmacia = (req, res, next) => {
+
+    for (let key in req.body) {
+        if (isNullOrWhitespace(req.body[key])) {
+            return res.status(500).send({
+                error: "erro" + key + "vazio"
+            })
+        }
+    }
     next();
 }
