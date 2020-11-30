@@ -80,8 +80,8 @@ export default class VerPaciente extends Component {
             doc.text(20, 80, 'CPF: ' + this.state.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"));
             doc.text(20, 90, 'Nascimento: ' + data);
             doc.text(20, 100, 'Alergias: ' + this.state.alergia);
-            doc.save(`${this.state.nomePaciente}-atendimento-${Date.now()}`);
-            Event("Ficha Gerada");
+            //doc.save(`${this.state.nomePaciente}-atendimento-${Date.now()}`);
+            Event("Ficha Gerada")
         }
     }
 

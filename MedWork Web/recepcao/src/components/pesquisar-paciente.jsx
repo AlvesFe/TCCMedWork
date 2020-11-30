@@ -18,13 +18,7 @@ class PesquisarPaciente extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault();
-            getPaciente(this.state.cpf).then(res => {
-                let data = res.dt_Nascimento.slice(0,-14)
-                data = Date.parse(data)
-                data = new Date(data)
-                data = ((data.getDate())) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear()
-                console.log(data)
-            })
+            getPaciente(this.state.cpf)
         }
     }
 
