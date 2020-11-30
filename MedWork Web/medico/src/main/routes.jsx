@@ -4,7 +4,7 @@ import { isAuth } from './auth';
 
 import Login from '../components/login/Login'
 import Recuperacao from '../components/login/Recuperacao'
-import PacientesEmEspera from '../components/pacientes-em-espera'
+import Inicio from '../components/inicio'
 import Atendimento from '../components/atendimento'
 import MinhasInformacoes from '../components/minhas-informacoes'
 import PrescricaoGerada from '../components/prescricao-gerada'
@@ -18,10 +18,8 @@ export default function routes() {
     if (isAuth()) {
         return (
             <Router history={hashHistory}>
-                <Route path='/inicio' component={PacientesEmEspera} />
+                <Route path='/inicio' component={Inicio} />
                 <Route path='/esqueci-minha-senha' component={Recuperacao} />
-                <Route path='/termo-uso-e-privacidade' component={Login} />
-                <Route path='/pacientes-em-espera' component={PacientesEmEspera} />
                 <Route path='/encaminhamento' component={Encaminhamento} />
                 <Route path='/atendimento' component={Atendimento} />
                 <Route path='/minhas-informacoes' component={MinhasInformacoes} />

@@ -31,7 +31,7 @@ export default function patchUser(dados) {
         dataFinal.append(key, data[key])
     }
 
-    Axios({
+    return Axios({
         method: 'PATCH',
         url: "/api/medico",
         data: dataFinal,
@@ -43,6 +43,7 @@ export default function patchUser(dados) {
     }).then(response => {
         const { data } = response;
         Event(data.mensagem)
+        return true
     }).catch(err => {
         Event(err.response.data.error)
         return false

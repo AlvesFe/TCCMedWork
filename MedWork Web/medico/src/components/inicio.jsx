@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Menu from './template/menu'
 import Logotipo from '../images/logotipo.png'
 
-class PacientesEmEspera extends Component {
+class Inicio extends Component {
 
     constructor() {
         super()
@@ -40,4 +40,4 @@ class PacientesEmEspera extends Component {
     }
 }
 
-export default PacientesEmEspera
+export default Inicio

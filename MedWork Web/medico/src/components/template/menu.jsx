@@ -6,9 +6,9 @@ import './menu.css'
 export default props => (
     <div className="Menu col-md-4 col-lg-3 d-none d-lg-block">
         <a href="#/inicio"><h4 className='text-center'><Logotipo /></h4></a>
-        <a href="#/pacientes-em-espera">
-            <i className="users icon mr-3"></i>
-             Pacientes em espera
+        <a href="#/inicio">
+            <i className="home icon mr-3"></i>
+             Início
         </a>
         <a href="#atendimento">
             <i className="user icon mr-3"></i>
