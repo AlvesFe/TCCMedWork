@@ -195,7 +195,7 @@ export default class Atendimento extends Component {
                             </div>
                             <div className='form-group col-2 py-1'>
                                 <label htmlFor="crm" className='font-weight-bold mb-0'>Validade</label>
-                                <InputMask mask="99/99/9999" disabled={this.state.apenasLeitura} className="form-control form-control-sm" id="validade" placeholder='dd/mm/aaaa' name="validade" value={this.state.validade} onChange={this.onChange} />
+                                <input type='date' disabled={this.state.apenasLeitura} className="form-control form-control-sm" id="validade" placeholder='dd/mm/aaaa' name="validade" value={this.state.validade} onChange={this.onChange} />
                             </div>
 
                             <div className='form-group col-12 py-1'>
