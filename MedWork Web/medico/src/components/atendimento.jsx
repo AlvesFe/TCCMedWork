@@ -103,7 +103,6 @@ export default class Atendimento extends Component {
             doc.text(20, 150, 'Tarja: ' + Medicamento.tarja);
             doc.text(20, 160, 'Descrição: ' + Medicamento.descricao);
             doc.text(20, 170, 'Orientações: ' + this.state.orientacoes);
-            doc.text(20, 180, 'Preco: R$' + Medicamento.preco);
             doc.text(95, 190, 'MEDICO');
             doc.text(20, 220, 'Medico: ' + userData.nome);
             doc.text(20, 230, 'CRM: ' + userData.crm);
