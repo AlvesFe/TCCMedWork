@@ -135,7 +135,6 @@ exports.deleteCompra = (req, res, next) => {
 exports.getCompraFarmacia = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
-        console.log("ENTROU");
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(`SELECT * FROM tbl_compra WHERE status_pedido = ? AND fk_id_Farmacia  = ?`, [req.body.status, req.body.id_Farmacia],
             (err, response, filed) => {

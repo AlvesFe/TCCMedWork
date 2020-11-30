@@ -13,7 +13,7 @@ const nodemailer = require('nodemailer');
 
 function SendMail(transport, data) {
 
-    const template = readHTMLFile(__dirname + '/../src/template/AlterarSenha.html', function (err, html) {
+    const template = readHTMLFile(__dirname + '/../src/template/AlterarSenha.html', function(err, html) {
         const template = handlebars.compile(html);
         const parametros = {
             token: data.token
@@ -31,12 +31,11 @@ function SendMail(transport, data) {
 }
 
 const readHTMLFile = (path, callback) => {
-    fs.readFile(path, { encoding: 'utf-8' }, function (err, html) {
+    fs.readFile(path, { encoding: 'utf-8' }, function(err, html) {
         if (err) {
             throw err;
             callback(err);
-        }
-        else {
+        } else {
             callback(null, html);
         }
     })
@@ -62,18 +61,16 @@ exports.postPaciente = (req, res, next) => {
 
                             const id_Paciente = bcrypt.hashSync(Date.now().toString(), 10);
 
-                            const foto = () =>{
-                                 if(req.file){
+                            const foto = () => {
+                                if (req.file) {
                                     return req.file.filename
-                                 }
-                                 else{
-                                     return "default.png"
-                                 }
+                                } else {
+                                    return "default.png"
+                                }
                             }
 
                             conn.query(
-                                'INSERT INTO tbl_Paciente (id_Paciente, foto,dt_nascimento, nome, telefone, tp_sanguineo, alergia, rg, email, cpf, endereco, celular, senha, fk_id_Recepcionista)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-                                [id_Paciente, foto(), req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.rg, req.body.email, req.body.cpf, req.body.endereco, req.body.celular, hash, req.body.fk_id_Recepcionista],
+                                'INSERT INTO tbl_Paciente (id_Paciente, foto,dt_nascimento, nome, telefone, tp_sanguineo, alergia, rg, email, cpf, endereco, celular, senha, fk_id_Recepcionista)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [id_Paciente, foto(), req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.rg, req.body.email, req.body.cpf, req.body.endereco, req.body.celular, hash, req.body.fk_id_Recepcionista],
                                 (error, resultado, fields) => {
                                     conn.release()
 
@@ -87,8 +84,7 @@ exports.postPaciente = (req, res, next) => {
                             )
                         })
                     })
-                }
-                else {
+                } else {
                     return res.status(500).send({ error: "errodadosjainseridos" })
                 }
             })
@@ -121,8 +117,7 @@ exports.getPaciente = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Paciente WHERE cpf = ?',
-            [req.body.cpf],
+            'SELECT * FROM tbl_Paciente WHERE cpf = ?', [req.body.cpf],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -137,19 +132,18 @@ exports.getPaciente = (req, res, next) => {
 }
 
 exports.pacthPaciente = (req, res, next) => {
-    mysql.getConnection(async (error, conn) => {
+    mysql.getConnection(async(error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         const result = await conn.query(`SELECT senha FROM tbl_Paciente WHERE cpf = ?`, [req.body.cpf],
-            async (error, resultado, fields) => {
+            async(error, resultado, fields) => {
 
                 if (error) { return res.status(500).send({ error: error }) }
 
-                const foto = () =>{
-                    if(req.file){
-                       return req.file.filename
-                    }
-                    else{
+                const foto = () => {
+                    if (req.file) {
+                        return req.file.filename
+                    } else {
                         return "default.png"
                     }
                 }
@@ -169,8 +163,7 @@ exports.pacthPaciente = (req, res, next) => {
                                     senha = ?,
                                     alt_senha = ?,
                                     foto = ?
-                                    WHERE cpf = ?`,
-                        [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, resultado[0].senha, req.body.alt_senha, foto(), req.body.cpf],
+                                    WHERE cpf = ?`, [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, resultado[0].senha, req.body.alt_senha, foto(), req.body.cpf],
                         (error, resultado, fields) => {
                             conn.release()
                             if (error) { return res.status(500).send({ error: error }) }
@@ -179,18 +172,16 @@ exports.pacthPaciente = (req, res, next) => {
                             })
                         }
                     )
-                }
-                else {
+                } else {
                     const senha = await (bcrypt.hash(req.body.senha, 10));
 
-                    const foto = () =>{
-                        if(req.file){
-                           return req.file.filename
-                        }
-                        else{
+                    const foto = () => {
+                        if (req.file) {
+                            return req.file.filename
+                        } else {
                             return "default.png"
                         }
-                   }
+                    }
                     conn.query(
                         `UPDATE tbl_Paciente
                                             SET
@@ -205,8 +196,7 @@ exports.pacthPaciente = (req, res, next) => {
                                             senha = ?,
                                             alt_senha = ?,
                                             foto = ?
-                                            WHERE cpf = ?`,
-                        [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, senha, req.body.alt_senha, foto(), req.body.cpf],
+                                            WHERE cpf = ?`, [req.body.dt_Nascimento, req.body.nome, req.body.telefone, req.body.tp_sanguineo, req.body.alergia, req.body.endereco, req.body.celular, req.body.ativo, senha, req.body.alt_senha, foto(), req.body.cpf],
                         (error, resultado, fields) => {
                             conn.release()
                             if (error) { return res.status(500).send({ error: error }) }
@@ -226,8 +216,7 @@ exports.deletePaciente = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            `DELETE FROM tbl_Paciente WHERE cpf = ?`,
-            [req.body.cpf],
+            `DELETE FROM tbl_Paciente WHERE cpf = ?`, [req.body.cpf],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -258,14 +247,13 @@ exports.logarPaciente = (req, res, next) => {
                 if (err) { return res.status(401).send({ mensagem: 'Falha na autenticação' }) }
                 if (result) {
                     const token = jwt.sign({
-                        id_Paciente: results[0].id_Paciente,
-                        email: results[0].email,
-                        nome: results[0].nome,
-                        cpf: results[0].cpf,
-                        tipo: "paciente",
-                    },
-                        process.env.JWT_KEY,
-                        {
+                            id_Paciente: results[0].id_Paciente,
+                            email: results[0].email,
+                            nome: results[0].nome,
+                            cpf: results[0].cpf,
+                            tipo: "paciente",
+                        },
+                        process.env.JWT_KEY, {
                             expiresIn: "5h"
                         })
                     return res.status(200).send({ mensagem: 'Autenticado com sucesso', token: token })
@@ -277,7 +265,7 @@ exports.logarPaciente = (req, res, next) => {
 
 }
 
-exports.recuperarSenha = async (req, res, next) => {
+exports.recuperarSenha = async(req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
@@ -290,10 +278,9 @@ exports.recuperarSenha = async (req, res, next) => {
                 return res.status(401).send({ mensagem: 'Usuario não Encontrado' })
             }
             const token = jwt.sign({
-                email: req.body.email
-            },
-                process.env.JWT_KEY,
-                {
+                    email: req.body.email
+                },
+                process.env.JWT_KEY, {
                     expiresIn: "20m"
                 })
 
@@ -339,8 +326,7 @@ exports.resetsenha = (req, res, next) => {
                         `UPDATE tbl_Paciente
                             SET
                             senha = ?
-                            WHERE email = ?`,
-                        [hash, decode.email],
+                            WHERE email = ?`, [hash, decode.email],
                         (error, resultado, fields) => {
                             conn.release()
 
@@ -355,10 +341,28 @@ exports.resetsenha = (req, res, next) => {
                 })
             })
         }
-    }
-    catch (error) {
+    } catch (error) {
         return res.status(500).send({
             error: "errotokeninvalido"
         })
     }
+}
+
+
+exports.desativarPaciente = (req, res, next) => {
+
+    mysql.getConnection((error, conn) => {
+        if (error) { return res.status(500).send({ error: error }) }
+        conn.query(`UPDATE tbl_Paciente SET ativo = 0 WHERE id_Paciente = ?`, [req.body.id_Paciente],
+            (error, response, field) => {
+                conn.release();
+                if (error) { return res.status(500).send({ error: error }) }
+                return res.status(200).send({
+                    success: 1,
+                    mensagem: "Desativado"
+                })
+            })
+
+    })
+
 }

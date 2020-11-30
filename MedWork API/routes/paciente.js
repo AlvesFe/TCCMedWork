@@ -27,27 +27,26 @@ const pacienteMiddleware = require('../middleware/route_paciente');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
-    destination: function (req, file, callback){
+    destination: function(req, file, callback) {
         callback(null, './uploads/paciente')
     },
-    filename: async function(req, file, callback){
-        callback(null, new Date().getTime().toString()+'.' + file.originalname.split('.').pop())
+    filename: async function(req, file, callback) {
+        callback(null, new Date().getTime().toString() + '.' + file.originalname.split('.').pop())
     }
 })
 
 const fileFilter = (req, file, callback) => {
 
-    if(file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg'){
+    if (file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg') {
         callback(null, true);
-    }
-    else{
+    } else {
         callback(null, false);
     }
 }
 
-const upload = multer({ 
+const upload = multer({
     storage: storage,
-    limits:{
+    limits: {
         fieldSize: 1024 * 1024 * 5,
     },
     fileFilter: fileFilter
@@ -76,6 +75,9 @@ router.post('/recuperarsenha', pacienteController.recuperarSenha, pacienteModel.
 
 //Metodo de Recuperar Senha
 router.post('/confirmetoken', pacienteController.confirmetoken)
+
+//Metodo de Recuperar Senha
+router.post('/desativar', pacienteMiddleware.deletePaciente, pacienteModel.desativarPaciente)
 
 //Metodo de Recuperar Senha
 router.patch('/resetarsenha', pacienteController.resetsenha, pacienteModel.resetsenha)
