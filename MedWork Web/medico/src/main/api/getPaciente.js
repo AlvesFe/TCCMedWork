@@ -19,7 +19,7 @@ export default function getPaciente(dados) {
     }).then(response => {
         const { data } = response;
         !data.data[0] ? Event("Informe o CPF") : null
-        return data.data[0];
+        return data.data[0] ? data.data[0] : false;
     }).catch(err => {
         console.log(err.response);
         return false;

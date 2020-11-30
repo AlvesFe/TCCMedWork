@@ -14,6 +14,9 @@ export default class Atendimento extends Component {
         super()
         this.state = {
             cpf: "",
+            NomePaciente: "",
+            tipoSanguineo: "",
+            alergias: "",
             codigoMedicamento: "",
             dosagem: "",
             quantidade: "",
@@ -63,28 +66,57 @@ export default class Atendimento extends Component {
             })
 
         }
+        const GerarPdf = (state, Paciente, Medicamento) => {
+            const stringData = localStorage.getItem('user_data')
+            const userData = JSON.parse(stringData)
+            let fotoPaciente = new Image();
+            fotoPaciente.src = `/api/uploads/paciente/${Paciente.foto}`;
+
+            const doc = new jsPDF('p');
+            doc.addImage(Logo, 'png', 80, 0, 50, 50);
+            doc.addImage(fotoPaciente, 'png', 150, 60, 50, 50);
+            doc.text(90, 50, 'PACIENTE');
+            doc.text(20, 70, 'Paciente: ' + Paciente.nome);
+            doc.text(20, 80, 'CPF: ' + Paciente.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"));
+            doc.text(20, 90, 'Nascimento: ' + Paciente.dt_Nascimento.slice(0, -14));
+            doc.text(20, 100, 'Alergias: ' + Paciente.alergia);
+            doc.text(85, 120, 'MEDICAMENTO');
+            doc.text(20, 140, 'Remédio: ' + Medicamento.nome);
+            doc.text(20, 150, 'Tarja: ' + Medicamento.tarja);
+            doc.text(20, 160, 'Descrição: ' + Medicamento.descricao);
+            doc.text(20, 170, 'Preco: R$' + Medicamento.preco);
+            doc.text(95, 190, 'MEDICO');
+            doc.text(20, 210, 'Medico: ' + userData.nome);
+            doc.text(20, 220, 'CRM: ' + userData.nome);
+            doc.text(20, 230, 'Especialidade: ' + userData.especialidade);
+            doc.text(20, 240, 'Data Nascimento: ' + userData.dt_Nascimento.slice(0, -14));
+            doc.text(30, 270, '______________________  ______________________');
+            doc.text(55, 280, 'Assinatura');
+            doc.text(128, 280, 'Carimbo');
+            doc.save(`${Paciente.nome}-Receita-${Date.now()}`);
+        }
         this.buscarDadosPaciente = (e) => {
             e.preventDefault()
+            getPaciente(this.state.cpf).then(res => {
+                if (res != false) {
+                    this.setState({
+                        NomePaciente: res.nome,
+                        tipoSanguineo: res.tp_sanguineo,
+                        alergias: res.alergia,
+                        apenasLeitura: "",
+                        dadosPaciente: "",
+                        procurarPacienteErro: "d-none"
+                    })
+                }
+                else {
+                    this.setState({
+                        procurarPacienteErro: "col-12 animate__animated animate__fadeIn animate__fast",
+                        apenasLeitura: "true"
+                    })
+                }
 
-            if (false) {
-                this.setState({
-                    procurarPacienteErro: "col-12 animate__animated animate__fadeIn animate__fast"
-                })
-                this.setState({
-                    apenasLeitura: "true"
-                })
-            }
-            else {
-                this.setState({
-                    procurarPacienteErro: "d-none"
-                })
-                this.setState({
-                    dadosPaciente: ""
-                })
-                this.setState({
-                    apenasLeitura: ""
-                })
-            }
+            })
+
         }
     }
 
