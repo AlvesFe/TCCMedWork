@@ -3,6 +3,8 @@ import InputMask from 'react-input-mask';
 import cadastrarReceita from '../main/api/cadastrarReceita';
 import getPaciente from '../main/api/getPaciente';
 import getRemedio from '../main/api/getRemedio';
+import { jsPDF } from 'jspdf/dist/jspdf.umd';
+import Logo from '../images/logotipo.png'
 import Menu from './template/menu'
 
 export default class Atendimento extends Component {
@@ -27,9 +29,12 @@ export default class Atendimento extends Component {
             e.preventDefault()
             console.log(this.state)
             getPaciente(this.state.cpf).then(response => {
+                // 32052850007
                 getRemedio(this.state.codigoMedicamento).then(result => {
+
                     cadastrarReceita(this.state, response, result).then(res => {
                         if (res) {
+                            GerarPdf(this.state, response, result)
                             this.setState({
                                 cpf: "",
                                 codigoMedicamento: "",
@@ -43,6 +48,35 @@ export default class Atendimento extends Component {
                 })
             })
 
+        }
+
+        const GerarPdf = (state, Paciente, Medicamento) => {
+            const stringData = localStorage.getItem('user_data')
+            const userData = JSON.parse(stringData)
+            let fotoPaciente = new Image();
+            fotoPaciente.src = `/api/uploads/paciente/${Paciente.foto}`;
+
+            const doc = new jsPDF('p');
+            doc.addImage(Logo, 'png', 80, 0, 50, 50);
+            doc.addImage(fotoPaciente, 'png', 150, 60, 50, 50);
+            doc.text(90, 50, 'PACIENTE');
+            doc.text(20, 70, 'Paciente: ' + Paciente.nome);
+            doc.text(20, 80, 'CPF: ' + Paciente.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"));
+            doc.text(20, 90, 'Nascimento: ' + Paciente.dt_Nascimento.slice(0, -14));
+            doc.text(20, 100, 'Alergias: ' + Paciente.alergia);
+            doc.text(85, 120, 'MEDICAMENTO');
+            doc.text(20, 140, 'Remédio: ' + Medicamento.nome);
+            doc.text(20, 150, 'Tarja: ' + Medicamento.tarja);
+            doc.text(20, 160, 'Descrição: ' + Medicamento.descricao);
+            doc.text(20, 170, 'Preco: R$' + Medicamento.preco);
+            doc.text(95, 190, 'MEDICO');
+            doc.text(20, 210, 'Medico: ' + userData.nome);
+            doc.text(20, 220, 'CRM: ' + userData.nome);
+            doc.text(20, 230, 'Especialidade: ' + userData.especialidade);
+            doc.text(20, 240, 'Data Nascimento: ' + userData.dt_Nascimento.slice(0, -14));
+            doc.text(20, 270, 'Ass:_________________________________________________');
+            doc.text(90, 280, 'Carimbo: ______________________');
+            doc.save(`${Paciente.nome}-Receita-${Date.now()}`);
         }
     }
 

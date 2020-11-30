@@ -36,9 +36,10 @@ export default function cadastrarReceita(dados, paciente, remedio) {
     }).then(response => {
         const { data } = response;
         dataFinal.fk_id_Receita = data.id_Receita;
+        console.log(data);
         return Axios({
             method: 'POST',
-            url: API_URL + "/receita_Remedio",
+            url: "/api/receita_Remedio",
             data: dataFinal,
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -46,8 +47,9 @@ export default function cadastrarReceita(dados, paciente, remedio) {
                 'Authorization': 'bearer ' + token
             }
         }).then(res => {
+            console.log(res.data.mensagem);
             Event(res.data.mensagem)
-            console.log(res.data);
+
             return true;
         }).catch(error => {
             Event(error.response.data.error)
@@ -56,7 +58,7 @@ export default function cadastrarReceita(dados, paciente, remedio) {
         })
     }).catch(err => {
         Event(err.response.data.error)
-        console.log("ERROR2", err.response.data.error);
+        console.log("ERROR2", err.response);
         return false;
     })
 }
