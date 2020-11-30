@@ -33,6 +33,7 @@ export default function PerfilPage() {
         }
       }
     })();
+    getUserData();
   }, []);
 
   const pickImage = async () => {
@@ -62,10 +63,6 @@ export default function PerfilPage() {
       console.log(error);
     }
   }
-
-  useEffect(() => {
-    getUserData();
-  }, [])
 
   return (
     <>

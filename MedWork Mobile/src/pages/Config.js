@@ -1,11 +1,28 @@
 import React, {useContext, useState} from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,Alert } from 'react-native';
 import FormButton from '../components/FormButton';
 import { roxo, vermelho } from '../constants/colors.json'
 import { AuthContext } from '../routes/AuthProvider';
 
 export default function Config({ navigation }) {
   const { logout } = useContext(AuthContext);
+
+  function desativarConta() {
+    Alert.alert(
+      "Tem certeza!?",
+      "Você só poderá reativar sua conta atravéz de um funcionário do seu hospital",
+      [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel"
+        },
+        { text: "Desativar conta", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: true }
+    );
+  }
+
   return (
     <View style={styles.container}>
         <FormButton
