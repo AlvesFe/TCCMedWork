@@ -22,6 +22,10 @@ export default function getPaciente(dados) {
     }).then(response => {
         const { data } = response;
         data.data[0] ? Event("Dados Encontrados") : Event("Não Encontrado")
+        if (data.data[0]) {
+            localStorage.setItem('Cpf_Paciente', dados)
+            window.location.assign('#/ver-paciente')
+        }
         return data.data[0]
     }).catch(err => {
         Event("Não Encontrado")
