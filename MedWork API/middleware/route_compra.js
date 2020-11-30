@@ -30,19 +30,18 @@ exports.postCompra = (req, res, next) => {
     }
 
     result = ValidateRoute(permission, decode);
-    
-    if  (result === 'next'){
+
+    if (result === 'next') {
         next();
-    }
-    else if (result === 'Usuário inválido'){
-        return res.status(401).send({ mensagem: result})
+    } else if (result === 'Usuário inválido') {
+        return res.status(401).send({ mensagem: result })
     }
 
 }
 
 exports.getCompras = (req, res, next) => {
 
-    permission = ['recepcionista', 'paciente'];
+    permission = ['recepcionista', 'paciente', 'farmacia'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
@@ -50,18 +49,17 @@ exports.getCompras = (req, res, next) => {
     }
 
     result = ValidateRoute(permission, decode);
-    
-    if  (result === 'next'){
+
+    if (result === 'next') {
         next();
-    }
-    else if (result === 'Usuário inválido'){
-        return res.status(401).send({ mensagem: result})
+    } else if (result === 'Usuário inválido') {
+        return res.status(401).send({ mensagem: result })
     }
 }
 
 exports.getCompra = (req, res, next) => {
 
-    permission = ['recepcionista', 'paciente'];
+    permission = ['recepcionista', 'paciente', 'farmacia'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {
@@ -69,12 +67,11 @@ exports.getCompra = (req, res, next) => {
     }
 
     result = ValidateRoute(permission, decode);
-    
-    if  (result === 'next'){
+
+    if (result === 'next') {
         next();
-    }
-    else if (result === 'Usuário inválido'){
-        return res.status(401).send({ mensagem: result})
+    } else if (result === 'Usuário inválido') {
+        return res.status(401).send({ mensagem: result })
     }
 }
 
@@ -88,12 +85,11 @@ exports.patchCompra = (req, res, next) => {
     }
 
     result = ValidateRoute(permission, decode);
-    
-    if  (result === 'next'){
+
+    if (result === 'next') {
         next();
-    }
-    else if (result === 'Usuário inválido'){
-        return res.status(401).send({ mensagem: result})
+    } else if (result === 'Usuário inválido') {
+        return res.status(401).send({ mensagem: result })
     }
 }
 
@@ -107,12 +103,10 @@ exports.deleteCompra = (req, res, next) => {
     }
 
     result = ValidateRoute(permission, decode);
-    
-    if  (result === 'next'){
+
+    if (result === 'next') {
         next();
-    }
-    else if (result === 'Usuário inválido'){
-        return res.status(401).send({ mensagem: result})
+    } else if (result === 'Usuário inválido') {
+        return res.status(401).send({ mensagem: result })
     }
 }
-

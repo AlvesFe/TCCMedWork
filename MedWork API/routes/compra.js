@@ -26,12 +26,15 @@ router.post('/', compraMiddleware.postCompra, compraController.postCompra, compr
 router.get('/', compraMiddleware.getCompras, compraModel.getCompras);
 
 //READ ESPECIFICO - Busca e exibe um item especifico da tabela do banco de dados
-router.post('/get', compraMiddleware.getCompra, compraController.getCompra ,compraModel.getCompra);
+router.post('/get', compraMiddleware.getCompra, compraController.getCompra, compraModel.getCompra);
+
+//READ (GET'S) - Busca e exibe Itens da tabela do banco de dados
+router.post('/getCompra', compraMiddleware.getCompra, compraController.GetCompraFarmacia, compraModel.getCompraFarmacia);
 
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
-router.patch('/', compraMiddleware.patchCompra , compraController.patchCompra, compraModel.patchCompra);
+router.patch('/', compraMiddleware.patchCompra, compraController.patchCompra, compraModel.patchCompra);
 
 //DELETE - Apaga um valor existente da tabela do banco de dados
-router.delete('/', compraMiddleware.deleteCompra , compraController.deleteCompra, compraModel.deleteCompra);
+router.delete('/', compraMiddleware.deleteCompra, compraController.deleteCompra, compraModel.deleteCompra);
 
 module.exports = router;
