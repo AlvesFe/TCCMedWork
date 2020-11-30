@@ -11,7 +11,7 @@ function ListarFuncionarios(props) {
             <div className="ui items">
                 <div className="item">
                     <a className="ui tiny image circle">
-                        <img className="ui avatar image" src={ tipo === "Recepcionista" ? fotoRecep : fotoMed } />
+                        <img className="ui avatar image" onClick={() => alterarFuncionario(funcionario, tipo)} src={ tipo === "Recepcionista" ? fotoRecep : fotoMed } />
                     </a>
                     <div className="content">
                         <a className="header" onClick={() => alterarFuncionario(funcionario, tipo)}>{funcionario.nome}</a>
