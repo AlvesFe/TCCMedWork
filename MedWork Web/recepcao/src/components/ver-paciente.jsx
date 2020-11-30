@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import cadastrarPaciente from '../main/api/cadastrarPaciente';
-import UploadImagem from '../components/template/upload-imagem'
+import UploadImagem from './template/upload-imagem'
 import Menu from './template/menu'
 import InputMask from 'react-input-mask';
 import Image from '../images/default-Upload.png'
@@ -8,7 +8,7 @@ import AlterarSucesso from './template/AlterarSucesso'
 import AlterarErro from './template/AlterarErro'
 
 
-export default class CadastrarPaciente extends Component {
+export default class VerPaciente extends Component {
 
     constructor() {
         super()
@@ -73,7 +73,7 @@ export default class CadastrarPaciente extends Component {
             <div className='row bg-white'>
                 <Menu />
                 <div className='container col-md-8 col-lg-9 pt-4 animate__animated animate__fadeIn animate__fast'>
-                    <h2 className='text-center font-weight-light'>CADASTRAR PACIENTE</h2>
+                    <h2 className='text-center font-weight-light'>FICHA DO PACIENTE</h2>
 
                     <div className='row justify-content-center'>
                     <div className='col-12'>
@@ -116,17 +116,13 @@ export default class CadastrarPaciente extends Component {
                                 <label htmlFor="email" className='font-weight-bold mb-0'>E-mail</label>
                                 <input type="text" className="form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-2 '>
+                            <div className='form-group col-3 '>
                                 <label htmlFor="celular" className='font-weight-bold mb-0'>Celular</label>
                                 <InputMask mask="(99) 99999-99999" className="form-control form-control-sm" id="celular" placeholder='(__) _____-____' name='celular' value={this.state.celular} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-2 '>
+                            <div className='form-group col-3 '>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
                                 <InputMask mask="(99) 9999-9999" className="form-control form-control-sm" id="telefone" placeholder='(__) ____-____' name='telefone' value={this.state.telefone} onChange={this.onChange} />
-                            </div>
-                            <div className='form-group col-2 '>
-                                <label htmlFor="senhaProvisoria" className='font-weight-bold mb-0'>Senha provisória</label>
-                                <input type="password" className="form-control form-control-sm" id="senhaProvisoria" placeholder='••••••••••' name='senhaProvisoria' value={this.state.senhaProvisoria} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-12 '>
                                 <label htmlFor="alergia" className='font-weight-bold mb-0'>Alergia a medicamentos ou remédios</label>
@@ -134,7 +130,7 @@ export default class CadastrarPaciente extends Component {
                             </div>
                         </div>
                         <div className='col-12 text-center '>
-                            <button className='btn-roxo' onClick={this.onSubmit} >CADASTRAR</button>
+                            <a className='btn-roxo' href='#/encaminhamento' >CONTINUAR</a>
                         </div>
                     </div>
 
