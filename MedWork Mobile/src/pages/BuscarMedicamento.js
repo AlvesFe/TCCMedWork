@@ -33,40 +33,9 @@ export default function BuscaMeds({ route, navigation }) {
 
             {
                 farmaciaRem[0] &&
-                (
-                    farmaciaRem.map((item, key) => (
-                        <>
-                            <View key={key} style={styles.container}>
-                                <Image
-                                    key={key+30}
-                                    style={styles.stretch}
-                                    source={{ uri: `${env.API_URL}/uploads/farmacia/${item.foto}` }}
-                                />
-                            </View>
-                            <View key={Date.now()+key} style={styles.detalhesContainer}>
-                                <Text key={Date.now()-key} style={styles.Title}>{item.Farmacia}</Text>
-                                <Text key={Date.now()/(key+25)}style={styles.subTitle}>{item.nome}</Text>
-                                <View key={Date.now().toString().slice(0,-5)} style={styles.containerRow}>
-                                    <Text key={Date.now().toString().slice(0,-6)} style={styles.Title}>{ item.preco }</Text>
-                                    <View key={Date.now().toString().slice(0,-3)} style={styles.containerButton}>
-                                        <Button
-                                            mode='contained'
-                                            key={Date.now().toString().slice(0,-2)}
-                                            title='COMPRAR'
-                                            color={verde_claro}
-                                            contentStyle={styles.editingButtons}
-                                            style={styles.editingButtonsView}
-                                            labelStyle={styles.labelStyle}
-                                            onPress={() => {
-                                                navigation.navigate('Calcular Valor', { item, detalhes })
-                                            }}
-                                        >COMPRAR</Button>
-                                    </View>
-                                </View>
-                            </View>
-                        </>
-                    ))
-                )
+                farmaciaRem.map((item, key) => (
+                    <FarmaciaRemedio key={key} item={item} navigation={navigation} detalhes={detalhes}></FarmaciaRemedio>
+                ))
             }
             {
                 !farmaciaRem[0] && 
@@ -135,3 +104,35 @@ const styles = StyleSheet.create({
         marginTop: -17
     }
 })
+
+function FarmaciaRemedio({item, navigation, detalhes}){
+    return (
+        <>
+            <View style={styles.container}>
+                <Image
+                    style={styles.stretch}
+                    source={{ uri: `${env.API_URL}/uploads/farmacia/${item.foto}` }} />
+            </View>
+            <View style={styles.detalhesContainer}>
+                <Text style={styles.Title}>{item.Farmacia}</Text>
+                <Text style={styles.subTitle}>{item.nome}</Text>
+                <View style={styles.containerRow}>
+                    <Text style={styles.Title}>{item.preco}</Text>
+                    <View style={styles.containerButton}>
+                        <Button
+                            mode='contained'
+                            title='COMPRAR'
+                            color={verde_claro}
+                            contentStyle={styles.editingButtons}
+                            style={styles.editingButtonsView}
+                            labelStyle={styles.labelStyle}
+                            onPress={() => {
+                                navigation.navigate('Calcular Valor', { item, detalhes });
+                            } }
+                        >COMPRAR</Button>
+                    </View>
+                </View>
+            </View>
+        </>
+    )
+}
