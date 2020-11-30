@@ -15,7 +15,13 @@ export default class Atendimento extends Component {
             dosagem: "",
             quantidade: "",
             validade: "",
-            orientacoes: ""
+            orientacoes: "",
+            height: window.innerHeight
+        }
+        window.onresize = () =>{
+            this.setState({
+                ...this.state, height: window.innerHeight
+            })
         }
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -31,6 +37,7 @@ export default class Atendimento extends Component {
                     cadastrarReceita(this.state, response, result).then(res => {
                         if (res) {
                             this.setState({
+                                ...this.state,
                                 cpf: "",
                                 codigoMedicamento: "",
                                 dosagem: "",

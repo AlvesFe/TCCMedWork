@@ -35,6 +35,7 @@
     },
     "dependencies": {
         "bootstrap-icons": "^1.1.0",
+        "jspdf": "^2.1.1",
         "jwt-decode": "^3.1.2",
         "react-input-mask": "^2.0.4",
         "semantic-ui-css": "^2.4.1",
