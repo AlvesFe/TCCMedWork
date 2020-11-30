@@ -18,16 +18,15 @@ export default function routes() {
     if (isAuth()) {
         return (
             <Router history={hashHistory}>
-                <Route path='/inicio' component={Inicio} />
+                <Route path='/atendimento' component={Atendimento} />
                 <Route path='/esqueci-minha-senha' component={Recuperacao} />
                 <Route path='/encaminhamento' component={Encaminhamento} />
-                <Route path='/atendimento' component={Atendimento} />
                 <Route path='/minhas-informacoes' component={MinhasInformacoes} />
                 <Route path='/prescricao-gerada' component={PrescricaoGerada} />
                 <Route path='/centro-de-ajuda' component={CentroAjuda} />
                 {/* <Route path='/configuracoes' component={Configuracoes} /> */}
                 <Route path='/sair' component={Login} />
-                <Redirect from='*' to='/inicio' />
+                <Redirect from='*' to='/atendimento' />
             </Router>
         );
     }
