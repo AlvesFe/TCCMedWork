@@ -7,6 +7,7 @@ import { jsPDF } from 'jspdf/dist/jspdf.umd';
 import Logo from '../images/logotipo.png'
 import Menu from './template/menu'
 import ProcurarPacienteErro from './template/ProcurarPacienteErro'
+import cadastrarConsulta from '../main/api/cadastrarConsulta';
 
 export default class Atendimento extends Component {
 
@@ -44,10 +45,21 @@ export default class Atendimento extends Component {
             getPaciente(this.state.cpf).then(response => {
                 // 32052850007
                 getRemedio(this.state.codigoMedicamento).then(result => {
-
+                    console.log(result)
                     cadastrarReceita(this.state, response, result).then(res => {
-                        if (res) {
-                            GerarPdf(this.state, response, result)
+                        if (res.mensagem) {
+                            const stringData = localStorage.getItem('user_data')
+                            const userData = JSON.parse(stringData)
+                            const consulta = {
+                                descricao: this.state.orientacoes,
+                                dt_Consulta: new Date(),
+                                fk_id_Paciente: response.id_Paciente,
+                                fk_id_Medico: userData.id_Medico,
+                                fk_id_Receita: res.id_Receita
+                            }
+                            console.log(consulta);
+                            cadastrarConsulta(consulta)
+                            GerarPdf(response, result)
                             this.setState({
                                 ...this.state,
                                 cpf: "",
@@ -66,12 +78,13 @@ export default class Atendimento extends Component {
             })
 
         }
-        function ConverterData(data){
+        function ConverterData(data) {
             data = Date.parse(data);
             data = new Date(data);
             return ((data.getDate())) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear();
         }
-        const GerarPdf = (state, Paciente, Medicamento) => {
+        const GerarPdf = (Paciente, Medicamento) => {
+
             const stringData = localStorage.getItem('user_data')
             const userData = JSON.parse(stringData)
             let fotoPaciente = new Image();
@@ -89,12 +102,13 @@ export default class Atendimento extends Component {
             doc.text(20, 140, 'Remédio: ' + Medicamento.nome);
             doc.text(20, 150, 'Tarja: ' + Medicamento.tarja);
             doc.text(20, 160, 'Descrição: ' + Medicamento.descricao);
-            doc.text(20, 170, 'Preco: R$' + Medicamento.preco);
+            doc.text(20, 170, 'Orientações: ' + this.state.orientacoes);
+            doc.text(20, 180, 'Preco: R$' + Medicamento.preco);
             doc.text(95, 190, 'MEDICO');
-            doc.text(20, 210, 'Medico: ' + userData.nome);
-            doc.text(20, 220, 'CRM: ' + userData.crm);
-            doc.text(20, 230, 'Especialidade: ' + userData.especialidade);
-            doc.text(20, 240, 'Data Nascimento: ' + ConverterData(userData.dt_Nascimento));
+            doc.text(20, 220, 'Medico: ' + userData.nome);
+            doc.text(20, 230, 'CRM: ' + userData.crm);
+            doc.text(20, 240, 'Especialidade: ' + userData.especialidade);
+            doc.text(20, 250, 'Data Nascimento: ' + ConverterData(userData.dt_Nascimento));
             doc.text(30, 270, '______________________  ______________________');
             doc.text(55, 280, 'Assinatura');
             doc.text(128, 280, 'Carimbo');
