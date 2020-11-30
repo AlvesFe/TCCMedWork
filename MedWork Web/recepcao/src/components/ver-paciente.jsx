@@ -8,6 +8,7 @@ import AlterarErro from './template/AlterarErro'
 import getPaciente from '../main/api/getPaciente';
 import { jsPDF } from 'jspdf/dist/jspdf.umd';
 import Logo from '../images/logotipo.png';
+import Event from '../event/Alerts';
 export default class VerPaciente extends Component {
 
     constructor() {
@@ -80,6 +81,7 @@ export default class VerPaciente extends Component {
             doc.text(20, 90, 'Nascimento: ' + data);
             doc.text(20, 100, 'Alergias: ' + this.state.alergia);
             doc.save(`${this.state.nomePaciente}-atendimento-${Date.now()}`);
+            Event("Ficha Gerada");
         }
     }
 

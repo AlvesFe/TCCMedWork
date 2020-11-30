@@ -148,6 +148,12 @@ export default function Event(Action) {
                 title: 'Senha Alterada com Sucesso!'
             })
             break;
+        case "Ficha Gerada":
+            Toast.fire({
+                icon: 'success',
+                title: 'Ficha Gerada!'
+            })
+            break;
         case "Codigo Invalido":
             Toast.fire({
                 icon: 'error',
