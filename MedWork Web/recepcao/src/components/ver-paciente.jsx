@@ -83,6 +83,11 @@ export default class VerPaciente extends Component {
             //doc.save(`${this.state.nomePaciente}-atendimento-${Date.now()}`);
             Event("Ficha Gerada")
         }
+
+        this.GerarFicha = (e) => {
+            e.preventDefault();
+            window.location.assign('#/status-ficha')
+        }
     }
 
     render() {
@@ -100,8 +105,8 @@ export default class VerPaciente extends Component {
                             <div className={this.state.alteracaoErro}>
                                 <AlterarErro />
                             </div>
-                            <div className='container text-center bg-light border borde-muted rounded py-2' >
-                                <div className="py-2">
+                            <div className='container text-center ' >
+                                <div className="">
                                     <label htmlFor="image">
                                         <img width="240px" height="180px" className="rounded pointer" src={`/api/uploads/paciente/${this.state.foto}`} alt="" />
                                     </label>
@@ -151,7 +156,7 @@ export default class VerPaciente extends Component {
                             </div>
                         </div>
                         <div className='col-12 text-center '>
-                            <button type='button' className='btn-roxo' onClick={this.onSubmit}>GERAR FICHA</button>
+                            <button type='button' className='btn-roxo' onClick={this.GerarFicha}>GERAR FICHA</button>
                         </div>
                     </div>
 
