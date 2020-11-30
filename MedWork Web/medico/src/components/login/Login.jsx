@@ -41,7 +41,7 @@ class Login extends Component {
                         <p className='pt-3'>Faça Login</p>
                         <div className='container'>
                             <div className='py-2'>
-                                <input type="text" className='form-control' name="identificacao" id="identificacao" placeholder='Identificação' value={this.state.identificacao} onChange={this.onChange} />
+                                <input type="text" className='form-control' name="identificacao" id="identificacao" placeholder='CRM' value={this.state.identificacao} onChange={this.onChange} />
                             </div>
                             <div className='py-2'>
                                 <input type="password" className='form-control' name="senha" id="senha" placeholder="Senha" value={this.state.senha} onChange={this.onChange} />
