@@ -103,7 +103,6 @@ export default class Atendimento extends Component {
             doc.text(20, 150, 'Tarja: ' + Medicamento.tarja);
             doc.text(20, 160, 'Descrição: ' + Medicamento.descricao);
             doc.text(20, 170, 'Orientações: ' + this.state.orientacoes);
-            doc.text(20, 180, 'Preco: R$' + Medicamento.preco);
             doc.text(95, 190, 'MEDICO');
             doc.text(20, 220, 'Medico: ' + userData.nome);
             doc.text(20, 230, 'CRM: ' + userData.crm);
@@ -195,7 +194,7 @@ export default class Atendimento extends Component {
                             </div>
                             <div className='form-group col-2 py-1'>
                                 <label htmlFor="crm" className='font-weight-bold mb-0'>Validade</label>
-                                <InputMask mask="99/99/9999" disabled={this.state.apenasLeitura} className="form-control form-control-sm" id="validade" placeholder='dd/mm/aaaa' name="validade" value={this.state.validade} onChange={this.onChange} />
+                                <input type='date' disabled={this.state.apenasLeitura} className="form-control form-control-sm" id="validade" placeholder='dd/mm/aaaa' name="validade" value={this.state.validade} onChange={this.onChange} />
                             </div>
 
                             <div className='form-group col-12 py-1'>

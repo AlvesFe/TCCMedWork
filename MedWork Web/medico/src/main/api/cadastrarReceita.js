@@ -12,9 +12,11 @@ export default function cadastrarReceita(dados, paciente, remedio) {
     if (paciente === false) {
         return { error: "erropacientenaoencontrado" };
     }
+
+    const emissao = new Date().toISOString().slice(0,-14)
     const dataFinal = {
         dosagem: dados.dosagem,
-        dt_Emissao: new Date(),
+        dt_Emissao: emissao,
         orientacoes: dados.orientacoes,
         dt_Validade: dados.validade.replace(/[^\d]+/g, ''),
         fk_id_Medico: userData.id_Medico,
@@ -23,6 +25,8 @@ export default function cadastrarReceita(dados, paciente, remedio) {
         fk_id_Receita: "N/A",
         fk_id_Remedio: remedio.id_Remedio
     }
+
+    console.log(dataFinal);
 
     return Axios({
         method: 'POST',
