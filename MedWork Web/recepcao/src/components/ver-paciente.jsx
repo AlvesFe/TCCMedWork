@@ -7,8 +7,8 @@ import Image from '../images/default-Upload.png'
 import AlterarSucesso from './template/AlterarSucesso'
 import AlterarErro from './template/AlterarErro'
 import getPaciente from '../main/api/getPaciente';
-
-
+import { jsPDF } from 'jspdf/dist/jspdf.umd';
+import Logo from '../images/logotipo.png';
 export default class VerPaciente extends Component {
 
     constructor() {
@@ -64,12 +64,29 @@ export default class VerPaciente extends Component {
             this.setState(state)
         }
         this.onSubmit = (e) => {
-            e.preventDefault()
+            e.preventDefault();
+            const estado = this.state;
+            let data = this.state.dataNascimento;
+            data = Date.parse(data);
+            data = new Date(data);
+            data = ((data.getDate())) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear();
+
+            const img = new Image();
+            img.src = '/api/uploads/paciente/' + estado.foto;
+            
+            const doc = new jsPDF('p');
+            doc.addImage(Logo, 'png', 80, 0, 50, 50);
+            doc.addImage(img, 'png', 150, 60, 50, 50);
+            doc.text(70, 50, 'ATENDIMENTO MEDWORK');
+            // doc.text(20, 70, 'Paciente: ' + this.state.nome);
+            // doc.text(20, 80, 'CPF: ' + this.state.cpf);
+            doc.text(20, 90, 'Nascimento: ' + data);
+            // doc.text(20, 100, 'Alergias: ' + this.state.alergia);
+            doc.save(`${this.state.nome}-atendimento-${Date.now()}`);
         }
     }
 
     render() {
-
         return (
             <div className='row bg-white'>
                 <Menu />
@@ -135,7 +152,7 @@ export default class VerPaciente extends Component {
                             </div>
                         </div>
                         <div className='col-12 text-center '>
-                            <a className='btn-roxo' >GERAR FICHA</a>
+                            <button type='button' className='btn-roxo' onClick={this.onSubmit}>GERAR FICHA</button>
                         </div>
                     </div>
 
