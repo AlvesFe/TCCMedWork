@@ -123,7 +123,7 @@ export default class VerPaciente extends Component {
                             </div>
                             <div className='form-group col-3 '>
                                 <label htmlFor="celular" className='font-weight-bold mb-0'>Celular</label>
-                                <InputMask disabled={true} mask="(99) 99999-99999" className="form-control form-control-sm" id="celular" placeholder='(__) _____-____' name='celular' value={this.state.celular} onChange={this.onChange} />
+                                <InputMask disabled={true} mask="(99) 99999-9999" className="form-control form-control-sm" id="celular" placeholder='(__) _____-____' name='celular' value={this.state.celular} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-3 '>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
@@ -134,8 +134,8 @@ export default class VerPaciente extends Component {
                                 <textarea disabled={true} className="form-control form-control-sm" id="alergia" placeholder='Ex: Nenhuma alergia' name='alergia' value={this.state.alergia} onChange={this.onChange} />
                             </div>
                         </div>
-                        <div className='col-12 text-center '>
-                            <a className='btn-roxo' >GERAR FICHA</a>
+                        <div className='col-12 text-center'>
+                            <button  type="" className='btn-roxo ' >GERAR FICHA</button>
                         </div>
                     </div>
 

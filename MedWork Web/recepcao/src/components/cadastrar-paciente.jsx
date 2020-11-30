@@ -118,7 +118,7 @@ export default class CadastrarPaciente extends Component {
                             </div>
                             <div className='form-group col-2 '>
                                 <label htmlFor="celular" className='font-weight-bold mb-0'>Celular</label>
-                                <InputMask mask="(99) 99999-99999" className="form-control form-control-sm" id="celular" placeholder='(__) _____-____' name='celular' value={this.state.celular} onChange={this.onChange} />
+                                <InputMask mask="(99) 99999-9999" className="form-control form-control-sm" id="celular" placeholder='(__) _____-____' name='celular' value={this.state.celular} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-2 '>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
