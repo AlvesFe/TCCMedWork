@@ -59,7 +59,7 @@ export default class Atendimento extends Component {
                             }
                             console.log(consulta);
                             cadastrarConsulta(consulta)
-                            GerarPdf(this.state, response, result)
+                            GerarPdf(response, result)
                             this.setState({
                                 ...this.state,
                                 cpf: "",
@@ -102,12 +102,13 @@ export default class Atendimento extends Component {
             doc.text(20, 140, 'Remédio: ' + Medicamento.nome);
             doc.text(20, 150, 'Tarja: ' + Medicamento.tarja);
             doc.text(20, 160, 'Descrição: ' + Medicamento.descricao);
-            doc.text(20, 170, 'Preco: R$' + Medicamento.preco);
+            doc.text(20, 170, 'Orientações: ' + this.state.orientacoes);
+            doc.text(20, 180, 'Preco: R$' + Medicamento.preco);
             doc.text(95, 190, 'MEDICO');
-            doc.text(20, 210, 'Medico: ' + userData.nome);
-            doc.text(20, 220, 'CRM: ' + userData.crm);
-            doc.text(20, 230, 'Especialidade: ' + userData.especialidade);
-            doc.text(20, 240, 'Data Nascimento: ' + ConverterData(userData.dt_Nascimento));
+            doc.text(20, 220, 'Medico: ' + userData.nome);
+            doc.text(20, 230, 'CRM: ' + userData.crm);
+            doc.text(20, 240, 'Especialidade: ' + userData.especialidade);
+            doc.text(20, 250, 'Data Nascimento: ' + ConverterData(userData.dt_Nascimento));
             doc.text(30, 270, '______________________  ______________________');
             doc.text(55, 280, 'Assinatura');
             doc.text(128, 280, 'Carimbo');
