@@ -6,23 +6,29 @@ import Image from '../images/default-Upload.png'
 import Menu from './template/menu'
 import AlterarSucesso from './template/AlterarSucesso'
 import AlterarErro from './template/AlterarErro'
+import alterarRecepcionista from '../main/api/alterarRecepcionista'
 
 export default class MinhasInformacoes extends Component {
 
     constructor() {
+        const dados = localStorage.getItem('user_data');
+        const data = JSON.parse(dados);
         super()
         this.state = {
-            nomeRecepcionista: "",
+            id_Recepcionista: data.id_Recepcionista,
+            nomeRecepcionista: data.nome,
+            foto: data.foto,
             image: {},
-            dataNascimento: "",
-            tipoSanguineo: "",
-            endereco: "",
-            cpf: "",
-            rg: "",
-            email: "",
-            celular: "",
-            telefone: "",
-            senha: "",
+            ativo: data.ativo,
+            dataNascimento: data.dt_Nascimento.slice(0, -14),
+            tipoSanguineo: data.tp_sanguineo,
+            senha: data.senha,
+            endereco: data.endereco,
+            cpf: data.cpf,
+            rg: data.rg,
+            email: data.email,
+            celular: data.celular,
+            telefone: data.telefone,
             alteracaoSucesso: "d-none",
             alteracaoErro: "d-none",
             height: window.innerHeight
@@ -40,46 +46,19 @@ export default class MinhasInformacoes extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
-            if (false) {
+            alterarRecepcionista(this.state).then(res => {
+                if (res) {
                     this.setState({
                         alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast",
                         alteracaoErro: "d-none"
                     })
-            } else {
-                this.setState({
-                    alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast",
-                    alteracaoSucesso: "d-none"
-                })
-            }
-            // cadastrarRecepcionista(this.state).then(res => {
-            //     if (res == true) {
-            //         this.setState({
-            //             ...this.state,
-            //             nomeRecepcionista: "",
-            //             image: {},
-            //             dataNascimento: "",
-            //             tipoSanguineo: "",
-            //             endereco: "",
-            //             cpf: "",
-            //             rg: "",
-            //             email: "",
-            //             celular: "",
-            //             telefone: "",
-            //             senha: ""
-            //         })
-            //         this.setState({
-            //             alteracaoSucesso: "col-12 animate__animated animate__fadeIn animate__fast",
-            //             alteracaoErro: "d-none"
-            //         })
-            //     }
-            //     else{
-            //         this.setState({
-            //             alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast",
-            //             alteracaoSucesso: "d-none"
-            //         })
-            //     }
-            // });     
+                } else {
+                    this.setState({
+                        alteracaoErro: "col-12 animate__animated animate__fadeIn animate__fast",
+                        alteracaoSucesso: "d-none"
+                    })
+                }
+            })
         }
     }
 
@@ -100,7 +79,7 @@ export default class MinhasInformacoes extends Component {
                             <div className={this.state.alteracaoErro}>
                                 <AlterarErro />
                             </div>
-                            <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : Image} onChange={(event) => {
+                            <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : `/api/uploads/recepcionista/${this.state.foto}`} onChange={(event) => {
                                 this.setState({ image: event.target.files[0] });
                             }} />
                         </div>
@@ -125,30 +104,25 @@ export default class MinhasInformacoes extends Component {
 
                             <div className='form-group col-3 py-1'>
                                 <label htmlFor="cpf" className='font-weight-bold mb-0'>CPF</label>
-                                <InputMask mask="999.999.999-99" className="form-control form-control-sm" id="cpf" placeholder='___.___.___-__' name='cpf' value={this.state.cpf} onChange={this.onChange} />
+                                <InputMask disabled={true} mask="999.999.999-99" className="form-control form-control-sm" id="cpf" placeholder='___.___.___-__' name='cpf' value={this.state.cpf} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-3 py-1'>
                                 <label htmlFor="rg" className='font-weight-bold mb-0'>RG</label>
-                                <InputMask mask="99.999.999-9" className="form-control form-control-sm" id="rg" placeholder='__.___.___-_' name='rg' value={this.state.rg} onChange={this.onChange} />
+                                <InputMask disabled={true} mask="99.999.999-9" className="form-control form-control-sm" id="rg" placeholder='__.___.___-_' name='rg' value={this.state.rg} onChange={this.onChange} />
                             </div>
 
                             <div className='form-group col-5 py-1'>
                                 <label htmlFor="email" className='font-weight-bold mb-0'>E-mail</label>
-                                <input type="text" className="form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
+                                <input disabled={true} type="text" className="form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-2 py-1'>
+                            <div className='form-group col-3 py-1'>
                                 <label htmlFor="celular" className='font-weight-bold mb-0'>Celular</label>
                                 <InputMask mask="(99) 99999-9999" className="form-control form-control-sm" id="celular" placeholder='(__) _____-____' name='celular' value={this.state.celular} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-2 py-1'>
+                            <div className='form-group col-4 py-1'>
                                 <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
                                 <InputMask mask="(99) 9999-9999" className="form-control form-control-sm" id="telefone" placeholder='(__) ____-____' name='telefone' value={this.state.telefone} onChange={this.onChange} />
                             </div>
-                            <div className='form-group col-3 py-1'>
-                                <label htmlFor="senha" className='font-weight-bold mb-0'>Alterar senha</label>
-                                <input type="password" className="form-control form-control-sm" id="senha" placeholder='••••••••••' name='senha' value={this.state.senha} onChange={this.onChange} />
-                            </div>
-
                         </div>
                         <div className='col-12 text-center py-2'>
                             <button className='btn-roxo' onClick={this.onSubmit} >SALVAR ALTERAÇÕES</button>
