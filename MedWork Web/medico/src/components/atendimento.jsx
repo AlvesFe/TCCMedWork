@@ -66,6 +66,11 @@ export default class Atendimento extends Component {
             })
 
         }
+        function ConverterData(data){
+            data = Date.parse(data);
+            data = new Date(data);
+            return ((data.getDate())) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear();
+        }
         const GerarPdf = (state, Paciente, Medicamento) => {
             const stringData = localStorage.getItem('user_data')
             const userData = JSON.parse(stringData)
@@ -78,7 +83,7 @@ export default class Atendimento extends Component {
             doc.text(90, 50, 'PACIENTE');
             doc.text(20, 70, 'Paciente: ' + Paciente.nome);
             doc.text(20, 80, 'CPF: ' + Paciente.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"));
-            doc.text(20, 90, 'Nascimento: ' + Paciente.dt_Nascimento.slice(0, -14));
+            doc.text(20, 90, 'Nascimento: ' + ConverterData(Paciente.dt_Nascimento));
             doc.text(20, 100, 'Alergias: ' + Paciente.alergia);
             doc.text(85, 120, 'MEDICAMENTO');
             doc.text(20, 140, 'Remédio: ' + Medicamento.nome);
@@ -87,9 +92,9 @@ export default class Atendimento extends Component {
             doc.text(20, 170, 'Preco: R$' + Medicamento.preco);
             doc.text(95, 190, 'MEDICO');
             doc.text(20, 210, 'Medico: ' + userData.nome);
-            doc.text(20, 220, 'CRM: ' + userData.nome);
+            doc.text(20, 220, 'CRM: ' + userData.crm);
             doc.text(20, 230, 'Especialidade: ' + userData.especialidade);
-            doc.text(20, 240, 'Data Nascimento: ' + userData.dt_Nascimento.slice(0, -14));
+            doc.text(20, 240, 'Data Nascimento: ' + ConverterData(userData.dt_Nascimento));
             doc.text(30, 270, '______________________  ______________________');
             doc.text(55, 280, 'Assinatura');
             doc.text(128, 280, 'Carimbo');
