@@ -96,7 +96,7 @@ export default class MinhasInformacoes extends Component {
                             </div>
                             <div className='form-group col-2 '>
                                 <label htmlFor="taxa" className='font-weight-bold mb-0'>Taxa</label>
-                                <InputMask mask="99.99" className="form-control form-control-sm" id="taxa" placeholder='$12.50' name='taxa' value={this.state.taxa} onChange={this.onChange} />
+                                <InputMask mask="R$99.99" alwaysShowMask='true'  className="form-control form-control-sm" id="taxa" name='taxa' value={this.state.taxa} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-12 '>
                                 <label htmlFor="detalhes" className='font-weight-bold mb-0'>Detalhes</label>
