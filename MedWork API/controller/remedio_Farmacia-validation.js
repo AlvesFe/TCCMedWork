@@ -29,13 +29,6 @@ exports.postRemedioFarmacia = (req, res, next) => {
             })
         }
     }
-
-    if (ValidationNumber(req.body.estoque)) {
-        return res.status(500).send({
-            error: "erroestoqueinvalido"
-        })
-    }
-
     next();
 }
 
