@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import recuperarSenha from '../../main/api/recuperarSenha';
 import Logotipo from '../template/logotipo'
 import './Login.css'
 
@@ -18,7 +19,7 @@ class Recuperacao extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-
+            recuperarSenha(this.state)
         }
     }
 
