@@ -2545,6 +2545,11 @@ expo-image-picker@^9.1.1:
     expo-permissions "~9.3.0"
     uuid "7.0.2"
 
+expo-intent-launcher@~8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/expo-intent-launcher/-/expo-intent-launcher-8.3.0.tgz#159aaf5f1442b0827daae54eb8d95a02fcd92f4a"
+  integrity sha512-rxRkcyekeOmuGJDGbXATqlAH4TevrRYZW8AwvKMGhRhaFtWe0x+fRAbfdvQef12KkX+VICXbqpq2t/OIVjjPrA==
+
 expo-jwt@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/expo-jwt/-/expo-jwt-1.4.0.tgz#e1c79e2e7b25dac3f698bd3bd74d44aa67bfbc9d"

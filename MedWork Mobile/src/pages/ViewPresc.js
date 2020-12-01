@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Linking } from 'react-native';
 import getDetalhesReceita from '../api/getDetalhesReceita';
-import { roxo } from '../constants/colors.json';
+import { roxo, roxo2 } from '../constants/colors.json';
 import Loading from '../components/Loading';
 import Button from '../components/FormButton';
+import * as FileSystem from 'expo-file-system';
+import * as IntentLauncher from 'expo-intent-launcher';
 
 const { width, height } = Dimensions.get('window');
 
@@ -56,13 +58,24 @@ export default function ViewPresc({ route, navigation }) {
         <Text style={styles.infos}>Outras orientações: {detalhes.orientacoes}</Text>
       </View>
       <View style={styles.alignButton}>
+
+        <Button
+          title='Abrir bula'
+          modeValue='contained'
+          labelStyle={styles.loginButtonLabel}
+          color={roxo2}
+          onPress={() => {
+            abrirBula(detalhes.bula)
+          }}
+        />
+
         <Button
           title='Buscar'
           modeValue='contained'
           labelStyle={styles.loginButtonLabel}
           color={roxo}
           onPress={() => {
-            navigation.navigate('Buscar Medicamentos', {detalhes})
+            navigation.navigate('Buscar Medicamentos', { detalhes })
           }}
         />
       </View>
@@ -86,7 +99,7 @@ const styles = StyleSheet.create({
     marginTop: 17,
     borderBottomWidth: 1,
     borderColor: '#808080',
-    fontSize: width/27
+    fontSize: width / 27
   },
   titlePage: {
     color: roxo,
@@ -109,3 +122,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 })
+
+function abrirBula(link) {
+  Linking.canOpenURL(link).then(res => {
+    if (res) {
+      Linking.openURL(link);
+    }
+  })
+}
