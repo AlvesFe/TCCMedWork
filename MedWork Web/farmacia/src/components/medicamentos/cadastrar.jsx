@@ -19,6 +19,7 @@ export default class CadastrarMedicamento extends Component {
             quantidadeMedicamento: "",
             precoMedicamento: "",
             descricaoMedicamento: "",
+            bula: "",
             cadastrarSucesso: "d-none",
             cadastrarErro: "d-none",
         }
@@ -45,6 +46,7 @@ export default class CadastrarMedicamento extends Component {
                         validadeMedicamento: "",
                         quantidadeMedicamento: "",
                         precoMedicamento: "",
+                        bula: "",
                         descricaoMedicamento: ""
                     })
                 } else {
@@ -122,6 +124,10 @@ export default class CadastrarMedicamento extends Component {
                         <div className="form-group col-2">
                             <label htmlFor="precoMedicamento" className='mb-0'>Preço</label>
                             <Input mask='99.99' className="form-control" id="precoMedicamento" name='precoMedicamento' placeholder='R$__.__' value={this.state.precoMedicamento} onChange={this.onChange} />
+                        </div>
+                        <div className="form-group col-12">
+                            <label htmlFor="bula" className='mb-0'>Link da Bula</label>
+                            <input type="text" className="form-control" id="bula" name='bula' placeholder='http://link.com.br' value={this.state.bula} onChange={this.onChange} />
                         </div>
                         <div className="form-group col-12">
                             <label htmlFor="descricaoMedicamento" className='mb-0'>Descrição do medicamento</label>

@@ -12,8 +12,8 @@ exports.postRemedio = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         const id_Remedio = bcrypt.hashSync(Date.now().toString(), 10);
         conn.query(
-            'INSERT INTO tbl_Remedio (id_Remedio, codigo, dt_Validade, tarja, nome, descricao, fabricante, preco)VALUES(?,?,?,?,?,?,?,?)',
-            [id_Remedio, req.body.codigo, req.body.dt_Validade, req.body.tarja, req.body.nome, req.body.descricao, req.body.fabricante, req.body.preco],
+            'INSERT INTO tbl_Remedio (id_Remedio, codigo, dt_Validade, tarja, nome, descricao, fabricante, preco, bula)VALUES(?,?,?,?,?,?,?,?,?)',
+            [id_Remedio, req.body.codigo, req.body.dt_Validade, req.body.tarja, req.body.nome, req.body.descricao, req.body.fabricante, req.body.preco, req.body.bula],
             (error, resultado, field) => {
                 conn.release()
 
@@ -82,9 +82,10 @@ exports.patchRemedio = (req, res, next) => {
                 nome = ?,
                 descricao = ?,
                 fabricante = ?,
-                preco = ?
+                preco = ?,
+                bula = ?
                 WHERE id_Remedio = ?`,
-            [req.body.dt_Validade, req.body.tarja, req.body.nome, req.body.descricao, req.body.fabricante, req.body.preco, req.body.id_Remedio],
+            [req.body.dt_Validade, req.body.tarja, req.body.nome, req.body.descricao, req.body.fabricante, req.body.preco, req.body.bula, req.body.id_Remedio,],
             (error, resultado, field) => {
                 conn.release()
 

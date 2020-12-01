@@ -28,7 +28,6 @@ export default class AlterarMedicamento extends Component {
 
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
             if (false) {
                 this.setState({
                     alterarSucesso: "col-12 animate__animated animate__fadeIn animate__fast",

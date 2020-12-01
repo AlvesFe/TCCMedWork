@@ -14,6 +14,10 @@ export default class ListarMedicamentos extends Component {
         getAllRemedios().then(res => {
             this.setState({ remedio: res.remedios })
         })
+
+        this.onClick = (e) => {
+            console.log(e);
+        }
     }
 
     render() {
@@ -53,7 +57,6 @@ export default class ListarMedicamentos extends Component {
                                     {
                                         this.state.remedio[0] &&
                                         this.state.remedio.map((item, key) => {
-                                            console.log(item);
                                             return (
                                                 <tr key={key} className='text-center text-capitalize' >
                                                     <th scope="row">{item.codigo}</th>
@@ -61,7 +64,7 @@ export default class ListarMedicamentos extends Component {
                                                     <td>{item.tarja}</td>
                                                     <td>R${item.preco}</td>
                                                     <td className='text-center'>
-                                                        <a href='#/alterar-medicamento' className='btn btn-sm btn-primary mr-1'>
+                                                        <a href='#/alterar-medicamento' onClick={this.onClick} className='btn btn-sm btn-primary mr-1'>
                                                             <i className="pencil alternate icon"></i>
                                                         </a >
                                                     </td>

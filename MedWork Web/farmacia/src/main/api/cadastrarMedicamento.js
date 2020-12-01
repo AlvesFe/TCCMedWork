@@ -17,7 +17,8 @@ export default function cadastrarMedicamento(dados) {
         nome: dados.nomeMedicamento, 
         descricao: dados.descricaoMedicamento, 
         fabricante: dados.fabricanteMedicamento, 
-        preco: dados.precoMedicamento
+        preco: dados.precoMedicamento,
+        bula: dados.bula
     }
 
     const dataEstoque = {
