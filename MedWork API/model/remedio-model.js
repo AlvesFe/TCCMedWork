@@ -3,6 +3,7 @@ const mysql = require('../mysql').pool;
 
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
+const { response } = require('express');
 
 exports.postRemedio = (req, res, next) => {
 
@@ -117,5 +118,26 @@ exports.deleteRemedio = (req, res, next) => {
             }
         )
     })
+
+}
+
+exports.getAllRemediosFarmacia = (req, res, next) => {
+
+    mysql.getConnection((error, conn) => {
+        if (error) { return res.status(500).send({ error: error }) }
+
+        conn.query(`SELECT * FROM tbl_remedio 
+        INNER JOIN tbl_remedio_farmacia ON id_Remedio = fk_id_Remedio
+        WHERE fk_id_Farmacia = ?`, [req.body.id_Farmacia],
+        (err, response, field) => {
+            conn.release();
+            if (err) { return res.status(500).send({ error: err }) }
+
+            res.status(202).send({
+                success: 1,
+                remedios: response
+            })
+        })
+    }) 
 
 }
