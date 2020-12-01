@@ -8,7 +8,7 @@ export default function alterarFarmacia(dados) {
     const token = localStorage.getItem('current_user')
     const data = {
         nome: dados.nome,
-        taxa: dados.taxa,
+        taxa: dados.taxa.replace(/[^\d\.\,\s]+/g,""),
         telefone: dados.telefone,
         endereco: dados.endereco,
         detalhes: dados.detalhes,
@@ -17,7 +17,7 @@ export default function alterarFarmacia(dados) {
         image: dados.image,
         id_Farmacia: dados.id_Farmacia,
     }
-
+    console.log(data)
     return Axios({
         method: 'PATCH',
         url: "/api/farmacia/",
