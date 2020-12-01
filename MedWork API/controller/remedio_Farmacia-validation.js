@@ -89,12 +89,6 @@ exports.deleteREmedioFarmacia = (req, res, next) => {
             error: "erroidremediofarmaciavazio"
         })
     }
-
-    if (req.body.id_Remedio_Farmacia.length !== 60) {
-        return res.status(500).send({
-            error: "errotamanhoidremediofarmacia"
-        })
-    }
     next();
 }
 
