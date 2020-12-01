@@ -6,7 +6,6 @@ function UploadImagem(props){
     const { estabelecimento } = props;
     const { tipo } = props;
     const lowerTipo = tipo.charAt(0).toLowerCase() + tipo.slice(1)
-    // console.log(props);
     return(
         <div className="ui divided items col-12">
             <div className="item">

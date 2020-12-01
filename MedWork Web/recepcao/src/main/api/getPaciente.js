@@ -29,7 +29,6 @@ export default function getPaciente(dados) {
         return data.data[0]
     }).catch(err => {
         Event("Não Encontrado")
-        console.log(err.response);
         return false
     })
 }

@@ -33,7 +33,6 @@ export default class AlterarDrogaria extends Component {
         }
         const cnpj = localStorage.getItem('estabelecimento');
         getInformacoes(cnpj, 'farmacia').then(res => {
-            console.log(res);
             this.setState({
                 id_Farmacia: res.id_Farmacia,
                 nomeEmpresa: res.nome,
@@ -48,7 +47,6 @@ export default class AlterarDrogaria extends Component {
                 detalhes: res.detalhes,
                 email: res.email
             })
-            console.log(this.state)
         })
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)

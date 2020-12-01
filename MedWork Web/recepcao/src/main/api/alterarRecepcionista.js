@@ -20,7 +20,6 @@ export default function alterarRecepcionista(dados) {
         id_Recepcionista: dados.id_Recepcionista,
     }
     const dataFinal = new FormData();
-    console.log(data)
     for (const key in data) {
         dataFinal.append(key, data[key])
     }
@@ -35,11 +34,9 @@ export default function alterarRecepcionista(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data);
         return true
     }).catch(err => {
         Event(err.response.data.error);
-        console.log(err.response.data.error);
         return false
     })
 }

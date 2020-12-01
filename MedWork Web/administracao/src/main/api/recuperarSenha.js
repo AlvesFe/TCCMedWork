@@ -25,6 +25,5 @@ export default function recuperarSenha (dados) {
         window.location.assign('#/confirmar');
         return data.success
     }).catch(err => {
-        console.log(err);
     })
 }

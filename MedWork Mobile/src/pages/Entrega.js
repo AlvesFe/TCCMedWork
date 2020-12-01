@@ -25,7 +25,6 @@ export default function Entrega({ route, navigation }) {
 
     useEffect(() => {
         getUserData();
-        console.log(item);
     },[])
 
     if (carregando) {
@@ -78,7 +77,6 @@ export default function Entrega({ route, navigation }) {
                     >VOLTAR</Button>
 
                     {
-                        console.log(item.tarja),
                         item.tarja !== "PRETA" &&
 
                         <Button

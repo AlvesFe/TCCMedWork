@@ -28,7 +28,6 @@ class Recuperacao extends Component {
                     Event("Email Não Encontrado")
                 }
             });
-            console.log(this.state)
         }
     }
 

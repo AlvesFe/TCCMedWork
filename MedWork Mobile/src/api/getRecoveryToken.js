@@ -26,7 +26,6 @@ export default async function getRecoveryToken( email, navigation, setCarregando
         setCarregando(false)
         
     }).catch(err => {
-        console.log(err.response.data);+
         ToastAndroid.showWithGravity(
             "Email não encontrado!",
             ToastAndroid.LONG,

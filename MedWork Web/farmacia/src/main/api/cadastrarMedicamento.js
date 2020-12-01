@@ -25,7 +25,6 @@ export default function cadastrarMedicamento(dados) {
         fk_id_Farmacia: user.id_Farmacia, 
         fk_id_Remedio: "",
     }
-    console.log(dataEstoque);
     return Axios({
         method: 'POST',
         url: "/api/remedio/",
@@ -43,7 +42,6 @@ export default function cadastrarMedicamento(dados) {
         })
     }).catch(err => {
         Event(err.response.data.error)
-        console.log(err.response.data.error)
         return false
     })
 }

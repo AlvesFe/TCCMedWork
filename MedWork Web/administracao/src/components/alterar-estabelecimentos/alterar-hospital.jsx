@@ -26,7 +26,6 @@ export default class AlterarHospital extends Component {
                 ativo: res.ativo,
                 senha: res.senha
             })
-            console.log(res);
         })
         super()
         this.state = {
@@ -51,7 +50,6 @@ export default class AlterarHospital extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log('click')
             patchHospital(this.state).then(res => {
                 if (res) {
                     this.setState({

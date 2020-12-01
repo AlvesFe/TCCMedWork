@@ -64,7 +64,6 @@ export const AuthProvider = ({ children }) => {
           })
           .catch(err => {
             toastFail();
-            console.log(err);
             setPassword('')
           })
         },

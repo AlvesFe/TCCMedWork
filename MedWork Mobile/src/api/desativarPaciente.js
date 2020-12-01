@@ -30,6 +30,5 @@ export default async function desativarPaciente() {
     }).then(async response => {
         const { data } = response.data;
     }).catch(err => {
-        console.log(err.response.data);
     })
 }

@@ -12,7 +12,6 @@ export default class MinhasInformacoes extends Component {
         super()
         const stringData = localStorage.getItem('user_data')
         const userData = JSON.parse(stringData);
-        console.log(userData);
         this.state = {
             id_Medico: userData.id_Medico,
             image: {},

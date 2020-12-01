@@ -17,11 +17,9 @@ export default function recuperarSenha(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data);
         window.location.assign('#/confirmar');
         return true;
     }).catch(err => {
         return false;
-        // console.log(err);
     })
 }

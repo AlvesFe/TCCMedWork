@@ -20,7 +20,6 @@ const storage = multer.diskStorage({
         callback(null, './uploads/hospital')
     },
     filename: async function(req, file, callback){
-        console.log(file.originalname.split('.').pop());
         callback(null, new Date().getTime().toString()+'.' + file.originalname.split('.').pop())
     }
 })

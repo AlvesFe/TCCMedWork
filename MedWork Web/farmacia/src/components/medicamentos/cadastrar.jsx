@@ -30,9 +30,7 @@ export default class CadastrarMedicamento extends Component {
 
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
             cadastrarMedicamento(this.state).then(res => {
-                console.log(res);
                 if (res) {
                     this.setState({
                         cadastrarSucesso: "col-12 animate__animated animate__fadeIn animate__fast",

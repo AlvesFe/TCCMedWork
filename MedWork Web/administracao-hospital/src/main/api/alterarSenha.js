@@ -10,7 +10,6 @@ export default function alterarSenha(dados) {
         senha: dados.senha,
         confsenha: dados.confSenha
     }
-    console.log(dados);
     return Axios({
         method: 'PATCH',
         url: "/api/hospital/resetarsenha",
@@ -24,9 +23,7 @@ export default function alterarSenha(dados) {
         window.location.assign('#/login')
         localStorage.removeItem('token_reset')
         return true
-        // console.log(data);
     }).catch(err => {
         return false
-        // console.log(err);
     })
 }

@@ -40,11 +40,9 @@ export default function cadastrarRecepcionista(dados) {
     }).then(response => {
         const { data } = response;
         Event(data.mensagem);
-        console.log(data.mensagem);
         return true;
     }).catch(err => {
         Event(err.response.data.error)
-        console.log(err.response.data.error);
         return false;
     })
 }

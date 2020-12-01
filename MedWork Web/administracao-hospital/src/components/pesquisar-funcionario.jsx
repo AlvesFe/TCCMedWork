@@ -39,21 +39,21 @@ class PesquisarFuncionario extends Component {
                     PesquisaFuncionario: ""
                 })
             }
-                console.log(res);
+
             })
             // getMedico(this.state);
         }
         this.onSubmitAllRecepcionista = (e) => {
             e.preventDefault()
             getAllRecepcionista().then(res => {
-                console.log(res);
+
             })
             // getMedico(this.state);
         }
         this.onSubmitAllMedicos = (e) => {
             e.preventDefault()
             getAllMedicos().then(res => {
-                console.log(res);
+
             })
             // getMedico(this.state);
         }

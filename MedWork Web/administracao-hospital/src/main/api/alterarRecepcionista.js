@@ -34,12 +34,10 @@ export default function alterarRecepcionista(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data)
         return true;
         // data.data[0] ? Event("Encontrado") : Event("Não Encontrado")
     }).catch(err => {
         Event(err.response.data.error)
-        console.log(err.response.data.error)
         return false;
     })
 }

@@ -11,7 +11,6 @@ export default function alterarSenha(dados) {
         senha: dados.senha,
         confsenha: dados.confSenha
     }
-    console.log(dados)
     return Axios({
         method: 'PATCH',
         url: "/api/recepcionista/resetarsenha",

@@ -41,11 +41,8 @@ export default class Atendimento extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
             getPaciente(this.state.cpf).then(response => {
-                // 32052850007
                 getRemedio(this.state.codigoMedicamento).then(result => {
-                    console.log(result)
                     cadastrarReceita(this.state, response, result).then(res => {
                         if (res.mensagem) {
                             const stringData = localStorage.getItem('user_data')
@@ -57,7 +54,6 @@ export default class Atendimento extends Component {
                                 fk_id_Medico: userData.id_Medico,
                                 fk_id_Receita: res.id_Receita
                             }
-                            console.log(consulta);
                             cadastrarConsulta(consulta)
                             GerarPdf(response, result)
                             this.setState({

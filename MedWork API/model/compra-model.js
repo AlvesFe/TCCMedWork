@@ -26,7 +26,6 @@ exports.postCompra = (req, res, next) => {
                             conn.query('UPDATE tbl_remedio_farmacia SET estoque = ? WHERE fk_id_Farmacia = ? AND fk_id_Remedio = ?', [Estoque, req.body.fk_id_Farmacia, req.body.fk_id_Remedio],
                                 (error, resultado, field) => {
                                     conn.release()
-                                    console.log(resultado)
                                     res.status(201).send({
                                         mensagem: 'Compra Cadastrada',
                                         id_Compra: id_Compra

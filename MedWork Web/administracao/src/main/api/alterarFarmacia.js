@@ -34,10 +34,8 @@ export default function alterarFarmacia(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data);
         return true;
     }).catch(err => {
-        console.log(err.response.data.error);
         Event(err.response.data.error);
         return false;
     })

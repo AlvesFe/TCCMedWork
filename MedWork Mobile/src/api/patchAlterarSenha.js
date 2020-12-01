@@ -27,7 +27,6 @@ export default async function AlterarSenha( senha1, senha2, navigation, token ) 
         );
         navigation.navigate('Login')
     }).catch(err => {
-        console.log(err.response.data);
         Toast.show({
             type: 'error',
             position: 'top',

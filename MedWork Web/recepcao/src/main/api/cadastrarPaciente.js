@@ -28,7 +28,6 @@ export default function cadastrarPaciente(dados) {
     for (const key in data) {
         dataFinal.append(key, data[key])
     }
-    console.log(dataFinal);
     return Axios({
         method: 'POST',
         url: "/api/paciente",
@@ -40,12 +39,10 @@ export default function cadastrarPaciente(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data.mensagem);
         Event(data.mensagem);
         return true;
     }).catch(err => {
         Event(err.response.data.error)
-        console.log(err.response.data.error);
         return false;
     })
 }

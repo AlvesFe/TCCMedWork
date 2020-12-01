@@ -25,7 +25,6 @@ export default function getAllRemedios() {
         const { data } = response;
         return data
     }).catch(err => {
-        console.log(err.response)
         return false
     })
 }

@@ -10,7 +10,6 @@ export default class ListarMedicamentos extends Component {
         }
         getAllRemedios().then(res => {
             this.setState({ remedio: res.remedios })
-            console.log(this.state);
         })
        
     }
@@ -35,7 +34,6 @@ export default class ListarMedicamentos extends Component {
                         {
                             this.state.remedio[0] &&
                             this.state.remedio.map((item, key) => {
-                                console.log(item);
                                 return (
                                     <tr key={key} >
                                         <th scope="row">{item.codigo}</th>

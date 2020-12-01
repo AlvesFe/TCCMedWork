@@ -23,6 +23,5 @@ export default function getUserData( token, setUserData ) {
         await AsyncStorage.setItem("userData", JSON.stringify(data[0]))
         setUserData(data[0])
     }).catch(err => {
-        console.log(err);
     })
 }

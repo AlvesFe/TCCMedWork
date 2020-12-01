@@ -18,7 +18,6 @@ export default async function postCompra( item, detalhes, Quantidade, tipo, setC
     const valorFinal = Quantidade*item.preco+item.taxa
     const troco = valor - valorFinal
 
-    console.log();
 
     if (tipo === 'Retirada') {
         Axios({
@@ -42,7 +41,6 @@ export default async function postCompra( item, detalhes, Quantidade, tipo, setC
         }).then(() => {
             setCarregando(false)
         }).catch((err) => {
-            console.log(err.response.data);
             navigation.goBack();
             ToastAndroid.showWithGravity(
                 "Houve algum erro, tente novamente mais tarde",
@@ -73,7 +71,6 @@ export default async function postCompra( item, detalhes, Quantidade, tipo, setC
         }).then(() => {
             setCarregando(false)
         }).catch((err) => {
-            console.log(err.response.data);
             navigation.goBack();
             ToastAndroid.showWithGravity(
                 "Houve algum erro, tente novamente mais tarde",

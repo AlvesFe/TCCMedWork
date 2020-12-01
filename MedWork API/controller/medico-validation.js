@@ -263,7 +263,6 @@ exports.confirmetoken = (req, res, next) => {
         })
     }
     try{
-        console.log(req.body.token);
         const decode = jwt.verify(req.body.token, process.env.JWT_KEY);
         res.status(200).send({
             success: "sucessotoken"

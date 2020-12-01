@@ -27,6 +27,5 @@ export default async function getFarmaciaRemedio( remedio, setFarmaciaRem ) {
         const { data } = response.data;
         setFarmaciaRem(data)
     }).catch(err => {
-        console.log(err.response.data);
     })
 }

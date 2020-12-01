@@ -21,6 +21,5 @@ export default function getInformacoes(cnpj, Estabelecimento) {
     }).then(res => {
         return res.data.data[0];
     }).catch(error => {
-        console.log(error.response);
     })
 }

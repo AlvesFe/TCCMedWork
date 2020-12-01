@@ -32,9 +32,7 @@ export default class AlterarRecepcionista extends Component {
         const data = {
             cpf
         }
-        console.log(cpf);
         getRecepcionista(data).then(res => {
-            console.log(res)
             this.setState({
                 id_Recepcionista: res.id_Recepcionista,
                 nomeRecepcionista: res.nome,
@@ -73,9 +71,7 @@ export default class AlterarRecepcionista extends Component {
                     })
                     Event("Erro a Alterar")
                 }
-            })
-            console.log(this.state)
-            
+            })        
         }
     }
 

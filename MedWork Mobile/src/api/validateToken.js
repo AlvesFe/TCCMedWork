@@ -24,7 +24,6 @@ export default async function validateToken( token, navigation, setCarregando ) 
         );
         setCarregando(false)
     }).catch(err => {
-        console.log(err.response);
         ToastAndroid.showWithGravity(
             "Token inválido",
             ToastAndroid.LONG,

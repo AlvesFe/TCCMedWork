@@ -21,6 +21,5 @@ export default function getHospital() {
         return data.data
         
     }).catch(err => {
-        console.log(err.response);
     })
 }
