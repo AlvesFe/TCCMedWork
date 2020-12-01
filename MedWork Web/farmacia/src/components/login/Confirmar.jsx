@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Logotipo from '../template/logotipo'
 import './Login.css'
 import Event from '../../event/Alerts';
+import confirmeToken from '../../main/api/confirmarToken';
 
 class Confirmar extends Component {
 
@@ -22,14 +23,14 @@ class Confirmar extends Component {
         this.onSubmit = (e) => {
             var mostrar = ''
             e.preventDefault()
-                if (true) {
+            confirmeToken(this.state).then(res => {
+                if (res) {
                     Event("Altere Sua Senha")
                 }
                 else {
                     Event("Codigo Invalido")
                 }
-
-
+            })
         }
     }
 
