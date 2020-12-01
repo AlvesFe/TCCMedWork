@@ -21,6 +21,7 @@ export default class PesquisarMedicamento extends Component {
                     this.setState({
                         medicamentoErro: "d-none"
                     })
+                    console.log('Busca aí mané')
                 }
 
 
