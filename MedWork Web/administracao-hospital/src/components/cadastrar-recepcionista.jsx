@@ -40,7 +40,6 @@ export default class CadastrarDrogaria extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
 
             cadastrarRecepcionista(this.state).then(res => {
                 if (res == true) {

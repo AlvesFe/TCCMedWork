@@ -13,7 +13,6 @@ export default class ListarMedicamentos extends Component {
 
         getAllRemedios().then(res => {
             this.setState({ remedio: res.remedios })
-            console.log(this.state);
         })
     }
 

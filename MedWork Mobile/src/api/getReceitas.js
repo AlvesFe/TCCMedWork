@@ -28,6 +28,5 @@ export default async function getReceitas( setReceitas ) {
         const { data } = response.data;
         setReceitas(data)
     }).catch(err => {
-        console.log(err);
     })
 }

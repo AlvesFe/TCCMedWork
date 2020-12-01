@@ -21,7 +21,6 @@ export default function getPaciente(dados) {
         !data.data[0] ? Event("Informe o CPF") : null
         return data.data[0] ? data.data[0] : false;
     }).catch(err => {
-        console.log(err.response);
         return false;
     })
 }

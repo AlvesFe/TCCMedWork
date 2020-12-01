@@ -20,9 +20,7 @@ export default function confirmarToken(dados) {
         window.location.assign('#/redefinir-senha');
         localStorage.setItem('token_reset', dados.token)
         return true;
-        console.log(data);
     }).catch(err => {
         return false;
-        console.log(err);
     })
 }

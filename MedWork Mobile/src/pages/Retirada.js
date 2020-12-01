@@ -11,8 +11,6 @@ export default function Retirada({ route, navigation }) {
 
   const [carregando, setCarregando] = useState(true);
   const { item, detalhes, Quantidade } = route.params
-  console.log(item.preco);
-  console.log(detalhes);
 
   return (
     <>

@@ -12,7 +12,6 @@ export default class HistoricoPedidos extends Component {
 
         this.mudarAba = (e) => {
             e.preventDefault()
-            console.log(this.state)
             switch (this.state) {
                 case this.state.pendentes:
                     this.setState({

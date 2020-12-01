@@ -21,7 +21,6 @@ export default function getRemedio(dados) {
         const { data } = response;
         return data.data[0];
     }).catch(err => {
-        console.log(err.response.data.error);
         Event(err.response.data.error);
         return false;
     })

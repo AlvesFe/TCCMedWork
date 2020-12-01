@@ -12,11 +12,9 @@ export default function ViewPresc({ route, navigation }) {
   const [detalhes, setDetalhes] = useState(null);
   const [carregando, setCarregando] = useState(true);
   const { receita } = route.params
-  console.log(detalhes);
 
   useEffect(() => {
     getDetalhesReceita(receita, setDetalhes)
-    console.log(receita);
   }, [])
 
   useEffect(() => {

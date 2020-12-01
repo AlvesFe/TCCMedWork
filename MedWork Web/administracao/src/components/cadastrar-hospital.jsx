@@ -34,7 +34,6 @@ export default class CadastrarHospital extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
             cadastrarHospital(this.state).then(res => {
-                console.log(res)
                 if (res === true) {
                     this.setState({
                         ...this.state,

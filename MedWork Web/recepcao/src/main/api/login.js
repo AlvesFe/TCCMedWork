@@ -36,7 +36,6 @@ export default function doLogin(dados) {
             window.location.reload();
         })
     }).catch(err => {
-        console.log(err);
         Toast.fire({
             icon: 'error',
             title: 'Falha no login'

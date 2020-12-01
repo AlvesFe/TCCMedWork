@@ -32,15 +32,6 @@ class Confirmar extends Component {
                     Event("Codigo Invalido")
                 }
             })
-            // if (this.state.token == tokenzinho) {
-
-            //     console.log('certinho')
-            // } else {
-            //     this.setState({
-            //         TokenErro: e.mostrar
-            //     })
-            // }
-
         }
     }
 

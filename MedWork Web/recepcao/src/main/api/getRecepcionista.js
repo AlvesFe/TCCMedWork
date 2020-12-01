@@ -29,6 +29,5 @@ export default function getRecepcionista() {
         const stringData = JSON.stringify(data.data[0])
         localStorage.setItem('user_data', stringData)
     }).catch(err => {
-        console.log(err.response);
     })
 }

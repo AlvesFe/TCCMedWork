@@ -51,7 +51,6 @@ export default class AlterarMedico extends Component {
                 celular: res.celular,
                 telefone: res.telefone,
             })
-            console.log(this.state);
         })
 
         this.onChange = (e) => {

@@ -126,7 +126,6 @@ exports.getFarmacia = (req, res, next) => {
 
 exports.patchFarmacia = (req, res, next) => {
 
-    console.log(req.body);
     //Laço que verifica se todos os campos possuem valor
     for (let key in req.body) {
         if (!req.body[key]) {

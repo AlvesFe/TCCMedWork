@@ -27,7 +27,6 @@ export default function getRemedio(dados) {
         data.data[0] ? Event("success"):Event("erronaoencontrado")
         return data.data
     }).catch(err => {
-        console.log(err.response.data.error);
         return false
     })
 }

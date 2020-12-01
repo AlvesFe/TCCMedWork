@@ -23,7 +23,6 @@ class Inicio extends Component {
         this.abaPendentes = (e) => {
             e.preventDefault()
             getCompra("PENDENTE").then(res => {
-                console.log(res);
             })
             this.setState({
                 pendentes: "nav-link active",
@@ -38,7 +37,6 @@ class Inicio extends Component {
         this.abaConfirmados = (e) => {
             e.preventDefault()
             getCompra("CONCLUIDO").then(res => {
-                console.log(res);
             })
             this.setState({
                 pendentes: "nav-link",
@@ -52,7 +50,6 @@ class Inicio extends Component {
         this.abaHistorico = (e) => {
             e.preventDefault()
             getAllcompra().then(res => {
-                console.log(res);
             })
             this.setState({
                 pendentes: "nav-link",

@@ -54,7 +54,6 @@ class ValidacaoCodigo extends Component {
                         senhaErro: "d-none",
                         senhaVazia: "d-none"
                     })
-                    // console.log('tudo certo')
                     break
                 case 'erro':
                     this.setState({
@@ -62,7 +61,6 @@ class ValidacaoCodigo extends Component {
                         senhaSucesso: "d-none",
                         senhaVazia: "d-none"
                     })
-                    // console.log('deu ruim')
                     break;
                 case 'vazia':
                     this.setState({
@@ -70,10 +68,8 @@ class ValidacaoCodigo extends Component {
                         senhaSucesso: "d-none",
                         senhaErro: "d-none"
                     })
-                    // console.log('Senhas vazias');
                     break;
                 default:
-                    // console.log('wtf');
                     break;
             }
 

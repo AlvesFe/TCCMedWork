@@ -60,7 +60,6 @@ export default function PerfilPage() {
       setUser(item)
       setCarregando(false)
     } catch (error) {
-      console.log(error);
     }
   }
 

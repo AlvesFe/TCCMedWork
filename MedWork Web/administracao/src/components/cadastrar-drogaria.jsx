@@ -33,7 +33,6 @@ export default class CadastrarDrogaria extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            //console.log(this.state)
             cadastrarFarmacia(this.state).then(res => {
                 if (res) {
                     this.setState({

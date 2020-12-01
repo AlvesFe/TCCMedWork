@@ -94,7 +94,6 @@ export default function patchUser(user, setViewing, setUser) {
             toastFail(phrase)
             setViewing(true)
             setUser(item)
-            console.log(err.response.data);
         })
     }
 

@@ -12,7 +12,6 @@ export default class PedidosConfirmados extends Component{
 
         this.mudarAba = (e) => {
             e.preventDefault()
-            console.log(this.state)
             switch (this.state) {
                 case this.state.pendentes:
                     this.setState({

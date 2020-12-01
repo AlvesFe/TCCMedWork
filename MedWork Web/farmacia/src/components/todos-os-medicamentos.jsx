@@ -26,7 +26,6 @@ export default class Encaminhamento extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
         }
     }
 

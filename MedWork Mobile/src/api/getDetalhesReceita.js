@@ -27,6 +27,5 @@ export default async function getUserData( receita, setDetalhes ) {
         const { data } = response.data;
         setDetalhes(data[0])
     }).catch(err => {
-        console.log(err.response.data);
     })
 }

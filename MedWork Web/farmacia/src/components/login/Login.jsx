@@ -22,7 +22,6 @@ class Login extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
             doLogin(this.state)
-            console.log(this.state)
         }
     }
 

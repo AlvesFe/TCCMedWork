@@ -6,7 +6,6 @@ import Event from '../../event/Alerts';
 export default function CadastrarEstoque(data) {
 
     const token = localStorage.getItem('current_user')
-    console.log(data);
     return Axios({
         method: 'POST',
         url: "/api/remedio_Farmacia/",
@@ -20,7 +19,6 @@ export default function CadastrarEstoque(data) {
         return true
     }).catch(err => {
         Event(err.response.data.error)
-        console.log(err.response)
         return false
     })
 }

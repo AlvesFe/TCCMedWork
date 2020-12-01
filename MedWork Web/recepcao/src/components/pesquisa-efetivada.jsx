@@ -26,7 +26,6 @@ export default class PesquisaEfetivada extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
         }
     }
 

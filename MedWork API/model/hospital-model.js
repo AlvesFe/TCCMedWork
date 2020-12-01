@@ -159,7 +159,6 @@ exports.patchHospital = (req, res, next) => {
                     return "default.png"
                 }
             }
-            console.log(foto())
             if (resultado[0]) {
                 if (resultado[0].senha === req.body.senha) {
                     conn.query(
