@@ -146,7 +146,7 @@ exports.detalhesReceita = (req, res, next) => {
     mysql.getConnection((error, conn) => {
 
         conn.query(`
-        SELECT rm.id_Remedio, rc.dt_Emissao, rc.dt_Validade, rc.dosagem, rc.orientacoes, pc.nome AS Paciente, pc.cpf, pc.rg, rr.Quantidade , md.nome AS Medico, md.especialidade, md.crm, rm.nome AS Remedio
+        SELECT rm.id_Remedio, rm.bula, rc.dt_Emissao, rc.dt_Validade, rc.dosagem, rc.orientacoes, pc.nome AS Paciente, pc.cpf, pc.rg, rr.Quantidade , md.nome AS Medico, md.especialidade, md.crm, rm.nome AS Remedio
         FROM tbl_Receita AS rc
         INNER JOIN tbl_Paciente AS pc ON rc.fk_id_Paciente = id_Paciente
         INNER JOIN tbl_Medico AS md ON rc.fk_id_Medico = id_Medico
