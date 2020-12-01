@@ -1,4 +1,5 @@
 import React from 'react';
+import { deslogar } from '../../main/api/deslogar';
 import Logotipo from './logotipo-dash'
 import './menu.css'
 
@@ -25,7 +26,7 @@ export default props => (
             <i className="cog icon mr-3"></i>
             Configurações
         </a> */}
-        <a className="fixed-bottom" style={{width: (window.innerWidth/12)*3}} href="#"  >
+        <a className="fixed-bottom" onClick={deslogar} style={{width: (window.innerWidth/12)*3}} href="#"  >
             <i className="sign-out icon mr-3"></i>
             Sair
         </a>
