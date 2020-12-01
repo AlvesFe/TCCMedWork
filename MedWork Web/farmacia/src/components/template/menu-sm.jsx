@@ -1,4 +1,5 @@
 import React from 'react';
+import { deslogar } from '../../main/api/deslogar';
 // import { deslogar } from '../../main/api/deslogar';
 import './menu.css'
 
@@ -22,7 +23,7 @@ export default props => (
         <a href="#/configuracoes">
             <i className="fa fa-cog fa-2x"></i>
         </a>
-        <a href="#" >
+        <a href="#" onClick={deslogar} >
             <i className="fa fa-times fa-2x"></i>
         </a>
     </div>

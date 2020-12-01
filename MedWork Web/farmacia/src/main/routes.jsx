@@ -1,6 +1,5 @@
 import React from 'react';
 import { Router, Route, Redirect, hashHistory } from 'react-router'
-// import { isAuth } from './auth';
 
 import Login from '../components/login/Login'
 import Recuperacao from '../components/login/Recuperacao'
@@ -13,9 +12,10 @@ import CentroAjuda from '../components/centro-ajuda'
 import Configuracoes from '../components/configuracoes'
 import ValidacaoCodigo from '../components/login/Confirmar'
 import RedefinirSenha from '../components/login/Redefinir-senha'
+import { isAuth } from './auth';
 
 export default function routes() {
-    if (true) {
+    if (isAuth()) {
         return (
             <Router history={hashHistory}>
                 <Route path='/pedidos' component={Inicio} />
