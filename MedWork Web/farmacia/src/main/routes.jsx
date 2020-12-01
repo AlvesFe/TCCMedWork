@@ -5,9 +5,10 @@ import Login from '../components/login/Login'
 import Recuperacao from '../components/login/Recuperacao'
 import Inicio from '../components/pedidos'
 import Medicamentos from '../components/medicamentos'
+import CadastrarMedicamento from '../components/medicamentos/cadastrar'
+import AlterarMedicamento from '../components/medicamentos/alterar'
 import InformacoesEmpresa from '../components/informacoes-empresa'
-import PrescricaoGerada from '../components/prescricao-gerada'
-import TodosOsMedicamentos from '../components/todos-os-medicamentos'
+import TodosOsMedicamentos from '../components/medicamentos/listar-todos'
 import CentroAjuda from '../components/centro-ajuda'
 import Configuracoes from '../components/configuracoes'
 import ValidacaoCodigo from '../components/login/Confirmar'
@@ -20,10 +21,11 @@ export default function routes() {
             <Router history={hashHistory}>
                 <Route path='/pedidos' component={Inicio} />
                 <Route path='/esqueci-minha-senha' component={Recuperacao} />
-                <Route path='/todos-os-medicamentos' component={TodosOsMedicamentos} />
                 <Route path='/medicamentos' component={Medicamentos} />
+                <Route path='/cadastrar-medicamento' component={CadastrarMedicamento} />
+                <Route path='/alterar-medicamento' component={AlterarMedicamento} />
+                <Route path='/todos-os-medicamentos' component={TodosOsMedicamentos} />
                 <Route path='/informacoes-da-empresa' component={InformacoesEmpresa} />
-                <Route path='/prescricao-gerada' component={PrescricaoGerada} />
                 <Route path='/centro-de-ajuda' component={CentroAjuda} />
                 {/* <Route path='/configuracoes' component={Configuracoes} /> */}
                 <Route path='/sair' component={Login} />

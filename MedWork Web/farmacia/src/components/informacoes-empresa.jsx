@@ -100,7 +100,7 @@ export default class MinhasInformacoes extends Component {
                             </div>
                             <div className='form-group col-12 '>
                                 <label htmlFor="detalhes" className='font-weight-bold mb-0'>Detalhes</label>
-                                <textarea className="form-control form-control-sm" id="detalhes" rows={5} placeholder='Descrição' name='detalhes' value={this.state.detalhes} onChange={this.onChange} />
+                                <textarea className="form-control form-control-sm" id="detalhes" rows='2' placeholder='Descrição' name='detalhes' value={this.state.detalhes} onChange={this.onChange} />
                             </div>
                         </div>
                         <div className='col-12 text-center py-2'>
