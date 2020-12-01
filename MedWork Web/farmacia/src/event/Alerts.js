@@ -11,70 +11,16 @@ const Toast = Swal.mixin({
 export default function Event(Action) {
 
     switch (Action) {
-        case "erroidremediovazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Informe o Codigo do Remedio!'
-            })
-            break;
-        case "Informe o CPF":
-            Toast.fire({
-                icon: 'error',
-                title: 'CPF Invalido!'
-            })
-            break;
-        case "errodosagemvazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Informe a Dosagem!'
-            })
-            break;
-        case "erroorientacoesvazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Informe as Orientações!'
-            })
-            break;
-        case "errodt_Validadevazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Informe a Validade!'
-            })
-            break;
-        case "errodt_Validadevazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Informe a Validade!'
-            })
-            break;
-        case "erroQuantidadevazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Informe a Quantidade!'
-            })
-            break;
-        case "erroquantidadeinvalida":
-            Toast.fire({
-                icon: 'error',
-                title: 'Quantidade Invalida!'
-            })
-            break;
-        case "Receita_Remedio Cadastrada":
-            Toast.fire({
-                icon: 'success',
-                title: 'Receita Cadastrada!'
-            })
-            break;
         case "erronomevazio":
             Toast.fire({
                 icon: 'error',
                 title: 'Informe o Nome!'
             })
             break;
-        case "erroespecialidadevazio":
+        case "erroenderecovazio":
             Toast.fire({
                 icon: 'error',
-                title: 'Informe a Especialidade!'
+                title: 'Informe o Endereço!'
             })
             break;
         case "errotelefonevazio":
@@ -83,94 +29,76 @@ export default function Event(Action) {
                 title: 'Informe o Telefone!'
             })
             break;
-        case "errocelularvazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Informe o Celular!'
-            })
-            break;
-        case "errodt_Nascimentovazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Informe a Data de Nascimento!'
-            })
-            break;
-        case "errotp_sanguineovazio":
-            Toast.fire({
-                icon: 'error',
-                title: 'Informe o Tipo Sanguíneo!'
-            })
-            break;
         case "errotelefoneinvalido":
             Toast.fire({
                 icon: 'error',
                 title: 'Telefone Invalido!'
             })
             break;
-        case "errotamanhotelefone":
+        case "errotaxavazio":
             Toast.fire({
                 icon: 'error',
-                title: 'Telefone Invalido!'
+                title: 'Informe a Taxa!'
             })
             break;
-        case "errotamanhoceleular":
+        case "errodetalhesvazio":
             Toast.fire({
                 icon: 'error',
-                title: 'Celular Invalido!'
+                title: 'Informe os Detalhes!'
             })
             break;
-        case "Medico Atualizado":
+        case "erronaoencontrado":
+            Toast.fire({
+                icon: 'error',
+                title: 'Dados Não Encontrado!'
+            })
+            break;
+        case "success":
             Toast.fire({
                 icon: 'success',
-                title: 'Medico Atualizado!'
+                title: 'Dados Encontrados!'
             })
             break;
-        case "Verifique Seu Email":
-            Toast.fire({
-                icon: 'success',
-                title: 'Verifique Seu Email!'
-            })
-            break;
-        case "Email Não Encontrado":
+        case "errodt_Validadevazio":
             Toast.fire({
                 icon: 'error',
-                title: 'Email Não Encontrado!'
+                title: 'Informe a Data de Vencimento!'
             })
             break;
-        case "Email Não Encontrado":
+        case "errotarjavazio":
             Toast.fire({
                 icon: 'error',
-                title: 'Email Não Encontrado!'
+                title: 'Informe a Tarja!'
             })
             break;
-        case "Altere Sua Senha":
-            Toast.fire({
-                icon: 'success',
-                title: 'Altere Sua Senha!'
-            })
-            break;
-        case "Codigo Invalido":
+        case "errocodigovazio":
             Toast.fire({
                 icon: 'error',
-                title: 'Codigo Invalido!'
+                title: 'Informe o Codigo!'
             })
             break;
-        case "Erro a Alterar":
+        case "errodescricaovazio":
             Toast.fire({
                 icon: 'error',
-                title: 'Erro a Alterar!'
+                title: 'Informe a Descrição!'
             })
             break;
-        case "Erro a Alterar":
+        case "errofabricantevazio":
             Toast.fire({
                 icon: 'error',
-                title: 'Erro a Alterar!'
+                title: 'Informe o Fabricante!'
             })
             break;
-        case "Senha Alterada com Sucesso":
+        case "erroprecovazio":
             Toast.fire({
-                icon: 'success',
-                title: 'Senha Alterada com Sucesso!'
+                icon: 'error',
+                title: 'Informe o Preço!'
+            })
+            break;
+        case "erroestoquevazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe o Estoque!'
             })
             break;
 

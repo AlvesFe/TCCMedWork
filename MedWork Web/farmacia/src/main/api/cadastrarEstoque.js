@@ -1,5 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
+import Event from '../../event/Alerts';
 
 
 export default function CadastrarEstoque(data) {
@@ -18,6 +19,7 @@ export default function CadastrarEstoque(data) {
     }).then(response => {
         return true
     }).catch(err => {
+        Event(err.response.data.error)
         console.log(err.response)
         return false
     })

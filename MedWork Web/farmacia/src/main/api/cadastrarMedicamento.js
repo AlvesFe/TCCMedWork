@@ -1,6 +1,7 @@
 import React from 'react'
 import Axios from 'axios'
 import cadastarEstoque from './cadastrarEstoque'
+import Event from '../../event/Alerts';
 
 
 export default function cadastrarMedicamento(dados) {
@@ -41,7 +42,8 @@ export default function cadastrarMedicamento(dados) {
             return res
         })
     }).catch(err => {
-        console.log(err.response)
+        Event(err.response.data.error)
+        console.log(err.response.data.error)
         return false
     })
 }

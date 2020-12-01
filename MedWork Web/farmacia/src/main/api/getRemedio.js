@@ -1,5 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
+import Event from '../../event/Alerts';
 
 
 export default function getRemedio(dados) {
@@ -23,9 +24,10 @@ export default function getRemedio(dados) {
         }
     }).then(response => {
         const { data } = response;
+        data.data[0] ? Event("success"):Event("erronaoencontrado")
         return data.data
     }).catch(err => {
-        console.log(err.response);
+        console.log(err.response.data.error);
         return false
     })
 }
