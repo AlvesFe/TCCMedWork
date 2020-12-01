@@ -2,19 +2,24 @@ import React from 'react'
 import Axios from 'axios'
 
 
-export default function getCompra(dados) {
+export default function alterarFarmacia(dados) {
 
     const token = localStorage.getItem('current_user')
-    const json = localStorage.getItem('user_data');
-    const user = JSON.parse(json);
     const data = {
-        status: dados,
-        id_Farmacia: user.id_Farmacia
+        nome: dados.nome,
+        taxa: dados.taxa,
+        telefone: dados.telefone,
+        endereco: dados.endereco,
+        detalhes: dados.detalhes,
+        ativo: dados.ativo,
+        senha: dados.senha,
+        image: dados.image,
+        id_Farmacia: dados.id_Farmacia,
     }
 
     return Axios({
-        method: 'post',
-        url: "/api/compra/getCompra",
+        method: 'PATCH',
+        url: "/api/farmacia/",
         data,
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -23,7 +28,8 @@ export default function getCompra(dados) {
         }
     }).then(response => {
         const { data } = response;
-        return data.Compras
+        console.log(data);
+        return true
     }).catch(err => {
         return false
     })
