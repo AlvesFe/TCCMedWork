@@ -4,7 +4,7 @@ export default () => {
     return (
         <div>
             <div className= "alert alert-danger text-center " role="alert">
-                NENHUM PACIENTE ENCONTRADO!
+                NENHUM MEDICAMENTO ENCONTRADO!
             </div>
         </div>
     )
