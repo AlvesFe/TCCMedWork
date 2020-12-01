@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import Menu from './template/menu'
 import FichaSucesso from './template/FichaSucesso'
 import FichaErro from './template/FichaErro'
+import { jsPDF } from 'jspdf/dist/jspdf.umd';
 
 import Logo from '../images/logotipo.png';
+import Event from '../event/Alerts';
 export default class StatusFicha extends Component {
 
     constructor(props) {
@@ -12,22 +14,32 @@ export default class StatusFicha extends Component {
             fichaSucesso: "col-12 animate__animated animate__fadeIn animate__fast animate__delay-1s",
             fichaErro: "d-none"
         }
-        // this.CarregarStatus = (e) => {
-        //     e.preventDefault();
-        //     if (true) {
-        //         this.setState({
-        //             fichaSucesso: "col-12 animate__animated animate__fadeIn animate__fast",
-        //             fichaErro: "d-none"
-        //         })
-        //     } else {
-        //         this.setState({
-        //             fichaErro: "col-12 animate__animated animate__fadeIn animate__fast",
-        //             fichaSucesso: "d-none"
-        //         })
-        //     }
-        // }
-        
-        // window.addEventListener('load', this.CarregarStatus)
+
+        this.onSubmit = (e) => {
+            e.preventDefault();
+
+            const dadosStf = localStorage.getItem('ficha_data')
+            const dados = JSON.parse(dadosStf)          
+
+            let data = dados.dataNascimento;
+            data = Date.parse(data);
+            data = new Date(data);
+            data = ((data.getDate())) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear();
+
+            let fotoPaciente = new Image();
+            fotoPaciente.src = `/api/uploads/paciente/${dados.foto}`;
+            
+            const doc = new jsPDF('p');
+            doc.addImage(Logo, 'png', 80, 0, 50, 50);
+            doc.addImage(fotoPaciente, 'png', 150, 60, 50, 50);
+            doc.text(70, 50, 'ATENDIMENTO MEDWORK');
+            doc.text(20, 70, 'Paciente: ' + dados.nomePaciente);
+            doc.text(20, 80, 'CPF: ' + dados.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"));
+            doc.text(20, 90, 'Nascimento: ' + data);
+            doc.text(20, 100, 'Alergias: ' + dados.alergia);
+            doc.save(`${dados.nomePaciente}-atendimento-${Date.now()}`);
+            Event("Ficha Gerada");
+        }
     }
 
     render() {
@@ -45,7 +57,7 @@ export default class StatusFicha extends Component {
                                 <FichaErro />
                             </div>
                             <div className='col-12 text-center py-5'>
-                                <a href='#/pesquisar-paciente' className='btn-roxo mr-2' onClick={() => { alert('COLOCA O PDF AQUI, BROWWW')}}>IMPRIMIR FICHA</a>
+                                <a href='#/pesquisar-paciente' className='btn-roxo mr-2' onClick={this.onSubmit}>GERAR FICHA</a>
                                 <a href='#/pesquisar-paciente' className='btn-roxo'>FINALIZAR ATENDIMENTO</a>
                             </div>
                         </div>

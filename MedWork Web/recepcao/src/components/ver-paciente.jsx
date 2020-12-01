@@ -62,30 +62,10 @@ export default class VerPaciente extends Component {
             // this.setState({telefone: cpfMask(e.target.value)})
             this.setState(state)
         }
-        this.onSubmit = (e) => {
-            e.preventDefault();
-            let data = this.state.dataNascimento;
-            data = Date.parse(data);
-            data = new Date(data);
-            data = ((data.getDate())) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear();
-
-            let fotoPaciente = new Image();
-            fotoPaciente.src = `/api/uploads/paciente/${this.state.foto}`;
-            
-            const doc = new jsPDF('p');
-            doc.addImage(Logo, 'png', 80, 0, 50, 50);
-            doc.addImage(fotoPaciente, 'png', 150, 60, 50, 50);
-            doc.text(70, 50, 'ATENDIMENTO MEDWORK');
-            doc.text(20, 70, 'Paciente: ' + this.state.nomePaciente);
-            doc.text(20, 80, 'CPF: ' + this.state.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"));
-            doc.text(20, 90, 'Nascimento: ' + data);
-            doc.text(20, 100, 'Alergias: ' + this.state.alergia);
-            doc.save(`${this.state.nomePaciente}-atendimento-${Date.now()}`);
-            Event("Ficha Gerada")
-        }
 
         this.GerarFicha = (e) => {
             e.preventDefault();
+            localStorage.setItem('ficha_data', JSON.stringify(this.state))
             window.location.assign('#/status-ficha')
         }
     }
