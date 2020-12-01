@@ -5,6 +5,8 @@ import PedidosPendentes from './pedidos/pendentes'
 import PedidosConfirmados from './pedidos/confirmados'
 import PedidosHistorico from './pedidos/historico'
 import HistoricoPedidos from './pedidos/historico'
+import getCompra from '../main/api/getCompras'
+import getAllcompra from '../main/api/getAllCompras'
 
 class Inicio extends Component {
     constructor() {
@@ -20,6 +22,9 @@ class Inicio extends Component {
 
         this.abaPendentes = (e) => {
             e.preventDefault()
+            getCompra("PENDENTE").then(res => {
+                console.log(res);
+            })
             this.setState({
                 pendentes: "nav-link active",
                 confirmados: "nav-link",
@@ -32,6 +37,9 @@ class Inicio extends Component {
         }
         this.abaConfirmados = (e) => {
             e.preventDefault()
+            getCompra("CONCLUIDO").then(res => {
+                console.log(res);
+            })
             this.setState({
                 pendentes: "nav-link",
                 confirmados: "nav-link active",
@@ -43,6 +51,9 @@ class Inicio extends Component {
         }
         this.abaHistorico = (e) => {
             e.preventDefault()
+            getAllcompra().then(res => {
+                console.log(res);
+            })
             this.setState({
                 pendentes: "nav-link",
                 confirmados: "nav-link",

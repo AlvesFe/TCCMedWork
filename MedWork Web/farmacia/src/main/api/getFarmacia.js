@@ -14,7 +14,6 @@ export default function getFarmacia() {
     const data = {
         cnpj: decode.cnpj
     }
-
     Axios({
         method: 'post',
         url: "/api/farmacia/get",

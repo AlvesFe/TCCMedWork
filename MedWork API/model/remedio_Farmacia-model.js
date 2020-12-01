@@ -11,8 +11,8 @@ exports.postRemedioFarmacia = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         const id_Remedio_Farmacia = bcrypt.hashSync(Date.now().toString(), 10);
         conn.query(
-            'INSERT INTO tbl_Remedio_Farmacia (id_Remedio_Farmacia, estoque, fk_id_Farmacia, fk_id_Remedio)VALUES(?,?,?,?)',
-            [id_Remedio_Farmacia, req.body.estoque, req.body.fk_id_Farmacia, req.body.fk_id_Remedio],
+            'INSERT INTO tbl_Remedio_Farmacia (id_Remedio_Farmacia, codigo, estoque, fk_id_Farmacia, fk_id_Remedio)VALUES(?,?,?,?)',
+            [id_Remedio_Farmacia, req.body.codigo, req.body.estoque, req.body.fk_id_Farmacia, req.body.fk_id_Remedio],
             (error, resultado, field) => {
                 conn.release()
 
