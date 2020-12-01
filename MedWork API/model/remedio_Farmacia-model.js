@@ -53,8 +53,10 @@ exports.getRemediosFarmacia = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'SELECT * FROM tbl_Remedio_Farmacia WHERE id_Remedio_Farmacia = ?',
-            [req.body.id_Remedio_Farmacia],
+            `SELECT * FROM tbl_remedio 
+              INNER JOIN tbl_remedio_farmacia ON id_Remedio = fk_id_Remedio
+              WHERE codigo = ? AND fk_id_Farmacia = ?`,
+            [req.body.codigo, req.body.id_Farmacia],
             (error, resultado, fields) => {
                 conn.release()
 
@@ -116,7 +118,7 @@ exports.deleteRemedioFarmacia = (req, res, next) => {
 
 exports.getFarmaciaRemedios = (req, res, next) => {
 
-    mysql.getConnection((error, conn) =>{
+    mysql.getConnection((error, conn) => {
 
         if (error) { return res.status(500).send({ error: error }) }
 
@@ -124,16 +126,16 @@ exports.getFarmaciaRemedios = (req, res, next) => {
         FROM tbl_Farmacia fm
         INNER JOIN tbl_Remedio_Farmacia AS rf ON fk_id_Farmacia = id_Farmacia
         INNER JOIN tbl_Remedio rm ON fk_id_remedio = id_remedio
-        WHERE id_remedio = ? AND rf.estoque > 0`, [req.body.id_Remedio], 
-        (error, resultado, field) => {
-            if (error) { return res.status(500).send({ error: error }) }
+        WHERE id_remedio = ? AND rf.estoque > 0`, [req.body.id_Remedio],
+            (error, resultado, field) => {
+                if (error) { return res.status(500).send({ error: error }) }
 
 
-            res.status(202).send({
-                success: 1,
-                data: resultado
+                res.status(202).send({
+                    success: 1,
+                    data: resultado
+                })
             })
-        })
 
     })
 

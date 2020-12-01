@@ -36,18 +36,11 @@ exports.postRemedioFarmacia = (req, res, next) => {
 
 exports.getRemedioFarmacia = (req, res, next) => {
 
-    if (isNullOrWhitespace(req.body.id_Remedio_Farmacia)) {
+    if (isNullOrWhitespace(req.body.id_Farmacia)) {
         return res.status(500).send({
             error: "erroidremediofarmaciavazio"
         })
     }
-
-    if (req.body.id_Remedio_Farmacia.length !== 60) {
-        return res.status(500).send({
-            error: "errotamanhoidremediofarmacia"
-        })
-    }
-
     next();
 }
 
