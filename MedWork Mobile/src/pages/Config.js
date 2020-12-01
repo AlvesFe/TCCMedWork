@@ -1,5 +1,6 @@
 import React, {useContext, useState} from 'react';
 import { View, Text, StyleSheet,Alert } from 'react-native';
+import desativarPaciente from '../api/desativarPaciente';
 import FormButton from '../components/FormButton';
 import { roxo, vermelho } from '../constants/colors.json'
 import { AuthContext } from '../routes/AuthProvider';
@@ -17,7 +18,11 @@ export default function Config({ navigation }) {
           onPress: () => null,
           style: "cancel"
         },
-        { text: "Desativar conta", onPress: () => console.log("OK Pressed") }
+        { text: "Desativar conta", onPress: () => {
+          desativarPaciente().then(() => {
+            logout();
+          })
+        }}
       ],
       { cancelable: true }
     );
@@ -31,7 +36,7 @@ export default function Config({ navigation }) {
             labelStyle={styles.disableAcc} 
             color={vermelho}
             onPress={() => {
-              logout();
+              desativarConta();
             }}
         />
         <FormButton

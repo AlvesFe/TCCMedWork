@@ -6,18 +6,21 @@ import jwt from 'expo-jwt';
 const url = env.API_URL;
 const key = env.JWT_KEY;
 
-export default async function getReceitas( setReceitas ) {
+export default async function desativarPaciente() {
+
     const token = await AsyncStorage.getItem("userToken").then(res => {
         return res;
     })
 
-    const decode = jwt.decode(token, key, {timeSkew: 30});
+    const user = await AsyncStorage.getItem("userData").then(res => {
+        return JSON.parse(res);
+    })
 
     Axios({
         method: 'post',
-        url: url+"/receita/listreceitas",
+        url: url+"/paciente/desativar",
         data:{
-            id_Paciente: decode.id_Paciente
+            id_Paciente: user.id_Paciente
         },
         headers: {
             'Content-Type' : 'application/json',
@@ -26,8 +29,7 @@ export default async function getReceitas( setReceitas ) {
         
     }).then(async response => {
         const { data } = response.data;
-        setReceitas(data)
     }).catch(err => {
-        console.log(err);
+        console.log(err.response.data);
     })
 }
