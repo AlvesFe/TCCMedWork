@@ -31,6 +31,9 @@ router.post('/get', compraMiddleware.getCompra, compraController.getCompra, comp
 //READ (GET'S) - Busca e exibe Itens da tabela do banco de dados
 router.post('/getCompra', compraMiddleware.getCompra, compraController.GetCompraFarmacia, compraModel.getCompraFarmacia);
 
+//READ (GET'S) - Busca e exibe Itens da tabela do banco de dados
+router.post('/getAllCompra', compraMiddleware.getCompra, compraModel.getAllComprasFarmacia);
+
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
 router.patch('/', compraMiddleware.patchCompra, compraController.patchCompra, compraModel.patchCompra);
 

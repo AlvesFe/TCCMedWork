@@ -242,7 +242,7 @@ exports.logarFarmacia = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        const query = `SELECT * FROM tbl_Farmacia WHERE email = ?`;
+        const query = `SELECT * FROM tbl_Farmacia INNER JOIN tbl_Estabelecimentos ON id_Estabelecimento = fk_id_Estabelecimento WHERE email = ?`;
 
         conn.query(query, [req.body.email], (error, results, fields) => {
             conn.release();

@@ -146,5 +146,22 @@ exports.getCompraFarmacia = (req, res, next) => {
                 })
             })
     })
+}
 
+exports.getAllComprasFarmacia = (req, res, next) => {
+    mysql.getConnection((error, conn) => {
+        if (error) { return res.status(500).send({ error: error }) }
+
+        conn.query(`SELECT * FROM tbl_Compra WHERE fk_id_Farmacia = ?`, [req.body.id_Farmacia], 
+        (err, response, field) => {
+            conn.release()
+            if (err) { return res.status(500).send({ error: err }) }
+
+            res.status(200).send({
+                success: 1,
+                Compras: response
+            })
+        })
+
+    })
 }
