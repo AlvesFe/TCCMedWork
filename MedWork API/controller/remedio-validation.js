@@ -21,6 +21,11 @@ function ValidationNumber(value) {
     return false;
 }
 
+function validateURL(textval) {
+    var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
+    return urlregex.test(textval);
+}
+
 exports.postRemedio = (req, res, next) => {
 
     for (let key in req.body) {
@@ -34,6 +39,12 @@ exports.postRemedio = (req, res, next) => {
     if (ValidationNumber(req.body.preco)) {
         return res.status(500).send({
             error: "erroprecoinvalido"
+        })
+    }
+
+    if(!validateURL(req.body.bula)){
+        return res.status(500).send({
+            error: "errourlinvalida"
         })
     }
 

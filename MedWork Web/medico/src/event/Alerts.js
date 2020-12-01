@@ -173,7 +173,6 @@ export default function Event(Action) {
                 title: 'Senha Alterada com Sucesso!'
             })
             break;
-
     }
 
 

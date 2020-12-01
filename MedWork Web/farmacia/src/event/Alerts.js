@@ -101,7 +101,12 @@ export default function Event(Action) {
                 title: 'Informe o Estoque!'
             })
             break;
-
+        case "errourlinvalida":
+            Toast.fire({
+                icon: 'error',
+                title: 'Url Invalida!'
+            })
+            break;
     }
 
 
