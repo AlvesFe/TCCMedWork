@@ -4,6 +4,7 @@ import Logotipo from '../images/logotipo.png'
 import PesquisarMedicamento from './medicamentos/pesquisar'
 import CadastrarMedicamento from './medicamentos/cadastrar'
 import ListarMedicamentos from './medicamentos/listar-todos'
+import Abas from './template/Abas'
 
 class Inicio extends Component {
     constructor() {
@@ -52,39 +53,34 @@ class Inicio extends Component {
 
             })
         }
+
     }
+
+
 
 
     render() {
         return (
             < div className='row bg-white' >
                 <Menu />
-                <div className='container col-md-8 col-lg-9 animate__animated animate__fadeIn animate__fast'>
+                <div className='container col-md-8 col-lg-9'>
                     <h2 className='text-center pt-4 font-weight-light'>MEDICAMENTOS</h2>
                     <div>
                         <ul className="nav nav-tabs">
                             <li className="nav-item">
-                                <a className={this.state.abaPesquisar} href="#" name='abaPesquisar' onClick={this.changeAbaPesquisar}>Pesquisar</a>
+                                <a className="nav-link active" href="#/medicamentos" name='abaPesquisar' >Pesquisar</a>
                             </li>
                             <li className="nav-item">
-                                <a className={this.state.abaCadastrar} href="#" name='abaCadastrar' onClick={this.changeAbaCadastrar}>Cadastrar</a>
+                                <a className="nav-link" href="#/cadastrar-medicamento" name='abaCadastrar' >Cadastrar</a>
                             </li>
                             <li className="nav-item">
-                                <a className={this.state.abaVerTodos} href="#" name='abaCadastrar' onClick={this.changeAbaVerTodos}>Ver todos os medicamentos</a>
+                                <a className="nav-link" href="#/todos-os-medicamentos" name='abaCadastrar'>Ver todos os medicamentos</a>
                             </li>
                         </ul>
                     </div>
-
-                    <div className={this.state.contentPesquisar}>
+                    <div className=' animate__animated animate__fadeIn animate__fast'>
                         <PesquisarMedicamento />
                     </div>
-                    <div className={this.state.contentCadastrar}>
-                        <CadastrarMedicamento />
-                    </div>
-                    <div className={this.state.contentVerTodos}> 
-                        <ListarMedicamentos />
-                    </div>
-
 
 
 

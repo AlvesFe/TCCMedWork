@@ -128,7 +128,7 @@ exports.getAllRemediosFarmacia = (req, res, next) => {
 
         conn.query(`SELECT * FROM tbl_remedio 
         INNER JOIN tbl_remedio_farmacia ON id_Remedio = fk_id_Remedio
-        WHERE fk_id_Farmacia = ?`, [req.body.id_Farmacia],
+        WHERE fk_id_Farmacia = ? ORDER BY codigo ASC`, [req.body.id_Farmacia],
         (err, response, field) => {
             conn.release();
             if (err) { return res.status(500).send({ error: err }) }
