@@ -169,10 +169,9 @@ exports.getAllComprasFarmacia = (req, res, next) => {
 }
 
 exports.AlterarStatus = (req, res, next) => {
-    if (error) { return res.status(500).send({ error: error }) }
-    
     mysql.getConnection((error, conn) => {
-
+        
+        if (error) { return res.status(500).send({ error: error }) }
         conn.query(`UPDATE tbl_compra SET status_pedido = ? WHERE id_Compra = ?`, [req.body.status, req.body.id_Compra],
         (err, response, fiedl) => {
             if (err) { return res.status(500).send({ error: err }) }
