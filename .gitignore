@@ -8,6 +8,7 @@ MedWork*API/*.log
 
 #WEB
 # Dependências
+MedWork*Web/paciente/node_modules
 MedWork*Web/farmacia/node_modules
 MedWork*Web/medico/node_modules
 MedWork*Web/administracao/node_modules
