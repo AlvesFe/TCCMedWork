@@ -59,12 +59,6 @@ exports.patchRemedioFarmacia = (req, res, next) => {
             error: "erroestoqueinvalido"
         })
     }
-
-    if (req.body.id_Remedio_Farmacia.length !== 60) {
-        return res.status(500).send({
-            error: "errotamanhoidremediofarmacia"
-        })
-    }
     next();
 }
 

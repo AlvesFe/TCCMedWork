@@ -15,9 +15,10 @@ export default class ListarMedicamentos extends Component {
             this.setState({ remedio: res.remedios })
         })
 
-        this.onClick = (e) => {
-            console.log(e);
-        }
+        // this.onClick = (e) => {
+        //     e.preventDefault();
+        //     console.log(e);
+        // }
     }
 
     render() {
@@ -63,8 +64,11 @@ export default class ListarMedicamentos extends Component {
                                                     <td>{item.nome}</td>
                                                     <td>{item.tarja}</td>
                                                     <td>R${item.preco}</td>
-                                                    <td className='text-center'>
-                                                        <a href='#/alterar-medicamento' onClick={this.onClick} className='btn btn-sm btn-primary mr-1'>
+                                                    <td className='text-center' value={item} onClick={(e) => {
+                                                        e.preventDefault();
+                                                        setMed(item)
+                                                    }}>
+                                                        <a href='#/alterar-medicamento' className='btn btn-sm btn-primary mr-1'>
                                                             <i className="pencil alternate icon"></i>
                                                         </a >
                                                     </td>
@@ -84,4 +88,9 @@ export default class ListarMedicamentos extends Component {
         )
     }
 
+}
+
+function setMed(item){
+    localStorage.setItem('codigo_med', item.codigo)
+    window.location.assign('#/alterar-medicamento')
 }

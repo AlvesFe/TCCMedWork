@@ -78,13 +78,6 @@ exports.patchRemedio = (req, res, next) => {
             error: "erroprecoinvalido"
         })
     }
-
-    if (req.body.id_Remedio.length !== 60) {
-        return res.status(500).send({
-            error: "errotamanhoidremedio"
-        })
-    }
-
     next();
 }
 

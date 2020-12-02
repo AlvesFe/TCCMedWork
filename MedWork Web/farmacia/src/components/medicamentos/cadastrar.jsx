@@ -105,8 +105,8 @@ export default class CadastrarMedicamento extends Component {
                             <label htmlFor="tarjaMedicamento" className='mb-0'>Tarja do medicamento</label>
                             <select className="form-control" id="tarjaMedicamento" name="tarjaMedicamento" value={this.state.tarjaMedicamento} onChange={this.onChange}>
                                 <option value="">Selecione</option>
-                                <option value="preta">Preta</option>
-                                <option value="amarela">Amarela</option>
+                                <option value="PRETA">Preta</option>
+                                <option value="AMARELA">Amarela</option>
                             </select>
                         </div>
                         <div className="form-group col-4">
