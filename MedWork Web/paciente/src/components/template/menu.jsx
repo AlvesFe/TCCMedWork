@@ -4,7 +4,7 @@ import './menu.css'
 import {deslogar} from '../../main/api/deslogar'
 
 export default props => (
-    <div className="Menu col-md-4 col-lg-3 d-none d-lg-block">
+    <div className="Menu col-md-4 col-lg-3 d-none d-lg-block pl-3">
         <a href="#/inicio"><h4 className='text-center'><Logotipo /></h4></a>
         <a href="#/inicio">
             <i className="home icon mr-3"></i>
