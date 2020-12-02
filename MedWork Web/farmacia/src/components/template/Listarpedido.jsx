@@ -45,14 +45,14 @@ export default function Listapedido({item}) {
     }
 
     return(
-        <tr className={"a"} >
+        <tr className='text-center text-capitalize' >
             <th scope="row">{item.nome}</th>
             <td>{item.quantidade}</td>
             <td>R$ {item.valorRecebido}</td>
             <td>R$ {item.valorDevolvido}</td>
             <td className='text-center'>
                 {
-                    item.status_pedido === "PENDENTE" && 
+                    item.status_pedido === "PENDENTE" && item.tipo === "Entrega" &&
                     (
                         <div>
                             <button className='btn btn-primary mr-1' onClick={() => alterarPedido({status: "ENTREGANDO", id_Compra: item.id_Compra})}><i className="shipping fast icon"></i></button>
@@ -65,6 +65,14 @@ export default function Listapedido({item}) {
                         <div>
                             <button className='btn btn-success mr-1' onClick={() => alterarPedido({status: "ENTREGUE", id_Compra: item.id_Compra})}><i className="check icon"></i></button>
                             <button className='btn btn-danger' onClick={() => alterarPedido({status: "PENDENTE", id_Compra: item.id_Compra})}><i className="undo alternate icon"></i></button>
+                        </div>
+                    )
+                }
+                {
+                    item.status_pedido === "PENDENTE" && item.tipo === "Retirar" &&
+                    (
+                        <div>
+                            <button className='btn btn-success mr-1' onClick={() => alterarPedido({status: "ENTREGUE", id_Compra: item.id_Compra})}><i className="check icon"></i></button>
                         </div>
                     )
                 }
