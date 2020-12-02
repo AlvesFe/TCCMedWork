@@ -22,8 +22,8 @@ export default function Listapedido({item}) {
         doc.addImage(Logo, 'png', 80, 0, 50, 50);
 
         doc.text(93, 50, 'CLIENTE');
-        doc.text(20, 70, 'Nome: ' + 'Jonas');
-        doc.text(20, 80, 'CPF: ' + '47012535212'.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"));
+        doc.text(20, 70, 'Nome: ' + item.paciente);
+        doc.text(20, 80, 'CPF: ' + item.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"));
         doc.text(20, 90, 'Endereço: ' + item.endereco);
 
         doc.text(85, 110, 'MEDICAMENTO');
