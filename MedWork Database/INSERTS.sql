@@ -93,13 +93,13 @@ VALUES
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA REMEDIO
-INSERT INTO tbl_Remedio (id_Remedio, dt_Validade, tarja, nome, descricao, fabricante, preco)
+INSERT INTO tbl_Remedio (id_Remedio, codigo, dt_Validade, tarja, nome, descricao, fabricante, preco, bula)
 VALUES
-(MD5(1), '2025-09-22', 'PRETA', 'Diazepam', 'Alivio de Ansiedade', 'Generico', 45.04);
+(MD5(1), 1, '2025-09-22', 'PRETA', 'Diazepam', 'Alivio de Ansiedade', 'Generico', 45.04, 'link');
 
-INSERT INTO tbl_Remedio (id_Remedio, dt_Validade, tarja, nome, descricao, fabricante, preco)
+INSERT INTO tbl_Remedio (id_Remedio, codigo, dt_Validade, tarja, nome, descricao, fabricante, preco, bula)
 VALUES
-(MD5(2), '2025-09-22', 'AMARELA', 'Buscopan', 'Alivio de Colicas intestinais', 'Generico', 14.75);
+(MD5(2), 2, '2025-09-22', 'AMARELA', 'Buscopan', 'Alivio de Colicas intestinais', 'Generico', 14.75, 'link');
 
 -- -----------------------------------------------------------------------------------------------------------
 

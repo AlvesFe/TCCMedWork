@@ -14,6 +14,11 @@ export default class ListarMedicamentos extends Component {
         getAllRemedios().then(res => {
             this.setState({ remedio: res.remedios })
         })
+
+        // this.onClick = (e) => {
+        //     e.preventDefault();
+        //     console.log(e);
+        // }
     }
 
     render() {
@@ -53,14 +58,16 @@ export default class ListarMedicamentos extends Component {
                                     {
                                         this.state.remedio[0] &&
                                         this.state.remedio.map((item, key) => {
-                                            console.log(item);
                                             return (
                                                 <tr key={key} className='text-center text-capitalize' >
                                                     <th scope="row">{item.codigo}</th>
                                                     <td>{item.nome}</td>
                                                     <td>{item.tarja}</td>
                                                     <td>R${item.preco}</td>
-                                                    <td className='text-center'>
+                                                    <td className='text-center' value={item} onClick={(e) => {
+                                                        e.preventDefault();
+                                                        setMed(item)
+                                                    }}>
                                                         <a href='#/alterar-medicamento' className='btn btn-sm btn-primary mr-1'>
                                                             <i className="pencil alternate icon"></i>
                                                         </a >
@@ -81,4 +88,9 @@ export default class ListarMedicamentos extends Component {
         )
     }
 
+}
+
+function setMed(item){
+    localStorage.setItem('codigo_med', item.codigo)
+    window.location.assign('#/alterar-medicamento')
 }
