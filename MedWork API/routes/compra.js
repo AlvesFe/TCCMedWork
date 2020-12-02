@@ -37,6 +37,9 @@ router.post('/getAllCompra', compraMiddleware.getCompra, compraModel.getAllCompr
 //UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
 router.patch('/', compraMiddleware.patchCompra, compraController.patchCompra, compraModel.patchCompra);
 
+//UPDATE (PATCH) - Modifica um valor existente da tabela do banco de dados 
+router.patch('/alterarStatus', compraMiddleware.patchCompra, compraModel.AlterarStatus);
+
 //DELETE - Apaga um valor existente da tabela do banco de dados
 router.delete('/', compraMiddleware.deleteCompra, compraController.deleteCompra, compraModel.deleteCompra);
 

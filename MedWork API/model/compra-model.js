@@ -1,5 +1,6 @@
 //Importação da biblioteca Bcrypt
 const bcrypt = require('bcrypt');
+const { response } = require('express');
 
 //Importação do Banco de dados MySql
 const mysql = require('../mysql').pool;
@@ -163,4 +164,23 @@ exports.getAllComprasFarmacia = (req, res, next) => {
         })
 
     })
+}
+
+exports.AlterarStatus = (req, res, next) => {
+    if (error) { return res.status(500).send({ error: error }) }
+    
+    mysql.getConnection((error, conn) => {
+
+        conn.query(`UPDATE tbl_compra SET status_pedido = ? WHERE id_Compra = ?`, [req.body.status, req.body.id_Compra],
+        (err, response, fiedl) => {
+            if (err) { return res.status(500).send({ error: err }) }
+
+            res.status(200).send({
+                success:1,
+                Compras: response
+            })
+
+        })
+    })
+
 }
