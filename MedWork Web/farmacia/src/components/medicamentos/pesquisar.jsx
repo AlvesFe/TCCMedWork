@@ -21,15 +21,16 @@ export default class PesquisarMedicamento extends Component {
         this.buscarMedicamento = (e) => {
             e.preventDefault()
             getRemedio(this.state).then(res => {
-                if(!res[0]){
+                if (res[0]) {
+                    localStorage.setItem('codigo_med', res[0].codigo)
+                    window.location.assign('#/alterar-medicamento')
                     this.setState({
-                        medicamentoErro: "col-12 animate__animated animate__fadeIn animate__fast",
-
+                        medicamentoErro: "d-none",
                     })
                 }
-                else{
+                else {
                     this.setState({
-                        medicamentoErro: "d-none"
+                        medicamentoErro: "col-12 animate__animated animate__fadeIn animate__fast"
                     })
                 }
             })
@@ -42,17 +43,17 @@ export default class PesquisarMedicamento extends Component {
         return (
             <div className='row justify-content-center py-5'>
 
-            <div className='col-8'>
-                <div className={this.state.medicamentoErro}>
-                    <MedicamentoNaoEncontrado />
-                </div>
-                <div className="input-group mb-3">
-                    <input type="text" className="form-control " placeholder='Digite o código do medicamento' aria-describedby="button-buscar" id="codigo" name='codigo' onChange={this.onChange}/>
-                    <div className="input-group-append">
-                        <button className="btn-roxo" type="button" id="button-buscar" onClick={this.buscarMedicamento}>Buscar</button>
+                <div className='col-8'>
+                    <div className={this.state.medicamentoErro}>
+                        <MedicamentoNaoEncontrado />
+                    </div>
+                    <div className="input-group mb-3">
+                        <input type="text" className="form-control " placeholder='Digite o código do medicamento' aria-describedby="button-buscar" id="codigo" name='codigo' onChange={this.onChange} />
+                        <div className="input-group-append">
+                            <button className="btn-roxo" type="button" id="button-buscar" onClick={this.buscarMedicamento}>Buscar</button>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         )
     }

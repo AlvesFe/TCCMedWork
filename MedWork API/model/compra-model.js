@@ -136,7 +136,9 @@ exports.getCompraFarmacia = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query(`SELECT * FROM tbl_compra WHERE status_pedido = ? AND fk_id_Farmacia  = ?`, [req.body.status, req.body.id_Farmacia],
+        conn.query(`SELECT * FROM tbl_compra
+        INNER JOIN tbl_remedio ON id_Remedio = fk_id_Remedio
+        WHERE status_pedido = ? AND fk_id_Farmacia  = ?`, [req.body.status, req.body.id_Farmacia],
             (err, response, filed) => {
                 conn.release()
                 if (err) { return res.status(500).send({ error: err }) }
@@ -167,10 +169,9 @@ exports.getAllComprasFarmacia = (req, res, next) => {
 }
 
 exports.AlterarStatus = (req, res, next) => {
-    if (error) { return res.status(500).send({ error: error }) }
-    
     mysql.getConnection((error, conn) => {
-
+        
+        if (error) { return res.status(500).send({ error: error }) }
         conn.query(`UPDATE tbl_compra SET status_pedido = ? WHERE id_Compra = ?`, [req.body.status, req.body.id_Compra],
         (err, response, fiedl) => {
             if (err) { return res.status(500).send({ error: err }) }
