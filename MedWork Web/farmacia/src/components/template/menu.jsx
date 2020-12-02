@@ -6,7 +6,7 @@ import './menu.css'
 export default props => (
     <div className="Menu col-md-4 col-lg-3 d-none d-lg-block">
         <a href="#/pedidos"><h4 className='text-center'><Logotipo /></h4></a>
-        <a href="#/pedidos">
+        <a href="#/pedidos-pendentes">
             <i className="shipping fast icon mr-3"></i>
              Pedidos
         </a>
