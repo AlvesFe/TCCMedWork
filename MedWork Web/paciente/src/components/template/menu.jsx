@@ -3,7 +3,7 @@ import Logotipo from './logotipo-dash'
 import './menu.css'
 
 export default props => (
-    <div className="Menu col-md-4 col-lg-3 d-none d-lg-block">
+    <div className="Menu col-md-4 col-lg-3 d-none d-lg-block pl-3">
         <a href="#/inicio"><h4 className='text-center'><Logotipo /></h4></a>
         <a href="#/inicio">
             <i className="home icon mr-3"></i>
@@ -21,7 +21,7 @@ export default props => (
             <i className="question circle outline icon mr-3"></i>
             Centro de ajuda
         </a>
-        <a className="fixed-bottom" style={{width: (window.innerWidth/12)*3}} href="#">
+        <a className="fixed-bottom" href="#">
             <i className="sign-out icon mr-3"></i>
             Sair
         </a>
