@@ -68,34 +68,8 @@ class Inicio extends Component {
         return (
             < div className='row bg-white' >
                 <Menu />
-                <div className='container col-md-8 col-lg-9 animate__animated animate__fadeIn animate__fast'>
-                    <h2 className='text-center pt-4 font-weight-light'>PEDIDOS</h2>
-                    <div>
-                        <ul className="nav nav-tabs">
-                            <li className="nav-item">
-                                <a className={this.state.pendentes} href="#" name='pendentes' onClick={this.abaPendentes}>Pendentes</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className={this.state.confirmados} href="#" name='confirmados' onClick={this.abaConfirmados}>Confirmados</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className={this.state.historico} href="#" name='historico' onClick={this.abaHistorico}>Hisórico de pedidos</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div className={this.state.contentPendentes}>
-                        <PedidosPendentes />
-                    </div>
-                    <div className={this.state.contentConfirmados}> 
-                        <PedidosConfirmados />
-                    </div>
-                    <div className={this.state.contentHistorico} >
-                        <HistoricoPedidos />
-                    </div>
-
-
-
+                <div className='container col-md-8 col-lg-9'>
+                    <PedidosPendentes />
                 </div>
             </div >
         )

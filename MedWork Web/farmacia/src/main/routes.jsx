@@ -3,23 +3,31 @@ import { Router, Route, Redirect, hashHistory } from 'react-router'
 
 import Login from '../components/login/Login'
 import Recuperacao from '../components/login/Recuperacao'
-import Inicio from '../components/pedidos'
+import ValidacaoCodigo from '../components/login/Confirmar'
+import RedefinirSenha from '../components/login/Redefinir-senha'
+
+import PedidosPendentes from '../components/pedidos'
+import ACaminho from '../components/pedidos/confirmados'
+import HistoricoPedidos from '../components/pedidos/historico'
+
+
 import Medicamentos from '../components/medicamentos'
 import CadastrarMedicamento from '../components/medicamentos/cadastrar'
 import AlterarMedicamento from '../components/medicamentos/alterar'
-import InformacoesEmpresa from '../components/informacoes-empresa'
 import TodosOsMedicamentos from '../components/medicamentos/listar-todos'
+
+import InformacoesEmpresa from '../components/informacoes-empresa'
 import CentroAjuda from '../components/centro-ajuda'
-import Configuracoes from '../components/configuracoes'
-import ValidacaoCodigo from '../components/login/Confirmar'
-import RedefinirSenha from '../components/login/Redefinir-senha'
 import { isAuth } from './auth';
 
 export default function routes() {
     if (isAuth()) {
         return (
             <Router history={hashHistory}>
-                <Route path='/pedidos' component={Inicio} />
+                <Route path='/pedidos-pendentes' component={PedidosPendentes} />
+                <Route path='/a-caminho' component={ACaminho} />
+                <Route path='/historico-de-pedidos' component={HistoricoPedidos} />
+
                 <Route path='/esqueci-minha-senha' component={Recuperacao} />
                 <Route path='/medicamentos' component={Medicamentos} />
                 <Route path='/cadastrar-medicamento' component={CadastrarMedicamento} />
@@ -27,9 +35,8 @@ export default function routes() {
                 <Route path='/todos-os-medicamentos' component={TodosOsMedicamentos} />
                 <Route path='/informacoes-da-empresa' component={InformacoesEmpresa} />
                 <Route path='/centro-de-ajuda' component={CentroAjuda} />
-                {/* <Route path='/configuracoes' component={Configuracoes} /> */}
                 <Route path='/sair' component={Login} />
-                <Redirect from='*' to='/pedidos' />
+                <Redirect from='*' to='/pedidos-pendentes' />
             </Router>
         );
     }
