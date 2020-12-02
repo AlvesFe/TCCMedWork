@@ -1,13 +1,15 @@
 import React from 'react'
 import Axios from 'axios'
-import Event from '../../event/Alerts';
 
 
-export default function alterarEstoque(data) {
+export default function deletarRemedio(dados) {
     const token = localStorage.getItem('current_user');
-
+    const data = {
+        id_Remedio_Farmacia: dados.id_Remedio_Farmacia
+    }
+    console.log(data);
     return Axios({
-        method: 'PATCH',
+        method: 'DELETE',
         url: "/api/remedio_farmacia/",
         data,
         headers: {
@@ -18,10 +20,10 @@ export default function alterarEstoque(data) {
     }).then(response => {
         const { data } = response;
         console.log(data);
+        window.location.assign('#/todos-os-medicamentos')
         return true
     }).catch(err => {
         console.log(err.response.data);
-        Event(err.response.data.error)
         return false
     })
 }

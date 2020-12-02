@@ -9,6 +9,7 @@ import AlterarSucesso from '../template/AlterarSucesso'
 import Input from 'react-input-mask'
 import getRemedio from '../../main/api/getRemedio'
 import alterarRemedio from '../../main/api/alterarRemedio'
+import deletarRemedio from '../../main/api/deltetarRemedio'
 
 export default class AlterarMedicamento extends Component {
 
@@ -70,11 +71,14 @@ export default class AlterarMedicamento extends Component {
                     })
                 }
             })
-
-
-
         }
 
+        this.onDelete =  (e) => {
+            e.preventDefault()
+            deletarRemedio(this.state).then(res => {
+                console.log(res);
+            })
+        }
     }
 
 
@@ -154,7 +158,7 @@ export default class AlterarMedicamento extends Component {
 
                         <div className='text-center col-12'>
 
-                            <button className='btn btn-danger mr-2' onClick={this.onSubmit}>DELETAR MEDICAMENTO</button>
+                            <button className='btn btn-danger mr-2' onClick={this.onDelete}>DELETAR MEDICAMENTO</button>
                             <button className='btn-roxo' onClick={this.onSubmit}>SALVAR ALTERAÇÕES</button>
 
                         </div>

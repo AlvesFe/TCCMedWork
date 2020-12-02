@@ -107,6 +107,12 @@ export default function Event(Action) {
                 title: 'Url Invalida!'
             })
             break;
+        case "errobulavazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe o Link da Bula!'
+            })
+            break;
     }
 
 

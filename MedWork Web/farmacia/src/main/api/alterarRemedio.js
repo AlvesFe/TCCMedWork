@@ -1,6 +1,7 @@
 import React from 'react'
 import Axios from 'axios'
 import alterarEstoque from './alterarEstoque';
+import Event from '../../event/Alerts';
 
 
 export default function alterarRemedio(dados) {
@@ -37,7 +38,8 @@ export default function alterarRemedio(dados) {
             return res
         })
     }).catch(err => {
-        console.log(err.response.data);
+        console.log(err.response.data.error);
+        Event(err.response.data.error)
         return false
     })
 }
