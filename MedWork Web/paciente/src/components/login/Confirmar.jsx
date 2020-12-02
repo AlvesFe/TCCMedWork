@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Logotipo from '../template/logotipo'
 import familia from '../../images/familia.jpg'
 import './Login.css'
+import confirmarToken from '../../main/api/confirmarToken';
 
 class Confirmar extends Component {
 
@@ -22,7 +23,7 @@ class Confirmar extends Component {
 
         this.onSubmit = (e) => {
             e.preventDefault()
-
+            confirmarToken(this.state)
         }
     }
 

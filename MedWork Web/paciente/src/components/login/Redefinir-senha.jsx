@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import alterarSenha from '../../main/api/alterarSenha'
 import Logotipo from '../template/logotipo'
 import familia from '../../images/familia.jpg'
 import './Login.css'
@@ -24,9 +24,11 @@ class ValidacaoCodigo extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
             var mostrar
-
+            alterarSenha(this.state).then(res => {
+                console.log(res);
+            })
             var resultado
-
+            
             if (this.state.senha === this.state.confSenha) {
                 resultado = 'sucesso'
             }

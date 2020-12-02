@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Logotipo from '../template/logotipo'
 import familia from '../../images/familia.jpg'
 import './Login.css'
+import recuperarSenha from '../../main/api/recuperarSenha';
 
 class Recuperacao extends Component {
 
@@ -21,6 +22,7 @@ class Recuperacao extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
             console.log(this.state)
+            recuperarSenha(this.state)
         }
     }
 
