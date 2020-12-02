@@ -136,9 +136,9 @@ exports.getCompraFarmacia = (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
-        conn.query(`SELECT * FROM tbl_compra
-        INNER JOIN tbl_remedio ON id_Remedio = fk_id_Remedio
-        INNER JOIN tbl_Paciente ON id_Paciente =  fk_id_Paciente
+        conn.query(`SELECT cp.*, rm.*, pc.nome As paciente, pc.cpf FROM tbl_compra AS cp
+        INNER JOIN tbl_remedio AS rm ON id_Remedio = fk_id_Remedio 
+        INNER JOIN tbl_Paciente AS pc ON id_Paciente =  fk_id_Paciente
         WHERE status_pedido = ? AND fk_id_Farmacia  = ?`, [req.body.status, req.body.id_Farmacia],
             (err, response, filed) => {
                 conn.release()
@@ -155,7 +155,9 @@ exports.getAllComprasFarmacia = (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
 
-        conn.query(`SELECT * FROM tbl_Compra WHERE fk_id_Farmacia = ?`, [req.body.id_Farmacia], 
+        conn.query(`SELECT cp.*, rm.* FROM tbl_compra AS cp
+        INNER JOIN tbl_remedio AS rm ON id_Remedio = fk_id_Remedio
+        WHERE fk_id_Farmacia = ?`, [req.body.id_Farmacia], 
         (err, response, field) => {
             conn.release()
             if (err) { return res.status(500).send({ error: err }) }

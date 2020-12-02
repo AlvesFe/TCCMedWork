@@ -130,6 +130,7 @@ export default class PedidosPendentes extends Component {
 
 function entregasPedndentes(){
     return getCompra("PENDENTE").then(res => {
+        console.log(res);
         return res
     })
 }

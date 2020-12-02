@@ -1,20 +1,23 @@
-import React from 'react'
 import Axios from 'axios'
+import jwt_decode from "jwt-decode";
 
-
-export default function getCompra(dados) {
+export default function getPaciente() {
 
     const token = localStorage.getItem('current_user')
-    const json = localStorage.getItem('user_data');
-    const user = JSON.parse(json);
-    const data = {
-        status: dados,
-        id_Farmacia: user.id_Farmacia
+    const decode = jwt_decode(token)
+
+    if (decode.exp * 1000 < Date.now()) {
+        localStorage.removeItem('current_user');
+        return window.location.reload();
     }
 
-    return Axios({
+    const data = {
+        cpf: decode.cpf
+    }
+
+    Axios({
         method: 'post',
-        url: "/api/compra/getCompra",
+        url: "/api/paciente/get",
         data,
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -23,9 +26,9 @@ export default function getCompra(dados) {
         }
     }).then(response => {
         const { data } = response;
-        return data.Compras
+        const stringData = JSON.stringify(data.data[0])
+        localStorage.setItem('user_data', stringData)
     }).catch(err => {
         console.log(err.response.data);
-        return false
     })
 }

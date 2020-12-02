@@ -4,58 +4,22 @@ import CadastroErro from '../template/CadastroErro'
 import CadastroSucesso from '../template/CadastroSucesso'
 import Input from 'react-input-mask'
 import Menu from '../template/menu'
+import getCompra from '../../main/api/getCompras'
+import getAllCompra from '../../main/api/getAllCompras'
 
 export default class HistoricoPedidos extends Component {
 
     constructor() {
         super()
         this.state = {
-            codigoMedicamento: "",
-            nomeMedicamento: "",
-            tarjaMedicamento: "",
-            codigoMedicamento: "",
-            fabricanteMedicamento: "",
-            validadeMedicamento: "",
-            quantidadeMedicamento: "",
-            precoMedicamento: "",
-            descricaoMedicamento: "",
-            cadastrarSucesso: "d-none",
-            cadastrarErro: "d-none",
+            item: []
         }
-
-        this.onChange = (e) => {
-            const state = Object.assign({}, this.state)
-            const campo = e.target.name
-            state[campo] = e.target.value
-            this.setState(state)
-        }
-
-        this.onSubmit = (e) => {
-            e.preventDefault()
-            cadastrarMedicamento(this.state).then(res => {
-                if (res) {
-                    this.setState({
-                        cadastrarSucesso: "col-12 animate__animated animate__fadeIn animate__fast",
-                        cadastrarErro: "d-none",
-                        codigoMedicamento: "",
-                        nomeMedicamento: "",
-                        tarjaMedicamento: "",
-                        codigoMedicamento: "",
-                        fabricanteMedicamento: "",
-                        validadeMedicamento: "",
-                        quantidadeMedicamento: "",
-                        precoMedicamento: "",
-                        descricaoMedicamento: ""
-                    })
-                } else {
-                    this.setState({
-                        cadastrarErro: "col-12 animate__animated animate__fadeIn animate__fast",
-                        cadastrarSucesso: "d-none"
-                    })
-                }
+        getAllCompras().then(res => {
+            console.log(res);
+            this.setState({
+                item: res
             })
-
-        }
+        })
 
     }
 
@@ -88,23 +52,28 @@ export default class HistoricoPedidos extends Component {
                             <table className="table table-hover">
                                 <thead className='bg-light'>
                                     <tr className='text-center'>
-                                        <th scope="col">CÓD</th>
-                                        <th scope="col">NOME</th>
-                                        <th scope="col">TARJA</th>
+                                        <th scope="col">REMEDIO</th>
+                                        <th scope="col">QUANTIDADE</th>
                                         <th scope="col">PREÇO</th>
-                                        <th scope="col" className='text-center'>AÇÃO</th>
+                                        <th scope="col">TIPO</th>                   
+                                        <th scope="col" className='text-center'>STATUS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className='text-center text-capitalize' >
-                                        <th scope="row"></th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td className='text-center'>
-
-                                        </td>
-                                    </tr>
+                                    {
+                                        this.state.item[0] &&
+                                        this.state.item.map((item, key) => {
+                                            return (
+                                                <tr key={key} className='text-center text-capitalize' >
+                                                    <th scope="row">{item.nome}</th>
+                                                    <td>{item.quantidade}</td>
+                                                    <td>R$ {item.quantidade * item.preco}</td>
+                                                    <td>{item.tipo}</td>
+                                                    <td>{item.status_pedido}</td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -113,5 +82,10 @@ export default class HistoricoPedidos extends Component {
             </div>
         )
     }
+}
 
+function getAllCompras() {
+    return getAllCompra().then(res => {
+        return res.Compras
+    })
 }
