@@ -19,11 +19,11 @@ export default function routes() {
     if (isAuth()) {
         return (
             <Router history={hashHistory}>
-                <Redirect from='*' to='/inicio' />
                 <Route path='/inicio' component={Inicio} />
                 <Route path='/minhas-informacoes' component={MinhasInformacoes} />
                 <Route path='/historico-de-prescricoes' component={HistoricoPrescricoes} />
                 <Route path='/centro-de-ajuda' component={CentroAjuda} />
+                <Redirect from='*' to='/inicio' />
             </Router>
         );
     }
