@@ -117,8 +117,6 @@ export default class PedidosPendentes extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-
-
                                     <tr className={this.state.entrega} >
                                         <th scope="row">1</th>
                                         <td>10</td>
