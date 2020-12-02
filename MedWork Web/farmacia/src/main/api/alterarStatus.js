@@ -11,9 +11,10 @@ export default function alterarStatus(dados) {
         id_Compra: dados.id_Compra
     }
 
+    console.log(data);
     return Axios({
         method: 'PATCH',
-        url: "/api/farmacia/alterarStatus",
+        url: "/api/compra/alterarStatus",
         data,
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -26,6 +27,7 @@ export default function alterarStatus(dados) {
         return true
     }).catch(err => {
         Event(err.response.data.error)
+        console.log(err.response.data);
         return false
     })
 }

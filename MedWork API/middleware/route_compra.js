@@ -77,7 +77,7 @@ exports.getCompra = (req, res, next) => {
 
 exports.patchCompra = (req, res, next) => {
 
-    permission = ['recepcionista'];
+    permission = ['recepcionista','farmacia'];
     decode = Obtertoken(req);
 
     if (decode === 'Usuário não autenticado') {

@@ -1,31 +1,37 @@
 import React, { Component } from 'react'
+import Listarpedido from '../template/Listarpedido'
 import cadastrarMedicamento from '../../main/api/cadastrarMedicamento'
 import CadastroErro from '../template/CadastroErro'
 import CadastroSucesso from '../template/CadastroSucesso'
 import Input from 'react-input-mask'
 import Menu from '../template/menu'
+import getCompra from '../../main/api/getCompras'
 
 export default class PedidosPendentes extends Component {
 
     constructor() {
         super()
         this.state = {
-            codigoMedicamento: "",
-            nomeMedicamento: "",
-            tarjaMedicamento: "",
-            codigoMedicamento: "",
-            fabricanteMedicamento: "",
-            validadeMedicamento: "",
-            quantidadeMedicamento: "",
-            precoMedicamento: "",
-            descricaoMedicamento: "",
-            cadastrarSucesso: "d-none",
-            cadastrarErro: "d-none",
+            pendentes: [],
+            entregando: [],
             entrega: "text-center text-capitalize",
             saiuEntrega: "",
             concluirEntrega: "d-none"
-
         }
+
+        entregasPedndentes().then(res => {
+            this.setState({
+                ...this.state,
+                pendentes: res
+            })
+        })
+
+        entregasACaminho().then(res => {
+            this.setState({
+                ...this.state,
+                entregando: res
+            })
+        })
 
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -36,28 +42,6 @@ export default class PedidosPendentes extends Component {
 
         this.onSubmit = (e) => {
             e.preventDefault()
-            cadastrarMedicamento(this.state).then(res => {
-                if (res) {
-                    this.setState({
-                        cadastrarSucesso: "col-12 animate__animated animate__fadeIn animate__fast",
-                        cadastrarErro: "d-none",
-                        codigoMedicamento: "",
-                        nomeMedicamento: "",
-                        tarjaMedicamento: "",
-                        codigoMedicamento: "",
-                        fabricanteMedicamento: "",
-                        validadeMedicamento: "",
-                        quantidadeMedicamento: "",
-                        precoMedicamento: "",
-                        descricaoMedicamento: ""
-                    })
-                } else {
-                    this.setState({
-                        cadastrarErro: "col-12 animate__animated animate__fadeIn animate__fast",
-                        cadastrarSucesso: "d-none"
-                    })
-                }
-            })
         }
         this.saiu = (e) => {
             e.preventDefault()
@@ -109,7 +93,7 @@ export default class PedidosPendentes extends Component {
                             <table className="table table-hover">
                                 <thead className='bg-light'>
                                     <tr className='text-center'>
-                                        <th scope="col">ID</th>
+                                        <th scope="col">NOME</th>
                                         <th scope="col">QTD</th>
                                         <th scope="col">VALOR RECEBIDO</th>
                                         <th scope="col">TROCO</th>
@@ -117,21 +101,20 @@ export default class PedidosPendentes extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className={this.state.entrega} >
-                                        <th scope="row">1</th>
-                                        <td>10</td>
-                                        <td>R$55.40</td>
-                                        <td>R$4.60</td>
-                                        <td className='text-center'>
-                                            <div className={this.state.saiuEntrega}>
-                                                <button className='btn btn-primary mr-1' onClick={this.saiu}><i className="shipping fast icon"></i></button>
-                                            </div>
-                                            <div className={this.state.concluirEntrega}>
-                                                <button className='btn btn-success mr-1' onClick={this.concluir}><i className="check icon"></i></button>
-                                                <button className='btn btn-danger' onClick={this.voltou}><i className="undo alternate icon"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    {
+                                        this.state.pendentes[0] &&
+                                        this.state.pendentes.map((item, key) => (
+                                            item.tipo === "Entrega" &&
+                                            <Listarpedido key={key} item={item} />
+                                        ))
+                                    }
+                                    {
+                                        this.state.entregando[0] &&
+                                        this.state.entregando.map((item, key) => (
+                                            item.tipo === "Entrega" &&
+                                            <Listarpedido key={key} item={item} />
+                                        ))
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -143,4 +126,16 @@ export default class PedidosPendentes extends Component {
         )
     }
 
+}
+
+function entregasPedndentes(){
+    return getCompra("PENDENTE").then(res => {
+        return res
+    })
+}
+
+function entregasACaminho(){
+    return getCompra("ENTREGANDO").then(res => {
+        return res
+    })
 }
