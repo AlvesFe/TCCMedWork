@@ -138,6 +138,7 @@ exports.getCompraFarmacia = (req, res, next) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(`SELECT * FROM tbl_compra
         INNER JOIN tbl_remedio ON id_Remedio = fk_id_Remedio
+        INNER JOIN tbl_Paciente ON id_Paciente =  fk_id_Paciente
         WHERE status_pedido = ? AND fk_id_Farmacia  = ?`, [req.body.status, req.body.id_Farmacia],
             (err, response, filed) => {
                 conn.release()
