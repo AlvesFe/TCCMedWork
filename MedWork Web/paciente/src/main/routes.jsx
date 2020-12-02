@@ -16,7 +16,7 @@ import CentroAjuda from '../components/centro-ajuda'
 
 export default function routes() {
 
-    if (isAuth(true)) {
+    if (isAuth()) {
         return (
             <Router history={hashHistory}>
                 <Redirect from='*' to='/inicio' />

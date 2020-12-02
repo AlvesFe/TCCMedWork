@@ -3,6 +3,7 @@ import React, { Component, useState } from 'react';
 import Logotipo from '../template/logotipo'
 import familia from '../../images/familia.jpg'
 import './Login.css'
+import doLogin from '../../main/api/login';
 
 class Login extends Component {
 
@@ -20,6 +21,7 @@ class Login extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
+            doLogin(this.state)
             console.log(this.state)
         }
     }
