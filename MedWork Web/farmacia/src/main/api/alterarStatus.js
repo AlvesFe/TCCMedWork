@@ -3,7 +3,7 @@ import Axios from 'axios'
 import Event from '../../event/Alerts'
 
 
-export default function alterarFarmacia(dados) {
+export default function alterarStatus(dados) {
 
     const token = localStorage.getItem('current_user')
     const data = {
