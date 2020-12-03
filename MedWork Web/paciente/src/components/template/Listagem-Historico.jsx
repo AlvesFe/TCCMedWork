@@ -1,16 +1,24 @@
 import React from 'react';
 
-export default function ListagemHistorico(props) {
+
+
+export default function ListagemHistorico({item}) {
+
+    function onClick(item){
+        localStorage.setItem('receita', item.id_Receita)
+        window.location.assign('#/ver-prescricao');
+    }
+
     return (
         <tr className='text-center text-capitalize' >
-            <th scope="row">01</th>
-            <td>Piruliba</td>
-            <td>Roxa</td>
-            <td>R$10.54</td>
+            <th scope="row">{item.nome}</th>
+            <td>{item.dt_Emissao.slice(0, -14)}</td>
+            <td>{item.dt_Validade.slice(0, -14)}</td>
+            <td>{item.dosagem}</td>
             <td className='text-center'>
-                <a href='#/alterar-medicamento' className='btn-roxo mr-1' title='Ver prescrição'>
+                <button onClick={() => onClick(item)} className='btn-roxo mr-1' title='Ver prescrição'>
                     Ver
-                </a >
+                </button >
             </td>
         </tr>
     )

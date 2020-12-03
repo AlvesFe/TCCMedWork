@@ -1,8 +1,28 @@
 import React, { Component } from 'react'
 import Menu from './template/menu'
 import Logotipo from '../images/logotipo.png'
+import getDetalhesReceita from '../main/api/getDetalhesReceita'
 
 export default class VisualizarPrescricao extends Component {
+
+    constructor() {
+
+        super()
+        this.state = {
+            receita: {}
+        }
+
+        getDetalhes().then(res => {
+            this.setState({
+                receita: res
+            })
+            console.log(this.state.receita);
+        })
+        
+    }
+
+    
+
     render() {
         return (
             <div className='row bg-white'>
@@ -22,34 +42,34 @@ export default class VisualizarPrescricao extends Component {
                                     <p className='font-weight-bold'>INFORMAÇÕES DO PACIENTE</p>
                                 </div>
                                 <div className='col-6'>
-                                    <p><b>PACIENTE: </b>Nathan Pereira Cavalcante</p>
-                                    <p><b>DATA DE NASCIMENTO: </b>2004-05-12</p>
+                                    <p><b>PACIENTE: </b>{this.state.receita.Paciente}</p>
+                                    <p><b>DATA DE NASCIMENTO: </b>{ConverterData(this.state.receita.dt_Nascimento)}</p>
                                 </div>
                                 <div className='col-6 text-right'>
-                                    <p><b>CPF: </b>320.528.500-07</p>
-                                    <p><b>ALERGIA: </b>Nenhuma</p>
+                                    <p><b>CPF: </b>{cpfMask(`${this.state.receita.cpf}`)}</p>
+                                    <p><b>ALERGIA: </b>{this.state.receita.alergia}</p>
                                 </div>
                                 <div className='col-12 py-3'>
                                     <p className='font-weight-bold text-center'>MEDICAMENTO</p>
                                 </div>
                                 <div className='col-6'>
-                                    <p><b>MEDICAMENTO: </b>Diazepan</p>
-                                    <p><b>DESCRIÇÃO: </b>Alivio de ansiedade</p>
+                                    <p><b>MEDICAMENTO: </b>{this.state.receita.Remedio}</p>
+                                    <p><b>DESCRIÇÃO: </b>{this.state.receita.descricao}</p>
                                 </div>
                                 <div className='col-6 text-right'>
-                                    <p><b>TARJA: </b>PRETA</p>
-                                    <p><b>PREÇO: </b>R$45.04</p>
+                                    <p><b>TARJA: </b>{this.state.receita.tarja}</p>
+                                    <p><b>PREÇO: </b>R${this.state.receita.preco}</p>
                                 </div>
                                 <div className='col-12 py-3'>
                                     <p className='font-weight-bold text-center'>MÉDICO</p>
                                 </div>
                                 <div className='col-6'>
-                                    <p><b>MÉDICO: </b>Lucas</p>
-                                    <p><b>CRM: </b> 12457SP</p>
+                                    <p><b>MÉDICO: </b>{this.state.receita.Medico}</p>
+                                    <p><b>CRM: </b>{this.state.receita.crm}</p>
                                 </div>
                                 <div className='col-6 text-right'>
-                                    <p><b>ESPECIALIDADE: </b>Cirurgião</p>
-                                    <p><b>DATA DE NASCIMENTO: </b>1980-02-05</p>
+                                    <p><b>ESPECIALIDADE: </b>{this.state.receita.especialidade}</p>
+                                    <p><b>DATA DE NASCIMENTO: </b>{ConverterData(this.state.receita.dt_Medico)}</p>
                                 </div>
                             </div>
 
@@ -64,6 +84,26 @@ export default class VisualizarPrescricao extends Component {
             </div>
         )
     }
+}
 
+function ConverterData(data) {
+    data = Date.parse(data);
+    data = new Date(data);
+    return ((data.getDate())) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear();
+}
 
+function cpfMask(value){
+    return value
+        .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
+        .replace(/(\d{3})(\d)/, '$1.$2') // captura 2 grupos de numero o primeiro de 3 e o segundo de 1, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de numero
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+        .replace(/(-\d{2})\d+?$/, '$1') // captura 2 numeros seguidos de um traço e não deixa ser digitado mais nada
+}
+
+function getDetalhes() {
+    const id_Receita = localStorage.getItem('receita');
+    return getDetalhesReceita(id_Receita).then(res => {
+        return res.data[0]
+    })
 }

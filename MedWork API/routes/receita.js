@@ -49,7 +49,7 @@ router.delete('/', receitaMiddleware.deleteReceita, receitaController.deleteREce
 
 router.post('/listreceitas', receitaMiddleware.listReceitas, receitaController.listReceita,receitaModel.listReceita );
 
-router.post('/SendPDF', upload.single('pdf'), receitaController.SendPDF);
+router.post('/SendPDF', receitaMiddleware.postReceita, upload.single('pdf'), receitaController.SendPDF);
 
 router.post('/detalhesreceita', receitaController.detalhesReceita, receitaModel.detalhesReceita)
 
