@@ -1,8 +1,28 @@
 import React, { Component } from 'react';
 import Menu from './template/menu'
 import ListagemHistorico from './template/Listagem-Historico'
+import listaReceitas from '../main/api/listReceitas';
 
 export default class HistoricoDePrescricoes extends Component {
+
+    constructor(){
+        super()
+        const userString = localStorage.getItem('user_data');
+        const user = JSON.parse(userString);
+
+        this.state = {
+            item: [],
+            id_Paciente: user.id_Paciente
+        }
+
+        getReceitas(this.state.id_Paciente).then(res => {
+            console.log(res);
+            this.setState({
+                item: res
+            })
+        })
+    }
+
     render() {
         return (
             <div className='row bg-white'>
@@ -21,7 +41,13 @@ export default class HistoricoDePrescricoes extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <ListagemHistorico />
+                                {
+                                    this.state.item[0] &&
+                                    this.state.item.map((item, key) => (
+                                        <ListagemHistorico item={item} key={key} />
+                                    ))
+                                }
+                                
                             </tbody>
                         </table>
                     </div>
@@ -30,6 +56,10 @@ export default class HistoricoDePrescricoes extends Component {
             </div>
         )
     }
+}
 
-
+function getReceitas(id_Paciente){
+    return listaReceitas(id_Paciente).then(res => {
+        return res.data
+    })
 }

@@ -122,7 +122,7 @@ exports.getFarmaciaRemedios = (req, res, next) => {
 
         if (error) { return res.status(500).send({ error: error }) }
 
-        conn.query(`SELECT fm.id_Farmacia, fm.nome as nome_farmacia, fm.endereco, fm.taxa, fm.foto, rm.nome, rm.preco, rm.tarja
+        conn.query(`SELECT fm.id_Farmacia, fm.nome as nome_farmacia, fm.endereco, fm.taxa, fm.foto, rm.nome, rm.descricao, rm.preco, rm.tarja
         FROM tbl_Farmacia fm
         INNER JOIN tbl_Remedio_Farmacia AS rf ON fk_id_Farmacia = id_Farmacia
         INNER JOIN tbl_Remedio rm ON fk_id_remedio = id_remedio
