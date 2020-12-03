@@ -44,7 +44,7 @@ export default class MinhasInformacoes extends Component {
         this.onSubmit = (e) => {
             e.preventDefault()
 
-            alterarPaciente(this.state).then(res =>{
+            alterarPaciente(this.state).then(res => {
                 console.log(res);
             })
 
@@ -66,39 +66,38 @@ export default class MinhasInformacoes extends Component {
                     <div>
 
                         <div className='row justify-content-center'>
-                            <div className='col-12'>
+                            <div className='col-10  form-row'>
                                 <div className={this.state.alteracaoSucesso}>
                                     <AlterarSucesso />
                                 </div>
                                 <div className={this.state.alteracaoErro}>
                                     <AlterarErro />
                                 </div>
-                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : "/api/uploads/paciente/"+ this.state.foto} onChange={(event) => {
+                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : "/api/uploads/paciente/" + this.state.foto} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
                                 }} />
-                            </div>
-                            <div className="col-12 form-row">
-                                <div className='form-group col-5 '>
+
+                                <div className='form-group col-8 '>
                                     <label htmlFor="nomePaciente" className='font-weight-bold mb-0'>Nome</label>
                                     <input type="text" className="form-control form-control-sm" id="nomePaciente" placeholder='Nome' name="nomePaciente" value={this.state.nomePaciente} onChange={this.onChange} />
                                 </div>
-                                <div className='form-group col-3 '>
+                                <div className='form-group col-2 '>
                                     <label htmlFor="dataNascimento" className='font-weight-bold mb-0'>Data de nascimento</label>
-                                    <input className="form-control form form-control-sm" type='date' id="dataNascimento" placeholder='DD/MM/AAAA' name='dataNascimento' value={this.state.dataNascimento} onChange={this.onChange} />
+                                    <input disabled={true} className="form-control form form-control-sm" type='date' id="dataNascimento" placeholder='DD/MM/AAAA' name='dataNascimento' value={this.state.dataNascimento} onChange={this.onChange} />
                                 </div>
-                                <div className='form-group col-4 '>
+                                <div className='form-group col-2 '>
                                     <label htmlFor="tipoSanguineo" className='font-weight-bold mb-0'>Tipo sanguíneo</label>
-                                    <input type="text" className="form-control form-control-sm" id="tipoSanguineo" placeholder='O+' name='tipoSanguineo' value={this.state.tipoSanguineo} onChange={this.onChange} />
+                                    <input disabled={true} type="text" className="form-control form-control-sm" id="tipoSanguineo" placeholder='O+' name='tipoSanguineo' value={this.state.tipoSanguineo} onChange={this.onChange} />
                                 </div>
-                                <div className='form-group col-6 '>
+                                <div className='form-group col-8 '>
                                     <label htmlFor="endereco" className='font-weight-bold mb-0'>Endereço</label>
                                     <input type="text" className="form-control form-control-sm" id="endereco" placeholder='Ex: Avenida paulista, 2222, São Paulo - SP' name='endereco' value={this.state.endereco} onChange={this.onChange} />
                                 </div>
-                                <div className='form-group col-3 '>
+                                <div className='form-group col-2 '>
                                     <label htmlFor="cpf" className='font-weight-bold mb-0'>CPF</label>
                                     <InputMask disabled={true} mask="999.999.999-99" className="form-control form-control-sm" id="cpf" placeholder='___.___.___-__' name='cpf' value={this.state.cpf} onChange={this.onChange} />
                                 </div>
-                                <div className='form-group col-3 '>
+                                <div className='form-group col-2 '>
                                     <label htmlFor="rg" className='font-weight-bold mb-0'>RG</label>
                                     <InputMask disabled={true} mask="99.999.999-9" className="form-control form-control-sm" id="rg" placeholder='__.___.___-_' name='rg' value={this.state.rg} onChange={this.onChange} />
                                 </div>
@@ -116,7 +115,7 @@ export default class MinhasInformacoes extends Component {
                                 </div>
                                 <div className='form-group col-12 '>
                                     <label htmlFor="alergia" className='font-weight-bold mb-0'>Alergia a medicamentos ou remédios</label>
-                                    <textarea className="form-control form-control-sm" id="alergia" rows="5" placeholder='Ex: Nenhuma alergia' name='alergia' value={this.state.alergia} onChange={this.onChange} />
+                                    <textarea className="form-control form-control-sm" id="alergia" rows="2" placeholder='Ex: Nenhuma alergia' name='alergia' value={this.state.alergia} onChange={this.onChange} />
                                 </div>
                             </div>
                             <div className='col-12 text-center '>
