@@ -103,6 +103,24 @@ export default function Event(Action) {
                 title: 'Informe a Alergia!'
             })
             break;
+        case "erroalergiavazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe a Alergia!'
+            })
+            break;
+        case "Valor Invalido":
+            Toast.fire({
+                icon: 'error',
+                title: 'Valor Invalido!'
+            })
+            break;
+        case "Compra Realizada":
+            Toast.fire({
+                icon: 'success',
+                title: 'Compra Realizada!'
+            })
+            break;
     }
 
 

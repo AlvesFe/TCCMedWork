@@ -2,6 +2,12 @@ import React from 'react';
 import Drogaria from '../../images/drogaria-sao-paulo.png'
 
 export default function ListagemFarmacias({ item }) {
+
+    function Comprar(){
+        localStorage.setItem('farmacia_compra', JSON.stringify(item));
+        window.location.assign('#/comprar-passo-1');
+    }
+
     return (
         <div className="col-4">
             <div className="card">
@@ -13,7 +19,7 @@ export default function ListagemFarmacias({ item }) {
                     <p className="card-text">{item.descricao}</p>
                     <div className="clearfix">
                         <h2 className="float-left">R${item.preco}</h2>
-                        <button type="button" className="btn btn-success float-right">Comprar</button>
+                        <button onClick={() => Comprar(item)} type="button" className="btn btn-success float-right">Comprar</button>
                     </div>
                 </div>
             </div>
