@@ -79,7 +79,7 @@ export default class VisualizarPrescricao extends Component {
                         <div className='col-12 pt-2 text-center'>
                             <a target="_Blank" href={this.state.receita.bula} className='btn-roxo'><i className="file alternate outline icon"></i> Acessar bula</a>
                             <button onClick={() => GerarPdf(this.state.receita)} className='btn-roxo mx-2'><i className="download icon"></i> Baixar prescrição</button>
-                            <button className='btn-roxo'><i className="search icon"></i> Buscar medicamento</button>
+                            <button onClick={() => BuscarRemedio(this.state.receita)} className='btn-roxo'><i className="search icon"></i> Buscar medicamento</button>
                         </div>
                     </div>
                 </div>
@@ -141,4 +141,9 @@ const GerarPdf = (Data) => {
     doc.text(128, 280, 'Carimbo');
     doc.output('blob');
     doc.save(`${Data.Paciente}-Receita-${Date.now()}`);
+}
+
+function BuscarRemedio(item){
+    localStorage.setItem('remedio', item.id_Remedio);
+    window.location.assign('#/buscar-medicamento')
 }

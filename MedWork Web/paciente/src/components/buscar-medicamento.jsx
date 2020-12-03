@@ -2,9 +2,26 @@ import React, { Component } from 'react';
 import Menu from './template/menu'
 import ListagemFarmacias from './template/Listagem-Farmacias'
 import Drogaria from '../images/drogaria-sao-paulo.png'
+import getFarmaciaRemedio from '../main/api/getFarmaciaRemedio';
 
 
 export default class BuscarMedicamento extends Component {
+
+    constructor() {
+        super()
+        this.state = {
+            item: []
+        }
+
+        getFarmacias().then(res => {
+            this.setState({
+                item: res
+            })
+
+            console.log(res);
+        })
+    }
+
     render() {
         return (
             <div className='row bg-white'>
@@ -13,7 +30,12 @@ export default class BuscarMedicamento extends Component {
                     <h1 className='text-center font-weight-light'>BUSCAR MEDICAMENTO</h1>
                     <div className='container'>
                         <div className="row">
-                            <ListagemFarmacias />
+                            {
+                                this.state.item[0] &&
+                                this.state.item.map((item, key) => (
+                                    <ListagemFarmacias key={key} item={item} />
+                                ))
+                            }
                         </div>
                     </div>
 
@@ -21,6 +43,12 @@ export default class BuscarMedicamento extends Component {
             </div>
         )
     }
+}
 
-
+function getFarmacias() {
+    const id = localStorage.getItem('remedio');
+    console.log(id);
+    return getFarmaciaRemedio(id).then(res => {
+        return res.data
+    })
 }
