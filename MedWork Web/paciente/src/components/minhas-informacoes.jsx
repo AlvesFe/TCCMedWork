@@ -4,62 +4,54 @@ import UploadImagem from '../components/template/upload-imagem'
 import InputMask from 'react-input-mask';
 import AlterarSucesso from './template/AlterarSucesso'
 import AlterarErro from './template/AlterarErro'
+import alterarPaciente from '../main/api/alterarPaciente'
+import desativarPaciente from '../main/api/desativarPaciente';
 
 
 export default class MinhasInformacoes extends Component {
 
     constructor() {
         super()
+        const stringuser = localStorage.getItem('user_data')
+        const user = JSON.parse(stringuser);
+        console.log(user);
         this.state = {
-            nomePaciente: "",
+            nomePaciente: user.nome,
             image: {},
-            dataNascimento: "",
-            tipoSanguineo: "",
-            endereco: "",
-            cpf: "",
-            rg: "",
-            email: "",
-            celular: "",
-            telefone: "",
-            senhaProvisoria: "",
+            foto: user.foto,
+            dataNascimento: user.dt_Nascimento.slice(0, -14),
+            tipoSanguineo: user.tp_sanguineo,
+            endereco: user.endereco,
+            cpf: user.cpf,
+            ativo: user.ativo,
+            senha: user.senha,
+            alt_senha: user.alt_senha,
+            rg: user.rg,
+            email: user.email,
+            celular: user.celular,
+            telefone: user.telefone,
             alteracaoSucesso: "d-none",
             alteracaoErro: "d-none",
-            alergia: ""
-        }
-
-        const cpfMask = value => {
-            return value
-                .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
-                .replace(/(\d{3})(\d)/, '$1.$2') // captura 2 grupos de numero o primeiro de 3 e o segundo de 1, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de numero
-                .replace(/(\d{3})(\d)/, '$1.$2')
-                .replace(/(\d{3})(\d{1,2})/, '$1-$2')
-                .replace(/(-\d{2})\d+?$/, '$1') // captura 2 numeros seguidos de um traço e não deixa ser digitado mais nada
+            alergia: user.alergia
         }
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
             const campo = e.target.name
-            state[campo] = campo == "cpf" ? cpfMask(e.target.value) : e.target.value
+            state[campo] = e.target.value
             // this.setState({telefone: cpfMask(e.target.value)})
             this.setState(state)
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            if (true) {
-                this.setState({
-                    nomePaciente: "",
-                    foto: {},
-                    dataNascimento: "",
-                    tipoSanguineo: "",
-                    endereco: "",
-                    cpf: "",
-                    rg: "",
-                    email: "",
-                    celular: "",
-                    telefone: "",
-                    senhaProvisoria: "",
-                    alergia: ""
-                })
-            }
+
+            alterarPaciente(this.state).then(res =>{
+                console.log(res);
+            })
+
+        }
+        this.onDelete = (e) => {
+            e.preventDefault()
+            desativarPaciente(user.id_Paciente)
         }
     }
 
@@ -81,7 +73,7 @@ export default class MinhasInformacoes extends Component {
                                 <div className={this.state.alteracaoErro}>
                                     <AlterarErro />
                                 </div>
-                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : Image} onChange={(event) => {
+                                <UploadImagem src={this.state.image.name ? URL.createObjectURL(this.state.image) : "/api/uploads/paciente/"+ this.state.foto} onChange={(event) => {
                                     this.setState({ image: event.target.files[0] });
                                 }} />
                             </div>
@@ -92,11 +84,11 @@ export default class MinhasInformacoes extends Component {
                                 </div>
                                 <div className='form-group col-3 '>
                                     <label htmlFor="dataNascimento" className='font-weight-bold mb-0'>Data de nascimento</label>
-                                    <input disabled={true} className="form-control form form-control-sm" type='date' id="dataNascimento" placeholder='DD/MM/AAAA' name='dataNascimento' value={this.state.dataNascimento} onChange={this.onChange} />
+                                    <input className="form-control form form-control-sm" type='date' id="dataNascimento" placeholder='DD/MM/AAAA' name='dataNascimento' value={this.state.dataNascimento} onChange={this.onChange} />
                                 </div>
                                 <div className='form-group col-4 '>
                                     <label htmlFor="tipoSanguineo" className='font-weight-bold mb-0'>Tipo sanguíneo</label>
-                                    <input disabled={true} type="text" className="form-control form-control-sm" id="tipoSanguineo" placeholder='O+' name='tipoSanguineo' value={this.state.tipoSanguineo} onChange={this.onChange} />
+                                    <input type="text" className="form-control form-control-sm" id="tipoSanguineo" placeholder='O+' name='tipoSanguineo' value={this.state.tipoSanguineo} onChange={this.onChange} />
                                 </div>
                                 <div className='form-group col-6 '>
                                     <label htmlFor="endereco" className='font-weight-bold mb-0'>Endereço</label>
@@ -110,9 +102,9 @@ export default class MinhasInformacoes extends Component {
                                     <label htmlFor="rg" className='font-weight-bold mb-0'>RG</label>
                                     <InputMask disabled={true} mask="99.999.999-9" className="form-control form-control-sm" id="rg" placeholder='__.___.___-_' name='rg' value={this.state.rg} onChange={this.onChange} />
                                 </div>
-                                <div className='form-group col-6 '>
+                                <div className='form-group col-8 '>
                                     <label htmlFor="email" className='font-weight-bold mb-0'>E-mail</label>
-                                    <input type="text" className="form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
+                                    <input disabled={true} type="text" className="form-control form-control-sm" id="email" placeholder='email@medwork.com' name='email' value={this.state.email} onChange={this.onChange} />
                                 </div>
                                 <div className='form-group col-2 '>
                                     <label htmlFor="celular" className='font-weight-bold mb-0'>Celular</label>
@@ -122,17 +114,13 @@ export default class MinhasInformacoes extends Component {
                                     <label htmlFor="telefone" className='font-weight-bold mb-0'>Telefone</label>
                                     <InputMask mask="(99) 9999-9999" className="form-control form-control-sm" id="telefone" placeholder='(__) ____-____' name='telefone' value={this.state.telefone} onChange={this.onChange} />
                                 </div>
-                                <div className='form-group col-2 '>
-                                    <label htmlFor="senhaProvisoria" className='font-weight-bold mb-0'>Alterar senha</label>
-                                    <input type="password" className="form-control form-control-sm" id="senhaProvisoria" placeholder='••••••••••' name='senhaProvisoria' value={this.state.senhaProvisoria} onChange={this.onChange} />
-                                </div>
                                 <div className='form-group col-12 '>
                                     <label htmlFor="alergia" className='font-weight-bold mb-0'>Alergia a medicamentos ou remédios</label>
-                                    <textarea className="form-control form-control-sm" id="alergia" placeholder='Ex: Nenhuma alergia' name='alergia' value={this.state.alergia} onChange={this.onChange} />
+                                    <textarea className="form-control form-control-sm" id="alergia" rows="5" placeholder='Ex: Nenhuma alergia' name='alergia' value={this.state.alergia} onChange={this.onChange} />
                                 </div>
                             </div>
                             <div className='col-12 text-center '>
-                                <button className='btn btn-danger mr-2' onClick={this.onSubmit} >DESATIVAR PERFIL</button>
+                                <button className='btn btn-danger mr-2' onClick={this.onDelete} >DESATIVAR PERFIL</button>
                                 <button className='btn-roxo' onClick={this.onSubmit} >SALVAR ALTERAÇÕES</button>
                             </div>
                         </div>
