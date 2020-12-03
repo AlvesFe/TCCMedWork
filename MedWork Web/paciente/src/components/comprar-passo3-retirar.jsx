@@ -34,8 +34,7 @@ export default class ComprarPasso3Retirar extends Component {
                     </div>
                     <div className="py-5"></div>
                     <div className='text-center pt-5'>
-                        <a href='#/buscar-medicamento' className='btn btn-danger mr-2'><i className="shipping fast icon"></i> DELIVERY</a>
-                        <button className='btn-roxo'><i className="shopping bag icon"></i>RETIRAR</button>
+                        <button className='btn btn-success'><i className="shopping bag icon"></i>RETIRAR</button>
                     </div>
                 </div>
             </div>
