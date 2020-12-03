@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS tbl_Remedio(
     tarja VARCHAR(20) NOT NULL DEFAULT 'Livre',
     nome VARCHAR(50) NOT NULL,
     descricao TEXT NOT NULL,
-    bula VARCHAR(100) NOT NULL,
+    bula VARCHAR(200) NOT NULL,
     fabricante VARCHAR(50) NOT NULL,
     preco DECIMAL(10, 2) UNSIGNED NOT NULL
 );

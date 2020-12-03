@@ -3,47 +3,47 @@
 -- TABELA ESTABELECIMENTOS
 INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(1), '12345678912345', 'admMedWork');
+(MD5(1), '90173833000147', 'admMedWork');
 
 INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(2), '54321987654321', 'admMedWork');
+(MD5(2), '04551296000190', 'admMedWork');
 
 INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(3), '25874563254236', 'hospital');
+(MD5(3), '83498886000172', 'hospital');
 
 INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(4), '58974123658974', 'hospital');
+(MD5(4), '64841401000157', 'hospital');
 
 INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(5), '58975412355548', 'farmacia');
+(MD5(5), '65649240000167', 'farmacia');
 
 INSERT INTO tbl_Estabelecimentos (id_Estabelecimento, cnpj, Estabelecimento) 
 VALUES 
-(MD5(6), '65458756452310', 'farmacia');
+(MD5(6), '97687908000157', 'farmacia');
 -- ------------------------------------------------------------------------------------------------------------- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA MEDWORK
 INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, fk_id_Estabelecimento) 
 VALUES 
-(MD5(1), 'Felipe', 'FelipaoReact@gmail.com', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', MD5(1));
+(MD5(1), 'Felipe', 'lipe.batistao@gmail.com', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', MD5(1));
 
 INSERT INTO tbl_MedWork (id_MedWork, nome, email, senha, fk_id_Estabelecimento) 
 VALUES 
-(MD5(2),'Lemos', 'LemosDeveloper@gmail.com', 'JavaeBom', MD5(2));
+(MD5(2), 'Lemos', 'LemosDeveloper@gmail.com', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', MD5(2));
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA HOSPITAL
 INSERT INTO tbl_Hospital (id_Hospital, nome, endereco, telefone, email, senha, fk_id_MedWork, fk_id_Estabelecimento) 
 VALUES 
-(MD5(1), 'Albert Einstein', 'R. Da desgra√ßa, Jd. da Morte', '11985946110', 'Albert@gmail.com', 'Covid123', MD5(1), MD5(3));
+(MD5(1), 'Albert Einstein', 'Av. Albert Einstein, 627 - Jardim Leonor', '11985946110', 'Albert@hospital.com', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', MD5(1), MD5(3));
 
 INSERT INTO tbl_Hospital (id_Hospital, nome, endereco, telefone, email, senha, fk_id_MedWork, fk_id_Estabelecimento) 
 VALUES 
-(MD5(2), 'Alpha Med', 'R. Da consola√ß√£o, Jd. das flores', '11547865661', 'MedAlpha@gmail.com', 'Covid321', MD5(2), MD5(4));
+(MD5(2), 'Alpha Med', 'R. Da consolaÁ„o, Jd. das flores', '11547865661', 'MedAlpha@gmail.com', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', MD5(2), MD5(4));
 
 -- -----------------------------------------------------------------------------------------------------------
 
@@ -51,32 +51,32 @@ VALUES
 
 INSERT INTO tbl_Farmacia(id_Farmacia, nome, telefone, endereco, detalhes, senha, email, taxa, fk_id_MedWork, fk_id_Estabelecimento)
 VALUES
-(MD5(1), 'Drogasil', '1156444781', 'R. Manoel, Jd. Ana Estela', 'As Melhores Drogas =D', 'Dangue123', 'Drogasil@gmail.com', 2.50, MD5(1), MD5(5));
+(MD5(1), 'Drogasil', '1156444781', 'R. Manoel, Jd. Ana Estela', 'Os Melhores PreÁos!!!', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', 'Drogasil@medwork.com', 2.50, MD5(1), MD5(5));
 
 INSERT INTO tbl_Farmacia(id_Farmacia, nome, telefone, endereco, detalhes, senha, email, taxa, fk_id_MedWork, fk_id_Estabelecimento)
 VALUES
-(MD5(2), 'FarmaConde', '116458455', 'Vila Dirce, Jd. Planalto', 'A Melhor do Mercado', 'Dangue321', 'CondeFarma@gmail.com', 02.50, MD5(2), MD5(6));
+(MD5(2), 'FarmaConde', '116458455', 'Vila Dirce, Jd. Planalto', 'A Melhor do Mercado', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', 'CondeFarma@gmail.com', 02.50, MD5(2), MD5(6));
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA RECEPCIONISTA
 
 INSERT INTO tbl_Recepcionista (id_Recepcionista, nome, dt_nascimento, tp_sanguineo, endereco, cpf, senha, rg, email, celular, telefone, fk_id_Hospital)
 VALUES
-(MD5(1), 'Claudia', '1990-06-15', 'A+', 'Mur√£o de carapicu√≠ba', '2783261855', '123456', '192013987', 'Claudinha@gmail.com', '11985564552', '1128777456', MD5(1));
+(MD5(1), 'Claudia', '1990-06-15', 'A+', 'Rua S„o Francisco, 796, Vila Santa Terezinha', '89276362878', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', '192013987', 'Claudinha@gmail.com', '11985564552', '1128777456', MD5(1));
 INSERT INTO tbl_Recepcionista (id_Recepcionista, nome, dt_nascimento, tp_sanguineo, endereco, cpf, senha, rg, email, celular, telefone, fk_id_Hospital)
 VALUES
-(MD5(2), 'Natasha', '2000-05-12', 'O+', 'Mur√£o de carapicu√≠ba', '2453261642', '654321', '123456789', 'NatashaCaldeirao@gmail.com', '11948884552', '1128147456', MD5(2));
+(MD5(2), 'Natasha', '2000-05-12', 'O+', 'Rua Atibaia, 220, Vila Dirce', '17727383872', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', '123456789', 'NatashaCaldeirao@gmail.com', '11948884552', '1128147456', MD5(2));
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA MEDICO
 
 INSERT INTO tbl_Medico (id_Medico, crm, email, nome, especialidade, telefone, celular, dt_Nascimento, senha, tp_sanguineo, cpf, rg, fk_id_Hospital)
 VALUES
-(MD5(1), 'F054008', 'VelosoLucas@gmail.com', 'Lucas', 'Cirugi√£o', '11658453225', '1158777456', '1980-02-05', '123456', 'AB+', '12345589745', '456724567', MD5(2));
+(MD5(1), '12345SP', 'VelosoLucas@gmail.com', 'Lucas', 'Cirugi„o', '11658453225', '1158777456', '1980-02-05', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', 'AB+', '98060874020', '456724567', MD5(2));
 
 INSERT INTO tbl_Medico (id_Medico, crm, email, nome, especialidade, telefone, celular, dt_Nascimento, senha, tp_sanguineo, cpf, rg, fk_id_Hospital)
 VALUES
-(MD5(2), 'F184654', 'Jennyfer.contato@gmail.com', 'Jennyfer', 'Enfermeira', '11654857445', '1125645558', '1989-08-25', '654321', 'B-', '12564587956', '456789456', MD5(1));
+(MD5(2), '54321SP', 'Jennyfer.contato@gmail.com', 'Jennyfer', 'Enfermeira', '11654857445', '1125645558', '1989-08-25', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', 'B-', '42489985051', '456789456', MD5(1));
 
 -- -----------------------------------------------------------------------------------------------------------
 
@@ -84,22 +84,22 @@ VALUES
 
 INSERT INTO tbl_Paciente (id_Paciente, dt_nascimento, nome, telefone, tp_sanguineo, alergia, rg, email, cpf, endereco, celular, senha, fk_id_Recepcionista)
 VALUES
-(MD5(1), '1995-05-30', 'Enzo', '1165999458', 'A-', 'Nozes', '564897564', 'Enzo123@gmail.com', '54864578945', 'R. da Gloria, Jd. Depres√£o', '11654564231', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', MD5(2));
+(MD5(1), '1995-05-30', 'Enzo', '1165999458', 'A-', 'Nozes', '564897564', 'Enzo123@gmail.com', '49028776001', 'R. da Gloria, Jd. AmÈlia', '11654564231', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', MD5(2));
 
 INSERT INTO tbl_Paciente (id_Paciente, dt_nascimento, nome, telefone, tp_sanguineo, alergia, rg, email, cpf, endereco, celular, senha, fk_id_Recepcionista)
 VALUES
-(MD5(2), '2004-05-12', 'Nathan', '1128777240', 'AB+', 'Nehuma', '159864531', 'Nathan.rodrigu3s@gmail.com', '56487594521', 'R. Manoel Jos√© Garcia, Jd. Ana Estela', '11985946110', 'MedWork123', MD5(1));
+(MD5(2), '2004-05-12', 'Nathan', '1128777240', 'AB+', 'Nehuma', '159864531', 'Nathan.rodrigu3s@gmail.com', '45259169077', 'R. Manoel JosÈ Garcia, Jd. Ana Estela', '11985946110', '$2b$10$YY7nGEr22uXv5eiS.zfyGuwz9d22kHFLGi.OxdPYqjScYGkS3Wcdi', MD5(1));
 
 -- -----------------------------------------------------------------------------------------------------------
 
 -- TABELA REMEDIO
 INSERT INTO tbl_Remedio (id_Remedio, codigo, dt_Validade, tarja, nome, descricao, fabricante, preco, bula)
 VALUES
-(MD5(1), 1, '2025-09-22', 'PRETA', 'Diazepam', 'Alivio de Ansiedade', 'Generico', 45.04, 'link');
+(MD5(1), 1, '2025-09-22', 'PRETA', 'Diazepam', 'Alivio de Ansiedade', 'Onofre', 45.04, 'https://www.onofre.com.br/estaticos/bulas/427799.pdf');
 
 INSERT INTO tbl_Remedio (id_Remedio, codigo, dt_Validade, tarja, nome, descricao, fabricante, preco, bula)
 VALUES
-(MD5(2), 2, '2025-09-22', 'AMARELA', 'Buscopan', 'Alivio de Colicas intestinais', 'Generico', 14.75, 'link');
+(MD5(2), 2, '2025-09-22', 'AMARELA', 'Buscopan', 'Alivio de Colicas intestinais', 'Boehringer Ingelheim', 14.75, 'https://www.boehringer-ingelheim.com.br/sites/br/files/bula_buscopan_paciente_e_profissional_30102017_0.pdf');
 
 -- -----------------------------------------------------------------------------------------------------------
 
