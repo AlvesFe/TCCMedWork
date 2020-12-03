@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import Menu from './template/menu'
 import Logotipo from '../images/logotipo.png'
+import { jsPDF } from 'jspdf/dist/jspdf.umd';
 import getDetalhesReceita from '../main/api/getDetalhesReceita'
+import Logo from '../images/logotipo.png'
 
 export default class VisualizarPrescricao extends Component {
 
@@ -75,8 +77,8 @@ export default class VisualizarPrescricao extends Component {
 
                         </div>
                         <div className='col-12 pt-2 text-center'>
-                            <button className='btn-roxo'><i className="file alternate outline icon"></i> Acessar bula</button>
-                            <button className='btn-roxo mx-2'><i className="download icon"></i> Baixar prescrição</button>
+                            <a target="_Blank" href={this.state.receita.bula} className='btn-roxo'><i className="file alternate outline icon"></i> Acessar bula</a>
+                            <button onClick={() => GerarPdf(this.state.receita)} className='btn-roxo mx-2'><i className="download icon"></i> Baixar prescrição</button>
                             <button className='btn-roxo'><i className="search icon"></i> Buscar medicamento</button>
                         </div>
                     </div>
@@ -106,4 +108,37 @@ function getDetalhes() {
     return getDetalhesReceita(id_Receita).then(res => {
         return res.data[0]
     })
+}
+
+const GerarPdf = (Data) => {
+
+    const stringData = localStorage.getItem('user_data')
+    const userData = JSON.parse(stringData)
+    let fotoPaciente = new Image();
+    console.log(Data);
+    fotoPaciente.src = `/api/uploads/paciente/${Data.foto}`;
+
+    const doc = new jsPDF('p');
+    doc.addImage(Logo, 'png', 80, 0, 50, 50);
+    doc.addImage(fotoPaciente, 'png', 150, 60, 50, 50);
+    doc.text(90, 50, 'PACIENTE');
+    doc.text(20, 70, 'Paciente: ' + Data.Paciente);
+    doc.text(20, 80, 'CPF: ' + cpfMask(Data.cpf));
+    doc.text(20, 90, 'Nascimento: ' + ConverterData(Data.dt_Nascimento));
+    doc.text(20, 100, 'Alergias: ' + Data.alergia);
+    doc.text(85, 120, 'MEDICAMENTO');
+    doc.text(20, 140, 'Remédio: ' + Data.Remedio);
+    doc.text(20, 150, 'Tarja: ' + Data.tarja);
+    doc.text(20, 160, 'Descrição: ' + Data.descricao);
+    doc.text(20, 170, 'Orientações: ' + Data.orientacoes);
+    doc.text(95, 190, 'MEDICO');
+    doc.text(20, 220, 'Medico: ' + Data.Medico);
+    doc.text(20, 230, 'CRM: ' + Data.crm);
+    doc.text(20, 240, 'Especialidade: ' + Data.especialidade);
+    doc.text(20, 250, 'Data Nascimento: ' + ConverterData(Data.dt_Medico));
+    doc.text(30, 270, '______________________  ______________________');
+    doc.text(55, 280, 'Assinatura');
+    doc.text(128, 280, 'Carimbo');
+    doc.output('blob');
+    doc.save(`${Data.Paciente}-Receita-${Date.now()}`);
 }
