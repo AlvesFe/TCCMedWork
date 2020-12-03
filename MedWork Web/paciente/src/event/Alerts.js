@@ -55,6 +55,54 @@ export default function Event(Action) {
                 title: 'Altere sua Senha!'
             })
             break;
+        case "erronomevazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe o Nome!'
+            })
+            break;
+        case "errodt_Nascimentovazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe a Data de Nascimento!'
+            })
+            break;
+        case "errotp_sanguineovazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe o Tipo Sanguíneo!'
+            })
+            break;
+        case "erroenderecovazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe o Endereço!'
+            })
+            break;
+        case "errocelularvazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe o Celular!'
+            })
+            break;
+        case "errocelularinvalido":
+            Toast.fire({
+                icon: 'error',
+                title: 'Celular Invalido!'
+            })
+            break;
+        case "errotelefonevazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe o Telefone!'
+            })
+            break;
+        case "erroalergiavazio":
+            Toast.fire({
+                icon: 'error',
+                title: 'Informe a Alergia!'
+            })
+            break;
     }
 
 
