@@ -13,6 +13,25 @@ const receitaModel = require('../model/receita-model');
 //Chamando a Middleware da tabela Receita
 const receitaMiddleware = require('../middleware/route_receita');
 
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, callback){
+        callback(null, './uploads/receita')
+    },
+    filename: async function(req, file, callback){
+        callback(null, new Date().getTime().toString()+'.' + file.originalname.split('.').pop())
+    }
+})
+
+
+const upload = multer({ 
+    storage: storage,
+    limits:{
+        fieldSize: 1024 * 1024 * 5,
+    }
+}) 
+
 //CREATE (POST) - Recebe o valor externo e envia o pedido de inserção de dados do banco de dados
 router.post('/', receitaMiddleware.postReceita, receitaController.postReceita, receitaModel.postReceita);
 
@@ -29,6 +48,8 @@ router.patch('/', receitaMiddleware.pathReceita, receitaController.patchReceita,
 router.delete('/', receitaMiddleware.deleteReceita, receitaController.deleteREceita, receitaModel.deleteReceita);
 
 router.post('/listreceitas', receitaMiddleware.listReceitas, receitaController.listReceita,receitaModel.listReceita );
+
+router.post('/SendPDF', upload.single('pdf'), receitaController.SendPDF);
 
 router.post('/detalhesreceita', receitaController.detalhesReceita, receitaModel.detalhesReceita)
 
