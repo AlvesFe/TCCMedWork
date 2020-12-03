@@ -44,7 +44,14 @@ export default class ComprarPasso3Delivery extends Component {
                 fk_id_Remedio: this.state.item.id_Remedio
             }
 
-            cadastrarCompra(data);
+            cadastrarCompra(data).then(res => {
+                if(res){
+                    window.location.assign('#/status-delivery')
+                }
+                else{
+                    Event("ErroCompra")
+                }
+            })
         }
         console.log(this.state.item);
     }

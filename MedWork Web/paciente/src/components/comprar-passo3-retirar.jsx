@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Menu from './template/menu'
 import Drogaria from '../images/drogaria-sao-paulo.png'
 import cadastrarCompra from '../main/api/cadastrarCompra';
+import Event from '../event/Alerts';
 
 
 export default class ComprarPasso3Retirar extends Component {
@@ -28,7 +29,14 @@ export default class ComprarPasso3Retirar extends Component {
                 fk_id_Paciente: user.id_Paciente,
                 fk_id_Remedio: this.state.item.id_Remedio
             }
-            cadastrarCompra(data)
+            cadastrarCompra(data).then(res => {
+                if(res){
+                    window.location.assign('#/status-compra')
+                }
+                else{
+                    Event("ErroCompra")
+                }
+            })
         }
     }
 
