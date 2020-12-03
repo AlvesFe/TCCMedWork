@@ -49,7 +49,7 @@ export default class Atendimento extends Component {
                             const userData = JSON.parse(stringData)
                             const consulta = {
                                 descricao: this.state.orientacoes,
-                                dt_Consulta: new Date(),
+                                dt_Consulta: new Date().toISOString().slice(0, -14),
                                 fk_id_Paciente: response.id_Paciente,
                                 fk_id_Medico: userData.id_Medico,
                                 fk_id_Receita: res.id_Receita
@@ -107,6 +107,7 @@ export default class Atendimento extends Component {
             doc.text(30, 270, '______________________  ______________________');
             doc.text(55, 280, 'Assinatura');
             doc.text(128, 280, 'Carimbo');
+            // doc.output('blob');
             doc.save(`${Paciente.nome}-Receita-${Date.now()}`);
         }
         this.buscarDadosPaciente = (e) => {
@@ -178,7 +179,7 @@ export default class Atendimento extends Component {
                             </div>
                             <div className='form-group col-4 py-1'>
                                 <label htmlFor="codigoMedicamento" className='font-weight-bold mb-0'>Codigo do medicamento</label>
-                                <input type="text" disabled={this.state.apenasLeitura} className=" form-control form-control-sm" id="codigoMedicamento" placeholder='Codigo do medicamento' name="codigoMedicamento" value={this.state.codigoMedicamento} onChange={this.onChange} />
+                                <input type="number" disabled={this.state.apenasLeitura} className=" form-control form-control-sm" id="codigoMedicamento" placeholder='Codigo do medicamento' name="codigoMedicamento" value={this.state.codigoMedicamento} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-3 py-1'>
                                 <label htmlFor="dosagem" className='font-weight-bold mb-0'>Dosagem</label>
@@ -186,7 +187,7 @@ export default class Atendimento extends Component {
                             </div>
                             <div className='form-group col-3 py-1'>
                                 <label htmlFor="quantidade" className='font-weight-bold mb-0'>Quantidade</label>
-                                <input type="text" disabled={this.state.apenasLeitura} className="form-control form-control-sm" id="quantidade" placeholder='3 caixas' name="quantidade" value={this.state.quantidade} onChange={this.onChange} />
+                                <input type="number" disabled={this.state.apenasLeitura} className="form-control form-control-sm" id="quantidade" placeholder='Ex: 3 caixas' name="quantidade" value={this.state.quantidade} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-2 py-1'>
                                 <label htmlFor="crm" className='font-weight-bold mb-0'>Validade</label>
