@@ -115,6 +115,12 @@ export default function Event(Action) {
                 title: 'Valor Invalido!'
             })
             break;
+        case "ErroCompra":
+            Toast.fire({
+                icon: 'error',
+                title: 'Falha ao Comprar!'
+            })
+            break;
         case "Compra Realizada":
             Toast.fire({
                 icon: 'success',

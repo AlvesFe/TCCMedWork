@@ -5,7 +5,7 @@ export default class FinalizacaoCompra extends Component {
 
     constructor() {
         super()
-
+        setTimeout(() => {window.location.assign('#/inicio')}, 6000)
         this.state = {
             carregando: "",
             sucesso: "d-none",
@@ -13,7 +13,7 @@ export default class FinalizacaoCompra extends Component {
         }
 
         setTimeout(() => {
-            if (false) {
+            if (true) {
                 this.setState({
                     carregando: "d-none",
                     sucesso: "alert alert-success py-5 mt-5 animate__animated animate__fadeIn",

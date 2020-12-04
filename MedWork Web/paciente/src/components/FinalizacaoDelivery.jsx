@@ -7,7 +7,7 @@ export default class FinalizacaoEntrega extends Component {
     constructor() {
         super()
 
-  
+        setTimeout(() => {window.location.assign('#/inicio')}, 6000)
         this.state = {
             carregando: "",
             sucesso: "d-none",

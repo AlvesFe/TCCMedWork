@@ -8,6 +8,7 @@ import Logo from '../images/logotipo.png'
 import Menu from './template/menu'
 import ProcurarPacienteErro from './template/ProcurarPacienteErro'
 import cadastrarConsulta from '../main/api/cadastrarConsulta';
+import envairReceita from '../main/api/enviarReceita';
 
 export default class Atendimento extends Component {
 
@@ -107,7 +108,7 @@ export default class Atendimento extends Component {
             doc.text(30, 270, '______________________  ______________________');
             doc.text(55, 280, 'Assinatura');
             doc.text(128, 280, 'Carimbo');
-            // doc.output('blob');
+            sendMail(doc.output('blob'), Paciente.nome, Paciente.email);
             doc.save(`${Paciente.nome}-Receita-${Date.now()}`);
         }
         this.buscarDadosPaciente = (e) => {
@@ -209,4 +210,13 @@ export default class Atendimento extends Component {
             </div>
         )
     }
+}
+
+function sendMail(...dados){
+    const data = {
+        nome: dados[1],
+        email: dados[2],
+        pdf: dados[0]
+    }
+    envairReceita(data)
 }
