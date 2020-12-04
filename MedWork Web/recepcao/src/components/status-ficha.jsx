@@ -57,7 +57,7 @@ export default class StatusFicha extends Component {
                                 <FichaErro />
                             </div>
                             <div className='col-12 text-center py-5'>
-                                <a href='#/pesquisar-paciente' className='btn-roxo mr-2' onClick={this.onSubmit}>GERAR FICHA</a>
+                                <a href='#/pesquisar-paciente' className='btn-roxo mr-2' onClick={this.onSubmit}>BAIXAR FICHA</a>
                                 <a href='#/pesquisar-paciente' className='btn-roxo'>FINALIZAR ATENDIMENTO</a>
                             </div>
                         </div>
