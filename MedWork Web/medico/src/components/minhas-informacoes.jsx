@@ -79,15 +79,15 @@ export default class MinhasInformacoes extends Component {
                             </div>
                             <div className='form-group col-6 '>
                                 <label htmlFor="nomeMedico" className='font-weight-bold mb-0'>Nome</label>
-                                <input type="text" disabled={true} className="form-control form-control-sm" id="nomeMedico" placeholder='Nome' name="nome" value={this.state.nome} onChange={this.onChange} />
+                                <input type="text" className="form-control form-control-sm" id="nomeMedico" placeholder='Nome' name="nome" value={this.state.nome} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-3 '>
                                 <label htmlFor="dataNascimento" className='font-weight-bold mb-0'>Nascimento</label>
-                                <InputMask mask="99/99/9999" disabled={true} className="form-control form-control-sm" id="dataNascimento" placeholder='DD/MM/AAAA' name='dataNascimento' value={this.state.dataNascimento} onChange={this.onChange} />
+                                <InputMask mask="99/99/9999" className="form-control form-control-sm" id="dataNascimento" placeholder='DD/MM/AAAA' name='dataNascimento' value={this.state.dataNascimento} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-3 '>
                                 <label htmlFor="tipoSanguineo" className='font-weight-bold mb-0'>Tipo sanguíneo</label>
-                                <input type="text" disabled={true} className="form-control form-control-sm" id="tipoSanguineo" placeholder='O+' name='tipoSanguineo' value={this.state.tipoSanguineo} onChange={this.onChange} />
+                                <input type="text" className="form-control form-control-sm" id="tipoSanguineo" placeholder='O+' name='tipoSanguineo' value={this.state.tipoSanguineo} onChange={this.onChange} />
                             </div>
                             <div className='form-group col-3 '>
                                 <label htmlFor="especialidade" className='font-weight-bold mb-0'>Especialidade</label>
