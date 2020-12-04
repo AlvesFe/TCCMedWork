@@ -4,8 +4,6 @@ import getDetalhesReceita from '../api/getDetalhesReceita';
 import { roxo, roxo2 } from '../constants/colors.json';
 import Loading from '../components/Loading';
 import Button from '../components/FormButton';
-import * as FileSystem from 'expo-file-system';
-import * as IntentLauncher from 'expo-intent-launcher';
 
 const { width, height } = Dimensions.get('window');
 

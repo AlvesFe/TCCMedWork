@@ -102,7 +102,7 @@ export default class AlterarMedico extends Component {
                                 </div>
                                 <div className='form-group col-3 pt-1'>
                                     <label htmlFor="dataNascimento" className='font-weight-bold mb-0'>Data de nascimento</label>
-                                    <InputMask mask="9999/99/99" className="form-control form-control-sm" id="dataNascimento" placeholder='____/__/__' name='dataNascimento' value={this.state.dataNascimento} onChange={this.onChange} />
+                                    <input type="date" className="form-control form-control-sm" id="dataNascimento" name='dataNascimento' value={this.state.dataNascimento} onChange={this.onChange} />
                                 </div>
                                 <div className='form-group col-2 pt-1'>
                                     <label htmlFor="tipoSanguineo" className='font-weight-bold mb-0'>Tp sanguíneo</label>

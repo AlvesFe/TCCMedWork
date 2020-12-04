@@ -19,7 +19,7 @@ export default async function postCompra( item, detalhes, Quantidade, tipo, setC
     const troco = valor - valorFinal
 
 
-    if (tipo === 'Retirada') {
+    if (tipo === 'Retirar') {
         Axios({
             method: 'post',
             url: url + "/compra",
