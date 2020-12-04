@@ -17,7 +17,7 @@ export default function patchUser(dados) {
         especialidade: dados.especiealidade,
         telefone: dados.telefone.replace(/[^\d]+/g, ''),
         celular: dados.celular.replace(/[^\d]+/g, ''),
-        dt_Nascimento: dados.dataNascimento.replace(/[^\d]+/g, ''),
+        dt_Nascimento: dados.dataNascimento.slice(0, -14),
         ativo: dados.ativo,
         image: dados.image,
         senha: dados.senha,
