@@ -15,7 +15,7 @@ export default function ConfirmarRetirada({ route, navigation }) {
     const { item, detalhes, Quantidade } = route.params
 
     useEffect(()=>{
-        postCompra(item, detalhes, Quantidade, "Retirada", setCarregando, navigation)
+        postCompra(item, detalhes, Quantidade, "Retirar", setCarregando, navigation)
     },[])
 
     if (carregando) {
