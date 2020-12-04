@@ -39,7 +39,7 @@ export default class AlterarMedico extends Component {
                 id_Medico: res.id_Medico,
                 nomeMedico: res.nome,
                 foto: res.foto,
-                dataNascimento: res.dt_Nascimento,
+                dataNascimento: res.dt_Nascimento.slice(0,-14),
                 tipoSanguineo: res.tp_sanguineo,
                 status: res.ativo,
                 senha: res.senha,
