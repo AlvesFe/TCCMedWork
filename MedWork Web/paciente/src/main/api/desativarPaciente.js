@@ -21,7 +21,6 @@ export default function desativarPaciente(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data);
         localStorage.removeItem('current_user');
         localStorage.removeItem('user_data');
         window.location.reload();

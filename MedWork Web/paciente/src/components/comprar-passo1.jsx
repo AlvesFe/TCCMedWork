@@ -20,7 +20,6 @@ export default class ComprarPasso1 extends Component {
                 quantidade: e.target.value
             })
         }
-        console.log(this.state);
     }
 
     render() {

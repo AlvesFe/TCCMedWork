@@ -16,12 +16,10 @@ export default function cadastrarCompra(data) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data);
         Event("Compra Realizada")
         return true
     }).catch(err => {
         Event(err.response.data.error)
-        console.log(err.response.data.error);
         return false
     })
 }

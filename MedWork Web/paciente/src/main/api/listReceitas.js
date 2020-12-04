@@ -18,10 +18,8 @@ export default function listaReceitas(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data);
         return data
     }).catch(err => {
-        console.log(err.response.data);
         return false
     })
 }

@@ -14,11 +14,6 @@ export default class ListarMedicamentos extends Component {
         getAllRemedios().then(res => {
             this.setState({ remedio: res.remedios })
         })
-
-        // this.onClick = (e) => {
-        //     e.preventDefault();
-        //     console.log(e);
-        // }
     }
 
     render() {

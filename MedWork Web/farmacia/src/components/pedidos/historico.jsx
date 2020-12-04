@@ -15,7 +15,6 @@ export default class HistoricoPedidos extends Component {
             item: []
         }
         getAllCompras().then(res => {
-            console.log(res);
             this.setState({
                 item: res
             })

@@ -21,7 +21,6 @@ class Recuperacao extends Component {
         }
         this.onSubmit = (e) => {
             e.preventDefault()
-            console.log(this.state)
             recuperarSenha(this.state)
         }
     }

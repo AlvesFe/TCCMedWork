@@ -18,20 +18,23 @@ export default class PedidosPendentes extends Component {
             saiuEntrega: "",
             concluirEntrega: "d-none"
         }
-
-        entregasPedndentes().then(res => {
-            this.setState({
-                ...this.state,
-                pendentes: res
+        this.getElements = () => {
+            entregasPedndentes().then(res => {
+                this.setState({
+                    ...this.state,
+                    pendentes: res
+                })
             })
-        })
-
-        entregasACaminho().then(res => {
-            this.setState({
-                ...this.state,
-                entregando: res
+    
+            entregasACaminho().then(res => {
+                this.setState({
+                    ...this.state,
+                    entregando: res
+                })
             })
-        })
+        }
+
+        setTimeout(this.getElements, 100)
 
         this.onChange = (e) => {
             const state = Object.assign({}, this.state)
@@ -130,7 +133,6 @@ export default class PedidosPendentes extends Component {
 
 function entregasPedndentes(){
     return getCompra("PENDENTE").then(res => {
-        console.log(res);
         return res
     })
 }

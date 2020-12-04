@@ -18,7 +18,6 @@ export default class BuscarMedicamento extends Component {
                 item: res
             })
 
-            console.log(res);
         })
     }
 
@@ -47,7 +46,6 @@ export default class BuscarMedicamento extends Component {
 
 function getFarmacias() {
     const id = localStorage.getItem('remedio');
-    console.log(id);
     return getFarmaciaRemedio(id).then(res => {
         return res.data
     })

@@ -20,7 +20,6 @@ export default function alterarPaciente(dados) {
         alt_senha: dados.alt_senha,
         cpf: dados.cpf
     }
-    console.log(data);
     const dataFinal = new FormData();
 
     for (const key in data) {
@@ -38,10 +37,8 @@ export default function alterarPaciente(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data);
         return true
     }).catch(err => {
-        console.log(err.response.data.error);
         Event(err.response.data.error)
         return false
 

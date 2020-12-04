@@ -20,7 +20,6 @@ export default function getDetalhesReceita(dados) {
         const { data } = response;
         return data
     }).catch(err => {
-        console.log(err.response.data);
         return false
     })
 }

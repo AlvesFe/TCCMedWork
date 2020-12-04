@@ -15,8 +15,6 @@ export default function Listapedido({item}) {
     function gerarPdf() {
         const stringData = localStorage.getItem('user_data')
         const userData = JSON.parse(stringData)
-        console.log(userData);
-        console.log(item);
 
         const doc = new jsPDF('p');
         doc.addImage(Logo, 'png', 80, 0, 50, 50);

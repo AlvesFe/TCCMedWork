@@ -18,7 +18,6 @@ export default class VisualizarPrescricao extends Component {
             this.setState({
                 receita: res
             })
-            console.log(this.state.receita);
         })
         
     }
@@ -115,7 +114,6 @@ const GerarPdf = (Data) => {
     const stringData = localStorage.getItem('user_data')
     const userData = JSON.parse(stringData)
     let fotoPaciente = new Image();
-    console.log(Data);
     fotoPaciente.src = `/api/uploads/paciente/${Data.foto}`;
 
     const doc = new jsPDF('p');

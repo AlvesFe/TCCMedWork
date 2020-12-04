@@ -53,7 +53,6 @@ export default class ComprarPasso3Delivery extends Component {
                 }
             })
         }
-        console.log(this.state.item);
     }
 
     render() {
