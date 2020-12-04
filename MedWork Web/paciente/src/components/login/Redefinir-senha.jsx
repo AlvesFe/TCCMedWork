@@ -25,7 +25,6 @@ class ValidacaoCodigo extends Component {
             e.preventDefault()
             var mostrar
             alterarSenha(this.state).then(res => {
-                console.log(res);
             })
             var resultado
             

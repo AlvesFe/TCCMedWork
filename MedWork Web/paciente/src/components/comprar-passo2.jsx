@@ -11,7 +11,6 @@ export default class ComprarPasso2 extends Component {
         this.state = {
             item
         }
-        console.log(this.state.item);
 
         
     }

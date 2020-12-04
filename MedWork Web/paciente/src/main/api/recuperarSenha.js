@@ -19,7 +19,6 @@ export default function recuperarSenha(dados) {
     }).then(response => {
         const { data } = response;
         window.location.assign('#/confirmar')
-        console.log(data);
         Event(data.success)
         return true
     }).catch(err => {

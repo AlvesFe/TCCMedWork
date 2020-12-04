@@ -14,7 +14,6 @@ export default class MinhasInformacoes extends Component {
         super()
         const stringuser = localStorage.getItem('user_data')
         const user = JSON.parse(stringuser);
-        console.log(user);
         this.state = {
             nomePaciente: user.nome,
             image: {},
@@ -45,7 +44,6 @@ export default class MinhasInformacoes extends Component {
             e.preventDefault()
 
             alterarPaciente(this.state).then(res => {
-                console.log(res);
             })
 
         }

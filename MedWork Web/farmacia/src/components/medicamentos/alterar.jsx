@@ -32,7 +32,6 @@ export default class AlterarMedicamento extends Component {
             codigo: localStorage.getItem('codigo_med')
         }
         getRemedio(data).then(res => {
-            console.log(res);
             this.setState({
                 id_Remedio: res[0].id_Remedio,
                 fk_id_Farmacia: res[0].fk_id_Farmacia,
@@ -76,7 +75,6 @@ export default class AlterarMedicamento extends Component {
         this.onDelete =  (e) => {
             e.preventDefault()
             deletarRemedio(this.state).then(res => {
-                console.log(res);
             })
         }
     }

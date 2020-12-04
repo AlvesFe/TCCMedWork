@@ -21,7 +21,6 @@ export default function alterarRemedio(dados) {
         estoque: dados.quantidadeMedicamento,
         id_Remedio_Farmacia: dados.id_Remedio_Farmacia
     }
-    console.log(typeof data.preco);
     return Axios({
         method: 'PATCH',
         url: "/api/remedio",
@@ -33,12 +32,10 @@ export default function alterarRemedio(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data);
         return alterarEstoque(estoque).then(res => {
             return res
         })
     }).catch(err => {
-        console.log(err.response.data.error);
         Event(err.response.data.error)
         return false
     })

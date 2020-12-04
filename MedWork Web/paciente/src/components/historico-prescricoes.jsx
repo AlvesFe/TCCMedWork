@@ -16,7 +16,6 @@ export default class HistoricoDePrescricoes extends Component {
         }
 
         getReceitas(this.state.id_Paciente).then(res => {
-            console.log(res);
             this.setState({
                 item: res
             })

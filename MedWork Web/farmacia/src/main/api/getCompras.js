@@ -25,7 +25,6 @@ export default function getCompra(dados) {
         const { data } = response;
         return data.Compras
     }).catch(err => {
-        console.log(err.response.data);
         return false
     })
 }

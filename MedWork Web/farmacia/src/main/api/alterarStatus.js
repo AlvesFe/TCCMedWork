@@ -11,7 +11,6 @@ export default function alterarStatus(dados) {
         id_Compra: dados.id_Compra
     }
 
-    console.log(data);
     return Axios({
         method: 'PATCH',
         url: "/api/compra/alterarStatus",
@@ -23,11 +22,9 @@ export default function alterarStatus(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data);
         return true
     }).catch(err => {
         Event(err.response.data.error)
-        console.log(err.response.data);
         return false
     })
 }

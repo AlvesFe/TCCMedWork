@@ -17,7 +17,6 @@ export default function alterarFarmacia(dados) {
         image: dados.image,
         id_Farmacia: dados.id_Farmacia,
     }
-    console.log(data)
     return Axios({
         method: 'PATCH',
         url: "/api/farmacia/",

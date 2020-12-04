@@ -87,7 +87,6 @@ export default class PedidosConfirmados extends Component {
 
 function GetRetirada() {
     return getCompra("PENDENTE").then(res => {
-        console.log(res);
         return res
     })
 

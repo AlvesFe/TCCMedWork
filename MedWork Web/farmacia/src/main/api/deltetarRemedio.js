@@ -7,7 +7,6 @@ export default function deletarRemedio(dados) {
     const data = {
         id_Remedio_Farmacia: dados.id_Remedio_Farmacia
     }
-    console.log(data);
     return Axios({
         method: 'DELETE',
         url: "/api/remedio_farmacia/",
@@ -19,11 +18,9 @@ export default function deletarRemedio(dados) {
         }
     }).then(response => {
         const { data } = response;
-        console.log(data);
         window.location.assign('#/todos-os-medicamentos')
         return true
     }).catch(err => {
-        console.log(err.response.data);
         return false
     })
 }
