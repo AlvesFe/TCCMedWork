@@ -45,8 +45,12 @@ export default class ComprarPasso2 extends Component {
                     </div>
                     <div className="py-5"></div>
                     <div className='text-center pt-5'>
-                        <a href='#/comprar-passo-3-delivery' className='btn btn-danger mr-2'><i className="shipping fast icon"></i> DELIVERY</a>
-                        <a href='#/comprar-passo-3-retirar' className='btn-roxo'><i className="shopping bag icon"></i>RETIRAR</a>
+                        {
+                            this.state.item.tarja === "PRETA" ? <a href='#/comprar-passo-3-retirar' className='btn-roxo'><i className="shopping bag icon"></i>RETIRAR</a> : null
+                        }
+                        {
+                            this.state.item.tarja !== "PRETA" ? <div><a href='#/comprar-passo-3-delivery' className='btn btn-danger mr-2'><i className="shipping fast icon"></i> DELIVERY</a>, <a href='#/comprar-passo-3-retirar' className='btn-roxo'><i className="shopping bag icon"></i>RETIRAR</a></div> : null
+                        }
                     </div>
                 </div>
             </div>
